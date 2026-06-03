@@ -1,18 +1,28 @@
 import discord
+from discord.ext import commands
 from dotenv import load_dotenv
 import os
 
 load_dotenv('file.env')
 
 bot = discord.Bot()
+bot = commands.Bot(command_prefix='d!')
 
+#Commands
+#Ping
 @bot.event
-async def on_ready():
-    print(f'Logged in as {bot.user}')
-
-@bot.slash_command(name="ping", description="Check if this application is online.")
 async def ping(ctx):
-    await ctx.respond("Online. Pong!", ephemeral=True)
+    return 'Pong!'
+
+@bot.command()
+async def ping(ctx):
+    await ctx.send(await ping(ctx))
+
+@bot.slash_command(name="ping")
+async def ping_slash(ctx):
+    await ctx.respond(await ping(ctx))
+
+
 
 
 bot.run(os.getenv('TOKEN'))

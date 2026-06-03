@@ -18,18 +18,18 @@ def save_databases():
     with open(DB_FILE, 'w') as f:
         json.dump(databases, f)
 
-databases = load_databases()
 
 load_dotenv('file.env')
+databases = load_databases() 
 
 intents = discord.Intents.default()
 intents.message_content = True
 intents.members = True
 intents.presences = True
 
-databases = {}
-
 bot = bridge.Bot(command_prefix='d!', intents=intents)
+
+# remove the "bool" line
 
 bool 
 #commands

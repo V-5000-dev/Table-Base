@@ -56,29 +56,29 @@ async def database_setup(ctx, name: str):
     if name not in databases:
         await ctx.respond("⚠️ That database doesn't exist.")
         return
-    embed = discord.Embed(
-        title="Database Permissions",
-        description="Select a role to give Admin access."
-    )
+    cog = bot.cogs.get("DatabaseSetupPage")
+    if cog is None:
+        await ctx.respond("⚠️ Setup page not loaded.")
+        return;
+
+    
 
 
 class DatabaseSetupPage(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        self.pages = [
-            "Page 1",
-            [
-                discord.embed(title = "Page One", text = "hello")
-            ]
-        ]
-        self.pages[1].add_field(
-            name = "Example Field", value = "Example Value", inline = False
-        )
-        def get_pages(self):
-            return self.pages
-        
-        databaseSetupPage = SlashCommandGroup("database-settings", "Configure a database's settings.")
 
+        page_one_embed = discord.Embed(title = "Page One", text = "hello")
+        page_one_embed = name = "Example Field", value = "Example Value", inline = False
+
+        self.pages = [
+            "Page 1", page_one_embed
+        ]
+
+   
+    def get_pages(self):
+        return self.pages
+        
 
 
 

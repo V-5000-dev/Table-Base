@@ -10,7 +10,7 @@ intents.message_content = True
 bot = bridge.Bot(command_prefix='d!', intents=intents)
 #commands
 #ping
-@bot.bridge_command()
+@bot.bridge_command(description="Check if the bot is online.")
 async def ping(ctx):
     await ctx.respond('Online. Pong!')
 

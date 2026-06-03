@@ -1,10 +1,8 @@
 import discord
 from discord.ext import bridge
-from discord.ext import commands
 from dotenv import load_dotenv
 import os
 import json
-import os
 
 DB_FILE = 'databases.json'
 
@@ -20,7 +18,7 @@ def save_databases():
 
 
 load_dotenv('file.env')
-databases = load_databases() 
+databases = load_databases()
 
 intents = discord.Intents.default()
 intents.message_content = True
@@ -29,14 +27,11 @@ intents.presences = True
 
 bot = bridge.Bot(command_prefix='d!', intents=intents)
 
-# remove the "bool" line
 
-bool 
-#commands
-#ping
-@bot.bridge_command(name = "ping", description="Check if the bot is online.")
+@bot.bridge_command(name="ping", description="Check if the bot is online.")
 async def ping(ctx):
     await ctx.respond('Online. Pong!')
+
 
 @bot.bridge_command(name="database-create", description="Create a database.")
 async def database_create(ctx, name: str):
@@ -50,7 +45,7 @@ async def database_create(ctx, name: str):
         'database_data': []
     }
     save_databases()
-    await ctx.respond(f"Database `{name}` created!")  # fix: use f-string
+    await ctx.respond(f"Database `{name}` created!")
 
 
 @bot.bridge_command(name="database-setup", description="Configure a database's settings.")
@@ -58,8 +53,12 @@ async def database_setup(ctx, name: str):
     if name not in databases:
         await ctx.respond("⚠️ That database doesn't exist.")
         return
-    embed = discord.Embed(title="Database Permissions", description="Select a role to give Admin access.")
-    await ctx.respond(embed=embed, view=DataBaseAdminRoleSelect(name))
+    embed = discord.Embed(
+        title="Database Permissions",
+        description="Select a role to give Admin access."
+    )
+    # Pass ctx.guild so the view can access roles
+    await ctx.respond(embed=embed, view=DataBaseAdminRoleSelect(name, ctx.guild))
 
 
 class DataBaseAdminRoleSelect(discord.ui.View):
@@ -74,19 +73,29 @@ class DataBaseAdminDropdown(discord.ui.Select):
         self.name = name
         options = [
             discord.SelectOption(label=role.name, value=str(role.id))
-            for role in guild.roles if role.name != "@everyone"
+            for role in guild.roles
+            if role.name != "@everyone"
         ]
-        super().__init__(placeholder="Select a role...", options=options)
+        super().__init__(
+            placeholder="Select a role...",
+            min_values=1,
+            max_values=1,
+            options=options
+        )
 
     async def callback(self, interaction: discord.Interaction):
         role_id = self.values[0]
+        role = interaction.guild.get_role(int(role_id))
         databases[self.name]['database_admins'].append(role_id)
         save_databases()
-        await interaction.response.send_message(f"Role set as Admin!", ephemeral=True)
+        await interaction.response.send_message(
+            f"`{role.name}` set as Admin!",
+            ephemeral=True
+        )
+
 
 @bot.event
 async def on_ready():
     print(f'Logged in as {bot.user}')
+
 bot.run(os.getenv('TOKEN'))
-
-

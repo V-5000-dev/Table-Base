@@ -5,18 +5,14 @@ from dotenv import load_dotenv
 import os
 
 load_dotenv('file.env')
-intents = discord.Intents()
+intents = discord.Intents.default()
 intents.message_content = True
 bot = bridge.Bot(command_prefix='d!', intents=intents)
 #commands
-#ping----------------------------------------------------------------------------------------
-async def ping_logic():
-    return 'Online. Pong!'
+#ping
 @bot.bridge_command()
 async def ping(ctx):
-    await ctx.send(await ping_logic())
-
-
+    await ctx.respond('Online. Pong!')
 
 @bot.event
 async def on_ready():

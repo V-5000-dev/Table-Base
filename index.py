@@ -51,7 +51,9 @@ async def database_create(ctx, name: str):
     await ctx.respond(f"Database `{name}` created!")
 
 
-
+class DatabaseSelect(discord.ui.Select):
+    def __init__(self, databases):
+        options = [discord.SelectOption(label = name)]
 @bot.bridge_command(name="database-settings", description="Configure a database's settings.")
 async def database_setup(ctx, name: str):
     if name not in databases:

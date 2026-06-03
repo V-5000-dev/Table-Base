@@ -1,5 +1,8 @@
+import asyncio
 import discord
 from discord.ext import bridge
+from discord.commands import SlashCommandGroup
+from discord.ext import commands, pages
 from dotenv import load_dotenv
 import os
 import json
@@ -48,7 +51,7 @@ async def database_create(ctx, name: str):
     await ctx.respond(f"Database `{name}` created!")
 
 
-@bot.bridge_command(name="database-setup", description="Configure a database's settings.")
+@bot.bridge_command(name="database-settings", description="Configure a database's settings.")
 async def database_setup(ctx, name: str):
     if name not in databases:
         await ctx.respond("⚠️ That database doesn't exist.")
@@ -57,41 +60,29 @@ async def database_setup(ctx, name: str):
         title="Database Permissions",
         description="Select a role to give Admin access."
     )
-    # Pass ctx.guild so the view can access roles
-    await ctx.respond(embed=embed, view=DataBaseAdminRoleSelect(name, ctx.guild))
 
 
-class DataBaseAdminRoleSelect(discord.ui.View):
-    def __init__(self, name, guild):
-        super().__init__()
-        self.name = name
-        self.add_item(DataBaseAdminDropdown(name, guild))
-
-
-class DataBaseAdminDropdown(discord.ui.Select):
-    def __init__(self, name, guild):
-        self.name = name
-        options = [
-            discord.SelectOption(label=role.name, value=str(role.id))
-            for role in guild.roles
-            if role.name != "@everyone"
+class DatabaseSetupPage(commands.Cog):
+    def __init__(self, bot):
+        self.bot = bot
+        self.pages = [
+            "Page 1",
+            [
+                discord.embed(title = "Page One", text = "hello")
+            ]
         ]
-        super().__init__(
-            placeholder="Select a role...",
-            min_values=1,
-            max_values=1,
-            options=options
+        self.pages[1].add_field(
+            name = "Example Field", value = "Example Value", inline = False
         )
+        def get_pages(self):
+            return self.pages
+        
+        databaseSetupPage = SlashCommandGroup("database-settings", "Configure a database's settings.")
 
-    async def callback(self, interaction: discord.Interaction):
-        role_id = self.values[0]
-        role = interaction.guild.get_role(int(role_id))
-        databases[self.name]['database_admins'].append(role_id)
-        save_databases()
-        await interaction.response.send_message(
-            f"`{role.name}` set as Admin!",
-            ephemeral=True
-        )
+
+
+
+
 
 
 @bot.event

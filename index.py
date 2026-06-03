@@ -51,6 +51,7 @@ async def database_create(ctx, name: str):
     await ctx.respond(f"Database `{name}` created!")
 
 
+
 @bot.bridge_command(name="database-settings", description="Configure a database's settings.")
 async def database_setup(ctx, name: str):
     if name not in databases:
@@ -59,7 +60,11 @@ async def database_setup(ctx, name: str):
     cog = bot.cogs.get("DatabaseSetupPage")
     if cog is None:
         await ctx.respond("⚠️ Setup page not loaded.")
-        return;
+        return
+    pages = cog.get_pages()
+    embed = pages[1]
+
+    await ctx.respond(embed = embed)
 
     
 
@@ -88,5 +93,6 @@ class DatabaseSetupPage(commands.Cog):
 @bot.event
 async def on_ready():
     print(f'Logged in as {bot.user}')
+    bot.add_cog(DatabaseSetupPage(bot))
 
 bot.run(os.getenv('TOKEN'))

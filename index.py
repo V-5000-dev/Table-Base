@@ -6,7 +6,7 @@ import os
 load_dotenv('file.env')
 
 bot = commands.Bot(command_prefix='d!')
-
+bot = commands.Bot(command_prefix='d!', intents=discord.Intents.all())
 #commands
 #ping
 async def ping_logic():

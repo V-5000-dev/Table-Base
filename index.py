@@ -73,14 +73,14 @@ class DatabaseSetupPage(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-        page_one_embed = discord.Embed(title = "Page One", text = "hello")
-        page_one_embed = name = "Example Field", value = "Example Value", inline = False
+        page_one_embed = discord.Embed(title="Page One", description="hello")
+        page_one_embed.add_field(name="Example Field", value="Example Value", inline=False)
 
         self.pages = [
-            "Page 1", page_one_embed
+            "Page 1",
+            page_one_embed
         ]
 
-   
     def get_pages(self):
         return self.pages
         

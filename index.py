@@ -63,22 +63,26 @@ async def database_setup(ctx, name: str):
 
 
 class DataBaseAdminRoleSelect(discord.ui.View):
-    def __init__(self, name):
+    def __init__(self, name, guild):
         super().__init__()
         self.name = name
-        self.add_item(DataBaseAdminDropdown(name))
+        self.add_item(DataBaseAdminDropdown(name, guild))
 
 
-class DataBaseAdminDropdown(discord.ui.RoleSelect):
-    def __init__(self, name):
-        super().__init__(placeholder="Select a role...")
+class DataBaseAdminDropdown(discord.ui.Select):
+    def __init__(self, name, guild):
         self.name = name
+        options = [
+            discord.SelectOption(label=role.name, value=str(role.id))
+            for role in guild.roles if role.name != "@everyone"
+        ]
+        super().__init__(placeholder="Select a role...", options=options)
 
-    async def callback(self, interaction: discord.Interaction): 
-        role = self.values[0]
-        databases[self.name]['database_admins'].append(str(role.id))
+    async def callback(self, interaction: discord.Interaction):
+        role_id = self.values[0]
+        databases[self.name]['database_admins'].append(role_id)
         save_databases()
-        await interaction.response.send_message(f"`{role.name}` set as Admin!", ephemeral=True)
+        await interaction.response.send_message(f"Role set as Admin!", ephemeral=True)
 
 @bot.event
 async def on_ready():

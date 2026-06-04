@@ -57,7 +57,7 @@ class DatabaseSelect(discord.ui.Select):
 @bot.bridge_command(name="database-settings", description="Configure a database's settings.")
 async def database_setup(ctx, name: str):
     if name not in databases:
-        await ctx.respond("<:Error:1511908546676265061> That database doesn't exist.")
+        await ctx.respond("<:Error:1511922183671119964> That database doesn't exist.")
         return
     cog = bot.cogs.get("DatabaseSetupPage")
     if cog is None:

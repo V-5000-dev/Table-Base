@@ -8,6 +8,13 @@ import os
 import json
 
 DB_FILE = 'databases.json'
+#Emojis
+ERROR = "<:Error:1511925664910147607>"
+CHECK = "<:CheckMark:1511924640128434286>"
+X = "<:CrossMark:1511924485324804156>"
+PERMISSON = "<:Permisson:1511924423819661442>"
+MODIFICATION = "<:ModificationCommand:1511923491107246141>"
+DANDER = "<:DangerCommand:1511923466016657438>"
 
 def load_databases():
     if os.path.exists(DB_FILE):
@@ -33,7 +40,7 @@ bot = bridge.Bot(command_prefix='d!', intents=intents)
 
 @bot.bridge_command(name="ping", description="Check if the bot is online.")
 async def ping(ctx):
-    await ctx.respond('Online. Pong!')
+    await ctx.respond(f'``{CHECK}`` Online. Pong!')
 
 
 @bot.bridge_command(name="database-create", description="Create a database.")

@@ -59,7 +59,7 @@ async def database_create(ctx, name: str):
     save_databases()
     await ctx.respond(f"{CHECK} Database `{name}` created!")
     
-@bot.bridge_command(name= "server-settings" desription = "Configure the bot's settings for the server.")
+@bot.bridge_command(name= "server-settings", desription = "Configure the bot's settings for the server.")
 async def printer(interaction: discord.Interaction):
     embed = discord.embed(title = "DataBase Server Settings", desription =  "Configure the server settings below.")
     await interaction.response.send_message(embed=embed)

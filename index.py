@@ -10,7 +10,7 @@ import json
 DB_FILE = 'databases.json'
 #Emojis
 ERROR = "<:Error:1511925664910147607>"
-CHECK = "<:CheckMark:1511924640128434286>"
+CHECK = "<:CheckMark:1511961188848631838>"
 X = "<:CrossMark:1511924485324804156>"
 PERMISSON = "<:Permisson:1511924423819661442>"
 MODIFICATION = "<:ModificationCommand:1511923491107246141>"
@@ -57,26 +57,38 @@ async def database_create(ctx, name: str):
     save_databases()
     await ctx.respond(f"{CHECK} Database `{name}` created!")
 
-
-class DatabaseSelect(discord.ui.Select):
+class /(discord.ui.Select):
     def __init__(self, databases):
-        options = [discord.SelectOption(label = name)]
-@bot.bridge_command(name="database-settings", description="Configure a database's settings.")
-async def database_setup(ctx, name: str):
-    if name not in databases:
-        await ctx.respond(f"{ERROR} That database doesn't exist.")
-        return
-    cog = bot.cogs.get("DatabaseSetupPage")
-    if cog is None:
-        await ctx.respond(f"{ERROR} Setup page not loaded.")
-        return
-    pages = cog.get_pages()
-    embed = pages[1]
+        options = [
+            discord.SelectOption(label=db_name, value=db_name)
+            for db_name in databases
+        ]
+        super().__init__(placeholder="Choose a database...", min_values=1, max_values=1, options=options)
 
-    await ctx.respond(embed = embed)
+    async def callback(self, interaction: discord.Interaction):
+        selected_db = self.values[0]  # ✅ Indented inside callback
 
+        cog = interaction.client.cogs.get("DatabaseSetupPage")  # ✅ Indented inside callback
+        if cog is None:
+            await interaction.response.send_message(f"{ERROR} Setup page not loaded.")
+            return
+
+        pages = cog.get_pages()  # ✅ Indented inside callback
+        embed = pages[1]
+
+        await interaction.response.send_message(f"Settings for **{selected_db}**", embed=embed, ephemeral=True)
     
 
+@bot.bridge_command(name="database-settings", description="Configure a database's settings.")
+async def database_setup(ctx):  # Removed `name` parameter
+    if not databases:
+        await ctx.respond(f"{ERROR} No databases found.")
+        return
+
+    view = DatabaseSelectView(databases)
+    await ctx.respond("Select a database to configure:", view=view)
+
+ 
 
 class DatabaseSetupPage(commands.Cog):
     def __init__(self, bot):

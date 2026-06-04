@@ -43,26 +43,31 @@ LOG_CHANNELS = {
 
 SEVER_ADMIN_ROLES = []
 #Commands ------------------------------------------------
-class Client(commands.Bot):
-    async def on_ready(self):
-        try:
-            #self.tree.clear_commands(guild=GUILD_ID)
-            #await self.tree.sync(guild=GUILD_ID)
+class Client(discord.Client):
+    def __init__(self):
+        super().__init__(intents=intents)
+        self.tree = app_commands.CommandTree(self)
 
-            self.tree.add_command(ping, guild=GUILD_ID)
-            self.tree.add_command(databaseCreate, guild=GUILD_ID)
+    async def setup_hook(self):
+        try:
+            self.tree.clear_commands(guild=GUILD_ID)
+            await self.tree.sync(guild=GUILD_ID)
 
             self.tree.copy_global_to(guild=GUILD_ID)
             synced = await self.tree.sync(guild=GUILD_ID)
-            print(f"Synced {len(synced)} commands")
-
+            print(f"Synced {len(synced)} commands:")
             for cmd in synced:
-                print(cmd.name)
+                print(f"  - {cmd.name}")
         except Exception as e:
             print(f"Error syncing commands: {e}")
-    
+
     async def on_ready(self):
-        print(f'Logged in as {self.user}.')
+        print(f"Logged in as {self.user}.")
+
+
+intents = discord.Intents.default()
+intents.message_content = True
+bot = Client()
 
 
 def verifyCommandPermissions(command_type: CommandType, *required_roles):
@@ -103,19 +108,19 @@ def verifyCommandPermissions(command_type: CommandType, *required_roles):
         return allowed
     return app_commands.check(predicate)
 
+
+async def on_ready(self):
+    print(f"Logged in as {self.user}.")
+    print("Commands currently in tree:")
+    for cmd in self.tree.walk_commands():
+        print(f"  - {cmd.name}")
+
+
 intents = discord.Intents.default()
 intents.message_content = True
-bot = Client(command_prefix="db", intents=intents)
 
 
-@bot.event
-async def on_interaction(interaction):
-    print(interaction.data)
-@bot.event
-async def on_ready():
-    print("Commands in tree:")
-    for cmd in bot.tree.walk_commands():
-        print(cmd.name)
+
 
 @bot.tree.command(name="ping", description="Checks if the application is online.", guild=GUILD_ID)
 @verifyCommandPermissions(CommandType.NORMAL)

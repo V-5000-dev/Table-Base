@@ -43,6 +43,18 @@ LOG_CHANNELS = {
 
 SEVER_ADMIN_ROLES = []
 #Commands ------------------------------------------------
+class Client(commands.Bot):
+    async def setup_hook(self):
+        try:
+            await self.tree.sync(guild=GUILD_ID) 
+            synced = await self.tree.sync(guild=GUILD_ID)
+            print(f"Synced {len(synced)} commands.")
+        except Exception as e:
+            print(f"Error syncing commands: {e}")
+    
+    async def on_ready(self):
+        print(f'Logged in as {self.user}.')
+
 
 def verifyCommandPermissions(command_type: CommandType, *required_roles):
     async def predicate(interaction: discord.Interaction) -> bool:
@@ -81,26 +93,6 @@ def verifyCommandPermissions(command_type: CommandType, *required_roles):
 
         return allowed
     return app_commands.check(predicate)
-
-
-
-    
-        
-        
-                    
-
-class Client(commands.Bot):
-    async def setup_hook(self):
-        try:
-            self.tree.clear_commands(guild=GUILD_ID)
-            synced = await self.tree.sync(guild=GUILD_ID)
-            print(f"Synced {len(synced)} commands.")
-        except Exception as e:
-            print(f"Error syncing commands: {e}")
-
-    async def on_ready(self):
-        print(f'Logged in as {self.user}.')
-
 
 intents = discord.Intents.default()
 intents.message_content = True

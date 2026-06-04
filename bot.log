@@ -1,1 +1,36 @@
 2026-06-04 12:50:58,686 davey is not installed, voice will NOT be supported
+2026-06-04 12:51:23,857 davey is not installed, voice will NOT be supported
+2026-06-04 12:51:23,858 logging in using static token
+2026-06-04 12:51:24,745 Shard ID None has connected to Gateway (Session ID: 842a4f5ea965361cb969aaf53ad14cf2).
+2026-06-04 12:52:19,304 davey is not installed, voice will NOT be supported
+2026-06-04 12:52:19,305 logging in using static token
+2026-06-04 12:52:54,741 Shard ID None has connected to Gateway (Session ID: db51f8b9d90610e48ffa2d24a4b1bd09).
+2026-06-04 12:54:23,910 davey is not installed, voice will NOT be supported
+2026-06-04 12:54:23,910 logging in using static token
+2026-06-04 12:54:24,997 Shard ID None has connected to Gateway (Session ID: 709fdb6b21fc657d202b143c1dfbd396).
+2026-06-04 12:54:34,320 Ignoring exception in command tree
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/tree.py", line 1138, in wrapper
+    await self._call(interaction)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/tree.py", line 1270, in _call
+    command, options = self._get_app_command_options(data)
+                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/tree.py", line 1174, in _get_app_command_options
+    raise CommandNotFound(name, parents)
+discord.app_commands.errors.CommandNotFound: Application command 'ping' not found
+2026-06-04 12:57:31,908 davey is not installed, voice will NOT be supported
+2026-06-04 12:57:31,909 logging in using static token
+2026-06-04 12:58:34,582 Shard ID None has connected to Gateway (Session ID: 4e6371cd0f4ef662bfb354f5b1db4bf4).
+2026-06-04 12:59:06,752 davey is not installed, voice will NOT be supported
+2026-06-04 12:59:06,753 logging in using static token
+2026-06-04 13:00:07,785 Shard ID None has connected to Gateway (Session ID: 38fbc9b4b88a0b5f9346d56e8d854670).
+2026-06-04 13:00:16,248 Ignoring exception in command tree
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/tree.py", line 1138, in wrapper
+    await self._call(interaction)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/tree.py", line 1270, in _call
+    command, options = self._get_app_command_options(data)
+                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/tree.py", line 1174, in _get_app_command_options
+    raise CommandNotFound(name, parents)
+discord.app_commands.errors.CommandNotFound: Application command 'ping' not found

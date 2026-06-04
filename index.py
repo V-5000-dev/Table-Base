@@ -16,11 +16,14 @@ intents = discord.Intents.default()
 intents.message_content = True  # Fixed typo: messages_content -> message_content
 
 bot = commands.Bot(command_prefix="db", intents=intents)
+class Client(commands.Bot):
+    async def setup_hook(self):
+        await self.tree.sync(guild=GUILD_ID)
+        print("Commands synced.")
 
-@bot.event
-async def on_ready():
-    await bot.tree.sync(guild=GUILD_ID)
-    print(f'{CHECK} Logged in as {bot.user}.')
+    async def on_ready(self):
+        print(f'{CHECK} Logged in as {self.user}.')
+
 
 @bot.tree.command(name="ping", description="Checks if the application is online.", guild=GUILD_ID)
 async def ping(interaction: discord.Interaction):

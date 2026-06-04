@@ -30,10 +30,15 @@ class CommandType(Enum):
     MODIFICATION = "Modification"
     DANGER = "Danger"
 
+NORMAL_LOG_CHANNEL = "1511534970533974026"
+MODIFICATION_LOG_CHANNEL = "1511534970533974026"
+DANGER_LOG_CHANNEL = "1511534970533974026"
+LOG_CHANNELS = {
+    CommandType.NORMAL: NORMAL_LOG_CHANNEL,
+    CommandType.MODIFICATION: MODIFICATION_LOG_CHANNEL,
+    CommandType.DANGER: DANGER_LOG_CHANNEL,
+}
 
-NORMAL_LOG_CHANNEL = ""
-MODIFICATION_LOG_CHANNEL = ""
-DANGER_LOG_CHANNEL = ""
 
 
 SEVER_ADMIN_ROLES = []
@@ -43,16 +48,42 @@ def verifyCommandPermissons(command_type: CommandType, *required_roles: list):
     async def predicate(interaction: discord.Interaction) -> bool:
 
         if not required_roles:
-            return True
+            allowed = True
         if interaction.user.guild_permissions.administrator:
-            return True
+            allowed = True
         
         if any(role_id in required_roles for role_id in user_role_ids):
-            await interaction.response.send_message(f"{PERMISSON} You do not have permissons to use this Command.")
             
             logging.info(f"{command_type.value}{interaction.command.name}{interaction.user}")
-            return False
+            allowed = False
+
+        channel_id = LOG_CHANNELS[command_type]
+        channel = interaction.client.get_channel(channel_id)
+
+        if(channel):
+            embed = discord.Embed(
+                title=f"[{command_type.value}] Command Log",
+                description=f"{interaction.user.mention} executed `{interaction.command.name}`" if allowed else f"{interaction.user.mention} attempted to and was denied from executing `{interaction.command.name}`",
+                color = {
+                CommandType.NORMAL: discord.Color.light_grey(),
+                CommandType.MODIFICATION: discord.Color.orange(),
+                CommandType.DANGER: discord.Color.red(),
+                }[command_type]
+                embed.add_field(name ="Staus", value = "Allowed" if allowed else "Denied")
+                embed.add_field(name="User ID", value = interaction.user.id)
+                await channel.send(embed=embed)
+
+                if not allowed:
+                    await interaction.response.send_message(f"{PERMISSON} You don't have permission to use this command.")
+                
+                return allowed
+                    return app_commands.check(predicate)
+                 
+            )
+
+        logging.info(f"[{interaction.command.name}] {interaction.user} ran command.")
         return app_commands.check(predicate)
+
 
 
     
@@ -78,13 +109,13 @@ intents.message_content = True
 bot = Client(command_prefix="db", intents=intents)
 
 @bot.tree.command(name="ping", description="Checks if the application is online.", guild=GUILD_ID)
+@verifyCommandPermissons(CommandType.NORMAL)
 async def ping(interaction: discord.Interaction):
     await interaction.response.send_message(f"{CHECK} Online. Pong!")
 
 
 @bot.tree.command(name="database-create", description="Create a new Database.", guild=GUILD_ID)
 async def databaseCreate(interaction: discord.Interaction, name: str):
-    if()
     await interaction.response.send_message(f"{CHECK} Online. Pong!")
 
 

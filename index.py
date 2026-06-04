@@ -27,7 +27,7 @@ def save_databases():
         json.dump(databases, f)
 
 
-load_dotenv('file.env')
+load_dotenv()
 databases = load_databases()
 
 intents = discord.Intents.default()

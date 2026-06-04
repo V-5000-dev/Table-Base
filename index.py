@@ -57,7 +57,7 @@ async def database_create(ctx, name: str):
     save_databases()
     await ctx.respond(f"{CHECK} Database `{name}` created!")
 
-class /(discord.ui.Select):
+class (discord.ui.Select):
     def __init__(self, databases):
         options = [
             discord.SelectOption(label=db_name, value=db_name)

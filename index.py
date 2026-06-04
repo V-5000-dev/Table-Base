@@ -40,13 +40,13 @@ bot = bridge.Bot(command_prefix='d!', intents=intents)
 
 @bot.bridge_command(name="ping", description="Check if the bot is online.")
 async def ping(ctx):
-    await ctx.respond(f'``{CHECK}`` Online. Pong!')
+    await ctx.respond(f'{CHECK} Online. Pong!')
 
 
 @bot.bridge_command(name="database-create", description="Create a database.")
 async def database_create(ctx, name: str):
     if name in databases:
-        await ctx.respond("⚠️ A database with that name already exists.")
+        await ctx.respond(f"{ERROR} A database with that name already exists.")
         return
     databases[name] = {
         'database_admins': [],
@@ -55,7 +55,7 @@ async def database_create(ctx, name: str):
         'database_data': []
     }
     save_databases()
-    await ctx.respond(f"Database `{name}` created!")
+    await ctx.respond(f"{CHECK} Database `{name}` created!")
 
 
 class DatabaseSelect(discord.ui.Select):
@@ -64,11 +64,11 @@ class DatabaseSelect(discord.ui.Select):
 @bot.bridge_command(name="database-settings", description="Configure a database's settings.")
 async def database_setup(ctx, name: str):
     if name not in databases:
-        await ctx.respond("<:Error:1511922183671119964> That database doesn't exist.")
+        await ctx.respond(f"{ERROR} That database doesn't exist.")
         return
     cog = bot.cogs.get("DatabaseSetupPage")
     if cog is None:
-        await ctx.respond("<:Error:1511908546676265061> Setup page not loaded.")
+        await ctx.respond(f"{ERROR} Setup page not loaded.")
         return
     pages = cog.get_pages()
     embed = pages[1]

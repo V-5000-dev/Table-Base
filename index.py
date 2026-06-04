@@ -44,45 +44,43 @@ LOG_CHANNELS = {
 SEVER_ADMIN_ROLES = []
 #Commands ------------------------------------------------
 
-def verifyCommandPermissons(command_type: CommandType, *required_roles: list):
+def verifyCommandPermissions(command_type: CommandType, *required_roles):
     async def predicate(interaction: discord.Interaction) -> bool:
+        user_role_ids = [role.id for role in interaction.user.roles]
 
         if not required_roles:
             allowed = True
-        if interaction.user.guild_permissions.administrator:
+        elif interaction.user.guild_permissions.administrator:
             allowed = True
-        
-        if any(role_id in required_roles for role_id in user_role_ids):
-            
-            logging.info(f"{command_type.value}{interaction.command.name}{interaction.user}")
+        elif any(role_id in required_roles for role_id in user_role_ids):
+            allowed = True
+        else:
             allowed = False
 
         channel_id = LOG_CHANNELS[command_type]
         channel = interaction.client.get_channel(channel_id)
 
-        if(channel):
+        logging.info(f"[{command_type.value}] [{interaction.command.name}] {interaction.user} - {'Allowed' if allowed else 'Denied'}")
+
+        if channel:
             embed = discord.Embed(
                 title=f"[{command_type.value}] Command Log",
-                description=f"{interaction.user.mention} executed `{interaction.command.name}`" if allowed else f"{interaction.user.mention} attempted to and was denied from executing `{interaction.command.name}`",
-                color = {
-                CommandType.NORMAL: discord.Color.light_grey(),
-                CommandType.MODIFICATION: discord.Color.orange(),
-                CommandType.DANGER: discord.Color.red(),
+                description=f"{interaction.user.mention} executed `{interaction.command.name}`" if allowed else f"{interaction.user.mention} was denied from executing `{interaction.command.name}`",
+                color={
+                    CommandType.NORMAL: discord.Color.light_grey(),
+                    CommandType.MODIFICATION: discord.Color.orange(),
+                    CommandType.DANGER: discord.Color.red(),
                 }[command_type]
-                embed.add_field(name ="Staus", value = "Allowed" if allowed else "Denied")
-                embed.add_field(name="User ID", value = interaction.user.id)
-                await channel.send(embed=embed)
-
-                if not allowed:
-                    await interaction.response.send_message(f"{PERMISSON} You don't have permission to use this command.")
-                
-                return allowed
-                    return app_commands.check(predicate)
-                 
             )
+            embed.add_field(name="Status", value="Allowed" if allowed else "Denied")
+            embed.add_field(name="User ID", value=interaction.user.id)
+            await channel.send(embed=embed)
 
-        logging.info(f"[{interaction.command.name}] {interaction.user} ran command.")
-        return app_commands.check(predicate)
+        if not allowed:
+            await interaction.response.send_message(f"{PERMISSON} You don't have permission to use this command.", ephemeral=True)
+
+        return allowed
+    return app_commands.check(predicate)
 
 
 
@@ -109,7 +107,7 @@ intents.message_content = True
 bot = Client(command_prefix="db", intents=intents)
 
 @bot.tree.command(name="ping", description="Checks if the application is online.", guild=GUILD_ID)
-@verifyCommandPermissons(CommandType.NORMAL)
+@verifyCommandPermissions(CommandType.NORMAL)
 async def ping(interaction: discord.Interaction):
     await interaction.response.send_message(f"{CHECK} Online. Pong!")
 

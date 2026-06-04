@@ -57,7 +57,7 @@ async def database_create(ctx, name: str):
     save_databases()
     await ctx.respond(f"{CHECK} Database `{name}` created!")
 
-class (discord.ui.Select):
+class DatabaseSelect(discord.ui.Select):
     def __init__(self, databases):
         options = [
             discord.SelectOption(label=db_name, value=db_name)
@@ -85,7 +85,7 @@ async def database_setup(ctx):  # Removed `name` parameter
         await ctx.respond(f"{ERROR} No databases found.")
         return
 
-    view = DatabaseSelectView(databases)
+    view = DatabaseSelect(databases)
     await ctx.respond("Select a database to configure:", view=view)
 
  

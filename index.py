@@ -30,9 +30,9 @@ class CommandType(Enum):
     MODIFICATION = "Modification"
     DANGER = "Danger"
 
-NORMAL_LOG_CHANNEL = "1511534970533974026"
-MODIFICATION_LOG_CHANNEL = "1511534970533974026"
-DANGER_LOG_CHANNEL = "1511534970533974026"
+NORMAL_LOG_CHANNEL = 1511534970533974026
+MODIFICATION_LOG_CHANNEL = 1511534970533974026
+DANGER_LOG_CHANNEL = 1511534970533974026
 LOG_CHANNELS = {
     CommandType.NORMAL: NORMAL_LOG_CHANNEL,
     CommandType.MODIFICATION: MODIFICATION_LOG_CHANNEL,
@@ -44,11 +44,20 @@ LOG_CHANNELS = {
 SEVER_ADMIN_ROLES = []
 #Commands ------------------------------------------------
 class Client(commands.Bot):
-    async def setup_hook(self):
+    async def on_ready(self):
         try:
-            await self.tree.sync(guild=GUILD_ID) 
+            #self.tree.clear_commands(guild=GUILD_ID)
+            #await self.tree.sync(guild=GUILD_ID)
+
+            self.tree.add_command(ping, guild=GUILD_ID)
+            self.tree.add_command(databaseCreate, guild=GUILD_ID)
+
+            self.tree.copy_global_to(guild=GUILD_ID)
             synced = await self.tree.sync(guild=GUILD_ID)
-            print(f"Synced {len(synced)} commands.")
+            print(f"Synced {len(synced)} commands")
+
+            for cmd in synced:
+                print(cmd.name)
         except Exception as e:
             print(f"Error syncing commands: {e}")
     
@@ -97,6 +106,16 @@ def verifyCommandPermissions(command_type: CommandType, *required_roles):
 intents = discord.Intents.default()
 intents.message_content = True
 bot = Client(command_prefix="db", intents=intents)
+
+
+@bot.event
+async def on_interaction(interaction):
+    print(interaction.data)
+@bot.event
+async def on_ready():
+    print("Commands in tree:")
+    for cmd in bot.tree.walk_commands():
+        print(cmd.name)
 
 @bot.tree.command(name="ping", description="Checks if the application is online.", guild=GUILD_ID)
 @verifyCommandPermissions(CommandType.NORMAL)

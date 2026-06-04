@@ -43,6 +43,8 @@ async def ping(ctx):
     await ctx.respond(f'{CHECK} Online. Pong!')
 
 
+
+
 @bot.bridge_command(name="database-create", description="Create a database.")
 async def database_create(ctx, name: str):
     if name in databases:
@@ -56,55 +58,13 @@ async def database_create(ctx, name: str):
     }
     save_databases()
     await ctx.respond(f"{CHECK} Database `{name}` created!")
-
-class DatabaseSelect(discord.ui.Select):
-    def __init__(self, databases):
-        options = [
-            discord.SelectOption(label=db_name, value=db_name)
-            for db_name in databases
-        ]
-        super().__init__(placeholder="Choose a database...", min_values=1, max_values=1, options=options)
-
-    async def callback(self, interaction: discord.Interaction):
-        selected_db = self.values[0]  # ✅ Indented inside callback
-
-        cog = interaction.client.cogs.get("DatabaseSetupPage")  # ✅ Indented inside callback
-        if cog is None:
-            await interaction.response.send_message(f"{ERROR} Setup page not loaded.")
-            return
-
-        pages = cog.get_pages()  # ✅ Indented inside callback
-        embed = pages[1]
-
-        await interaction.response.send_message(f"Settings for **{selected_db}**", embed=embed, ephemeral=True)
     
+@bot.bridge_command(name= "server-settings" desription = "Configure the bot's settings for the server.")
+async def printer(interaction: discord.Interaction):
+    embed = discord.embed(title = "DataBase Server Settings", desription =  "Configure the server settings below.")
+    await interaction.response.send_message(embed=embed)
 
-@bot.bridge_command(name="database-settings", description="Configure a database's settings.")
-async def database_setup(ctx):  # Removed `name` parameter
-    if not databases:
-        await ctx.respond(f"{ERROR} No databases found.")
-        return
 
-    view = DatabaseSelect(databases)
-    await ctx.respond("Select a database to configure:", view=view)
-
- 
-
-class DatabaseSetupPage(commands.Cog):
-    def __init__(self, bot):
-        self.bot = bot
-
-        page_one_embed = discord.Embed(title="Page One", description="hello")
-        page_one_embed.add_field(name="Example Field", value="Example Value", inline=False)
-
-        self.pages = [
-            "Page 1",
-            page_one_embed
-        ]
-
-    def get_pages(self):
-        return self.pages
-        
 
 
 
@@ -114,6 +74,5 @@ class DatabaseSetupPage(commands.Cog):
 @bot.event
 async def on_ready():
     print(f'Logged in as {bot.user}')
-    bot.add_cog(DatabaseSetupPage(bot))
 
 bot.run(os.getenv('TOKEN'))

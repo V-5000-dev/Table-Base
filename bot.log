@@ -1181,3 +1181,7 @@ discord.app_commands.errors.CommandInvokeError: Command 'ping' raised an excepti
 2026-06-05 00:28:01,770 Shard ID None has connected to Gateway (Session ID: 88b2a22f340f72357474848ce14876ec).
 2026-06-05 00:28:09,962 [Safe] [ping] v_500 - Allowed
 2026-06-05 00:28:21,653 [Safe] [ping] v_500 - Allowed
+2026-06-05 00:45:10,755 davey is not installed, voice will NOT be supported
+2026-06-05 00:45:10,756 logging in using static token
+2026-06-05 00:45:11,831 Shard ID None has connected to Gateway (Session ID: da1327651bcbb7b2b5e61ea247923a4a).
+2026-06-05 00:45:16,133 [Safe] [ping] v_500 - Allowed

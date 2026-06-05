@@ -124,7 +124,7 @@ async def verifyCommandPermissions(ctx_or_interaction, command_type: CommandType
         )
 
         embed.add_field(name="Status", value="Allowed" if allowed else "Denied")
-        embed.add_field(name="User ID", value=user.id)
+        embed.add_field(name="User ID", value=f"``{user.id}``")
         embed.add_field(name="Timestamp", value=discord.utils.format_dt(discord.utils.utcnow()))
         thumbnails = {
             CommandType.SAFE: "https://cdn.discordapp.com/emojis/1512309496947413012.png",

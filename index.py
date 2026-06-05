@@ -21,8 +21,9 @@ CHECK = "<:CheckMark:1512108503857238076>"
 CHECKWHITE = "<:CheckMark2:1512309496947413012>"
 X = "<:CrossMark:1511924485324804156>"
 PERMISSON = "<:Permisson:1511924423819661442>"
-MODIFICATION = "<:ModificationCommand:1511923491107246141>"
-DANDER = "<:DangerCommand:1511923466016657438>"
+SAFE = "<:SafeCommand:1512529026504196269>"
+MODIFICATION = "<:ModifcationCommand:1512528988701065297>"
+DANDER = "<:DangerCommand:1512528963493171290>"
 
 GUILD_ID = discord.Object(id=1324223207536070697)
 
@@ -127,9 +128,9 @@ async def verifyCommandPermissions(ctx_or_interaction, command_type: CommandType
         embed.add_field(name="User ID", value=f"``{user.id}``")
         embed.add_field(name="Timestamp", value=discord.utils.format_dt(discord.utils.utcnow()))
         thumbnails = {
-            CommandType.SAFE: "https://cdn.discordapp.com/emojis/1512309496947413012.png",
-            CommandType.MODIFICATION: "https://cdn.discordapp.com/emojis/1511923491107246141.png",
-            CommandType.DANGER: "https://cdn.discordapp.com/emojis/1511923466016657438.png",
+            CommandType.SAFE: "https://cdn.discordapp.com/emojis/1512529026504196269.png",
+            CommandType.MODIFICATION: "https://cdn.discordapp.com/emojis/1512528988701065297.png",
+            CommandType.DANGER: "https://cdn.discordapp.com/emojis/1512528963493171290.png",
         }
         embed.set_thumbnail(url=thumbnails[command_type])
         await channel.send(embed=embed)
@@ -157,10 +158,21 @@ async def ping(interaction: discord.Interaction):
 @client.command(name="ping")
 async def ping_prefix(ctx):
     await ping_logic(ctx)
-#-----------------------------------------------------------------
+#-----------------------------------------------------------------@client.event
+async def databaseCreate_logic(ctx_or_interaction):
+    if not await verifyCommandPermissions(ctx_or_interaction, CommandType.MODIFICATION):
+        return
+    if isinstance(ctx_or_interaction, discord.Interaction):
+        await ctx_or_interaction.response.send_message(f"{CHECK} Test!")
+    else:
+        await ctx_or_interaction.send(f"{CHECK} Test!")
 @client.tree.command(name="database-create", description="Create a new Database.", guild=GUILD_ID)
-async def databaseCreate(interaction: discord.Interaction, name: str):
-    await interaction.response.send_message(f"{CHECK} Online. Pong!")
+async def database_create(interaction: discord.Interaction):
+    await databaseCreate_logic(interaction)
+@client.command(name="database create")
+async def databaseCreate_prefix(ctx):
+    await databaseCreate_logic(ctx)
+ 
 
 
 client.run(os.getenv('TOKEN'))

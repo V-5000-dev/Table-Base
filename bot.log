@@ -19,7 +19,7 @@ Traceback (most recent call last):
     raise CommandNotFound(name, parents)
 discord.app_commands.errors.CommandNotFound: Application command 'ping' not found
 2026-06-04 12:57:31,908 davey is not installed, voice will NOT be supported
-2026-06-04 12:57:31,909 logging in using static token
+2026-06-04 12:57:31,909 logging in using ststic token
 2026-06-04 12:58:34,582 Shard ID None has connected to Gateway (Session ID: 4e6371cd0f4ef662bfb354f5b1db4bf4).
 2026-06-04 12:59:06,752 davey is not installed, voice will NOT be supported
 2026-06-04 12:59:06,753 logging in using static token
@@ -855,3 +855,329 @@ discord.app_commands.errors.CommandNotFound: Application command 'ping' not foun
 2026-06-04 22:39:40,903 davey is not installed, voice will NOT be supported
 2026-06-04 22:39:40,904 logging in using static token
 2026-06-04 22:40:41,773 Shard ID None has connected to Gateway (Session ID: 7904fb89c22117a2312e9639f0189df4).
+2026-06-04 22:49:02,677 davey is not installed, voice will NOT be supported
+2026-06-04 22:49:23,887 davey is not installed, voice will NOT be supported
+2026-06-04 22:49:23,888 logging in using static token
+2026-06-04 22:49:24,692 Shard ID None has connected to Gateway (Session ID: 755e709e9e699f305abfd995d484ec12).
+2026-06-04 23:01:48,837 davey is not installed, voice will NOT be supported
+2026-06-04 23:01:48,838 logging in using static token
+2026-06-04 23:01:49,946 Shard ID None has connected to Gateway (Session ID: b7b356639843d181d878d59e07e264d4).
+2026-06-04 23:04:06,250 davey is not installed, voice will NOT be supported
+2026-06-04 23:04:06,251 logging in using static token
+2026-06-04 23:04:07,146 Shard ID None has connected to Gateway (Session ID: 85cb875be1f20e6e041c1627bcb51ede).
+2026-06-04 23:04:14,464 Ignoring exception in command None
+discord.ext.commands.errors.CommandNotFound: Command "ping" is not found
+2026-06-04 23:06:26,561 davey is not installed, voice will NOT be supported
+2026-06-04 23:06:26,562 logging in using static token
+2026-06-04 23:06:27,548 Shard ID None has connected to Gateway (Session ID: bf1fee6a2dbdf9006b1a26cb8e09e594).
+2026-06-04 23:06:31,340 Ignoring exception in command None
+discord.ext.commands.errors.CommandNotFound: Command "ping" is not found
+2026-06-04 23:08:06,759 davey is not installed, voice will NOT be supported
+2026-06-04 23:08:06,760 logging in using static token
+2026-06-04 23:08:08,674 Shard ID None has connected to Gateway (Session ID: 614c69af4f901b13113727fa40160296).
+2026-06-04 23:08:58,919 davey is not installed, voice will NOT be supported
+2026-06-04 23:08:58,920 logging in using static token
+2026-06-04 23:08:59,799 Shard ID None has connected to Gateway (Session ID: 8989800b514b815547a2fdec404e009b).
+2026-06-04 23:10:21,840 davey is not installed, voice will NOT be supported
+2026-06-04 23:10:21,841 logging in using static token
+2026-06-04 23:10:22,642 Shard ID None has connected to Gateway (Session ID: 1d756c939653ac4d3357b08148fd2c89).
+2026-06-04 23:12:29,104 Shard ID None session has been invalidated.
+2026-06-04 23:12:48,028 davey is not installed, voice will NOT be supported
+2026-06-04 23:12:48,029 logging in using static token
+2026-06-04 23:14:17,081 davey is not installed, voice will NOT be supported
+2026-06-04 23:14:17,082 logging in using static token
+2026-06-04 23:14:25,998 davey is not installed, voice will NOT be supported
+2026-06-04 23:14:25,999 logging in using static token
+2026-06-04 23:14:57,696 davey is not installed, voice will NOT be supported
+2026-06-04 23:14:57,696 logging in using static token
+2026-06-04 23:15:39,913 davey is not installed, voice will NOT be supported
+2026-06-04 23:15:39,914 logging in using static token
+2026-06-04 23:20:44,923 davey is not installed, voice will NOT be supported
+2026-06-04 23:20:44,924 logging in using static token
+2026-06-04 23:21:12,080 davey is not installed, voice will NOT be supported
+2026-06-04 23:21:12,080 logging in using static token
+2026-06-04 23:21:26,325 davey is not installed, voice will NOT be supported
+2026-06-04 23:21:26,326 logging in using static token
+2026-06-04 23:24:43,771 davey is not installed, voice will NOT be supported
+2026-06-04 23:24:43,772 logging in using static token
+2026-06-04 23:24:51,707 davey is not installed, voice will NOT be supported
+2026-06-04 23:24:51,707 logging in using static token
+2026-06-04 23:25:05,583 davey is not installed, voice will NOT be supported
+2026-06-04 23:25:05,584 logging in using static token
+2026-06-04 23:26:18,523 davey is not installed, voice will NOT be supported
+2026-06-04 23:26:18,524 logging in using static token
+2026-06-04 23:26:20,019 Shard ID None has connected to Gateway (Session ID: 72852e2e902ee01b1436abce4c2e8d2e).
+2026-06-04 23:26:49,432 Shard ID None session has been invalidated.
+2026-06-04 23:27:12,089 davey is not installed, voice will NOT be supported
+2026-06-04 23:27:12,089 logging in using static token
+2026-06-04 23:27:13,150 Shard ID None has connected to Gateway (Session ID: a458a8f51b70510e88f7085605233b28).
+2026-06-04 23:27:44,115 davey is not installed, voice will NOT be supported
+2026-06-04 23:27:44,116 logging in using static token
+2026-06-04 23:27:44,989 Shard ID None has connected to Gateway (Session ID: 876956f37a46593492297988f8c145db).
+2026-06-04 23:36:29,832 davey is not installed, voice will NOT be supported
+2026-06-04 23:36:29,833 logging in using static token
+2026-06-04 23:36:30,665 Shard ID None has connected to Gateway (Session ID: 111b00fbc42b63977a35db77c3eeb340).
+2026-06-04 23:40:40,037 davey is not installed, voice will NOT be supported
+2026-06-04 23:40:40,037 logging in using static token
+2026-06-04 23:40:40,949 Shard ID None has connected to Gateway (Session ID: 3b623f43456d0ef76f2e309989e1d3a3).
+2026-06-04 23:40:44,971 Ignoring exception in command 'ping'
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 859, in _do_call
+    return await self._callback(interaction, **params)  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victor/Documents/Data-Base/index.py", line 161, in ping
+    await ping_logic(interaction)
+  File "/Users/victor/Documents/Data-Base/index.py", line 152, in ping_logic
+    if not await verifyCommandPermissons(ctx_or_interaction, command_type.NORMAL):
+                                                             ^^^^^^^^^^^^
+NameError: name 'command_type' is not defined. Did you mean: 'CommandType'?
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/tree.py", line 1302, in _call
+    await command._invoke_with_namespace(interaction, namespace)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 884, in _invoke_with_namespace
+    return await self._do_call(interaction, transformed_values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 877, in _do_call
+    raise CommandInvokeError(self, e) from e
+discord.app_commands.errors.CommandInvokeError: Command 'ping' raised an exception: NameError: name 'command_type' is not defined
+2026-06-04 23:41:23,960 davey is not installed, voice will NOT be supported
+2026-06-04 23:41:23,961 logging in using static token
+2026-06-04 23:41:24,907 Shard ID None has connected to Gateway (Session ID: 89c40e217b2328eb2f5f529a99e1ad5a).
+2026-06-04 23:43:13,637 davey is not installed, voice will NOT be supported
+2026-06-04 23:43:13,638 logging in using static token
+2026-06-04 23:43:15,105 Shard ID None has connected to Gateway (Session ID: 75b2e5780d9558df3d60d22ff3a8a3c1).
+2026-06-04 23:44:30,795 davey is not installed, voice will NOT be supported
+2026-06-04 23:44:30,796 logging in using static token
+2026-06-04 23:44:31,630 Shard ID None has connected to Gateway (Session ID: 09013a1059f710f51e2c82f0e068d83b).
+2026-06-04 23:44:39,248 Ignoring exception in command 'ping'
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 859, in _do_call
+    return await self._callback(interaction, **params)  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victor/Documents/Data-Base/index.py", line 133, in ping
+    await ping_logic(interaction)
+  File "/Users/victor/Documents/Data-Base/index.py", line 124, in ping_logic
+    if not await verifyCommandPermissons(ctx_or_interaction, CommandType.NORMAL):
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: object function can't be used in 'await' expression
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/tree.py", line 1302, in _call
+    await command._invoke_with_namespace(interaction, namespace)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 884, in _invoke_with_namespace
+    return await self._do_call(interaction, transformed_values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 873, in _do_call
+    raise CommandInvokeError(self, e) from e
+discord.app_commands.errors.CommandInvokeError: Command 'ping' raised an exception: TypeError: object function can't be used in 'await' expression
+2026-06-05 00:05:08,794 davey is not installed, voice will NOT be supported
+2026-06-05 00:05:08,794 logging in using static token
+2026-06-05 00:05:09,707 Shard ID None has connected to Gateway (Session ID: 086ef2839edf2fa19491f95028cebafa).
+2026-06-05 00:05:14,803 Ignoring exception in command 'ping'
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 859, in _do_call
+    return await self._callback(interaction, **params)  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victor/Documents/Data-Base/index.py", line 156, in ping
+    await ping_logic(interaction)
+  File "/Users/victor/Documents/Data-Base/index.py", line 147, in ping_logic
+    if not await verifyCommandPermissons(ctx_or_interaction, CommandType.NORMAL):
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victor/Documents/Data-Base/index.py", line 92, in verifyCommandPermissons
+    guild_permissons = ctx_or_interaction.author.guild.permissions
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'Interaction' object has no attribute 'author'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/tree.py", line 1302, in _call
+    await command._invoke_with_namespace(interaction, namespace)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 884, in _invoke_with_namespace
+    return await self._do_call(interaction, transformed_values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 877, in _do_call
+    raise CommandInvokeError(self, e) from e
+discord.app_commands.errors.CommandInvokeError: Command 'ping' raised an exception: AttributeError: 'Interaction' object has no attribute 'author'
+2026-06-05 00:06:31,620 davey is not installed, voice will NOT be supported
+2026-06-05 00:06:31,621 logging in using static token
+2026-06-05 00:06:32,461 Shard ID None has connected to Gateway (Session ID: 63a76499e0a43b2c8d524f5b0525a9ad).
+2026-06-05 00:06:36,210 Ignoring exception in command 'ping'
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 859, in _do_call
+    return await self._callback(interaction, **params)  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victor/Documents/Data-Base/index.py", line 148, in ping
+    await ping_logic(interaction)
+  File "/Users/victor/Documents/Data-Base/index.py", line 139, in ping_logic
+    if not await verifyCommandPermissons(ctx_or_interaction, CommandType.NORMAL):
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victor/Documents/Data-Base/index.py", line 92, in verifyCommandPermissons
+    guild_permissons = ctx_or_interaction.author.guild.permissions
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'Interaction' object has no attribute 'author'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/tree.py", line 1302, in _call
+    await command._invoke_with_namespace(interaction, namespace)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 884, in _invoke_with_namespace
+    return await self._do_call(interaction, transformed_values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 877, in _do_call
+    raise CommandInvokeError(self, e) from e
+discord.app_commands.errors.CommandInvokeError: Command 'ping' raised an exception: AttributeError: 'Interaction' object has no attribute 'author'
+2026-06-05 00:07:14,190 davey is not installed, voice will NOT be supported
+2026-06-05 00:07:14,190 logging in using static token
+2026-06-05 00:07:15,001 Shard ID None has connected to Gateway (Session ID: b9482090fbf981e5cfdb8e317c0a619c).
+2026-06-05 00:07:17,275 Ignoring exception in command 'ping'
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 859, in _do_call
+    return await self._callback(interaction, **params)  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victor/Documents/Data-Base/index.py", line 148, in ping
+    await ping_logic(interaction)
+  File "/Users/victor/Documents/Data-Base/index.py", line 139, in ping_logic
+    if not await verifyCommandPermissons(ctx_or_interaction, CommandType.NORMAL):
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victor/Documents/Data-Base/index.py", line 92, in verifyCommandPermissons
+    guild_permissons = ctx_or_interaction.user.guild.permissons
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'Guild' object has no attribute 'permissons'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/tree.py", line 1302, in _call
+    await command._invoke_with_namespace(interaction, namespace)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 884, in _invoke_with_namespace
+    return await self._do_call(interaction, transformed_values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 877, in _do_call
+    raise CommandInvokeError(self, e) from e
+discord.app_commands.errors.CommandInvokeError: Command 'ping' raised an exception: AttributeError: 'Guild' object has no attribute 'permissons'
+2026-06-05 00:07:57,034 davey is not installed, voice will NOT be supported
+2026-06-05 00:07:57,035 logging in using static token
+2026-06-05 00:07:58,147 Shard ID None has connected to Gateway (Session ID: 6ece8327eab352ab9f13d7dfb9cb96d7).
+2026-06-05 00:08:00,427 [Normal] [ping] v_500 - Allowed
+2026-06-05 00:08:50,426 davey is not installed, voice will NOT be supported
+2026-06-05 00:08:50,426 logging in using static token
+2026-06-05 00:08:52,405 Shard ID None has connected to Gateway (Session ID: 1508c71eb773c1fb42abad66aab89702).
+2026-06-05 00:08:55,283 [Safe] [ping] v_500 - Allowed
+2026-06-05 00:08:58,956 [Safe] [ping] v_500 - Allowed
+2026-06-05 00:09:45,416 davey is not installed, voice will NOT be supported
+2026-06-05 00:09:45,417 logging in using static token
+2026-06-05 00:09:46,250 Shard ID None has connected to Gateway (Session ID: b11f2c9c4c31ad95d19f9e53396b0505).
+2026-06-05 00:09:50,605 [Safe] [ping] v_500 - Allowed
+2026-06-05 00:10:12,066 davey is not installed, voice will NOT be supported
+2026-06-05 00:10:12,066 logging in using static token
+2026-06-05 00:10:36,061 davey is not installed, voice will NOT be supported
+2026-06-05 00:10:36,062 logging in using static token
+2026-06-05 00:11:04,971 davey is not installed, voice will NOT be supported
+2026-06-05 00:11:04,971 logging in using static token
+2026-06-05 00:11:27,960 davey is not installed, voice will NOT be supported
+2026-06-05 00:11:27,961 logging in using static token
+2026-06-05 00:12:16,695 Shard ID None has connected to Gateway (Session ID: 66ca18266bcdaacea3be1e022aa7f010).
+2026-06-05 00:12:58,437 [Safe] [ping] v_500 - Allowed
+2026-06-05 00:13:09,734 [Safe] [ping] v_500 - Allowed
+2026-06-05 00:23:07,251 davey is not installed, voice will NOT be supported
+2026-06-05 00:23:07,252 logging in using static token
+2026-06-05 00:23:08,141 Shard ID None has connected to Gateway (Session ID: 6aa2ad6a21cc2202907c0d52a5548cd2).
+2026-06-05 00:23:13,555 [Safe] [ping] v_500 - Allowed
+2026-06-05 00:23:13,556 Ignoring exception in command 'ping'
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 859, in _do_call
+    return await self._callback(interaction, **params)  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victor/Documents/Data-Base/index.py", line 152, in ping
+    await ping_logic(interaction)
+  File "/Users/victor/Documents/Data-Base/index.py", line 143, in ping_logic
+    if not await verifyCommandPermissions(ctx_or_interaction, CommandType.SAFE):
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victor/Documents/Data-Base/index.py", line 122, in verifyCommandPermissions
+    CommandType.SAFE: embed.set_thumbnail(url = "https://cdn.discordapp.com/emojis/1512309496947413012.png"),
+                      ^^^^^
+UnboundLocalError: cannot access local variable 'embed' where it is not associated with a value
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/tree.py", line 1302, in _call
+    await command._invoke_with_namespace(interaction, namespace)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 884, in _invoke_with_namespace
+    return await self._do_call(interaction, transformed_values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 877, in _do_call
+    raise CommandInvokeError(self, e) from e
+discord.app_commands.errors.CommandInvokeError: Command 'ping' raised an exception: UnboundLocalError: cannot access local variable 'embed' where it is not associated with a value
+2026-06-05 00:26:28,350 davey is not installed, voice will NOT be supported
+2026-06-05 00:26:28,350 logging in using static token
+2026-06-05 00:26:29,229 Shard ID None has connected to Gateway (Session ID: 12c48e399b92b75f4a4ff4ee635d34f5).
+2026-06-05 00:26:33,363 [Safe] [ping] v_500 - Allowed
+2026-06-05 00:26:33,363 Ignoring exception in command 'ping'
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 859, in _do_call
+    return await self._callback(interaction, **params)  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victor/Documents/Data-Base/index.py", line 155, in ping
+    await ping_logic(interaction)
+  File "/Users/victor/Documents/Data-Base/index.py", line 146, in ping_logic
+    if not await verifyCommandPermissions(ctx_or_interaction, CommandType.SAFE):
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victor/Documents/Data-Base/index.py", line 125, in verifyCommandPermissions
+    embed.set_thumbnail(url=thumbnails[command_type])
+                            ^^^^^^^^^^
+UnboundLocalError: cannot access local variable 'thumbnails' where it is not associated with a value
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/tree.py", line 1302, in _call
+    await command._invoke_with_namespace(interaction, namespace)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 884, in _invoke_with_namespace
+    return await self._do_call(interaction, transformed_values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 877, in _do_call
+    raise CommandInvokeError(self, e) from e
+discord.app_commands.errors.CommandInvokeError: Command 'ping' raised an exception: UnboundLocalError: cannot access local variable 'thumbnails' where it is not associated with a value
+2026-06-05 00:27:00,769 davey is not installed, voice will NOT be supported
+2026-06-05 00:27:00,770 logging in using static token
+2026-06-05 00:27:01,945 Shard ID None has connected to Gateway (Session ID: 86d3fc8cb21b4409ae9fa4507920b87f).
+2026-06-05 00:27:03,764 [Safe] [ping] v_500 - Allowed
+2026-06-05 00:27:03,765 Ignoring exception in command 'ping'
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 859, in _do_call
+    return await self._callback(interaction, **params)  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victor/Documents/Data-Base/index.py", line 156, in ping
+    await ping_logic(interaction)
+  File "/Users/victor/Documents/Data-Base/index.py", line 147, in ping_logic
+    if not await verifyCommandPermissions(ctx_or_interaction, CommandType.SAFE):
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victor/Documents/Data-Base/index.py", line 132, in verifyCommandPermissions
+    CommandType.DANDER: "https://cdn.discordapp.com/emojis/1511923466016657438.png",
+    ^^^^^^^^^^^^^^^^^^
+AttributeError: type object 'CommandType' has no attribute 'DANDER'. Did you mean: 'DANGER'?
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/tree.py", line 1302, in _call
+    await command._invoke_with_namespace(interaction, namespace)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 884, in _invoke_with_namespace
+    return await self._do_call(interaction, transformed_values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 877, in _do_call
+    raise CommandInvokeError(self, e) from e
+discord.app_commands.errors.CommandInvokeError: Command 'ping' raised an exception: AttributeError: type object 'CommandType' has no attribute 'DANDER'
+2026-06-05 00:27:15,913 davey is not installed, voice will NOT be supported
+2026-06-05 00:27:15,913 logging in using static token
+2026-06-05 00:28:01,770 Shard ID None has connected to Gateway (Session ID: 88b2a22f340f72357474848ce14876ec).
+2026-06-05 00:28:09,962 [Safe] [ping] v_500 - Allowed
+2026-06-05 00:28:21,653 [Safe] [ping] v_500 - Allowed

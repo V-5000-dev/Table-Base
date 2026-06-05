@@ -43,15 +43,15 @@ LOG_CHANNELS = {
 
 SEVER_ADMIN_ROLES = []
 #Commands ------------------------------------------------
-class Client(discord.Client):
-    def __init__(self):
-        super().__init__(intents=intents)
-        self.tree = app_commands.CommandTree(self)
+class Client(commands.Bot):
+ #   def __init__(self):
+  #      super().__init__(intents=intents)
+  #      self.tree = app_commands.CommandTree(self)
 
     async def setup_hook(self):
         try:
-            self.tree.clear_commands(guild=GUILD_ID)
-            await self.tree.sync(guild=GUILD_ID)
+     #      self.tree.clear_commands(guild=GUILD_ID)
+        #    await self.tree.sync(guild=GUILD_ID)
 
             self.tree.copy_global_to(guild=GUILD_ID)
             synced = await self.tree.sync(guild=GUILD_ID)
@@ -67,7 +67,7 @@ class Client(discord.Client):
 
 intents = discord.Intents.default()
 intents.message_content = True
-bot = Client()
+client = Client(command_prefix = "db", intents = intents)
 
 
 def verifyCommandPermissions(command_type: CommandType, *required_roles):
@@ -122,15 +122,15 @@ intents.message_content = True
 
 
 
-@bot.tree.command(name="ping", description="Checks if the application is online.", guild=GUILD_ID)
-@verifyCommandPermissions(CommandType.NORMAL)
+@client.tree.command(name="ping", description="Checks if the application is online.", guild=GUILD_ID)
+#@verifyCommandPermissions(CommandType.NORMAL)
 async def ping(interaction: discord.Interaction):
     await interaction.response.send_message(f"{CHECK} Online. Pong!")
 
 
-@bot.tree.command(name="database-create", description="Create a new Database.", guild=GUILD_ID)
+@client.tree.command(name="database-create", description="Create a new Database.", guild=GUILD_ID)
 async def databaseCreate(interaction: discord.Interaction, name: str):
     await interaction.response.send_message(f"{CHECK} Online. Pong!")
 
 
-bot.run('MTUxMTM5NjM0MzY4MjMwMjEyMg.GwWrS0.ZLAct5APdxXIkzlhIHBJK98MiEzXYe9jXbIEhg')
+client.run('MTUxMTM5NjM0MzY4MjMwMjEyMg.GwWrS0.ZLAct5APdxXIkzlhIHBJK98MiEzXYe9jXbIEhg')

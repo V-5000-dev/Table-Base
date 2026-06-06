@@ -143,6 +143,8 @@ async def verifyCommandPermissions(ctx_or_interaction, command_type: CommandType
 
     return allowed
 
+
+
 @client.event
 async def ping_logic(ctx_or_interaction):
     if not await verifyCommandPermissions(ctx_or_interaction, CommandType.SAFE):
@@ -158,7 +160,8 @@ async def ping(interaction: discord.Interaction):
 @client.command(name="ping")
 async def ping_prefix(ctx):
     await ping_logic(ctx)
-#-----------------------------------------------------------------@client.event
+#-----------------------------------------------------------------
+@client.event
 async def databaseCreate_logic(ctx_or_interaction):
     if not await verifyCommandPermissions(ctx_or_interaction, CommandType.MODIFICATION):
         return
@@ -167,12 +170,67 @@ async def databaseCreate_logic(ctx_or_interaction):
     else:
         await ctx_or_interaction.send(f"{CHECK} Test!")
 @client.tree.command(name="database-create", description="Create a new Database.", guild=GUILD_ID)
-async def database_create(interaction: discord.Interaction):
+async def databaseCreate(interaction: discord.Interaction):
     await databaseCreate_logic(interaction)
 @client.command(name="database create")
 async def databaseCreate_prefix(ctx):
     await databaseCreate_logic(ctx)
- 
+ #-----------------------------------------------------------------
+
+
+  
+class ServerSettings_MenuView(discord.ui.View):
+    def __init__(self, roles: list[discord.Role]):
+        super().__init__()
+        self.add_item(ServerSettings_Menu(roles))
+class ServerSettings_Menu(discord.ui.Select):
+    def __init__(self, roles: list[discord.Role]):
+
+        options = [
+            discord.SelectOption(
+                label=f"{role.name} ({role.id})",
+                value=str(role.id),
+            )
+            for role in roles
+            if not role.is_default()
+        ][:25]
+
+        print(f"Options built: {options}")
+        if not options:
+            options = [discord.SelectOption(label="No roles available", value="none")]
+        
+        super().__init__(
+            placeholder="Select a role..",
+            min_values=1,
+            max_values=len(options),  # ← dynamic, not hardcoded 25
+            options=options
+        )
+    
+    async def callback(self, interaction: discord.Interaction):
+        role_id = int(self.values[0])
+        role = interaction.guild.get_role(role_id)
+        await interaction.response.send_message(f"You selected: {role.mention}")
+
+
+@client.event
+async def serverSettings_logic(ctx_or_interaction):
+    if not await verifyCommandPermissions(ctx_or_interaction, CommandType.MODIFICATION):
+        return
+    if isinstance(ctx_or_interaction, discord.Interaction):
+        guild = ctx_or_interaction.guild
+        print(f"Roles found: {guild.roles}")
+        view = ServerSettings_MenuView(guild.roles)
+        await ctx_or_interaction.response.send_message(view=view)
+        
+    else:
+        await ctx_or_interaction.send(f"{CHECK} Test!")
+@client.tree.command(name="server-settings", description="Create a new Database.", guild=GUILD_ID)
+async def serverSettings(interaction: discord.Interaction):
+    await serverSettings_logic(interaction)
+@client.command(name="server settings")
+async def databaseCreate_prefix(ctx):
+    await serverSettings_logic(ctx)
+
 
 
 client.run(os.getenv('TOKEN'))

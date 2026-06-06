@@ -1201,3 +1201,380 @@ discord.app_commands.errors.CommandInvokeError: Command 'ping' raised an excepti
 2026-06-05 14:59:22,419 logging in using static token
 2026-06-05 14:59:23,403 Shard ID None has connected to Gateway (Session ID: e10e6e021e4fd6cc6de939a7294fb7d5).
 2026-06-05 14:59:25,600 [Modification] [database-create] v_500 - Allowed
+2026-06-05 15:07:16,195 Shard ID None session has been invalidated.
+2026-06-05 15:07:21,716 Shard ID None has connected to Gateway (Session ID: 74d9357092104f4848270433491f35ec).
+2026-06-05 15:19:13,434 Shard ID None session has been invalidated.
+2026-06-05 15:19:19,003 Shard ID None has connected to Gateway (Session ID: 7504cb8d2668167986878536edc091d5).
+2026-06-05 16:21:44,249 Shard ID None session has been invalidated.
+2026-06-05 16:23:53,925 Shard ID None session has been invalidated.
+2026-06-05 16:23:59,308 Shard ID None has connected to Gateway (Session ID: 6cc20c16608a26112841757e05cfa281).
+2026-06-05 16:57:24,754 Shard ID None has successfully RESUMED session 6cc20c16608a26112841757e05cfa281.
+2026-06-05 17:34:17,391 Shard ID None has successfully RESUMED session 6cc20c16608a26112841757e05cfa281.
+2026-06-05 18:31:49,251 Shard ID None session has been invalidated.
+2026-06-05 18:31:54,648 Shard ID None has connected to Gateway (Session ID: 9ab755af71faa998a83b7c1897353d19).
+2026-06-05 18:54:45,937 Shard ID None session has been invalidated.
+2026-06-05 18:54:51,360 Shard ID None has connected to Gateway (Session ID: c1af4e144b2b4606d6c9c17147f740cc).
+2026-06-05 19:22:45,486 Shard ID None has successfully RESUMED session c1af4e144b2b4606d6c9c17147f740cc.
+2026-06-05 19:31:24,784 davey is not installed, voice will NOT be supported
+2026-06-05 19:31:58,348 davey is not installed, voice will NOT be supported
+2026-06-05 19:32:07,567 davey is not installed, voice will NOT be supported
+2026-06-05 19:32:43,557 davey is not installed, voice will NOT be supported
+2026-06-05 19:33:38,969 davey is not installed, voice will NOT be supported
+2026-06-05 19:33:55,429 davey is not installed, voice will NOT be supported
+2026-06-05 19:34:14,772 davey is not installed, voice will NOT be supported
+2026-06-05 19:34:14,773 logging in using static token
+2026-06-05 19:34:15,707 Shard ID None has connected to Gateway (Session ID: 820757ca81bf7389440b4413c9ff5926).
+2026-06-05 19:34:21,152 [Modification] [server-settings] v_500 - Allowed
+2026-06-05 19:34:21,488 Ignoring exception in command 'server-settings'
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 859, in _do_call
+    return await self._callback(interaction, **params)  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victor/Documents/Data-Base/index.py", line 203, in database_create
+    await server_settings_logic(interaction)
+  File "/Users/victor/Documents/Data-Base/index.py", line 198, in server_settings_logic
+    await interaction.response.send_message(view = MenuView())
+          ^^^^^^^^^^^
+NameError: name 'interaction' is not defined
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/tree.py", line 1302, in _call
+    await command._invoke_with_namespace(interaction, namespace)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 884, in _invoke_with_namespace
+    return await self._do_call(interaction, transformed_values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 877, in _do_call
+    raise CommandInvokeError(self, e) from e
+discord.app_commands.errors.CommandInvokeError: Command 'server-settings' raised an exception: NameError: name 'interaction' is not defined
+2026-06-05 19:41:02,610 davey is not installed, voice will NOT be supported
+2026-06-05 19:41:02,611 logging in using static token
+2026-06-05 19:41:03,645 Shard ID None has connected to Gateway (Session ID: 74aaf2e07da2fa3403bd394066068c58).
+2026-06-05 19:41:09,294 [Modification] [server-settings] v_500 - Allowed
+2026-06-05 19:41:09,730 Ignoring exception in command 'server-settings'
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 859, in _do_call
+    return await self._callback(interaction, **params)  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victor/Documents/Data-Base/index.py", line 216, in serverSettings
+    await serverSettings_logic(interaction)
+  File "/Users/victor/Documents/Data-Base/index.py", line 209, in serverSettings_logic
+    view = ServerSettings_MenuView(guild.roles)
+  File "/Users/victor/Documents/Data-Base/index.py", line 183, in __init__
+    self.add_item(ServerSettings_Menu(roles))
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/ui/view.py", line 786, in add_item
+    if len(self._children) >= 25:
+           ^^^^^^^^^^^^^^
+AttributeError: 'ServerSettings_MenuView' object has no attribute '_children'. Did you mean: 'children'?
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/tree.py", line 1302, in _call
+    await command._invoke_with_namespace(interaction, namespace)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 884, in _invoke_with_namespace
+    return await self._do_call(interaction, transformed_values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 877, in _do_call
+    raise CommandInvokeError(self, e) from e
+discord.app_commands.errors.CommandInvokeError: Command 'server-settings' raised an exception: AttributeError: 'ServerSettings_MenuView' object has no attribute '_children'
+2026-06-05 19:42:33,623 davey is not installed, voice will NOT be supported
+2026-06-05 19:42:33,624 logging in using static token
+2026-06-05 19:42:34,591 Shard ID None has connected to Gateway (Session ID: b6b37bc85514371f8b43dfe9ffb55560).
+2026-06-05 19:42:37,092 [Modification] [server-settings] v_500 - Allowed
+2026-06-05 19:42:37,371 Ignoring exception in command 'server-settings'
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 859, in _do_call
+    return await self._callback(interaction, **params)  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victor/Documents/Data-Base/index.py", line 216, in serverSettings
+    await serverSettings_logic(interaction)
+  File "/Users/victor/Documents/Data-Base/index.py", line 210, in serverSettings_logic
+    await ctx_or_interaction.response.send_message(view=view)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/interactions.py", line 1085, in send_message
+    data = await adapter.create_interaction_response(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/webhook/async_.py", line 226, in request
+    raise HTTPException(response, data)
+discord.errors.HTTPException: 400 Bad Request (error code: 50035): Invalid Form Body
+In data.components.0.components.0.options: Must be 25 or more in length.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/tree.py", line 1302, in _call
+    await command._invoke_with_namespace(interaction, namespace)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 884, in _invoke_with_namespace
+    return await self._do_call(interaction, transformed_values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 877, in _do_call
+    raise CommandInvokeError(self, e) from e
+discord.app_commands.errors.CommandInvokeError: Command 'server-settings' raised an exception: HTTPException: 400 Bad Request (error code: 50035): Invalid Form Body
+In data.components.0.components.0.options: Must be 25 or more in length.
+2026-06-05 19:43:42,653 davey is not installed, voice will NOT be supported
+2026-06-05 19:43:42,653 logging in using static token
+2026-06-05 19:43:43,374 Shard ID None has connected to Gateway (Session ID: 186ff9167f27691315986889fd67568c).
+2026-06-05 19:43:47,022 [Modification] [server-settings] v_500 - Allowed
+2026-06-05 19:43:47,342 Ignoring exception in command 'server-settings'
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 859, in _do_call
+    return await self._callback(interaction, **params)  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victor/Documents/Data-Base/index.py", line 219, in serverSettings
+    await serverSettings_logic(interaction)
+  File "/Users/victor/Documents/Data-Base/index.py", line 213, in serverSettings_logic
+    await ctx_or_interaction.response.send_message(view=view)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/interactions.py", line 1085, in send_message
+    data = await adapter.create_interaction_response(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/webhook/async_.py", line 226, in request
+    raise HTTPException(response, data)
+discord.errors.HTTPException: 400 Bad Request (error code: 50035): Invalid Form Body
+In data.components.0.components.0.options: Must be 25 or more in length.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/tree.py", line 1302, in _call
+    await command._invoke_with_namespace(interaction, namespace)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 884, in _invoke_with_namespace
+    return await self._do_call(interaction, transformed_values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 877, in _do_call
+    raise CommandInvokeError(self, e) from e
+discord.app_commands.errors.CommandInvokeError: Command 'server-settings' raised an exception: HTTPException: 400 Bad Request (error code: 50035): Invalid Form Body
+In data.components.0.components.0.options: Must be 25 or more in length.
+2026-06-05 19:44:37,504 davey is not installed, voice will NOT be supported
+2026-06-05 19:44:37,504 logging in using static token
+2026-06-05 19:44:38,500 Shard ID None has connected to Gateway (Session ID: 626b495269a396d20e4688d2adb16c0e).
+2026-06-05 19:44:44,932 [Modification] [server-settings] v_500 - Allowed
+2026-06-05 19:44:45,346 Ignoring exception in command 'server-settings'
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 859, in _do_call
+    return await self._callback(interaction, **params)  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victor/Documents/Data-Base/index.py", line 226, in serverSettings
+    await serverSettings_logic(interaction)
+  File "/Users/victor/Documents/Data-Base/index.py", line 220, in serverSettings_logic
+    await ctx_or_interaction.response.send_message(view=view)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/interactions.py", line 1085, in send_message
+    data = await adapter.create_interaction_response(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/webhook/async_.py", line 226, in request
+    raise HTTPException(response, data)
+discord.errors.HTTPException: 400 Bad Request (error code: 50035): Invalid Form Body
+In data.components.0.components.0.options: Must be 25 or more in length.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/tree.py", line 1302, in _call
+    await command._invoke_with_namespace(interaction, namespace)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 884, in _invoke_with_namespace
+    return await self._do_call(interaction, transformed_values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 877, in _do_call
+    raise CommandInvokeError(self, e) from e
+discord.app_commands.errors.CommandInvokeError: Command 'server-settings' raised an exception: HTTPException: 400 Bad Request (error code: 50035): Invalid Form Body
+In data.components.0.components.0.options: Must be 25 or more in length.
+2026-06-05 19:46:41,984 davey is not installed, voice will NOT be supported
+2026-06-05 19:46:41,985 logging in using static token
+2026-06-05 19:46:43,119 Shard ID None has connected to Gateway (Session ID: f67847d389404170ee2132cb9cb09625).
+2026-06-05 19:46:46,912 [Modification] [server-settings] v_500 - Allowed
+2026-06-05 19:46:47,325 Ignoring exception in command 'server-settings'
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 859, in _do_call
+    return await self._callback(interaction, **params)  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victor/Documents/Data-Base/index.py", line 234, in serverSettings
+    await serverSettings_logic(interaction)
+  File "/Users/victor/Documents/Data-Base/index.py", line 228, in serverSettings_logic
+    await ctx_or_interaction.response.send_message(view=view)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/interactions.py", line 1085, in send_message
+    data = await adapter.create_interaction_response(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/webhook/async_.py", line 226, in request
+    raise HTTPException(response, data)
+discord.errors.HTTPException: 400 Bad Request (error code: 50035): Invalid Form Body
+In data.components.0.components.0.options: Must be 25 or more in length.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/tree.py", line 1302, in _call
+    await command._invoke_with_namespace(interaction, namespace)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 884, in _invoke_with_namespace
+    return await self._do_call(interaction, transformed_values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 877, in _do_call
+    raise CommandInvokeError(self, e) from e
+discord.app_commands.errors.CommandInvokeError: Command 'server-settings' raised an exception: HTTPException: 400 Bad Request (error code: 50035): Invalid Form Body
+In data.components.0.components.0.options: Must be 25 or more in length.
+2026-06-05 19:55:12,596 davey is not installed, voice will NOT be supported
+2026-06-05 19:55:12,597 logging in using static token
+2026-06-05 19:55:13,427 Shard ID None has connected to Gateway (Session ID: dc8c1bc83d0bda612d2df724e277059a).
+2026-06-05 19:55:21,958 davey is not installed, voice will NOT be supported
+2026-06-05 19:55:21,959 logging in using static token
+2026-06-05 19:55:45,267 davey is not installed, voice will NOT be supported
+2026-06-05 19:55:45,268 logging in using static token
+2026-06-05 19:56:43,428 Shard ID None has connected to Gateway (Session ID: e83e42225836ee80c5f0e18092e6edc4).
+2026-06-05 19:56:52,653 [Modification] [server-settings] v_500 - Allowed
+2026-06-05 19:56:52,979 Ignoring exception in command 'server-settings'
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 859, in _do_call
+    return await self._callback(interaction, **params)  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victor/Documents/Data-Base/index.py", line 234, in serverSettings
+    await serverSettings_logic(interaction)
+  File "/Users/victor/Documents/Data-Base/index.py", line 228, in serverSettings_logic
+    await ctx_or_interaction.response.send_message(view=view)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/interactions.py", line 1085, in send_message
+    data = await adapter.create_interaction_response(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/webhook/async_.py", line 226, in request
+    raise HTTPException(response, data)
+discord.errors.HTTPException: 400 Bad Request (error code: 50035): Invalid Form Body
+In data.components.0.components.0.options: Must be 25 or more in length.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/tree.py", line 1302, in _call
+    await command._invoke_with_namespace(interaction, namespace)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 884, in _invoke_with_namespace
+    return await self._do_call(interaction, transformed_values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 877, in _do_call
+    raise CommandInvokeError(self, e) from e
+discord.app_commands.errors.CommandInvokeError: Command 'server-settings' raised an exception: HTTPException: 400 Bad Request (error code: 50035): Invalid Form Body
+In data.components.0.components.0.options: Must be 25 or more in length.
+2026-06-05 19:57:32,703 davey is not installed, voice will NOT be supported
+2026-06-05 19:57:32,704 logging in using static token
+2026-06-05 19:57:33,717 Shard ID None has connected to Gateway (Session ID: f8ea89ca6f69a474417d906bd1b07db2).
+2026-06-05 19:58:22,135 [Modification] [server-settings] v_500 - Allowed
+2026-06-05 19:58:22,532 Ignoring exception in command 'server-settings'
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 859, in _do_call
+    return await self._callback(interaction, **params)  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victor/Documents/Data-Base/index.py", line 222, in serverSettings
+    await serverSettings_logic(interaction)
+  File "/Users/victor/Documents/Data-Base/index.py", line 216, in serverSettings_logic
+    await ctx_or_interaction.response.send_message(view=view)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/interactions.py", line 1085, in send_message
+    data = await adapter.create_interaction_response(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/webhook/async_.py", line 226, in request
+    raise HTTPException(response, data)
+discord.errors.HTTPException: 400 Bad Request (error code: 50035): Invalid Form Body
+In data.components.0.components.0.options: Must be 25 or more in length.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/tree.py", line 1302, in _call
+    await command._invoke_with_namespace(interaction, namespace)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 884, in _invoke_with_namespace
+    return await self._do_call(interaction, transformed_values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 877, in _do_call
+    raise CommandInvokeError(self, e) from e
+discord.app_commands.errors.CommandInvokeError: Command 'server-settings' raised an exception: HTTPException: 400 Bad Request (error code: 50035): Invalid Form Body
+In data.components.0.components.0.options: Must be 25 or more in length.
+2026-06-05 19:59:01,235 davey is not installed, voice will NOT be supported
+2026-06-05 19:59:01,236 logging in using static token
+2026-06-05 19:59:02,313 Shard ID None has connected to Gateway (Session ID: e0c6e732927f140d34b23d67d13d4b7a).
+2026-06-05 20:57:37,216 [Modification] [database-create] v_500 - Allowed
+2026-06-05 20:57:41,298 [Modification] [server-settings] v_500 - Allowed
+2026-06-05 20:57:43,154 Ignoring exception in command 'server-settings'
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 859, in _do_call
+    return await self._callback(interaction, **params)  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victor/Documents/Data-Base/index.py", line 224, in serverSettings
+    await serverSettings_logic(interaction)
+  File "/Users/victor/Documents/Data-Base/index.py", line 218, in serverSettings_logic
+    await ctx_or_interaction.response.send_message(view=view)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/interactions.py", line 1085, in send_message
+    data = await adapter.create_interaction_response(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/webhook/async_.py", line 226, in request
+    raise HTTPException(response, data)
+discord.errors.HTTPException: 400 Bad Request (error code: 50035): Invalid Form Body
+In data.components.0.components.0.options: Must be 25 or more in length.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/tree.py", line 1302, in _call
+    await command._invoke_with_namespace(interaction, namespace)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 884, in _invoke_with_namespace
+    return await self._do_call(interaction, transformed_values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 877, in _do_call
+    raise CommandInvokeError(self, e) from e
+discord.app_commands.errors.CommandInvokeError: Command 'server-settings' raised an exception: HTTPException: 400 Bad Request (error code: 50035): Invalid Form Body
+In data.components.0.components.0.options: Must be 25 or more in length.
+2026-06-05 21:00:11,459 davey is not installed, voice will NOT be supported
+2026-06-05 21:00:11,460 logging in using static token
+2026-06-05 21:00:16,621 Shard ID None has connected to Gateway (Session ID: 561788b080a62e65075c97ad6bfcc2c3).
+2026-06-05 21:00:26,898 [Modification] [server-settings] v_500 - Allowed
+2026-06-05 21:00:27,417 Ignoring exception in command 'server-settings'
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 859, in _do_call
+    return await self._callback(interaction, **params)  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victor/Documents/Data-Base/index.py", line 223, in serverSettings
+    await serverSettings_logic(interaction)
+  File "/Users/victor/Documents/Data-Base/index.py", line 217, in serverSettings_logic
+    await ctx_or_interaction.response.send_message(view=view)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/interactions.py", line 1085, in send_message
+    data = await adapter.create_interaction_response(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/webhook/async_.py", line 226, in request
+    raise HTTPException(response, data)
+discord.errors.HTTPException: 400 Bad Request (error code: 50035): Invalid Form Body
+In data.components.0.components.0.options: Must be 25 or more in length.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/tree.py", line 1302, in _call
+    await command._invoke_with_namespace(interaction, namespace)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 884, in _invoke_with_namespace
+    return await self._do_call(interaction, transformed_values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 877, in _do_call
+    raise CommandInvokeError(self, e) from e
+discord.app_commands.errors.CommandInvokeError: Command 'server-settings' raised an exception: HTTPException: 400 Bad Request (error code: 50035): Invalid Form Body
+In data.components.0.components.0.options: Must be 25 or more in length.
+2026-06-05 21:03:28,357 davey is not installed, voice will NOT be supported
+2026-06-05 21:03:28,358 logging in using static token
+2026-06-05 21:03:30,058 Shard ID None has connected to Gateway (Session ID: c698f5ee7854f075a1fb2cab836afa0d).
+2026-06-05 21:03:37,063 [Modification] [server-settings] v_500 - Allowed

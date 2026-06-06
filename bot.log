@@ -1578,3 +1578,147 @@ In data.components.0.components.0.options: Must be 25 or more in length.
 2026-06-05 21:03:28,358 logging in using static token
 2026-06-05 21:03:30,058 Shard ID None has connected to Gateway (Session ID: c698f5ee7854f075a1fb2cab836afa0d).
 2026-06-05 21:03:37,063 [Modification] [server-settings] v_500 - Allowed
+2026-06-05 21:32:17,145 Shard ID None session has been invalidated.
+2026-06-05 21:32:23,073 Shard ID None has connected to Gateway (Session ID: 34d44ec2e1c71d9820d39629d49c60a6).
+2026-06-05 21:48:13,828 davey is not installed, voice will NOT be supported
+2026-06-05 21:48:13,829 logging in using static token
+2026-06-05 21:48:16,288 Shard ID None has connected to Gateway (Session ID: e1fc172a9f7374f4f9d245c12654812b).
+2026-06-05 21:48:19,459 Ignoring exception in command 'server-settings'
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 859, in _do_call
+    return await self._callback(interaction, **params)  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victor/Documents/Data-Base/index.py", line 265, in serverSettings
+    await serverSettings_logic(interaction)
+  File "/Users/victor/Documents/Data-Base/index.py", line 244, in serverSettings_logic
+    if not await verifyCommandPermissions(ctx_or_interaction, CommandType.MODIFICATION):
+                                                              ^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: type object 'CommandType' has no attribute 'MODIFICATION'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/tree.py", line 1302, in _call
+    await command._invoke_with_namespace(interaction, namespace)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 884, in _invoke_with_namespace
+    return await self._do_call(interaction, transformed_values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 877, in _do_call
+    raise CommandInvokeError(self, e) from e
+discord.app_commands.errors.CommandInvokeError: Command 'server-settings' raised an exception: AttributeError: type object 'CommandType' has no attribute 'MODIFICATION'
+2026-06-05 21:48:59,245 davey is not installed, voice will NOT be supported
+2026-06-05 21:48:59,246 logging in using static token
+2026-06-05 21:49:00,800 Shard ID None has connected to Gateway (Session ID: 0d7737cb2de1e46146a4bc417cffd7b8).
+2026-06-05 21:49:05,689 [Admin] [server-settings] v_500 - Allowed
+2026-06-05 21:49:16,724 Ignoring exception in command 'ping'
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 859, in _do_call
+    return await self._callback(interaction, **params)  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victor/Documents/Data-Base/index.py", line 215, in ping
+    await ping_logic(interaction)
+  File "/Users/victor/Documents/Data-Base/index.py", line 206, in ping_logic
+    if not await verifyCommandPermissions(ctx_or_interaction, CommandType.SAFE):
+                                                              ^^^^^^^^^^^^^^^^
+AttributeError: type object 'CommandType' has no attribute 'SAFE'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/tree.py", line 1302, in _call
+    await command._invoke_with_namespace(interaction, namespace)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 884, in _invoke_with_namespace
+    return await self._do_call(interaction, transformed_values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 877, in _do_call
+    raise CommandInvokeError(self, e) from e
+discord.app_commands.errors.CommandInvokeError: Command 'ping' raised an exception: AttributeError: type object 'CommandType' has no attribute 'SAFE'
+2026-06-05 21:49:33,623 davey is not installed, voice will NOT be supported
+2026-06-05 21:49:33,623 logging in using static token
+2026-06-05 21:49:34,648 Shard ID None has connected to Gateway (Session ID: 553158164ffce582921aee52e903c27d).
+2026-06-05 21:49:38,066 [User] [ping] v_500 - Allowed
+2026-06-05 21:49:45,317 [Manager] [database-create] v_500 - Allowed
+2026-06-05 21:49:49,630 [Admin] [server-settings] v_500 - Allowed
+2026-06-05 21:54:32,213 davey is not installed, voice will NOT be supported
+2026-06-05 21:54:32,214 logging in using static token
+2026-06-05 21:54:34,675 Shard ID None has connected to Gateway (Session ID: 8d4e8406666e79620a32652d3ee96885).
+2026-06-05 21:54:37,712 [Admin] [server-settings] v_500 - Allowed
+2026-06-05 21:54:38,211 Ignoring exception in command 'server-settings'
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 859, in _do_call
+    return await self._callback(interaction, **params)  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victor/Documents/Data-Base/index.py", line 270, in serverSettings
+    await serverSettings_logic(interaction)
+  File "/Users/victor/Documents/Data-Base/index.py", line 255, in serverSettings_logic
+    view = PageView(embeds)
+  File "/Users/victor/Documents/Data-Base/index.py", line 154, in __init__
+    self.prev_button.disabled = True
+    ^^^^^^^^^^^^^^^^
+AttributeError: 'PageView' object has no attribute 'prev_button'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/tree.py", line 1302, in _call
+    await command._invoke_with_namespace(interaction, namespace)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 884, in _invoke_with_namespace
+    return await self._do_call(interaction, transformed_values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 877, in _do_call
+    raise CommandInvokeError(self, e) from e
+discord.app_commands.errors.CommandInvokeError: Command 'server-settings' raised an exception: AttributeError: 'PageView' object has no attribute 'prev_button'
+2026-06-05 21:56:10,032 davey is not installed, voice will NOT be supported
+2026-06-05 21:56:10,033 logging in using static token
+2026-06-05 21:56:12,185 Shard ID None has connected to Gateway (Session ID: 43bf7851868dcb314872eada67002497).
+2026-06-05 21:56:16,085 [Admin] [server-settings] v_500 - Allowed
+2026-06-05 21:56:16,723 Ignoring exception in command 'server-settings'
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 859, in _do_call
+    return await self._callback(interaction, **params)  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victor/Documents/Data-Base/index.py", line 279, in serverSettings
+    await serverSettings_logic(interaction)
+  File "/Users/victor/Documents/Data-Base/index.py", line 269, in serverSettings_logic
+    await ctx_or_interaction.response.send_message(embed=embeds[0], view=view)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/interactions.py", line 1057, in send_message
+    raise InteractionResponded(self._parent)
+discord.errors.InteractionResponded: This interaction has already been responded to before
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/tree.py", line 1302, in _call
+    await command._invoke_with_namespace(interaction, namespace)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 884, in _invoke_with_namespace
+    return await self._do_call(interaction, transformed_values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 877, in _do_call
+    raise CommandInvokeError(self, e) from e
+discord.app_commands.errors.CommandInvokeError: Command 'server-settings' raised an exception: InteractionResponded: This interaction has already been responded to before
+2026-06-05 21:58:33,796 davey is not installed, voice will NOT be supported
+2026-06-05 21:58:33,797 logging in using static token
+2026-06-05 21:58:35,335 Shard ID None has connected to Gateway (Session ID: 3be0f41918425a8d33c4bebf51785ee6).
+2026-06-05 21:58:39,221 [Admin] [server-settings] v_500 - Allowed
+2026-06-05 21:58:40,078 Ignoring exception in command 'server-settings'
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 859, in _do_call
+    return await self._callback(interaction, **params)  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victor/Documents/Data-Base/index.py", line 295, in serverSettings
+    await serverSettings_logic(interaction)
+  File "/Users/victor/Documents/Data-Base/index.py", line 280, in serverSettings_logic
+    view = PageView(embeds)
+TypeError: PageView.__init__() missing 1 required positional argument: 'roles'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/tree.py", line 1302, in _call
+    await command._invoke_with_namespace(interaction, namespace)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 884, in _invoke_with_namespace
+    return await self._do_call(interaction, transformed_values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 873, in _do_call
+    raise CommandInvokeError(self, e) from e
+discord.app_commands.errors.CommandInvokeError: Command 'server-settings' raised an exception: TypeError: PageView.__init__() missing 1 required positional argument: 'roles'

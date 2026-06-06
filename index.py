@@ -21,25 +21,25 @@ CHECK = "<:CheckMark:1512108503857238076>"
 CHECKWHITE = "<:CheckMark2:1512309496947413012>"
 X = "<:CrossMark:1511924485324804156>"
 PERMISSON = "<:Permisson:1511924423819661442>"
-SAFE = "<:SafeCommand:1512529026504196269>"
-MODIFICATION = "<:ModifcationCommand:1512528988701065297>"
-DANDER = "<:DangerCommand:1512528963493171290>"
+USER = "<:UserCommand:1512608514919632896>"
+MANAGER = "<:ManagerCommand:1512608333394350301>"
+ADMIN = "<:AdminCommand:1512608289819463762>"
 
 GUILD_ID = discord.Object(id=1324223207536070697)
 
 
 class CommandType(Enum):
-    SAFE = "Safe"
-    MODIFICATION = "Modification"
-    DANGER = "Danger"
+    USER = "User"
+    MANAGER = "Manager"
+    ADMIN = "Admin"
 
-SAFE_LOG_CHANNEL = 1511534970533974026
-MODIFICATION_LOG_CHANNEL = 1511534970533974026
-DANGER_LOG_CHANNEL = 1511534970533974026
+USER_LOG_CHANNEL = 1511534970533974026
+MANAGER_LOG_CHANNEL = 1511534970533974026
+ADMIN_LOG_CHANNEL = 1511534970533974026
 LOG_CHANNELS = {
-    CommandType.SAFE: SAFE_LOG_CHANNEL,
-    CommandType.MODIFICATION: MODIFICATION_LOG_CHANNEL,
-    CommandType.DANGER: DANGER_LOG_CHANNEL,
+    CommandType.USER: USER_LOG_CHANNEL,
+    CommandType.MANAGER: MANAGER_LOG_CHANNEL,
+    CommandType.ADMIN: ADMIN_LOG_CHANNEL,
 }
 
 
@@ -115,9 +115,9 @@ async def verifyCommandPermissions(ctx_or_interaction, command_type: CommandType
             title=f"[{command_type.value}] Command Log",
             description=f"{user.mention} executed `{command_name}`" if allowed else f"{user.mention} was denied from executing `{command_name}`",
             color={
-                CommandType.SAFE: discord.Color.light_grey(),
-                CommandType.MODIFICATION: discord.Color.orange(),
-                CommandType.DANGER: discord.Color.red(),
+                CommandType.USER: discord.Color.light_grey(),
+                CommandType.MANAGER: discord.Color.orange(),
+                CommandType.ADMIN: discord.Color.red(),
             }[command_type],
 
             
@@ -128,9 +128,9 @@ async def verifyCommandPermissions(ctx_or_interaction, command_type: CommandType
         embed.add_field(name="User ID", value=f"``{user.id}``")
         embed.add_field(name="Timestamp", value=discord.utils.format_dt(discord.utils.utcnow()))
         thumbnails = {
-            CommandType.SAFE: "https://cdn.discordapp.com/emojis/1512529026504196269.png",
-            CommandType.MODIFICATION: "https://cdn.discordapp.com/emojis/1512528988701065297.png",
-            CommandType.DANGER: "https://cdn.discordapp.com/emojis/1512528963493171290.png",
+            CommandType.USER: "https://cdn.discordapp.com/emojis/1512608514919632896.png",
+            CommandType.MANAGER: "https://cdn.discordapp.com/emojis/1512608333394350301.png",
+            CommandType.ADMIN: "https://cdn.discordapp.com/emojis/1512608289819463762.png",
         }
         embed.set_thumbnail(url=thumbnails[command_type])
         await channel.send(embed=embed)
@@ -143,11 +143,82 @@ async def verifyCommandPermissions(ctx_or_interaction, command_type: CommandType
 
     return allowed
 
+class PageView(discord.ui.View):
+    def __init__(self, embeds: list[discord.Embed], roles: list[discord.Role]):
+        super().__init__(timeout=60)
+        self.embeds = embeds
+        self.current_page = 0
+        self.roles = roles
+
+        for i, embed in enumerate(self.embeds):
+            embed.set_footer(text=f"Page {i+1} of {len(self.embeds)}")
+
+        self.prev_button.disabled = True
+        if len(embeds) == 1:
+            self.next_button.disabled = True
+
+        # Add the dropdown for page 0 on init
+        self.update_select()
+
+    def update_buttons(self):
+        self.prev_button.disabled = self.current_page == 0
+        self.next_button.disabled = self.current_page == len(self.embeds) - 1
+
+    def update_select(self):
+
+        for item in self.children.copy():
+            if isinstance(item, discord.ui.Select):
+                self.remove_item(item)
 
 
+        if self.current_page == 0:
+            self.add_item(SelectRoles_Menu(self.roles))
+
+    @discord.ui.button(label="Previous", style=discord.ButtonStyle.secondary)
+    async def prev_button(self, interaction: discord.Interaction, button: discord.ui.Button):
+        self.current_page -= 1
+        self.update_buttons()
+        self.update_select()
+        await interaction.response.edit_message(embed=self.embeds[self.current_page], view=self)
+
+    @discord.ui.button(label="Next", style=discord.ButtonStyle.secondary)
+    async def next_button(self, interaction: discord.Interaction, button: discord.ui.Button):
+        self.current_page += 1
+        self.update_buttons()
+        self.update_select()
+        await interaction.response.edit_message(embed=self.embeds[self.current_page], view=self)
+
+class SelectRoles_MenuView(discord.ui.View):
+    def __init__(self, roles: list[discord.Role]):
+        super().__init__()
+        self.add_item(SelectRoles_Menu(roles))
+class SelectRoles_Menu(discord.ui.Select):
+    def __init__(self, roles: list[discord.Role]):
+
+        options = [
+            discord.SelectOption(
+                label=f"{role.name} ({role.id})",
+                value=str(role.id),
+            )
+            for role in roles
+            if not role.is_default()
+        ][:25]
+
+        print(f"Options built: {options}")
+        if not options:
+            options = [discord.SelectOption(label="No roles available", value="none")]
+        super().__init__(
+            placeholder="Select a role..",
+            min_values=1,
+            max_values=len(options), 
+            options=options
+        )
+                
+
+#-----------------------------------------------------------------
 @client.event
 async def ping_logic(ctx_or_interaction):
-    if not await verifyCommandPermissions(ctx_or_interaction, CommandType.SAFE):
+    if not await verifyCommandPermissions(ctx_or_interaction, CommandType.USER):
         return
     if isinstance(ctx_or_interaction, discord.Interaction):
         await ctx_or_interaction.response.send_message(f"{CHECK} Online. Pong!")
@@ -163,7 +234,7 @@ async def ping_prefix(ctx):
 #-----------------------------------------------------------------
 @client.event
 async def databaseCreate_logic(ctx_or_interaction):
-    if not await verifyCommandPermissions(ctx_or_interaction, CommandType.MODIFICATION):
+    if not await verifyCommandPermissions(ctx_or_interaction, CommandType.MANAGER):
         return
     if isinstance(ctx_or_interaction, discord.Interaction):
         await ctx_or_interaction.response.send_message(f"{CHECK} Test!")
@@ -177,52 +248,47 @@ async def databaseCreate_prefix(ctx):
     await databaseCreate_logic(ctx)
  #-----------------------------------------------------------------
 
-
-  
-class ServerSettings_MenuView(discord.ui.View):
-    def __init__(self, roles: list[discord.Role]):
-        super().__init__()
-        self.add_item(ServerSettings_Menu(roles))
-class ServerSettings_Menu(discord.ui.Select):
-    def __init__(self, roles: list[discord.Role]):
-
-        options = [
-            discord.SelectOption(
-                label=f"{role.name} ({role.id})",
-                value=str(role.id),
-            )
-            for role in roles
-            if not role.is_default()
-        ][:25]
-
-        print(f"Options built: {options}")
-        if not options:
-            options = [discord.SelectOption(label="No roles available", value="none")]
-        
-        super().__init__(
-            placeholder="Select a role..",
-            min_values=1,
-            max_values=len(options),  # ← dynamic, not hardcoded 25
-            options=options
-        )
-    
     async def callback(self, interaction: discord.Interaction):
         role_id = int(self.values[0])
         role = interaction.guild.get_role(role_id)
         await interaction.response.send_message(f"You selected: {role.mention}")
 
 
-@client.event
 async def serverSettings_logic(ctx_or_interaction):
-    if not await verifyCommandPermissions(ctx_or_interaction, CommandType.MODIFICATION):
+    if not await verifyCommandPermissions(ctx_or_interaction, CommandType.ADMIN):
         return
+
+    embeds = [
+        discord.Embed(
+            title="Server Settings - Administration Permissions",
+            description="Select which role(s) should have administration permissions..."
+        ),
+        discord.Embed(
+            title="Test",
+            description="Page 2 content here."
+        )
+    ]
+
+    if isinstance(ctx_or_interaction, discord.Interaction):
+        guild = ctx_or_interaction.guild
+        view = PageView(embeds, guild.roles)
+        await ctx_or_interaction.response.send_message(embed=embeds[0], view=view)
+
+    else:
+        view = PageView(embeds, ctx_or_interaction.guild.roles)
+        await ctx_or_interaction.send(embed=embeds[0], view=view)
+    view = PageView(embeds)
     if isinstance(ctx_or_interaction, discord.Interaction):
         guild = ctx_or_interaction.guild
         print(f"Roles found: {guild.roles}")
-        view = ServerSettings_MenuView(guild.roles)
+        view = SelectRoles_MenuView(guild.roles)
+        await ctx_or_interaction.response.send_message(embed=embeds[0], view=view)
+
         await ctx_or_interaction.response.send_message(view=view)
+
         
     else:
+        await ctx_or_interaction.send(embed=embeds[0], view=view)
         await ctx_or_interaction.send(f"{CHECK} Test!")
 @client.tree.command(name="server-settings", description="Create a new Database.", guild=GUILD_ID)
 async def serverSettings(interaction: discord.Interaction):

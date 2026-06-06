@@ -1722,3 +1722,53 @@ Traceback (most recent call last):
   File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 873, in _do_call
     raise CommandInvokeError(self, e) from e
 discord.app_commands.errors.CommandInvokeError: Command 'server-settings' raised an exception: TypeError: PageView.__init__() missing 1 required positional argument: 'roles'
+2026-06-05 22:32:53,965 Shard ID None has successfully RESUMED session 3be0f41918425a8d33c4bebf51785ee6.
+2026-06-05 23:27:20,434 Shard ID None session has been invalidated.
+2026-06-05 23:27:26,253 Shard ID None has connected to Gateway (Session ID: 28af030eea273581d122447e697dbf25).
+2026-06-05 23:52:25,166 Shard ID None session has been invalidated.
+2026-06-05 23:52:30,775 Shard ID None has connected to Gateway (Session ID: 0729cbc19dd9f1508068a2b6a1dfae87).
+2026-06-06 00:48:47,368 Shard ID None session has been invalidated.
+2026-06-06 00:48:56,502 Shard ID None has connected to Gateway (Session ID: 540af2a109944ea59e4408a5abb16e4e).
+2026-06-06 01:06:24,199 Shard ID None session has been invalidated.
+2026-06-06 01:06:33,228 Shard ID None has connected to Gateway (Session ID: 90bbd18dd5ad2600e190d666eb0348fd).
+2026-06-06 02:14:19,445 Shard ID None session has been invalidated.
+2026-06-06 02:14:24,925 Shard ID None has connected to Gateway (Session ID: 44e635a1339414794e21dce81069264e).
+2026-06-06 02:47:48,108 Shard ID None session has been invalidated.
+2026-06-06 02:55:36,690 Shard ID None session has been invalidated.
+2026-06-06 02:55:42,123 Shard ID None has connected to Gateway (Session ID: dddc61d86f604cc41f194f3b2386dd25).
+2026-06-06 03:29:10,397 Shard ID None session has been invalidated.
+2026-06-06 03:44:28,115 Shard ID None session has been invalidated.
+2026-06-06 04:00:42,126 Shard ID None session has been invalidated.
+2026-06-06 04:00:47,703 Shard ID None has connected to Gateway (Session ID: 18803de00a2b4b26335633c1abe7247f).
+2026-06-06 04:47:42,747 Shard ID None session has been invalidated.
+2026-06-06 05:01:55,674 Shard ID None session has been invalidated.
+2026-06-06 05:02:01,299 Shard ID None has connected to Gateway (Session ID: 807699647073de3080ce58d464688622).
+2026-06-06 05:37:21,340 Shard ID None session has been invalidated.
+2026-06-06 05:53:10,482 Shard ID None session has been invalidated.
+2026-06-06 06:08:41,576 Shard ID None session has been invalidated.
+2026-06-06 06:08:46,954 Shard ID None has connected to Gateway (Session ID: c8a4f9f3c309014d58b707e90a00b968).
+2026-06-06 06:41:53,470 Shard ID None session has been invalidated.
+2026-06-06 06:59:30,542 Shard ID None session has been invalidated.
+2026-06-06 07:02:58,523 Shard ID None session has been invalidated.
+2026-06-06 07:18:41,387 Shard ID None session has been invalidated.
+2026-06-06 07:18:47,266 Shard ID None has connected to Gateway (Session ID: 10c8bf8dc5aa2b0774dd089bfaf6beed).
+2026-06-06 08:00:47,322 Shard ID None session has been invalidated.
+2026-06-06 08:00:53,128 Shard ID None has connected to Gateway (Session ID: 2c0d6fb4b4710417fcbcd0643c80e0c2).
+2026-06-06 08:20:02,440 Shard ID None session has been invalidated.
+2026-06-06 08:36:32,938 Shard ID None session has been invalidated.
+2026-06-06 08:51:53,932 Shard ID None session has been invalidated.
+2026-06-06 09:04:55,842 Shard ID None session has been invalidated.
+2026-06-06 09:05:03,390 Shard ID None has connected to Gateway (Session ID: 33d47fb91890a2586613d28ade324dff).
+2026-06-06 09:21:49,307 Shard ID None session has been invalidated.
+2026-06-06 09:39:48,380 Shard ID None session has been invalidated.
+2026-06-06 09:39:53,802 Shard ID None has connected to Gateway (Session ID: de3ab8887b51bcd6b020702066c8e294).
+2026-06-06 10:13:18,819 Shard ID None session has been invalidated.
+2026-06-06 10:13:24,376 Shard ID None has connected to Gateway (Session ID: f0b284419549955c55ea2ba91c62da93).
+2026-06-06 10:42:19,414 Shard ID None session has been invalidated.
+2026-06-06 10:46:13,957 Shard ID None session has been invalidated.
+2026-06-06 10:46:22,522 Shard ID None has connected to Gateway (Session ID: d0c618a17055ff0ab7587007cfcd867e).
+2026-06-06 10:51:07,190 Shard ID None session has been invalidated.
+2026-06-06 11:07:39,795 Shard ID None has connected to Gateway (Session ID: 4bacf484a0df84b4780dba96538e23f8).
+2026-06-06 11:18:29,858 Shard ID None session has been invalidated.
+2026-06-06 11:18:35,253 Shard ID None has connected to Gateway (Session ID: 538b560ccde92dd56abb96e68162851c).
+2026-06-06 11:20:50,120 [User] [ping] v_500 - Allowed

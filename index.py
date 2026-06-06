@@ -33,18 +33,18 @@ class CommandType(Enum):
     MANAGER = "Manager"
     ADMIN = "Admin"
 
-USER_LOG_CHANNEL = 1511534970533974026
-MANAGER_LOG_CHANNEL = 1511534970533974026
-ADMIN_LOG_CHANNEL = 1511534970533974026
+USER_LOG_CHANNEL = 0
+MANAGER_LOG_CHANNEL = 0
+ADMIN_LOG_CHANNEL = 0
 LOG_CHANNELS = {
     CommandType.USER: USER_LOG_CHANNEL,
     CommandType.MANAGER: MANAGER_LOG_CHANNEL,
     CommandType.ADMIN: ADMIN_LOG_CHANNEL,
 }
 
+LOG_UNSUCCESSFUL = True
 
-
-SEVER_ADMIN_ROLES = []
+SERVER_ADMIN_ROLES = []
 #Commands ------------------------------------------------
 class Client(commands.Bot):
 
@@ -60,26 +60,19 @@ class Client(commands.Bot):
                 print(f"  - {cmd.name}")
         except Exception as e:
             print(f"Error syncing commands: {e}")
-
-    async def on_ready(self):
-        print(f"Logged in as {self.user}.")
-
-
-intents = discord.Intents.default()
-intents.message_content = True
-client = Client(command_prefix = "db ", intents = intents)
-
-async def on_message(message):
-    if message.author == client.user:
-        return
-    await client.process_commands(message)
-
-
 async def on_ready(self):
     print(f"Logged in as {self.user}.")
     print("Commands currently in tree:")
     for cmd in self.tree.walk_commands():
         print(f"  - {cmd.name}")
+
+intents = discord.Intents.default()
+intents.message_content = True
+client = Client(command_prefix = "db ", intents = intents)
+
+
+
+
 
 
 
@@ -112,13 +105,13 @@ async def verifyCommandPermissions(ctx_or_interaction, command_type: CommandType
     channel = client.get_channel(channel_id)
     if channel:
         embed = discord.Embed(
-            title=f"[{command_type.value}] Command Log",
-            description=f"{user.mention} executed `{command_name}`" if allowed else f"{user.mention} was denied from executing `{command_name}`",
-            color={
+        title=f"[{command_type.value}] Command Log",
+        description=f"{user.mention} was denied from executing `{command_name}`" if not allowed and LOG_UNSUCCESSFUL else f"{user.mention} executed `{command_name}`",
+        color={
                 CommandType.USER: discord.Color.light_grey(),
                 CommandType.MANAGER: discord.Color.orange(),
                 CommandType.ADMIN: discord.Color.red(),
-            }[command_type],
+        }[command_type],
 
             
 
@@ -133,6 +126,8 @@ async def verifyCommandPermissions(ctx_or_interaction, command_type: CommandType
             CommandType.ADMIN: "https://cdn.discordapp.com/emojis/1512608289819463762.png",
         }
         embed.set_thumbnail(url=thumbnails[command_type])
+        if channel_id == 0:
+            return
         await channel.send(embed=embed)
 
     if not allowed:
@@ -143,77 +138,120 @@ async def verifyCommandPermissions(ctx_or_interaction, command_type: CommandType
 
     return allowed
 
+import discord
+
+
 class PageView(discord.ui.View):
-    def __init__(self, embeds: list[discord.Embed], roles: list[discord.Role]):
+    def __init__(self, embeds, page_menus=None):
         super().__init__(timeout=60)
+
         self.embeds = embeds
         self.current_page = 0
-        self.roles = roles
+        self.page_menus = page_menus or {}
 
         for i, embed in enumerate(self.embeds):
-            embed.set_footer(text=f"Page {i+1} of {len(self.embeds)}")
+            embed.set_footer(text=f"Page {i + 1} of {len(self.embeds)}")
 
-        self.prev_button.disabled = True
-        if len(embeds) == 1:
-            self.next_button.disabled = True
+        self.update_page_components()
 
-        # Add the dropdown for page 0 on init
-        self.update_select()
 
-    def update_buttons(self):
-        self.prev_button.disabled = self.current_page == 0
-        self.next_button.disabled = self.current_page == len(self.embeds) - 1
-
-    def update_select(self):
-
-        for item in self.children.copy():
-            if isinstance(item, discord.ui.Select):
+    def update_page_components(self):
+        for item in list(self.children):
+            if not isinstance(item, discord.ui.Button):
                 self.remove_item(item)
 
+        factories = self.page_menus.get(self.current_page, [])
 
-        if self.current_page == 0:
-            self.add_item(SelectRoles_Menu(self.roles))
+        # 🔥 FIX: normalize single function into list
+        if callable(factories):
+            factories = [factories]
+
+        for factory in factories:
+            self.add_item(factory())
+    async def refresh(self, interaction: discord.Interaction):
+        self.update_page_components()
+
+        await interaction.response.edit_message(
+            embed=self.embeds[self.current_page],
+            view=self
+        )
 
     @discord.ui.button(label="Previous", style=discord.ButtonStyle.secondary)
     async def prev_button(self, interaction: discord.Interaction, button: discord.ui.Button):
-        self.current_page -= 1
-        self.update_buttons()
-        self.update_select()
-        await interaction.response.edit_message(embed=self.embeds[self.current_page], view=self)
+
+        self.current_page = max(0, self.current_page - 1)
+        await self.refresh(interaction)
 
     @discord.ui.button(label="Next", style=discord.ButtonStyle.secondary)
     async def next_button(self, interaction: discord.Interaction, button: discord.ui.Button):
-        self.current_page += 1
-        self.update_buttons()
-        self.update_select()
-        await interaction.response.edit_message(embed=self.embeds[self.current_page], view=self)
 
+        self.current_page = min(len(self.embeds) - 1, self.current_page + 1)
+        await self.refresh(interaction)
+#-----------------------------------------------------------------
+class SelectChannels_MenuView(discord.ui.View):
+    def __init__(self, channels: list[discord.TextChannel]):
+        super().__init__(timeout=None)
+
+        self.add_item(SelectChannels_Menu(channels))
+
+
+class SelectChannels_Menu(discord.ui.Select):
+    def __init__(self, channels: list[discord.TextChannel], on_submit):
+        self.on_submit = on_submit
+
+        options = [
+            discord.SelectOption(
+                label=channel.name,
+                value=str(channel.id)
+            )
+            for channel in channels[:25]
+        ]
+
+        super().__init__(
+            placeholder="Select channels...",
+            min_values=1,
+            max_values=len(options),
+            options=options
+        )
+
+    async def callback(self, interaction: discord.Interaction):
+        guild = interaction.guild
+
+        selected_channels = [
+            guild.get_channel(int(ch_id))
+            for ch_id in self.values
+        ]
+        selected_channels = [c for c in selected_channels if c]
+
+        await self.on_submit(interaction, selected_channels)
+ #-----------------------------------------------------------------       
 class SelectRoles_MenuView(discord.ui.View):
     def __init__(self, roles: list[discord.Role]):
         super().__init__()
         self.add_item(SelectRoles_Menu(roles))
 class SelectRoles_Menu(discord.ui.Select):
-    def __init__(self, roles: list[discord.Role]):
+    def __init__(self, roles, on_submit):
+        self.on_submit = on_submit
 
         options = [
             discord.SelectOption(
-                label=f"{role.name} ({role.id})",
-                value=str(role.id),
+                label=role.name,
+                value=str(role.id)
             )
-            for role in roles
-            if not role.is_default()
-        ][:25]
+            for role in roles[:25]
+        ]
 
-        print(f"Options built: {options}")
-        if not options:
-            options = [discord.SelectOption(label="No roles available", value="none")]
         super().__init__(
-            placeholder="Select a role..",
+            placeholder="Select roles...",
             min_values=1,
-            max_values=len(options), 
+            max_values=len(options),
             options=options
         )
-                
+    async def callback(self, interaction: discord.Interaction):
+        role_id = int(self.values[0])
+        role = interaction.guild.get_role(role_id)
+        await interaction.response.send_message(f"You selected: {role.mention}")
+
 
 #-----------------------------------------------------------------
 @client.event
@@ -247,56 +285,105 @@ async def databaseCreate(interaction: discord.Interaction):
 async def databaseCreate_prefix(ctx):
     await databaseCreate_logic(ctx)
  #-----------------------------------------------------------------
-
-    async def callback(self, interaction: discord.Interaction):
-        role_id = int(self.values[0])
-        role = interaction.guild.get_role(role_id)
-        await interaction.response.send_message(f"You selected: {role.mention}")
-
-
 async def serverSettings_logic(ctx_or_interaction):
     if not await verifyCommandPermissions(ctx_or_interaction, CommandType.ADMIN):
         return
 
+    guild = ctx_or_interaction.guild
+
     embeds = [
         discord.Embed(
             title="Server Settings - Administration Permissions",
-            description="Select which role(s) should have administration permissions..."
+            description="Select which role(s) should have application-wide administration permissions. Users with these roles automatically recieve admin permissons in all databases, and can create and delete databases. Roles that have discord's adminstation permisson enabled will also have this permisson."
         ),
         discord.Embed(
-            title="Test",
-            description="Page 2 content here."
+            title="Server Settings - User Log Channels",
+            description="Select which channel should receive logs for unprotected user commands. Leaving this empty will prevent user commands from being logged."
+        ),
+        discord.Embed(
+            title="Server Settings - Management Log Channels",
+            description="Select which channel should receive logs for protected database management commands. Leaving this empty will prevent database management commands from being logged."
+        ),
+        discord.Embed(
+            title="Server Settings - Administrative Log Channels",
+            description="Select which channel should receive logs for protected database admin and server commands. Leaving this empty will prevent admin commands from being logged."
+        ),
+        discord.Embed(
+            title="Server Settings - Logging Settings",
+            description="Toggle whenever unsuccessful command logs from unauthorized users should be logged."
         )
     ]
 
+    view = PageView(
+        embeds=embeds,
+            page_menus = {
+                0: [lambda: SelectRoles_Menu(guild.roles, save_serveradmin_roles)],
+                1: [lambda: SelectChannels_Menu(guild.text_channels, set_user_log_channels)],
+                2: [lambda: SelectChannels_Menu(guild.text_channels, set_manager_log_channels)],
+                3: [lambda: SelectChannels_Menu(guild.text_channels, set_admin_log_channels)],
+                4: [lambda: ToggleLoggingButton()],
+}
+    )
+
     if isinstance(ctx_or_interaction, discord.Interaction):
-        guild = ctx_or_interaction.guild
-        view = PageView(embeds, guild.roles)
-        await ctx_or_interaction.response.send_message(embed=embeds[0], view=view)
-
+        await ctx_or_interaction.response.send_message(
+            embed=embeds[0],
+            view=view
+        )
     else:
-        view = PageView(embeds, ctx_or_interaction.guild.roles)
-        await ctx_or_interaction.send(embed=embeds[0], view=view)
-    view = PageView(embeds)
-    if isinstance(ctx_or_interaction, discord.Interaction):
-        guild = ctx_or_interaction.guild
-        print(f"Roles found: {guild.roles}")
-        view = SelectRoles_MenuView(guild.roles)
-        await ctx_or_interaction.response.send_message(embed=embeds[0], view=view)
-
-        await ctx_or_interaction.response.send_message(view=view)
-
-        
-    else:
-        await ctx_or_interaction.send(embed=embeds[0], view=view)
-        await ctx_or_interaction.send(f"{CHECK} Test!")
-@client.tree.command(name="server-settings", description="Create a new Database.", guild=GUILD_ID)
+        await ctx_or_interaction.send(
+            embed=embeds[0],
+            view=view
+        )
+@client.tree.command(name="server-settings", description="Configure server settings.", guild=GUILD_ID)
 async def serverSettings(interaction: discord.Interaction):
     await serverSettings_logic(interaction)
-@client.command(name="server settings")
+@client.command(name="server-settings")
 async def databaseCreate_prefix(ctx):
     await serverSettings_logic(ctx)
 
+class ToggleLoggingButton(discord.ui.Button):
+    def __init__(self):
+        super().__init__(label="Disable logs from unsuccessful command attempts", style=discord.ButtonStyle.grey)
+        self.state = False
+
+    async def callback(self, interaction: discord.Interaction):
+        self.state = not self.state
+        self.label = "Disable logs..." if self.state else "Enable logs..."
+        await interaction.response.edit_message(view=self.view)
+async def save_serveradmin_roles(interaction, roles):
+    global SERVER_ADMIN_ROLES
+    SERVER_ADMIN_ROLES = [r.id for r in roles]
+    await interaction.response.send_message(
+        "Saved admin roles.",
+        ephemeral=True
+    )
+
+async def set_user_log_channels(interaction, channels):
+    global USER_LOG_CHANNEL
+    USER_LOG_CHANNEL = [c.id for c in channels]
+
+    await interaction.response.send_message(
+        f"Saved log channels: {', '.join(c.name for c in channels)}",
+        ephemeral=True
+    )
+async def set_manager_log_channels(interaction, channels):
+    global MANAGER_LOG_CHANNEL
+    MANAGER_LOG_CHANNEL = [c.id for c in channels]
+
+    await interaction.response.send_message(
+        f"Saved log channels: {', '.join(c.name for c in channels)}",
+        ephemeral=True
+    )
+async def set_admin_log_channels(interaction, channels):
+    global ADMIN_LOG_CHANNEL
+    ADMIN_LOG_CHANNEL = [c.id for c in channels]
+
+    await interaction.response.send_message(
+        f"Saved log channels: {', '.join(c.name for c in channels)}",
+        ephemeral=True
+    )
+#-----------------------------------------------------------------    
 
 
 client.run(os.getenv('TOKEN'))

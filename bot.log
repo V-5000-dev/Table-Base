@@ -1772,3 +1772,548 @@ discord.app_commands.errors.CommandInvokeError: Command 'server-settings' raised
 2026-06-06 11:18:29,858 Shard ID None session has been invalidated.
 2026-06-06 11:18:35,253 Shard ID None has connected to Gateway (Session ID: 538b560ccde92dd56abb96e68162851c).
 2026-06-06 11:20:50,120 [User] [ping] v_500 - Allowed
+2026-06-06 14:02:21,676 davey is not installed, voice will NOT be supported
+2026-06-06 14:02:36,385 davey is not installed, voice will NOT be supported
+2026-06-06 14:02:36,386 logging in using static token
+2026-06-06 14:02:37,768 Shard ID None has connected to Gateway (Session ID: 66d1de5da161e60cf1261201c7ee861e).
+2026-06-06 14:02:41,851 [Admin] [server-settings] v_500 - Allowed
+2026-06-06 14:02:42,642 Ignoring exception in command 'server-settings'
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 859, in _do_call
+    return await self._callback(interaction, **params)  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victor/Documents/Data-Base/index.py", line 313, in serverSettings
+    await serverSettings_logic(interaction)
+  File "/Users/victor/Documents/Data-Base/index.py", line 298, in serverSettings_logic
+    view = PageView(embeds)
+TypeError: PageView.__init__() missing 1 required positional argument: 'roles'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/tree.py", line 1302, in _call
+    await command._invoke_with_namespace(interaction, namespace)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 884, in _invoke_with_namespace
+    return await self._do_call(interaction, transformed_values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 873, in _do_call
+    raise CommandInvokeError(self, e) from e
+discord.app_commands.errors.CommandInvokeError: Command 'server-settings' raised an exception: TypeError: PageView.__init__() missing 1 required positional argument: 'roles'
+2026-06-06 14:03:27,584 davey is not installed, voice will NOT be supported
+2026-06-06 14:03:27,585 logging in using static token
+2026-06-06 14:03:28,541 Shard ID None has connected to Gateway (Session ID: 83672d18a22d27dfcea785b9a051359a).
+2026-06-06 14:03:33,969 [Admin] [server-settings] v_500 - Allowed
+2026-06-06 14:03:34,512 Ignoring exception in command 'server-settings'
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 859, in _do_call
+    return await self._callback(interaction, **params)  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victor/Documents/Data-Base/index.py", line 313, in serverSettings
+    await serverSettings_logic(interaction)
+  File "/Users/victor/Documents/Data-Base/index.py", line 292, in serverSettings_logic
+    view = PageView(embeds, guild.roles)
+TypeError: PageView.__init__() missing 1 required positional argument: 'channels'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/tree.py", line 1302, in _call
+    await command._invoke_with_namespace(interaction, namespace)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 884, in _invoke_with_namespace
+    return await self._do_call(interaction, transformed_values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 873, in _do_call
+    raise CommandInvokeError(self, e) from e
+discord.app_commands.errors.CommandInvokeError: Command 'server-settings' raised an exception: TypeError: PageView.__init__() missing 1 required positional argument: 'channels'
+2026-06-06 14:04:32,128 davey is not installed, voice will NOT be supported
+2026-06-06 14:04:32,129 logging in using static token
+2026-06-06 14:04:32,938 Shard ID None has connected to Gateway (Session ID: 04f151961640ce4681b29f6ad5ba0ed3).
+2026-06-06 14:04:35,766 [Admin] [server-settings] v_500 - Allowed
+2026-06-06 14:04:36,133 Ignoring exception in command 'server-settings'
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 859, in _do_call
+    return await self._callback(interaction, **params)  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victor/Documents/Data-Base/index.py", line 314, in serverSettings
+    await serverSettings_logic(interaction)
+  File "/Users/victor/Documents/Data-Base/index.py", line 293, in serverSettings_logic
+    view = PageView(embeds, guild.roles)
+TypeError: PageView.__init__() missing 1 required positional argument: 'channels'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/tree.py", line 1302, in _call
+    await command._invoke_with_namespace(interaction, namespace)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 884, in _invoke_with_namespace
+    return await self._do_call(interaction, transformed_values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 873, in _do_call
+    raise CommandInvokeError(self, e) from e
+discord.app_commands.errors.CommandInvokeError: Command 'server-settings' raised an exception: TypeError: PageView.__init__() missing 1 required positional argument: 'channels'
+2026-06-06 14:07:40,782 davey is not installed, voice will NOT be supported
+2026-06-06 14:07:40,783 logging in using static token
+2026-06-06 14:07:41,722 Shard ID None has connected to Gateway (Session ID: 4b2e902feafff46962cad3992456cafd).
+2026-06-06 14:13:06,468 Shard ID None session has been invalidated.
+2026-06-06 14:13:15,074 davey is not installed, voice will NOT be supported
+2026-06-06 14:13:15,075 logging in using static token
+2026-06-06 14:13:16,294 Shard ID None has connected to Gateway (Session ID: 0fd8af47a1b5519c4ef7378c12f62fc4).
+2026-06-06 14:13:18,254 [Admin] [server-settings] v_500 - Allowed
+2026-06-06 14:13:18,867 Ignoring exception in command 'server-settings'
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 859, in _do_call
+    return await self._callback(interaction, **params)  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victor/Documents/Data-Base/index.py", line 314, in serverSettings
+    await serverSettings_logic(interaction)
+  File "/Users/victor/Documents/Data-Base/index.py", line 299, in serverSettings_logic
+    view = PageView(embeds)
+TypeError: PageView.__init__() missing 2 required positional arguments: 'roles' and 'channels'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/tree.py", line 1302, in _call
+    await command._invoke_with_namespace(interaction, namespace)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 884, in _invoke_with_namespace
+    return await self._do_call(interaction, transformed_values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 873, in _do_call
+    raise CommandInvokeError(self, e) from e
+discord.app_commands.errors.CommandInvokeError: Command 'server-settings' raised an exception: TypeError: PageView.__init__() missing 2 required positional arguments: 'roles' and 'channels'
+2026-06-06 14:13:20,242 Ignoring exception in view <PageView timeout=60 children=2> for item <Button style=<ButtonStyle.secondary: 2> url=None disabled=True label='Next' emoji=None row=None sku_id=None id=None>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/ui/view.py", line 598, in _scheduled_task
+    await item.callback(interaction)
+  File "/Users/victor/Documents/Data-Base/index.py", line 191, in next_button
+    self.update_select()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "/Users/victor/Documents/Data-Base/index.py", line 178, in update_select
+    self.add_item(SelectChannels_Menu(self.channels))
+                  ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/Users/victor/Documents/Data-Base/index.py", line 207, in __init__
+    if not channel.is_default()
+           ^^^^^^^^^^^^^^^^^^
+AttributeError: 'TextChannel' object has no attribute 'is_default'
+2026-06-06 14:13:51,235 davey is not installed, voice will NOT be supported
+2026-06-06 14:13:51,236 logging in using static token
+2026-06-06 14:13:52,226 Shard ID None has connected to Gateway (Session ID: c821ce0abc137bb8981b026b4f4416cc).
+2026-06-06 14:13:53,798 [Admin] [server-settings] v_500 - Allowed
+2026-06-06 14:13:54,302 Ignoring exception in command 'server-settings'
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 859, in _do_call
+    return await self._callback(interaction, **params)  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victor/Documents/Data-Base/index.py", line 313, in serverSettings
+    await serverSettings_logic(interaction)
+  File "/Users/victor/Documents/Data-Base/index.py", line 298, in serverSettings_logic
+    view = PageView(embeds)
+TypeError: PageView.__init__() missing 2 required positional arguments: 'roles' and 'channels'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/tree.py", line 1302, in _call
+    await command._invoke_with_namespace(interaction, namespace)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 884, in _invoke_with_namespace
+    return await self._do_call(interaction, transformed_values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 873, in _do_call
+    raise CommandInvokeError(self, e) from e
+discord.app_commands.errors.CommandInvokeError: Command 'server-settings' raised an exception: TypeError: PageView.__init__() missing 2 required positional arguments: 'roles' and 'channels'
+2026-06-06 14:13:55,549 Ignoring exception in view <PageView timeout=60 children=3> for item <Button style=<ButtonStyle.secondary: 2> url=None disabled=True label='Next' emoji=None row=None sku_id=None id=None>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/ui/view.py", line 598, in _scheduled_task
+    await item.callback(interaction)
+  File "/Users/victor/Documents/Data-Base/index.py", line 191, in next_button
+    self.update_select()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "/Users/victor/Documents/Data-Base/index.py", line 178, in update_select
+    self.add_item(SelectChannels_Menu(self.channels))
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/ui/view.py", line 794, in add_item
+    self.__weights.add_item(item)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/ui/view.py", line 190, in add_item
+    if item.row is not None:
+       ^^^^^^^^
+AttributeError: 'SelectChannels_Menu' object has no attribute 'row'
+2026-06-06 14:22:39,666 davey is not installed, voice will NOT be supported
+2026-06-06 14:22:39,667 logging in using static token
+2026-06-06 14:22:40,861 Shard ID None has connected to Gateway (Session ID: f6b83827fc985a762ce7f8a38ceb338e).
+2026-06-06 14:22:44,561 [Admin] [server-settings] v_500 - Allowed
+2026-06-06 14:22:45,132 Ignoring exception in command 'server-settings'
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 859, in _do_call
+    return await self._callback(interaction, **params)  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victor/Documents/Data-Base/index.py", line 331, in serverSettings
+    await serverSettings_logic(interaction)
+  File "/Users/victor/Documents/Data-Base/index.py", line 316, in serverSettings_logic
+    view = PageView(embeds)
+TypeError: PageView.__init__() missing 2 required positional arguments: 'roles' and 'channels'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/tree.py", line 1302, in _call
+    await command._invoke_with_namespace(interaction, namespace)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 884, in _invoke_with_namespace
+    return await self._do_call(interaction, transformed_values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 873, in _do_call
+    raise CommandInvokeError(self, e) from e
+discord.app_commands.errors.CommandInvokeError: Command 'server-settings' raised an exception: TypeError: PageView.__init__() missing 2 required positional arguments: 'roles' and 'channels'
+2026-06-06 14:23:50,251 davey is not installed, voice will NOT be supported
+2026-06-06 14:23:50,252 logging in using static token
+2026-06-06 14:23:51,230 Shard ID None has connected to Gateway (Session ID: 9884765a53e7e9725063ee98bbee8cce).
+2026-06-06 14:23:53,941 [Admin] [server-settings] v_500 - Allowed
+2026-06-06 14:23:54,639 Ignoring exception in command 'server-settings'
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 859, in _do_call
+    return await self._callback(interaction, **params)  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victor/Documents/Data-Base/index.py", line 338, in serverSettings
+    await serverSettings_logic(interaction)
+  File "/Users/victor/Documents/Data-Base/index.py", line 323, in serverSettings_logic
+    view = PageView(embeds)
+TypeError: PageView.__init__() missing 2 required positional arguments: 'roles' and 'channels'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/tree.py", line 1302, in _call
+    await command._invoke_with_namespace(interaction, namespace)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 884, in _invoke_with_namespace
+    return await self._do_call(interaction, transformed_values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 873, in _do_call
+    raise CommandInvokeError(self, e) from e
+discord.app_commands.errors.CommandInvokeError: Command 'server-settings' raised an exception: TypeError: PageView.__init__() missing 2 required positional arguments: 'roles' and 'channels'
+2026-06-06 14:45:31,273 Shard ID None session has been invalidated.
+2026-06-06 14:45:36,665 Shard ID None has connected to Gateway (Session ID: 1c63bbb5ce1af95419abce350f4a44a3).
+2026-06-06 14:51:50,790 Shard ID None session has been invalidated.
+2026-06-06 14:51:56,158 Shard ID None has connected to Gateway (Session ID: 859c1b675b6e896185379faa02cf3dd4).
+2026-06-06 15:11:09,300 Shard ID None session has been invalidated.
+2026-06-06 15:11:14,890 Shard ID None has connected to Gateway (Session ID: f8e5d3a2fd963be5e80a58259ff848e5).
+2026-06-06 15:17:36,911 Shard ID None has successfully RESUMED session f8e5d3a2fd963be5e80a58259ff848e5.
+2026-06-06 16:16:10,062 davey is not installed, voice will NOT be supported
+2026-06-06 16:16:10,062 logging in using static token
+2026-06-06 16:16:11,931 Shard ID None has connected to Gateway (Session ID: 58454470987108d843889be7c370c641).
+2026-06-06 16:19:28,949 [Admin] [server-settings] v_500 - Allowed
+2026-06-06 16:19:28,967 Ignoring exception in command 'server-settings'
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 859, in _do_call
+    return await self._callback(interaction, **params)  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victor/Documents/Data-Base/index.py", line 346, in serverSettings
+    await serverSettings_logic(interaction)
+  File "/Users/victor/Documents/Data-Base/index.py", line 323, in serverSettings_logic
+    view = PageView(
+        embeds=embeds,
+    ...<6 lines>...
+        }
+    )
+TypeError: PageView.__init__() got an unexpected keyword argument 'page_menus'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/tree.py", line 1302, in _call
+    await command._invoke_with_namespace(interaction, namespace)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 884, in _invoke_with_namespace
+    return await self._do_call(interaction, transformed_values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 873, in _do_call
+    raise CommandInvokeError(self, e) from e
+discord.app_commands.errors.CommandInvokeError: Command 'server-settings' raised an exception: TypeError: PageView.__init__() got an unexpected keyword argument 'page_menus'
+2026-06-06 16:20:50,676 davey is not installed, voice will NOT be supported
+2026-06-06 16:20:50,677 logging in using static token
+2026-06-06 16:20:51,819 Shard ID None has connected to Gateway (Session ID: 761ec1e34caac20a4f6a3dcb0ed45c7e).
+2026-06-06 16:20:55,492 [Admin] [server-settings] v_500 - Allowed
+2026-06-06 16:20:55,493 Ignoring exception in command 'server-settings'
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 859, in _do_call
+    return await self._callback(interaction, **params)  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victor/Documents/Data-Base/index.py", line 345, in serverSettings
+    await serverSettings_logic(interaction)
+  File "/Users/victor/Documents/Data-Base/index.py", line 322, in serverSettings_logic
+    view = PageView(
+        embeds=embeds,
+    ...<6 lines>...
+        }
+    )
+  File "/Users/victor/Documents/Data-Base/index.py", line 159, in __init__
+    self.update_buttons()
+    ~~~~~~~~~~~~~~~~~~~^^
+  File "/Users/victor/Documents/Data-Base/index.py", line 163, in update_buttons
+    self.prev_button.disabled = self.current_page == 0
+    ^^^^^^^^^^^^^^^^
+AttributeError: 'PageView' object has no attribute 'prev_button'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/tree.py", line 1302, in _call
+    await command._invoke_with_namespace(interaction, namespace)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 884, in _invoke_with_namespace
+    return await self._do_call(interaction, transformed_values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 877, in _do_call
+    raise CommandInvokeError(self, e) from e
+discord.app_commands.errors.CommandInvokeError: Command 'server-settings' raised an exception: AttributeError: 'PageView' object has no attribute 'prev_button'
+2026-06-06 16:21:41,774 davey is not installed, voice will NOT be supported
+2026-06-06 16:21:41,775 logging in using static token
+2026-06-06 16:21:42,711 Shard ID None has connected to Gateway (Session ID: 2ab7538174faa0660e0709479f87c50f).
+2026-06-06 16:21:46,943 [Admin] [server-settings] v_500 - Allowed
+2026-06-06 16:21:46,945 Ignoring exception in command 'server-settings'
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 859, in _do_call
+    return await self._callback(interaction, **params)  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victor/Documents/Data-Base/index.py", line 339, in serverSettings
+    await serverSettings_logic(interaction)
+  File "/Users/victor/Documents/Data-Base/index.py", line 316, in serverSettings_logic
+    view = PageView(
+        embeds=embeds,
+    ...<6 lines>...
+        }
+    )
+  File "/Users/victor/Documents/Data-Base/index.py", line 155, in __init__
+    self.update_state()
+    ^^^^^^^^^^^^^^^^^
+AttributeError: 'PageView' object has no attribute 'update_state'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/tree.py", line 1302, in _call
+    await command._invoke_with_namespace(interaction, namespace)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 884, in _invoke_with_namespace
+    return await self._do_call(interaction, transformed_values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 877, in _do_call
+    raise CommandInvokeError(self, e) from e
+discord.app_commands.errors.CommandInvokeError: Command 'server-settings' raised an exception: AttributeError: 'PageView' object has no attribute 'update_state'
+2026-06-06 16:22:54,935 davey is not installed, voice will NOT be supported
+2026-06-06 16:22:54,936 logging in using static token
+2026-06-06 16:22:56,032 Shard ID None has connected to Gateway (Session ID: 034e56c86f16fdf3f5d6d61d3662e567).
+2026-06-06 16:23:00,543 [Admin] [server-settings] v_500 - Allowed
+2026-06-06 16:23:00,544 Ignoring exception in command 'server-settings'
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 859, in _do_call
+    return await self._callback(interaction, **params)  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victor/Documents/Data-Base/index.py", line 340, in serverSettings
+    await serverSettings_logic(interaction)
+  File "/Users/victor/Documents/Data-Base/index.py", line 317, in serverSettings_logic
+    view = PageView(
+        embeds=embeds,
+    ...<6 lines>...
+        }
+    )
+  File "/Users/victor/Documents/Data-Base/index.py", line 155, in __init__
+    self.update_buttons()
+    ~~~~~~~~~~~~~~~~~~~^^
+  File "/Users/victor/Documents/Data-Base/index.py", line 158, in update_buttons
+    self.prev_button.disabled = self.current_page == 0
+    ^^^^^^^^^^^^^^^^
+AttributeError: 'PageView' object has no attribute 'prev_button'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/tree.py", line 1302, in _call
+    await command._invoke_with_namespace(interaction, namespace)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 884, in _invoke_with_namespace
+    return await self._do_call(interaction, transformed_values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 877, in _do_call
+    raise CommandInvokeError(self, e) from e
+discord.app_commands.errors.CommandInvokeError: Command 'server-settings' raised an exception: AttributeError: 'PageView' object has no attribute 'prev_button'
+2026-06-06 16:23:37,560 davey is not installed, voice will NOT be supported
+2026-06-06 16:23:37,561 logging in using static token
+2026-06-06 16:23:38,987 Shard ID None has connected to Gateway (Session ID: e495a815f57325a741ac4372b1a2210e).
+2026-06-06 16:23:41,567 [Admin] [server-settings] v_500 - Allowed
+2026-06-06 16:23:41,568 Ignoring exception in command 'server-settings'
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 859, in _do_call
+    return await self._callback(interaction, **params)  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victor/Documents/Data-Base/index.py", line 343, in serverSettings
+    await serverSettings_logic(interaction)
+  File "/Users/victor/Documents/Data-Base/index.py", line 320, in serverSettings_logic
+    view = PageView(
+        embeds=embeds,
+    ...<6 lines>...
+        }
+    )
+  File "/Users/victor/Documents/Data-Base/index.py", line 155, in __init__
+    self.update_buttons()
+    ~~~~~~~~~~~~~~~~~~~^^
+  File "/Users/victor/Documents/Data-Base/index.py", line 158, in update_buttons
+    self.prev_button.disabled = self.current_page == 0
+    ^^^^^^^^^^^^^^^^
+AttributeError: 'PageView' object has no attribute 'prev_button'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/tree.py", line 1302, in _call
+    await command._invoke_with_namespace(interaction, namespace)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 884, in _invoke_with_namespace
+    return await self._do_call(interaction, transformed_values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 877, in _do_call
+    raise CommandInvokeError(self, e) from e
+discord.app_commands.errors.CommandInvokeError: Command 'server-settings' raised an exception: AttributeError: 'PageView' object has no attribute 'prev_button'
+2026-06-06 16:24:08,583 davey is not installed, voice will NOT be supported
+2026-06-06 16:24:08,584 logging in using static token
+2026-06-06 16:24:10,096 Shard ID None has connected to Gateway (Session ID: 41210d335f5f4e386d04f1b24918fe08).
+2026-06-06 16:24:13,570 [Admin] [server-settings] v_500 - Allowed
+2026-06-06 16:24:13,571 Ignoring exception in command 'server-settings'
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 859, in _do_call
+    return await self._callback(interaction, **params)  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victor/Documents/Data-Base/index.py", line 342, in serverSettings
+    await serverSettings_logic(interaction)
+  File "/Users/victor/Documents/Data-Base/index.py", line 319, in serverSettings_logic
+    view = PageView(
+        embeds=embeds,
+    ...<6 lines>...
+        }
+    )
+  File "/Users/victor/Documents/Data-Base/index.py", line 155, in __init__
+    self.update_buttons()
+    ~~~~~~~~~~~~~~~~~~~^^
+  File "/Users/victor/Documents/Data-Base/index.py", line 158, in update_buttons
+    self.prev_button.disabled = self.current_page == 0
+    ^^^^^^^^^^^^^^^^
+AttributeError: 'PageView' object has no attribute 'prev_button'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/tree.py", line 1302, in _call
+    await command._invoke_with_namespace(interaction, namespace)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 884, in _invoke_with_namespace
+    return await self._do_call(interaction, transformed_values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 877, in _do_call
+    raise CommandInvokeError(self, e) from e
+discord.app_commands.errors.CommandInvokeError: Command 'server-settings' raised an exception: AttributeError: 'PageView' object has no attribute 'prev_button'
+2026-06-06 16:24:59,572 davey is not installed, voice will NOT be supported
+2026-06-06 16:24:59,573 logging in using static token
+2026-06-06 16:25:00,774 Shard ID None has connected to Gateway (Session ID: 955b3f77af46a9537c14d3833218282a).
+2026-06-06 16:25:06,780 [Admin] [server-settings] v_500 - Allowed
+2026-06-06 16:25:06,802 Ignoring exception in command 'server-settings'
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 859, in _do_call
+    return await self._callback(interaction, **params)  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victor/Documents/Data-Base/index.py", line 336, in serverSettings
+    await serverSettings_logic(interaction)
+  File "/Users/victor/Documents/Data-Base/index.py", line 313, in serverSettings_logic
+    view = PageView(
+        embeds=embeds,
+    ...<6 lines>...
+        }
+    )
+  File "/Users/victor/Documents/Data-Base/index.py", line 155, in __init__
+    self.update_page_components()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/Users/victor/Documents/Data-Base/index.py", line 164, in update_page_components
+    for factory in self.page_menus.get(self.current_page, []):
+                   ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: 'function' object is not iterable
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/tree.py", line 1302, in _call
+    await command._invoke_with_namespace(interaction, namespace)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 884, in _invoke_with_namespace
+    return await self._do_call(interaction, transformed_values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 873, in _do_call
+    raise CommandInvokeError(self, e) from e
+discord.app_commands.errors.CommandInvokeError: Command 'server-settings' raised an exception: TypeError: 'function' object is not iterable
+2026-06-06 16:25:57,017 davey is not installed, voice will NOT be supported
+2026-06-06 16:25:57,018 logging in using static token
+2026-06-06 16:25:57,915 Shard ID None has connected to Gateway (Session ID: 6472964509657d40c55e48f613f16a17).
+2026-06-06 16:26:02,752 [Admin] [server-settings] v_500 - Allowed
+2026-06-06 16:26:02,753 Ignoring exception in command 'server-settings'
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 859, in _do_call
+    return await self._callback(interaction, **params)  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victor/Documents/Data-Base/index.py", line 340, in serverSettings
+    await serverSettings_logic(interaction)
+  File "/Users/victor/Documents/Data-Base/index.py", line 317, in serverSettings_logic
+    view = PageView(
+        embeds=embeds,
+    ...<6 lines>...
+        }
+    )
+  File "/Users/victor/Documents/Data-Base/index.py", line 155, in __init__
+    self.update_page_components()
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'PageView' object has no attribute 'update_page_components'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/tree.py", line 1302, in _call
+    await command._invoke_with_namespace(interaction, namespace)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 884, in _invoke_with_namespace
+    return await self._do_call(interaction, transformed_values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 877, in _do_call
+    raise CommandInvokeError(self, e) from e
+discord.app_commands.errors.CommandInvokeError: Command 'server-settings' raised an exception: AttributeError: 'PageView' object has no attribute 'update_page_components'
+2026-06-06 16:26:35,856 davey is not installed, voice will NOT be supported
+2026-06-06 16:26:35,856 logging in using static token
+2026-06-06 16:26:36,757 Shard ID None has connected to Gateway (Session ID: 19c34597d109979b425fa646912a35d4).
+2026-06-06 16:26:39,863 [Admin] [server-settings] v_500 - Allowed
+2026-06-06 16:26:39,882 Ignoring exception in command 'server-settings'
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 859, in _do_call
+    return await self._callback(interaction, **params)  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victor/Documents/Data-Base/index.py", line 340, in serverSettings
+    await serverSettings_logic(interaction)
+  File "/Users/victor/Documents/Data-Base/index.py", line 317, in serverSettings_logic
+    view = PageView(
+        embeds=embeds,
+    ...<6 lines>...
+        }
+    )
+  File "/Users/victor/Documents/Data-Base/index.py", line 155, in __init__
+    self.update_page_components()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/Users/victor/Documents/Data-Base/index.py", line 170, in update_page_components
+    self.add_item(factory())
+                  ~~~~~~~^^
+  File "/Users/victor/Documents/Data-Base/index.py", line 320, in <lambda>
+    0: lambda: SelectRoles_Menu(guild.roles),
+               ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+TypeError: SelectRoles_Menu.__init__() missing 1 required positional argument: 'on_submit'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/tree.py", line 1302, in _call
+    await command._invoke_with_namespace(interaction, namespace)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 884, in _invoke_with_namespace
+    return await self._do_call(interaction, transformed_values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 873, in _do_call
+    raise CommandInvokeError(self, e) from e
+discord.app_commands.errors.CommandInvokeError: Command 'server-settings' raised an exception: TypeError: SelectRoles_Menu.__init__() missing 1 required positional argument: 'on_submit'
+2026-06-06 16:27:48,715 davey is not installed, voice will NOT be supported
+2026-06-06 16:27:48,715 logging in using static token
+2026-06-06 16:27:49,533 Shard ID None has connected to Gateway (Session ID: b8d5bcc156effcff7d63a0368eeee0a4).
+2026-06-06 16:27:54,253 [Admin] [server-settings] v_500 - Allowed
+2026-06-06 16:28:27,388 [User] [ping] v_500 - Allowed

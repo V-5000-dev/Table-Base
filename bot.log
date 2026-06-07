@@ -2317,3 +2317,232 @@ discord.app_commands.errors.CommandInvokeError: Command 'server-settings' raised
 2026-06-06 16:27:49,533 Shard ID None has connected to Gateway (Session ID: b8d5bcc156effcff7d63a0368eeee0a4).
 2026-06-06 16:27:54,253 [Admin] [server-settings] v_500 - Allowed
 2026-06-06 16:28:27,388 [User] [ping] v_500 - Allowed
+2026-06-06 21:39:48,687 davey is not installed, voice will NOT be supported
+2026-06-06 21:39:48,688 logging in using static token
+2026-06-06 21:39:50,317 Shard ID None has connected to Gateway (Session ID: 25b6f99b5e8046f714b755f2a2418ee0).
+2026-06-06 21:40:26,295 [User] [ping] deafult4355543 - Allowed
+2026-06-06 21:40:28,641 [Manager] [database-create] deafult4355543 - Allowed
+2026-06-06 21:40:34,082 [Admin] [server-settings] deafult4355543 - Allowed
+2026-06-06 21:43:39,086 davey is not installed, voice will NOT be supported
+2026-06-06 21:43:39,086 logging in using static token
+2026-06-06 21:43:40,276 Shard ID None has connected to Gateway (Session ID: 85dc0ef963631976570b9c17ab602928).
+2026-06-06 21:43:47,987 [Admin] [server-settings] deafult4355543 - Denied
+2026-06-06 21:44:07,233 [Admin] [server-settings] v_500 - Allowed
+2026-06-06 21:44:22,694 [Admin] [server-settings] deafult4355543 - Denied
+2026-06-06 21:44:35,877 [User] [ping] v_500 - Allowed
+2026-06-06 21:46:38,474 davey is not installed, voice will NOT be supported
+2026-06-06 21:46:38,475 logging in using static token
+2026-06-06 21:46:39,456 Shard ID None has connected to Gateway (Session ID: 81d68319b662313b95dedd3805e45bc6).
+2026-06-06 21:46:48,183 [Admin] [server-settings] v_500 - Allowed
+2026-06-06 21:46:48,183 [Admin] [server-settings] v_500 - Allowed
+2026-06-06 21:46:53,603 [Admin] [server-settings] v_500 - Allowed
+2026-06-06 21:46:53,624 [Admin] [server-settings] v_500 - Allowed
+2026-06-06 21:47:34,012 [Admin] [server-settings] v_500 - Allowed
+2026-06-06 21:47:34,012 [Admin] [server-settings] v_500 - Allowed
+2026-06-06 21:47:34,194 Ignoring exception in command 'server-settings'
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 859, in _do_call
+    return await self._callback(interaction, **params)  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victor/Documents/Data-Base/index.py", line 342, in serverSettings
+    await serverSettings_logic(interaction)
+  File "/Users/victor/Documents/Data-Base/index.py", line 331, in serverSettings_logic
+    await ctx_or_interaction.response.send_message(
+    ...<2 lines>...
+    )
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/interactions.py", line 1085, in send_message
+    data = await adapter.create_interaction_response(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/webhook/async_.py", line 224, in request
+    raise NotFound(response, data)
+discord.errors.NotFound: 404 Not Found (error code: 10062): Unknown interaction
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/tree.py", line 1302, in _call
+    await command._invoke_with_namespace(interaction, namespace)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 884, in _invoke_with_namespace
+    return await self._do_call(interaction, transformed_values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 877, in _do_call
+    raise CommandInvokeError(self, e) from e
+discord.app_commands.errors.CommandInvokeError: Command 'server-settings' raised an exception: NotFound: 404 Not Found (error code: 10062): Unknown interaction
+2026-06-06 21:47:45,136 Ignoring exception in command None
+discord.ext.commands.errors.CommandNotFound: Command "server" is not found
+2026-06-06 21:47:45,154 Ignoring exception in command None
+discord.ext.commands.errors.CommandNotFound: Command "server" is not found
+2026-06-06 21:47:51,903 [Admin] [server-settings] deafult4355543 - Denied
+2026-06-06 21:47:51,935 [Admin] [server-settings] deafult4355543 - Denied
+2026-06-06 21:55:22,633 davey is not installed, voice will NOT be supported
+2026-06-06 21:55:22,634 logging in using static token
+2026-06-06 21:55:23,650 Shard ID None has connected to Gateway (Session ID: fb119ca04805854756e0f075a6650f45).
+2026-06-06 21:55:27,840 [Admin] [server-settings] v_500 - Allowed
+2026-06-06 21:55:27,842 [Admin] [server-settings] v_500 - Allowed
+2026-06-06 21:55:28,017 Ignoring exception in command 'server-settings'
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 859, in _do_call
+    return await self._callback(interaction, **params)  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victor/Documents/Data-Base/index.py", line 340, in serverSettings
+    3: [lambda: SelectChannels_Menu(guild.text_channels, set_admin_log_channel)],
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victor/Documents/Data-Base/index.py", line 329, in serverSettings_logic
+            title="Server Settings - Logging Settings",
+    ...<2 lines>...
+    ]
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/interactions.py", line 1085, in send_message
+    data = await adapter.create_interaction_response(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/webhook/async_.py", line 224, in request
+    raise NotFound(response, data)
+discord.errors.NotFound: 404 Not Found (error code: 10062): Unknown interaction
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/tree.py", line 1302, in _call
+    await command._invoke_with_namespace(interaction, namespace)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 884, in _invoke_with_namespace
+    return await self._do_call(interaction, transformed_values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 877, in _do_call
+    raise CommandInvokeError(self, e) from e
+discord.app_commands.errors.CommandInvokeError: Command 'server-settings' raised an exception: NotFound: 404 Not Found (error code: 10062): Unknown interaction
+2026-06-06 21:56:59,647 [User] [ping] v_500 - Allowed
+2026-06-06 21:56:59,651 [User] [ping] v_500 - Allowed
+2026-06-06 21:57:00,109 Ignoring exception in command 'ping'
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 859, in _do_call
+    return await self._callback(interaction, **params)  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victor/Documents/Data-Base/index.py", line 271, in ping
+    await ping_logic(interaction)
+  File "/Users/victor/Documents/Data-Base/index.py", line 264, in ping_logic
+    await ctx_or_interaction.response.send_message(f"{CHECK} Online. Pong!")
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/interactions.py", line 1085, in send_message
+    data = await adapter.create_interaction_response(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/webhook/async_.py", line 226, in request
+    raise HTTPException(response, data)
+discord.errors.HTTPException: 400 Bad Request (error code: 40060): Interaction has already been acknowledged.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/tree.py", line 1302, in _call
+    await command._invoke_with_namespace(interaction, namespace)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 884, in _invoke_with_namespace
+    return await self._do_call(interaction, transformed_values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 877, in _do_call
+    raise CommandInvokeError(self, e) from e
+discord.app_commands.errors.CommandInvokeError: Command 'ping' raised an exception: HTTPException: 400 Bad Request (error code: 40060): Interaction has already been acknowledged.
+2026-06-06 21:57:04,432 [Admin] [server-settings] v_500 - Allowed
+2026-06-06 21:57:04,437 [Admin] [server-settings] v_500 - Allowed
+2026-06-06 21:57:04,877 Ignoring exception in command 'server-settings'
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 859, in _do_call
+    return await self._callback(interaction, **params)  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victor/Documents/Data-Base/index.py", line 353, in serverSettings
+    await serverSettings_logic(interaction)
+  File "/Users/victor/Documents/Data-Base/index.py", line 346, in serverSettings_logic
+    await ctx_or_interaction.response.send_message(embed=embeds[0], view=view)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/interactions.py", line 1085, in send_message
+    data = await adapter.create_interaction_response(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/webhook/async_.py", line 224, in request
+    raise NotFound(response, data)
+discord.errors.NotFound: 404 Not Found (error code: 10062): Unknown interaction
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/tree.py", line 1302, in _call
+    await command._invoke_with_namespace(interaction, namespace)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 884, in _invoke_with_namespace
+    return await self._do_call(interaction, transformed_values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 877, in _do_call
+    raise CommandInvokeError(self, e) from e
+discord.app_commands.errors.CommandInvokeError: Command 'server-settings' raised an exception: NotFound: 404 Not Found (error code: 10062): Unknown interaction
+2026-06-06 21:57:51,739 [Admin] [server-settings] deafult4355543 - Allowed
+2026-06-06 21:57:51,742 [Admin] [server-settings] deafult4355543 - Denied
+2026-06-06 21:57:52,168 Ignoring exception in command 'server-settings'
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 859, in _do_call
+    return await self._callback(interaction, **params)  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victor/Documents/Data-Base/index.py", line 353, in serverSettings
+    await serverSettings_logic(interaction)
+  File "/Users/victor/Documents/Data-Base/index.py", line 346, in serverSettings_logic
+    await ctx_or_interaction.response.send_message(embed=embeds[0], view=view)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/interactions.py", line 1085, in send_message
+    data = await adapter.create_interaction_response(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/webhook/async_.py", line 226, in request
+    raise HTTPException(response, data)
+discord.errors.HTTPException: 400 Bad Request (error code: 40060): Interaction has already been acknowledged.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/tree.py", line 1302, in _call
+    await command._invoke_with_namespace(interaction, namespace)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 884, in _invoke_with_namespace
+    return await self._do_call(interaction, transformed_values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 877, in _do_call
+    raise CommandInvokeError(self, e) from e
+discord.app_commands.errors.CommandInvokeError: Command 'server-settings' raised an exception: HTTPException: 400 Bad Request (error code: 40060): Interaction has already been acknowledged.
+2026-06-06 22:36:03,548 Shard ID None has successfully RESUMED session 85dc0ef963631976570b9c17ab602928.
+2026-06-06 23:05:21,750 Shard ID None has successfully RESUMED session fb119ca04805854756e0f075a6650f45.
+2026-06-07 00:50:40,586 Shard ID None has successfully RESUMED session 85dc0ef963631976570b9c17ab602928.
+2026-06-07 01:17:59,419 Shard ID None session has been invalidated.
+2026-06-07 01:35:57,205 Shard ID None session has been invalidated.
+2026-06-07 01:51:46,770 Shard ID None session has been invalidated.
+2026-06-07 02:07:33,571 Shard ID None session has been invalidated.
+2026-06-07 02:07:39,082 Shard ID None has connected to Gateway (Session ID: 9f0766700c96eba155b752b1699d19de).
+2026-06-07 03:01:58,644 Shard ID None session has been invalidated.
+2026-06-07 03:19:48,816 Shard ID None session has been invalidated.
+2026-06-07 03:37:10,780 Shard ID None session has been invalidated.
+2026-06-07 03:53:28,628 Shard ID None session has been invalidated.
+2026-06-07 04:08:44,624 Shard ID None session has been invalidated.
+2026-06-07 04:24:02,585 Shard ID None session has been invalidated.
+2026-06-07 04:40:32,610 Shard ID None session has been invalidated.
+2026-06-07 04:56:58,551 Shard ID None session has been invalidated.
+2026-06-07 05:14:05,560 Shard ID None session has been invalidated.
+2026-06-07 05:30:03,561 Shard ID None session has been invalidated.
+2026-06-07 05:43:46,477 Shard ID None session has been invalidated.
+2026-06-07 05:43:51,964 Shard ID None has connected to Gateway (Session ID: 44c820b3aa63a03fc9810e8aac0ffc06).
+2026-06-07 06:58:19,311 Shard ID None session has been invalidated.
+2026-06-07 07:15:21,224 Shard ID None session has been invalidated.
+2026-06-07 07:33:20,501 Shard ID None session has been invalidated.
+2026-06-07 07:47:05,430 Shard ID None session has been invalidated.
+2026-06-07 07:47:10,800 Shard ID None has connected to Gateway (Session ID: dd82f7619eb3448ecada807ed178da1c).
+2026-06-07 08:56:03,381 Shard ID None session has been invalidated.
+2026-06-07 08:59:15,783 Shard ID None session has been invalidated.
+2026-06-07 10:16:11,454 Shard ID None session has been invalidated.
+2026-06-07 10:33:28,229 Shard ID None session has been invalidated.
+2026-06-07 10:38:06,201 Shard ID None session has been invalidated.
+2026-06-07 10:38:12,217 Shard ID None has connected to Gateway (Session ID: 702301f7fe37c71d72f5645f2c537512).
+2026-06-07 10:41:37,704 Shard ID None session has been invalidated.
+2026-06-07 10:41:43,406 Shard ID None has connected to Gateway (Session ID: 5e1a36b2c3257bb0e87717ffc6e7d23a).
+2026-06-07 11:17:51,496 Shard ID None session has been invalidated.
+2026-06-07 11:17:56,809 Shard ID None has connected to Gateway (Session ID: 20e369aeff3272b45b71dde0b823d17a).

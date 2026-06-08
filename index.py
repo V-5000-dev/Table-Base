@@ -30,6 +30,7 @@ GUILD_ID = discord.Object(id=1324223207536070697)
 
 
 class CommandType(Enum):
+    ALL = "All"
     USER = "User"
     MANAGER = "Manager"
     ADMIN = "Admin"
@@ -49,6 +50,7 @@ LOG_UNSUCCESSFUL = True
 SERVER_ADMIN_ROLE_IDS = []
 ADMIN_ROLE_IDS = []
 MANAGER_ROLE_IDS = []
+MEMBER_ROLE_IDS = []
 
 
 # Commands ------------------------------------------------
@@ -75,8 +77,7 @@ intents = discord.Intents.default()
 intents.message_content = True
 client = Client(command_prefix="db ", intents=intents)
 
-
-async def verifyCommandPermissions(ctx_or_interaction, command_type: CommandType, *required_roles) -> bool:
+async def verifyCommandPermissions(ctx_or_interaction, command_type: CommandType = None) -> bool:
     if isinstance(ctx_or_interaction, discord.Interaction):
         user = ctx_or_interaction.user
         guild_permissions = ctx_or_interaction.user.guild_permissions
@@ -90,11 +91,22 @@ async def verifyCommandPermissions(ctx_or_interaction, command_type: CommandType
 
     user_role_ids = [role.id for role in user.roles]
 
-    if not required_roles:
+    allowed_roles = []
+    
+    if command_type == CommandType.USER:
+        allowed_roles += MEMBER_ROLE_IDS
+    if command_type in (CommandType.USER, CommandType.MANAGER):
+        allowed_roles += MANAGER_ROLE_IDS
+    if command_type in (CommandType.USER, CommandType.MANAGER, CommandType.ADMIN):
+        allowed_roles += ADMIN_ROLE_IDS
+    allowed_roles += SERVER_ADMIN_ROLE_IDS
+    if command_type is None:
+        return True
+    if guild_permissions.administrator:
         allowed = True
-    elif guild_permissions.administrator:
+    elif allowed_roles:
         allowed = True
-    elif any(role_id in required_roles for role_id in user_role_ids):
+    elif any(role_id in allowed_roles for role_id in user_role_ids):
         allowed = True
     else:
         allowed = False
@@ -104,12 +116,12 @@ async def verifyCommandPermissions(ctx_or_interaction, command_type: CommandType
     channel_id = LOG_CHANNELS[command_type]
     channel = _client.get_channel(channel_id) if isinstance(channel_id, int) and channel_id != 0 else None
 
-    if channel:
+    if channel and (allowed or LOG_UNSUCCESSFUL):
         embed = discord.Embed(
-            title=f"[{command_type.value}] Command Log",
+            title=f"[{command_type.value}] Unsuccessful Command Log" if not allowed else f"[{command_type.value}] Command Log",
             description=(
                 f"{user.mention} was denied from executing `{command_name}`"
-                if not allowed and LOG_UNSUCCESSFUL
+                if not allowed
                 else f"{user.mention} executed `{command_name}`"
             ),
             color={
@@ -118,7 +130,6 @@ async def verifyCommandPermissions(ctx_or_interaction, command_type: CommandType
                 CommandType.ADMIN: discord.Color.red(),
             }[command_type],
         )
-
         embed.add_field(name="Status", value="Allowed" if allowed else "Denied")
         embed.add_field(name="User ID", value=f"``{user.id}``")
         embed.add_field(name="Timestamp", value=discord.utils.format_dt(discord.utils.utcnow()))
@@ -133,26 +144,37 @@ async def verifyCommandPermissions(ctx_or_interaction, command_type: CommandType
     if not allowed:
         if isinstance(ctx_or_interaction, discord.Interaction):
             await ctx_or_interaction.response.send_message(
-                f"{PERMISSON} You don't have permission to use this command."
+                f"{PERMISSON} ``You don't have permission to use this command.``"
             )
         else:
-            await ctx_or_interaction.send(f"{PERMISSON} You don't have permission to use this command.")
+            await ctx_or_interaction.send(f"{PERMISSON} ``You don't have permission to use this command.``")
 
     return allowed
 
-
 # -----------------------------------------------------------------
 class PageView(discord.ui.View):
-    def __init__(self, embeds, page_menus=None):
+    def __init__(self, embeds, ctx_or_interaction: int, page_menus=None):
         super().__init__(timeout=60)
         self.embeds = embeds
         self.current_page = 0
+        self.author_id  = (
+            ctx_or_interaction.user.id
+            if isinstance(ctx_or_interaction, discord.Interaction)
+            else ctx_or_interaction.author.id
+        )
         self.page_menus = page_menus or {}
 
         for i, embed in enumerate(self.embeds):
             embed.set_footer(text=f"Page {i + 1} of {len(self.embeds)}")
 
         self.update_page_components()
+    async def interaction_check(self, interaction: discord.Interaction) -> bool:
+        if interaction.user.id != self.author_id:
+            await interaction.response.send_message(
+                f"{PERMISSON} ``You cannot interact with other people's embeds.``", ephemeral=True
+            )
+            return False
+        return True
 
     def update_page_components(self):
         for item in list(self.children):
@@ -258,12 +280,12 @@ class SelectRoles_Menu(discord.ui.Select):
 
 # -----------------------------------------------------------------
 async def ping_logic(ctx_or_interaction):
-    if not await verifyCommandPermissions(ctx_or_interaction, CommandType.USER):
+    if not await verifyCommandPermissions(ctx_or_interaction):
         return
     if isinstance(ctx_or_interaction, discord.Interaction):
-        await ctx_or_interaction.response.send_message(f"{CHECK} Online. Pong!")
+        await ctx_or_interaction.response.send_message(f"{CHECK} ``Online. Pong!``")
     else:
-        await ctx_or_interaction.send(f"{CHECK} Online. Pong!")
+        await ctx_or_interaction.send(f"{CHECK} ``Online. Pong!``")
 
 
 @client.tree.command(name="ping", description="Checks if the application is online.", guild=GUILD_ID)
@@ -333,6 +355,7 @@ async def serverSettings_logic(ctx_or_interaction):
 
     view = PageView(
         embeds=embeds,
+        ctx_or_interaction=ctx_or_interaction,
         page_menus={
             0: [lambda: SelectRoles_Menu(guild.roles, save_serveradmin_roles)],
             1: [lambda: SelectChannels_Menu(guild.text_channels, set_user_log_channel)],
@@ -373,7 +396,7 @@ async def save_serveradmin_roles(interaction, roles):
     global SERVER_ADMIN_ROLE_IDS
     SERVER_ADMIN_ROLE_IDS = [r.id for r in roles]
     await interaction.response.send_message(
-        f"Saved admin roles: {', '.join(r.name for r in roles)}",
+        f"{CHECK} ``Saved admin roles: {', '.join(r.name for r in roles)}``",
         ephemeral=True
     )
 
@@ -382,7 +405,7 @@ async def set_user_log_channel(interaction, channels):
         return
     LOG_CHANNELS[CommandType.USER] = channels[0].id
     await interaction.response.send_message(
-        f"User log channel set to: {channels[0].mention}",
+        f"{CHECK} ``User log channel set to: {channels[0].mention}``",
         ephemeral=True
     )
 
@@ -392,7 +415,7 @@ async def set_manager_log_channel(interaction, channels):
         return
     LOG_CHANNELS[CommandType.MANAGER] = channels[0].id
     await interaction.response.send_message(
-        f"Manager log channel set to: {channels[0].mention}",
+        f"{CHECK} ``Manager log channel set to: {channels[0].mention}``",
         ephemeral=True
     )
 
@@ -402,7 +425,7 @@ async def set_admin_log_channel(interaction, channels):
         return
     LOG_CHANNELS[CommandType.ADMIN] = channels[0].id
     await interaction.response.send_message(
-        f"Admin log channel set to: {channels[0].mention}",
+        f"{CHECK} ``Admin log channel set to: {channels[0].mention}``",
         ephemeral=True
     )
 

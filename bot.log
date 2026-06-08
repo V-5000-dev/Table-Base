@@ -2546,3 +2546,293 @@ discord.app_commands.errors.CommandInvokeError: Command 'server-settings' raised
 2026-06-07 10:41:43,406 Shard ID None has connected to Gateway (Session ID: 5e1a36b2c3257bb0e87717ffc6e7d23a).
 2026-06-07 11:17:51,496 Shard ID None session has been invalidated.
 2026-06-07 11:17:56,809 Shard ID None has connected to Gateway (Session ID: 20e369aeff3272b45b71dde0b823d17a).
+2026-06-07 16:06:41,307 davey is not installed, voice will NOT be supported
+2026-06-07 16:06:41,308 logging in using static token
+2026-06-07 16:06:42,143 Shard ID None has connected to Gateway (Session ID: 0616ca2d30e3fee814dc860c0bb661e1).
+2026-06-07 16:07:06,207 [Admin] [server-settings] deafult4355543 - Allowed
+2026-06-07 16:07:48,847 davey is not installed, voice will NOT be supported
+2026-06-07 16:07:48,848 logging in using static token
+2026-06-07 16:07:49,724 Shard ID None has connected to Gateway (Session ID: 862c0abec15daf3efe508df9c72d9401).
+2026-06-07 16:07:52,364 [Admin] [server-settings] deafult4355543 - Denied
+2026-06-07 16:07:59,610 [Admin] [server-settings] v_500 - Denied
+2026-06-07 16:08:33,716 [Admin] [server-settings] v_500 - Denied
+2026-06-07 16:11:06,172 [Admin] [server-settings] v_500 - Denied
+2026-06-07 16:11:38,374 davey is not installed, voice will NOT be supported
+2026-06-07 16:11:38,376 logging in using static token
+2026-06-07 16:11:39,293 Shard ID None has connected to Gateway (Session ID: 1c2b4062349a6c0cfd31aaedabecae1a).
+2026-06-07 16:11:41,301 [Admin] [server-settings] v_500 - Denied
+2026-06-07 16:12:13,828 davey is not installed, voice will NOT be supported
+2026-06-07 16:12:13,829 logging in using static token
+2026-06-07 16:12:14,735 Shard ID None has connected to Gateway (Session ID: 7db396b66f66ea7a9854ce8b223688b1).
+2026-06-07 16:12:16,860 [Admin] [server-settings] v_500 - Allowed
+2026-06-07 16:12:21,163 [Admin] [server-settings] v_500 - Allowed
+2026-06-07 16:12:26,348 [Admin] [server-settings] deafult4355543 - Denied
+2026-06-07 16:12:44,582 [Admin] [server-settings] deafult4355543 - Denied
+2026-06-07 16:22:13,866 davey is not installed, voice will NOT be supported
+2026-06-07 16:22:13,867 logging in using static token
+2026-06-07 16:22:14,947 Shard ID None has connected to Gateway (Session ID: 8181a7bfa1cd110c73ee9cb6b582a421).
+2026-06-07 16:30:55,347 Shard ID None session has been invalidated.
+2026-06-07 16:31:00,860 Shard ID None has connected to Gateway (Session ID: a97667038c6f93ae83133641a8127cc4).
+2026-06-07 16:36:25,729 [Admin] [server-settings] v_500 - Allowed
+2026-06-07 16:37:35,368 [Admin] [server-settings] deafult4355543 - Allowed
+2026-06-07 16:37:42,822 [Admin] [server-settings] deafult4355543 - Allowed
+2026-06-07 16:37:51,528 [Admin] [server-settings] v_500 - Allowed
+2026-06-07 16:37:56,708 [Admin] [server-settings] deafult4355543 - Denied
+2026-06-07 16:38:17,220 [User] [ping] v_500 - Allowed
+2026-06-07 16:38:21,728 [Manager] [database-create] v_500 - Allowed
+2026-06-07 16:38:24,911 [Admin] [server-settings] v_500 - Allowed
+2026-06-07 16:38:31,700 [User] [ping] deafult4355543 - Denied
+2026-06-07 16:38:45,097 [User] [ping] deafult4355543 - Denied
+2026-06-07 16:38:54,044 [User] [ping] v_500 - Allowed
+2026-06-07 17:13:49,207 davey is not installed, voice will NOT be supported
+2026-06-07 17:13:49,209 logging in using static token
+2026-06-07 17:13:50,141 Shard ID None has connected to Gateway (Session ID: f1f3b01c0c7ae2d91469d779d01477e0).
+2026-06-07 17:13:58,579 [User] [ping] v_500 - Allowed
+2026-06-07 17:14:13,899 [User] [ping] deafult4355543 - Allowed
+2026-06-07 17:14:21,142 [Admin] [server-settings] deafult4355543 - Allowed
+2026-06-07 18:19:06,796 [Admin] [server-settings] deafult4355543 - Allowed
+2026-06-07 18:33:28,231 davey is not installed, voice will NOT be supported
+2026-06-07 18:33:28,232 logging in using static token
+2026-06-07 18:33:29,020 Shard ID None has connected to Gateway (Session ID: 834561cfb207b0a93bcb9b9bf4f97e17).
+2026-06-07 18:33:33,983 [Admin] [server-settings] deafult4355543 - Allowed
+2026-06-07 18:33:33,983 Ignoring exception in command 'server-settings'
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 859, in _do_call
+    return await self._callback(interaction, **params)  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victor/Documents/Data-Base/index.py", line 383, in serverSettings
+    await serverSettings_logic(interaction)
+  File "/Users/victor/Documents/Data-Base/index.py", line 331, in serverSettings_logic
+    if not await verifyCommandPermissions(ctx_or_interaction, CommandType.ADMIN, *ADMIN_ROLE_IDS):
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victor/Documents/Data-Base/index.py", line 131, in verifyCommandPermissions
+    embed.add_field(name="Status", value="Allowed" if allowed else "Denied")
+    ^^^^^
+UnboundLocalError: cannot access local variable 'embed' where it is not associated with a value
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/tree.py", line 1302, in _call
+    await command._invoke_with_namespace(interaction, namespace)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 884, in _invoke_with_namespace
+    return await self._do_call(interaction, transformed_values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 877, in _do_call
+    raise CommandInvokeError(self, e) from e
+discord.app_commands.errors.CommandInvokeError: Command 'server-settings' raised an exception: UnboundLocalError: cannot access local variable 'embed' where it is not associated with a value
+2026-06-07 18:34:39,448 davey is not installed, voice will NOT be supported
+2026-06-07 18:34:39,448 logging in using static token
+2026-06-07 18:34:40,589 Shard ID None has connected to Gateway (Session ID: 46bf3ee9ac987a758dc37ceae2e824d9).
+2026-06-07 18:34:43,961 [Admin] [server-settings] deafult4355543 - Allowed
+2026-06-07 18:34:59,490 [Admin] [server-settings] deafult4355543 - Allowed
+2026-06-07 20:56:23,351 Shard ID None has successfully RESUMED session 46bf3ee9ac987a758dc37ceae2e824d9.
+2026-06-07 21:00:39,685 davey is not installed, voice will NOT be supported
+2026-06-07 21:00:39,686 logging in using static token
+2026-06-07 21:00:40,578 Shard ID None has connected to Gateway (Session ID: c42be993517411e1907dd0c98c43478c).
+2026-06-07 21:00:47,109 [Admin] [server-settings] deafult4355543 - Denied
+2026-06-07 21:05:25,173 davey is not installed, voice will NOT be supported
+2026-06-07 21:05:25,174 logging in using static token
+2026-06-07 21:05:26,251 Shard ID None has connected to Gateway (Session ID: a1b29b2657a63e4c9740ba2b16f98874).
+2026-06-07 21:05:28,986 [Admin] [server-settings] deafult4355543 - Denied
+2026-06-07 21:05:42,075 [Admin] [server-settings] v_500 - Allowed
+2026-06-07 21:05:47,563 [Admin] [server-settings] deafult4355543 - Allowed
+2026-06-07 21:05:50,297 [User] [ping] deafult4355543 - Allowed
+2026-06-07 21:08:43,887 davey is not installed, voice will NOT be supported
+2026-06-07 21:08:43,888 logging in using static token
+2026-06-07 21:08:46,174 Shard ID None has connected to Gateway (Session ID: 688b0f9eb0df6c6e153c303d7339cb0a).
+2026-06-07 21:08:48,211 [User] [ping] deafult4355543 - Denied
+2026-06-07 21:09:01,250 davey is not installed, voice will NOT be supported
+2026-06-07 21:09:01,250 logging in using static token
+2026-06-07 21:09:44,723 Shard ID None has connected to Gateway (Session ID: 40b77408ce85a710fbf64c8393c3add5).
+2026-06-07 21:10:08,212 davey is not installed, voice will NOT be supported
+2026-06-07 21:10:08,213 logging in using static token
+2026-06-07 21:10:09,511 Shard ID None has connected to Gateway (Session ID: 196ffa5e01c3f8567c007da6c0119456).
+2026-06-07 21:10:15,831 Ignoring exception in command 'ping'
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 859, in _do_call
+    return await self._callback(interaction, **params)  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victor/Documents/Data-Base/index.py", line 280, in ping
+    await ping_logic(interaction)
+  File "/Users/victor/Documents/Data-Base/index.py", line 270, in ping_logic
+    if not await verifyCommandPermissions(ctx_or_interaction):
+                 ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+TypeError: verifyCommandPermissions() missing 1 required positional argument: 'command_type'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/tree.py", line 1302, in _call
+    await command._invoke_with_namespace(interaction, namespace)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 884, in _invoke_with_namespace
+    return await self._do_call(interaction, transformed_values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 873, in _do_call
+    raise CommandInvokeError(self, e) from e
+discord.app_commands.errors.CommandInvokeError: Command 'ping' raised an exception: TypeError: verifyCommandPermissions() missing 1 required positional argument: 'command_type'
+2026-06-07 21:14:08,923 davey is not installed, voice will NOT be supported
+2026-06-07 21:14:08,924 logging in using static token
+2026-06-07 21:14:09,867 Shard ID None has connected to Gateway (Session ID: 1516acb88d60db9b923567606784f023).
+2026-06-07 21:14:11,509 [All] [ping] deafult4355543 - Denied
+2026-06-07 21:14:11,510 Ignoring exception in command 'ping'
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 859, in _do_call
+    return await self._callback(interaction, **params)  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victor/Documents/Data-Base/index.py", line 281, in ping
+    await ping_logic(interaction)
+  File "/Users/victor/Documents/Data-Base/index.py", line 271, in ping_logic
+    if not await verifyCommandPermissions(ctx_or_interaction, CommandType.ALL):
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victor/Documents/Data-Base/index.py", line 116, in verifyCommandPermissions
+    channel_id = LOG_CHANNELS[command_type]
+                 ~~~~~~~~~~~~^^^^^^^^^^^^^^
+KeyError: <CommandType.ALL: 'All'>
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/tree.py", line 1302, in _call
+    await command._invoke_with_namespace(interaction, namespace)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 884, in _invoke_with_namespace
+    return await self._do_call(interaction, transformed_values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 877, in _do_call
+    raise CommandInvokeError(self, e) from e
+discord.app_commands.errors.CommandInvokeError: Command 'ping' raised an exception: KeyError: <CommandType.ALL: 'All'>
+2026-06-07 21:15:54,745 davey is not installed, voice will NOT be supported
+2026-06-07 21:15:54,746 logging in using static token
+2026-06-07 21:15:55,603 Shard ID None has connected to Gateway (Session ID: 5c06e1d41489cc642c2b1a47f00f20d2).
+2026-06-07 21:15:59,920 Ignoring exception in command 'ping'
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 859, in _do_call
+    return await self._callback(interaction, **params)  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victor/Documents/Data-Base/index.py", line 281, in ping
+    await ping_logic(interaction)
+  File "/Users/victor/Documents/Data-Base/index.py", line 271, in ping_logic
+    if not await verifyCommandPermissions(ctx_or_interaction):
+                 ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+TypeError: verifyCommandPermissions() missing 1 required positional argument: 'command_type'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/tree.py", line 1302, in _call
+    await command._invoke_with_namespace(interaction, namespace)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 884, in _invoke_with_namespace
+    return await self._do_call(interaction, transformed_values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 873, in _do_call
+    raise CommandInvokeError(self, e) from e
+discord.app_commands.errors.CommandInvokeError: Command 'ping' raised an exception: TypeError: verifyCommandPermissions() missing 1 required positional argument: 'command_type'
+2026-06-07 21:16:54,746 davey is not installed, voice will NOT be supported
+2026-06-07 21:16:54,747 logging in using static token
+2026-06-07 21:16:55,877 Shard ID None has connected to Gateway (Session ID: e884bd535665ee87e4b607008ef51e3f).
+2026-06-07 21:16:56,312 Ignoring exception in command 'ping'
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 859, in _do_call
+    return await self._callback(interaction, **params)  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victor/Documents/Data-Base/index.py", line 281, in ping
+    await ping_logic(interaction)
+  File "/Users/victor/Documents/Data-Base/index.py", line 271, in ping_logic
+    if not await verifyCommandPermissions(ctx_or_interaction):
+                 ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+TypeError: verifyCommandPermissions() missing 1 required positional argument: 'command_type'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/tree.py", line 1302, in _call
+    await command._invoke_with_namespace(interaction, namespace)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 884, in _invoke_with_namespace
+    return await self._do_call(interaction, transformed_values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 873, in _do_call
+    raise CommandInvokeError(self, e) from e
+discord.app_commands.errors.CommandInvokeError: Command 'ping' raised an exception: TypeError: verifyCommandPermissions() missing 1 required positional argument: 'command_type'
+2026-06-07 21:18:01,616 davey is not installed, voice will NOT be supported
+2026-06-07 21:18:01,616 logging in using static token
+2026-06-07 21:18:02,622 Shard ID None has connected to Gateway (Session ID: a8886130b6521524fc4642e3a3df7f55).
+2026-06-07 21:18:25,799 [Admin] [server-settings] deafult4355543 - Denied
+2026-06-07 21:18:33,036 [Admin] [server-settings] v_500 - Allowed
+2026-06-07 21:21:35,536 davey is not installed, voice will NOT be supported
+2026-06-07 21:21:35,537 logging in using static token
+2026-06-07 21:21:36,326 Shard ID None has connected to Gateway (Session ID: a8e4f6ab6af90ef2cabf523a2dea245b).
+2026-06-07 21:21:46,558 [Admin] [server-settings] deafult4355543 - Denied
+2026-06-07 21:21:50,995 [Admin] [server-settings] v_500 - Allowed
+2026-06-07 21:21:51,009 Ignoring exception in command 'server-settings'
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 859, in _do_call
+    return await self._callback(interaction, **params)  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victor/Documents/Data-Base/index.py", line 371, in serverSettings
+    await serverSettings_logic(interaction)
+  File "/Users/victor/Documents/Data-Base/index.py", line 352, in serverSettings_logic
+    view = PageView(
+        embeds=embeds,
+    ...<6 lines>...
+        }
+    )
+TypeError: PageView.__init__() missing 1 required positional argument: 'author_id'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/tree.py", line 1302, in _call
+    await command._invoke_with_namespace(interaction, namespace)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 884, in _invoke_with_namespace
+    return await self._do_call(interaction, transformed_values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 873, in _do_call
+    raise CommandInvokeError(self, e) from e
+discord.app_commands.errors.CommandInvokeError: Command 'server-settings' raised an exception: TypeError: PageView.__init__() missing 1 required positional argument: 'author_id'
+2026-06-07 21:45:38,499 davey is not installed, voice will NOT be supported
+2026-06-07 21:45:38,499 logging in using static token
+2026-06-07 21:45:39,430 Shard ID None has connected to Gateway (Session ID: 9149ef97f304ad86fd08991841a022ee).
+2026-06-07 21:45:50,727 [Admin] [server-settings] deafult4355543 - Denied
+2026-06-07 21:45:59,952 [Admin] [server-settings] deafult4355543 - Denied
+2026-06-07 21:46:03,670 [Admin] [server-settings] v_500 - Allowed
+2026-06-07 21:46:03,687 Ignoring exception in command 'server-settings'
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 859, in _do_call
+    return await self._callback(interaction, **params)  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victor/Documents/Data-Base/index.py", line 372, in serverSettings
+    await serverSettings_logic(interaction)
+  File "/Users/victor/Documents/Data-Base/index.py", line 352, in serverSettings_logic
+    view = PageView(
+        embeds=embeds,
+    ...<7 lines>...
+        }
+    )
+TypeError: PageView.__init__() got an unexpected keyword argument 'ctx_or_interaction'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/tree.py", line 1302, in _call
+    await command._invoke_with_namespace(interaction, namespace)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 884, in _invoke_with_namespace
+    return await self._do_call(interaction, transformed_values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 873, in _do_call
+    raise CommandInvokeError(self, e) from e
+discord.app_commands.errors.CommandInvokeError: Command 'server-settings' raised an exception: TypeError: PageView.__init__() got an unexpected keyword argument 'ctx_or_interaction'
+2026-06-07 21:49:59,716 davey is not installed, voice will NOT be supported
+2026-06-07 21:49:59,717 logging in using static token
+2026-06-07 21:50:00,862 Shard ID None has connected to Gateway (Session ID: 06c9522a07ddf2c964b17f83ce6a25e7).
+2026-06-07 21:50:05,657 [Admin] [server-settings] v_500 - Allowed
+2026-06-07 21:51:13,362 davey is not installed, voice will NOT be supported
+2026-06-07 21:51:13,363 logging in using static token
+2026-06-07 21:51:14,415 Shard ID None has connected to Gateway (Session ID: abb2448c33dc5d1c2453c8d81cdb9531).
+2026-06-07 21:51:20,698 [Admin] [server-settings] v_500 - Allowed
+2026-06-07 21:51:23,649 [Admin] [server-settings] deafult4355543 - Denied
+2026-06-07 22:08:24,434 davey is not installed, voice will NOT be supported
+2026-06-07 22:08:24,434 logging in using static token
+2026-06-07 22:08:25,277 Shard ID None has connected to Gateway (Session ID: 41af6df692300d820de70fa0a400d918).
+2026-06-07 22:08:26,989 [Admin] [server-settings] v_500 - Allowed
+2026-06-07 22:09:10,100 [Admin] [server-settings] deafult4355543 - Allowed
+2026-06-07 22:09:28,250 [Admin] [server-settings] deafult4355543 - Allowed

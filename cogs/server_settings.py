@@ -26,19 +26,19 @@ async def set_user_log_channel(interaction, channels):
     if not channels: return
     config.LOG_CHANNELS[CommandType.USER] = channels[0].id
     save_settings()
-    await interaction.response.send_message(f"{CHECK} ``User log channel set to: {USER}`` {channels[0].mention}", ephemeral=True)
+    await interaction.response.send_message(f"{CHECK} ``User log channel set to: ``{USER} {channels[0].mention}", ephemeral=True)
 
 async def set_manager_log_channel(interaction, channels):
     if not channels: return
     config.LOG_CHANNELS[CommandType.MANAGER] = channels[0].id
     save_settings()
-    await interaction.response.send_message(f"{CHECK} ``Manager log channel set to:{MANAGER}`` {channels[0].mention}", ephemeral=True)
+    await interaction.response.send_message(f"{CHECK} ``Manager log channel set to: ``{MANAGER} {channels[0].mention}", ephemeral=True)
 
 async def set_admin_log_channel(interaction, channels):
     if not channels: return
     config.LOG_CHANNELS[CommandType.ADMIN] = channels[0].id
     save_settings()
-    await interaction.response.send_message(f"{CHECK} ``Admin log channel set to: {ADMIN}`` {channels[0].mention}", ephemeral=True)
+    await interaction.response.send_message(f"{CHECK} ``Admin log channel set to: ``{ADMIN} {channels[0].mention}", ephemeral=True)
 
 
 class Server_Settings(commands.Cog):

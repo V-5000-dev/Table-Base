@@ -18,7 +18,7 @@ class Ping(commands.Cog):
     async def ping_prefix(self, ctx):
         if not await verifyCommandPermissions(ctx):
             return
-        await ctx.send(f"{CHECKWHITE} ``Online. Pong!``")
+        await ctx.send(f"{CHECK} ``Online. Pong!``")
 
 async def setup(bot):
     await bot.add_cog(Ping(bot))

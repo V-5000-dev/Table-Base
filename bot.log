@@ -3022,3 +3022,21 @@ discord.app_commands.errors.CommandInvokeError: Command 'ping' raised an excepti
 2026-06-08 01:19:06,968 [Admin] [server-settings] v_500 - Allowed
 2026-06-08 01:46:59,409 Shard ID None has successfully RESUMED session 0fb4fb56974ac5a5ee095225754a3b20.
 2026-06-08 01:48:05,245 [Admin] [server-settings] v_500 - Allowed
+2026-06-08 14:41:17,157 davey is not installed, voice will NOT be supported
+2026-06-08 14:41:17,157 logging in using static token
+2026-06-08 14:41:18,081 Shard ID None has connected to Gateway (Session ID: bc02e2a459119792552d2dd4192ecb04).
+2026-06-08 14:41:23,455 [Unprotected] [ping] v_500 - Allowed
+2026-06-08 14:41:27,564 [Admin] [server-settings] v_500 - Allowed
+2026-06-08 14:48:06,512 davey is not installed, voice will NOT be supported
+2026-06-08 14:48:06,513 logging in using static token
+2026-06-08 14:48:08,591 Shard ID None has connected to Gateway (Session ID: 9702aa72f4eb7868e1637b5157f169aa).
+2026-06-08 14:48:13,488 [Unprotected] [ping] v_500 - Allowed
+2026-06-08 14:50:58,644 davey is not installed, voice will NOT be supported
+2026-06-08 14:50:58,644 logging in using static token
+2026-06-08 14:50:59,498 Shard ID None has connected to Gateway (Session ID: aff5eb0ffe16a01c8799f8f9161e5daa).
+2026-06-08 14:51:01,312 [Unprotected] [ping] v_500 - Allowed
+2026-06-08 15:04:20,771 davey is not installed, voice will NOT be supported
+2026-06-08 15:04:20,772 logging in using static token
+2026-06-08 15:04:21,683 Shard ID None has connected to Gateway (Session ID: e0a8126aaf49a49be312041f1ee10b8b).
+2026-06-08 15:40:56,619 davey is not installed, voice will NOT be supported
+2026-06-08 15:40:56,619 logging in using static token

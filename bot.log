@@ -2836,3 +2836,157 @@ discord.app_commands.errors.CommandInvokeError: Command 'server-settings' raised
 2026-06-07 22:08:26,989 [Admin] [server-settings] v_500 - Allowed
 2026-06-07 22:09:10,100 [Admin] [server-settings] deafult4355543 - Allowed
 2026-06-07 22:09:28,250 [Admin] [server-settings] deafult4355543 - Allowed
+2026-06-07 22:13:02,889 davey is not installed, voice will NOT be supported
+2026-06-07 22:13:02,890 logging in using static token
+2026-06-07 22:13:04,068 Shard ID None has connected to Gateway (Session ID: 7734fc4cafc941afd928e57c471b13f8).
+2026-06-07 22:13:05,357 [Admin] [server-settings] v_500 - Allowed
+2026-06-07 22:13:14,079 [Admin] [server-settings] deafult4355543 - Allowed
+2026-06-07 22:13:58,629 davey is not installed, voice will NOT be supported
+2026-06-07 22:13:58,630 logging in using static token
+2026-06-07 22:13:59,633 Shard ID None has connected to Gateway (Session ID: 4681c4feb93ce12d24c101c6fada32af).
+2026-06-07 22:14:00,777 [Admin] [server-settings] deafult4355543 - Denied
+2026-06-07 22:14:13,393 [Admin] [server-settings] v_500 - Allowed
+2026-06-07 22:14:17,555 Ignoring exception in command 'ping'
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 859, in _do_call
+    return await self._callback(interaction, **params)  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victor/Documents/Data-Base/index.py", line 293, in ping
+    await ping_logic(interaction)
+  File "/Users/victor/Documents/Data-Base/index.py", line 283, in ping_logic
+    if not await verifyCommandPermissions(ctx_or_interaction):
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victor/Documents/Data-Base/index.py", line 114, in verifyCommandPermissions
+    logging.info(f"[{command_type.value}] [{command_name}] {user} - {'Allowed' if allowed else 'Denied'}")
+                     ^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'value'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/tree.py", line 1302, in _call
+    await command._invoke_with_namespace(interaction, namespace)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 884, in _invoke_with_namespace
+    return await self._do_call(interaction, transformed_values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 877, in _do_call
+    raise CommandInvokeError(self, e) from e
+discord.app_commands.errors.CommandInvokeError: Command 'ping' raised an exception: AttributeError: 'NoneType' object has no attribute 'value'
+2026-06-07 22:14:26,610 Ignoring exception in command 'ping'
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 859, in _do_call
+    return await self._callback(interaction, **params)  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victor/Documents/Data-Base/index.py", line 293, in ping
+    await ping_logic(interaction)
+  File "/Users/victor/Documents/Data-Base/index.py", line 283, in ping_logic
+    if not await verifyCommandPermissions(ctx_or_interaction):
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victor/Documents/Data-Base/index.py", line 114, in verifyCommandPermissions
+    logging.info(f"[{command_type.value}] [{command_name}] {user} - {'Allowed' if allowed else 'Denied'}")
+                     ^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'value'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/tree.py", line 1302, in _call
+    await command._invoke_with_namespace(interaction, namespace)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 884, in _invoke_with_namespace
+    return await self._do_call(interaction, transformed_values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 877, in _do_call
+    raise CommandInvokeError(self, e) from e
+discord.app_commands.errors.CommandInvokeError: Command 'ping' raised an exception: AttributeError: 'NoneType' object has no attribute 'value'
+2026-06-07 22:23:04,441 davey is not installed, voice will NOT be supported
+2026-06-07 22:23:04,441 logging in using static token
+2026-06-07 22:23:05,783 Shard ID None has connected to Gateway (Session ID: 364e0a9685cbfbe643c1d45b8949e134).
+2026-06-07 22:23:08,228 Ignoring exception in command 'ping'
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 859, in _do_call
+    return await self._callback(interaction, **params)  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victor/Documents/Data-Base/index.py", line 293, in ping
+    await ping_logic(interaction)
+  File "/Users/victor/Documents/Data-Base/index.py", line 283, in ping_logic
+    if not await verifyCommandPermissions(ctx_or_interaction):
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victor/Documents/Data-Base/index.py", line 114, in verifyCommandPermissions
+    logging.info(f"[{command_type.value}] [{command_name}] {user} - {'Allowed' if allowed else 'Denied'}")
+                     ^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'value'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/tree.py", line 1302, in _call
+    await command._invoke_with_namespace(interaction, namespace)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 884, in _invoke_with_namespace
+    return await self._do_call(interaction, transformed_values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 877, in _do_call
+    raise CommandInvokeError(self, e) from e
+discord.app_commands.errors.CommandInvokeError: Command 'ping' raised an exception: AttributeError: 'NoneType' object has no attribute 'value'
+2026-06-07 22:33:11,755 davey is not installed, voice will NOT be supported
+2026-06-07 22:33:11,756 logging in using static token
+2026-06-07 22:33:12,616 Shard ID None has connected to Gateway (Session ID: 7e4216e087d6e445c35e8791131b5b96).
+2026-06-07 22:33:14,628 Ignoring exception in command 'ping'
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 859, in _do_call
+    return await self._callback(interaction, **params)  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victor/Documents/Data-Base/index.py", line 295, in ping
+    await ping_logic(interaction)
+  File "/Users/victor/Documents/Data-Base/index.py", line 285, in ping_logic
+    if not await verifyCommandPermissions(ctx_or_interaction):
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victor/Documents/Data-Base/index.py", line 116, in verifyCommandPermissions
+    logging.info(f"[{command_type.value}] [{command_name}] {user} - {'Allowed' if allowed else 'Denied'}")
+                     ^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'value'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/tree.py", line 1302, in _call
+    await command._invoke_with_namespace(interaction, namespace)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 884, in _invoke_with_namespace
+    return await self._do_call(interaction, transformed_values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 877, in _do_call
+    raise CommandInvokeError(self, e) from e
+discord.app_commands.errors.CommandInvokeError: Command 'ping' raised an exception: AttributeError: 'NoneType' object has no attribute 'value'
+2026-06-07 22:34:48,955 davey is not installed, voice will NOT be supported
+2026-06-07 22:34:48,955 logging in using static token
+2026-06-07 22:34:49,746 Shard ID None has connected to Gateway (Session ID: d32b64e43b9fcb9886a6248e1acd25c0).
+2026-06-07 22:34:51,576 Ignoring exception in command 'ping'
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 859, in _do_call
+    return await self._callback(interaction, **params)  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victor/Documents/Data-Base/index.py", line 298, in ping
+    await ping_logic(interaction)
+  File "/Users/victor/Documents/Data-Base/index.py", line 288, in ping_logic
+    if not await verifyCommandPermissions(ctx_or_interaction):
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victor/Documents/Data-Base/index.py", line 112, in verifyCommandPermissions
+    elif any(role_id in allowed_roles for role_id in user_role_ids):
+                                                     ^^^^^^^^^^^^^
+UnboundLocalError: cannot access local variable 'user_role_ids' where it is not associated with a value
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/tree.py", line 1302, in _call
+    await command._invoke_with_namespace(interaction, namespace)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 884, in _invoke_with_namespace
+    return await self._do_call(interaction, transformed_values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 877, in _do_call
+    raise CommandInvokeError(self, e) from e
+discord.app_commands.errors.CommandInvokeError: Command 'ping' raised an exception: UnboundLocalError: cannot access local variable 'user_role_ids' where it is not associated with a value
+2026-06-07 23:07:11,682 davey is not installed, voice will NOT be supported
+2026-06-07 23:07:11,683 logging in using static token
+2026-06-07 23:07:12,656 Shard ID None has connected to Gateway (Session ID: ea501f7be93b4bb3ebd601be2f11ceac).
+2026-06-07 23:07:16,209 [Unprotected] [ping] deafult4355543 - Allowed
+2026-06-07 23:07:21,396 [Manager] [database-create] deafult4355543 - Allowed

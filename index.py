@@ -6,17 +6,44 @@ import os
 import logging
 from enum import Enum
 from datetime import datetime
+import json
+#------------------------------------------------
+SETTINGS_FILE = "settings.json"
 
-# logging setup ------------------------------------------------
-logging.basicConfig(
-    filename="bot.log",
-    level=logging.INFO,
-    format="%(asctime)s %(message)s"
-)
+def load_settings():
+    global SERVER_ADMIN_ROLE_IDS, ADMIN_ROLE_IDS, MANAGER_ROLE_IDS, MEMBER_ROLE_IDS, LOG_UNSUCCESSFUL
+    global LOG_CHANNELS
+    try:
+        with open(SETTINGS_FILE, "r") as f:
+            data = json.load(f)
+        SERVER_ADMIN_ROLE_IDS = data.get("SERVER_ADMIN_ROLE_IDS", [])
+        ADMIN_ROLE_IDS = data.get("ADMIN_ROLE_IDS", [])
+        MANAGER_ROLE_IDS = data.get("MANAGER_ROLE_IDS", [])
+        MEMBER_ROLE_IDS = data.get("MEMBER_ROLE_IDS", [])
+        LOG_UNSUCCESSFUL = data.get("LOG_UNSUCCESSFUL", True)
+        LOG_CHANNELS[CommandType.USER] = data.get("USER_LOG_CHANNEL", 0)
+        LOG_CHANNELS[CommandType.MANAGER] = data.get("MANAGER_LOG_CHANNEL", 0)
+        LOG_CHANNELS[CommandType.ADMIN] = data.get("ADMIN_LOG_CHANNEL", 0)
+    except FileNotFoundError:
+        pass 
 
-# setup ------------------------------------------------
+def save_settings():
+    data = {
+        "SERVER_ADMIN_ROLE_IDS": SERVER_ADMIN_ROLE_IDS,
+        "ADMIN_ROLE_IDS": ADMIN_ROLE_IDS,
+        "MANAGER_ROLE_IDS": MANAGER_ROLE_IDS,
+        "MEMBER_ROLE_IDS": MEMBER_ROLE_IDS,
+        "LOG_UNSUCCESSFUL": LOG_UNSUCCESSFUL,
+        "USER_LOG_CHANNEL": LOG_CHANNELS[CommandType.USER],
+        "MANAGER_LOG_CHANNEL": LOG_CHANNELS[CommandType.MANAGER],
+        "ADMIN_LOG_CHANNEL": LOG_CHANNELS[CommandType.ADMIN],
+    }
+    with open(SETTINGS_FILE, "w") as f:
+        json.dump(data, f, indent=4)
+
+
 load_dotenv(dotenv_path=".env")
-
+#------------------------------------------------
 ERROR = "<:Error:1511925664910147607>"
 CHECK = "<:CheckMark:1512108503857238076>"
 CHECKWHITE = "<:CheckMark2:1512309496947413012>"
@@ -53,7 +80,7 @@ MANAGER_ROLE_IDS = []
 MEMBER_ROLE_IDS = []
 
 
-# Commands ------------------------------------------------
+#------------------------------------------------
 class Client(commands.Bot):
 
     async def setup_hook(self):
@@ -67,6 +94,7 @@ class Client(commands.Bot):
             print(f"Error syncing commands: {e}")
 
     async def on_ready(self):
+        load_settings()
         print(f"Logged in as {self.user}.")
         print("Commands currently in tree:")
         for cmd in self.tree.walk_commands():
@@ -76,8 +104,8 @@ class Client(commands.Bot):
 intents = discord.Intents.default()
 intents.message_content = True
 client = Client(command_prefix="db ", intents=intents)
-
 async def verifyCommandPermissions(ctx_or_interaction, command_type: CommandType = None) -> bool:
+
     if isinstance(ctx_or_interaction, discord.Interaction):
         user = ctx_or_interaction.user
         guild_permissions = ctx_or_interaction.user.guild_permissions
@@ -89,31 +117,32 @@ async def verifyCommandPermissions(ctx_or_interaction, command_type: CommandType
         command_name = ctx_or_interaction.command.name
         _client = ctx_or_interaction.bot
 
-    user_role_ids = [role.id for role in user.roles]
-
-    allowed_roles = []
-    
-    if command_type == CommandType.USER:
-        allowed_roles += MEMBER_ROLE_IDS
-    if command_type in (CommandType.USER, CommandType.MANAGER):
-        allowed_roles += MANAGER_ROLE_IDS
-    if command_type in (CommandType.USER, CommandType.MANAGER, CommandType.ADMIN):
-        allowed_roles += ADMIN_ROLE_IDS
-    allowed_roles += SERVER_ADMIN_ROLE_IDS
     if command_type is None:
-        return True
-    if guild_permissions.administrator:
-        allowed = True
-    elif allowed_roles:
-        allowed = True
-    elif any(role_id in allowed_roles for role_id in user_role_ids):
         allowed = True
     else:
-        allowed = False
+        user_role_ids = [role.id for role in user.roles]
 
-    logging.info(f"[{command_type.value}] [{command_name}] {user} - {'Allowed' if allowed else 'Denied'}")
+        allowed_roles = []
+        if command_type == CommandType.USER:
+            allowed_roles += MEMBER_ROLE_IDS
+        if command_type in (CommandType.USER, CommandType.MANAGER):
+            allowed_roles += MANAGER_ROLE_IDS
+        if command_type in (CommandType.USER, CommandType.MANAGER, CommandType.ADMIN):
+            allowed_roles += ADMIN_ROLE_IDS
+        allowed_roles += SERVER_ADMIN_ROLE_IDS
 
-    channel_id = LOG_CHANNELS[command_type]
+        if guild_permissions.administrator:
+            allowed = True
+        elif not allowed_roles:
+            allowed = True
+        elif any(role_id in allowed_roles for role_id in user_role_ids):
+            allowed = True
+        else:
+            allowed = False
+
+    logging.info(f"[{'Unprotected' if command_type is None else command_type.value}] [{command_name}] {user} - {'Allowed' if allowed else 'Denied'}")
+
+    channel_id = LOG_CHANNELS.get(command_type) if command_type is not None else None
     channel = _client.get_channel(channel_id) if isinstance(channel_id, int) and channel_id != 0 else None
 
     if channel and (allowed or LOG_UNSUCCESSFUL):
@@ -144,10 +173,10 @@ async def verifyCommandPermissions(ctx_or_interaction, command_type: CommandType
     if not allowed:
         if isinstance(ctx_or_interaction, discord.Interaction):
             await ctx_or_interaction.response.send_message(
-                f"{PERMISSON} ``You don't have permission to use this command.``"
+                f"{PERMISSON} You don't have permission to use this command.", ephemeral=True
             )
         else:
-            await ctx_or_interaction.send(f"{PERMISSON} ``You don't have permission to use this command.``")
+            await ctx_or_interaction.send(f"{PERMISSON} You don't have permission to use this command.")
 
     return allowed
 
@@ -388,15 +417,17 @@ class ToggleLoggingButton(discord.ui.Button):
         global LOG_UNSUCCESSFUL
         self.state = not self.state
         LOG_UNSUCCESSFUL = not self.state
+        save_settings()
         self.label = "Enable logs from unsuccessful command attempts" if self.state else "Disable logs from unsuccessful command attempts"
         await interaction.response.edit_message(view=self.view)
 
 
 async def save_serveradmin_roles(interaction, roles):
     global SERVER_ADMIN_ROLE_IDS
+    save_settings()
     SERVER_ADMIN_ROLE_IDS = [r.id for r in roles]
     await interaction.response.send_message(
-        f"{CHECK} ``Saved admin roles: {', '.join(r.name for r in roles)}``",
+        f"{CHECK} ``Saved admin roles:`` {', '.join(r.name for r in roles)}",
         ephemeral=True
     )
 
@@ -404,8 +435,9 @@ async def set_user_log_channel(interaction, channels):
     if not channels:
         return
     LOG_CHANNELS[CommandType.USER] = channels[0].id
+    save_settings()
     await interaction.response.send_message(
-        f"{CHECK} ``User log channel set to: {channels[0].mention}``",
+        f"{CHECK} ``User log channel set to:`` {channels[0].mention}",
         ephemeral=True
     )
 
@@ -414,8 +446,9 @@ async def set_manager_log_channel(interaction, channels):
     if not channels:
         return
     LOG_CHANNELS[CommandType.MANAGER] = channels[0].id
+    save_settings()
     await interaction.response.send_message(
-        f"{CHECK} ``Manager log channel set to: {channels[0].mention}``",
+        f"{CHECK} ``Manager log channel set to:`` {channels[0].mention}",
         ephemeral=True
     )
 
@@ -424,8 +457,9 @@ async def set_admin_log_channel(interaction, channels):
     if not channels:
         return
     LOG_CHANNELS[CommandType.ADMIN] = channels[0].id
+    save_settings()
     await interaction.response.send_message(
-        f"{CHECK} ``Admin log channel set to: {channels[0].mention}``",
+        f"{CHECK} ``Admin log channel set to:``{ channels[0].mention}",
         ephemeral=True
     )
 

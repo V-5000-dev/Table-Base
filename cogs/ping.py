@@ -4,7 +4,7 @@ from discord import app_commands
 from config import GUILD_ID, CHECK, CHECKWHITE, CommandType
 from utils import verifyCommandPermissions
 
-class General(commands.Cog):
+class Ping(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
@@ -21,4 +21,4 @@ class General(commands.Cog):
         await ctx.send(f"{CHECKWHITE} ``Online. Pong!``")
 
 async def setup(bot):
-    await bot.add_cog(General(bot))
+    await bot.add_cog(Ping(bot))

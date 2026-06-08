@@ -9,6 +9,10 @@ CHECKWHITE = "<:CheckMark2:1512309496947413012>"
 X = "<:CrossMark:1511924485324804156>"
 PERMISSON = "<:Permisson:1511924423819661442>"
 
+USER = "<:UserCommand:1512608514919632896>"
+MANAGER = "<:ManagerCommand:1512608333394350301>"
+ADMIN = "<:AdminCommand:1512608289819463762>"
+
 class CommandType(Enum):
     USER = "User"
     MANAGER = "Manager"

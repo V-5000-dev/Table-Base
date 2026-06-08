@@ -4,7 +4,7 @@ from discord import app_commands
 from config import GUILD_ID, CHECK, CommandType
 from utils import verifyCommandPermissions
 
-class Database(commands.Cog):
+class Database_Create(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
@@ -21,4 +21,4 @@ class Database(commands.Cog):
         await ctx.send(f"{CHECK} Test!")
 
 async def setup(bot):
-    await bot.add_cog(Database(bot))
+    await bot.add_cog(Database_Create(bot))

@@ -54,15 +54,16 @@ async def verifyCommandPermissions(ctx_or_interaction, command_type: CommandType
         allowed_roles = []
         if command_type == CommandType.USER:
             allowed_roles += config.MEMBER_ROLE_IDS
-        if command_type in (CommandType.USER, CommandType.MANAGER):
+        if command_type in (CommandType.MANAGER, CommandType.USER):
             allowed_roles += config.MANAGER_ROLE_IDS
-        if command_type in (CommandType.USER, CommandType.MANAGER, CommandType.ADMIN):
+        if command_type in (CommandType.ADMIN, CommandType.MANAGER, CommandType.USER):
             allowed_roles += config.ADMIN_ROLE_IDS
+
         allowed_roles += config.SERVER_ADMIN_ROLE_IDS
 
         if guild_permissions.administrator:
             allowed = True
-        elif not allowed_roles:
+        elif  allowed_roles:
             allowed = True
         elif any(role_id in allowed_roles for role_id in user_role_ids):
             allowed = True
@@ -101,7 +102,7 @@ async def verifyCommandPermissions(ctx_or_interaction, command_type: CommandType
     if not allowed:
         msg = f"{PERMISSON} You don't have permission to use this command."
         if isinstance(ctx_or_interaction, discord.Interaction):
-            await ctx_or_interaction.response.send_message(msg, ephemeral=True)
+            await ctx_or_interaction.response.send_message(msg)
         else:
             await ctx_or_interaction.send(msg)
 

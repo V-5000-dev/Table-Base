@@ -2,7 +2,7 @@ import discord
 from discord.ext import commands
 from discord import app_commands
 import config
-from config import GUILD_ID, CHECK, CommandType
+from config import GUILD_ID, CHECK, ADMIN, USER, MANAGER, CommandType
 from utils import verifyCommandPermissions, PageView, SelectRoles_Menu, SelectChannels_Menu, save_settings
 
 class ToggleLoggingButton(discord.ui.Button):
@@ -26,22 +26,22 @@ async def set_user_log_channel(interaction, channels):
     if not channels: return
     config.LOG_CHANNELS[CommandType.USER] = channels[0].id
     save_settings()
-    await interaction.response.send_message(f"{CHECK} ``User log channel set to:`` {channels[0].mention}", ephemeral=True)
+    await interaction.response.send_message(f"{CHECK} ``User log channel set to: {USER}`` {channels[0].mention}", ephemeral=True)
 
 async def set_manager_log_channel(interaction, channels):
     if not channels: return
     config.LOG_CHANNELS[CommandType.MANAGER] = channels[0].id
     save_settings()
-    await interaction.response.send_message(f"{CHECK} ``Manager log channel set to:`` {channels[0].mention}", ephemeral=True)
+    await interaction.response.send_message(f"{CHECK} ``Manager log channel set to:{MANAGER}`` {channels[0].mention}", ephemeral=True)
 
 async def set_admin_log_channel(interaction, channels):
     if not channels: return
     config.LOG_CHANNELS[CommandType.ADMIN] = channels[0].id
     save_settings()
-    await interaction.response.send_message(f"{CHECK} ``Admin log channel set to:`` {channels[0].mention}", ephemeral=True)
+    await interaction.response.send_message(f"{CHECK} ``Admin log channel set to: {ADMIN}`` {channels[0].mention}", ephemeral=True)
 
 
-class Server(commands.Cog):
+class Server_Settings(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
@@ -85,4 +85,4 @@ class Server(commands.Cog):
             await ctx_or_interaction.send(embed=embeds[0], view=view)
 
 async def setup(bot):
-    await bot.add_cog(Server(bot))
+    await bot.add_cog(Server_Settings(bot))

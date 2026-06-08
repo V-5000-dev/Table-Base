@@ -3020,3 +3020,5 @@ discord.app_commands.errors.CommandInvokeError: Command 'ping' raised an excepti
 2026-06-08 01:18:48,645 [Admin] [server-settings] deafult4355543 - Denied
 2026-06-08 01:19:00,510 [Admin] [server-settings] v_500 - Allowed
 2026-06-08 01:19:06,968 [Admin] [server-settings] v_500 - Allowed
+2026-06-08 01:46:59,409 Shard ID None has successfully RESUMED session 0fb4fb56974ac5a5ee095225754a3b20.
+2026-06-08 01:48:05,245 [Admin] [server-settings] v_500 - Allowed

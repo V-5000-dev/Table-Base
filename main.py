@@ -1,78 +1,28 @@
-# import asyncio
-# import discord
-# from discord.ext import bridge
-# from discord.commands import SlashCommandGroup
-# from discord.ext import commands, pages
-# from dotenv import load_dotenv
-# import os
-# import json
+import discord
+from discord.ext import commands
+from dotenv import load_dotenv
+import logging
+import os
+from config import GUILD_ID
+from utils import load_settings
 
-# DB_FILE = 'databases.json'
-# #Emojis
-# ERROR = "<:Error:1511925664910147607>"
-# CHECK = "<:CheckMark:1511961188848631838>"
-# X = "<:CrossMark:1511924485324804156>"
-# PERMISSON = "<:Permisson:1511924423819661442>"
-# MODIFICATION = "<:ModificationCommand:1511923491107246141>"
-# DANDER = "<:DangerCommand:1511923466016657438>"
+logging.basicConfig(filename="bot.log", level=logging.INFO, format="%(asctime)s %(message)s")
+load_dotenv(dotenv_path=".env")
 
-# def load_databases():
-#     if os.path.exists(DB_FILE):
-#         with open(DB_FILE, 'r') as f:
-#             return json.load(f)
-#     return {}
+class Client(commands.Bot):
+    async def setup_hook(self):
+        await self.load_extension("cogs.general")
+        await self.load_extension("cogs.database")
+        await self.load_extension("cogs.server")
+        self.tree.copy_global_to(guild=GUILD_ID)
+        synced = await self.tree.sync(guild=GUILD_ID)
+        print(f"Synced {len(synced)} commands: {[c.name for c in synced]}")
 
-# def save_databases():
-#     with open(DB_FILE, 'w') as f:
-#         json.dump(databases, f)
+    async def on_ready(self):
+        load_settings()
+        print(f"Logged in as {self.user}.")
 
-
-# load_dotenv()
-# databases = load_databases()
-
-# intents = discord.Intents.default()
-# intents.message_content = True
-# intents.members = True
-# intents.presences = True
-
-# bot = bridge.Bot(command_prefix='d!', intents=intents)
-
-
-# @bot.bridge_command(name="ping", description="Check if the bot is online.")
-# async def ping(ctx):
-#     await ctx.respond(f'{CHECK} Online. Pong!')
-
-
-
-
-# @bot.bridge_command(name="database-create", description="Create a database.")
-# async def database_create(ctx, name: str):
-#     if name in databases:
-#         await ctx.respond(f"{ERROR} A database with that name already exists.")
-#         return
-#     databases[name] = {
-#         'database_admins': [],
-#         'database_managers': [],
-#         'database_members': [],
-#         'database_data': []
-#     }
-#     save_databases()
-#     await ctx.respond(f"{CHECK} Database `{name}` created!")
-    
-# @bot.bridge_command(name= "server-settings", description = "Configure the bot's settings for the server.")
-# async def printer(interaction: discord.Integration):
-#     embed = discord.Embed(title = "DataBase Server Settings", desription =  "Configure the server settings below.")
-#     await interaction.response.send_message(embed = embed)
-
-
-
-
-
-
-
-
-# @bot.event
-# async def on_ready():
-#     print(f'Logged in as {bot.user}')
-
-# bot.run(os.getenv('TOKEN'))
+intents = discord.Intents.default()
+intents.message_content = True
+client = Client(command_prefix="db ", intents=intents)
+client.run(os.getenv('TOKEN'))

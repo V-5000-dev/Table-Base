@@ -18,6 +18,7 @@ def load_settings():
         config.LOG_CHANNELS[CommandType.USER]    = data.get("USER_LOG_CHANNEL", 0)
         config.LOG_CHANNELS[CommandType.MANAGER] = data.get("MANAGER_LOG_CHANNEL", 0)
         config.LOG_CHANNELS[CommandType.ADMIN]   = data.get("ADMIN_LOG_CHANNEL", 0)
+        config.ALL_TABLES = data.get('ALL_TABLES', [])
     except FileNotFoundError:
         pass
 
@@ -31,6 +32,7 @@ def save_settings():
         "USER_LOG_CHANNEL":      config.LOG_CHANNELS[CommandType.USER],
         "MANAGER_LOG_CHANNEL":   config.LOG_CHANNELS[CommandType.MANAGER],
         "ADMIN_LOG_CHANNEL":     config.LOG_CHANNELS[CommandType.ADMIN],
+        "ALL_TABLES":            config.ALL_TABLES,
     }
     with open(SETTINGS_FILE, "w") as f:
         json.dump(data, f, indent=4)

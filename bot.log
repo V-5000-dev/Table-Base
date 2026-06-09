@@ -3022,3 +3022,33 @@ discord.app_commands.errors.CommandInvokeError: Command 'ping' raised an excepti
 2026-06-08 01:19:06,968 [Admin] [server-settings] v_500 - Allowed
 2026-06-08 01:46:59,409 Shard ID None has successfully RESUMED session 0fb4fb56974ac5a5ee095225754a3b20.
 2026-06-08 01:48:05,245 [Admin] [server-settings] v_500 - Allowed
+2026-06-08 19:14:13,076 davey is not installed, voice will NOT be supported
+2026-06-08 19:14:13,077 logging in using static token
+2026-06-08 19:16:10,559 davey is not installed, voice will NOT be supported
+2026-06-08 19:16:10,560 logging in using static token
+2026-06-08 21:37:16,115 davey is not installed, voice will NOT be supported
+2026-06-08 21:37:16,115 logging in using static token
+2026-06-08 21:37:32,916 davey is not installed, voice will NOT be supported
+2026-06-08 21:37:32,917 logging in using static token
+2026-06-08 21:37:39,799 davey is not installed, voice will NOT be supported
+2026-06-08 21:37:39,800 logging in using static token
+2026-06-08 21:38:25,877 davey is not installed, voice will NOT be supported
+2026-06-08 21:38:25,877 logging in using static token
+2026-06-08 21:38:26,819 Shard ID None has connected to Gateway (Session ID: bd5787355f3177bd3f53fad5b72de231).
+2026-06-08 21:38:36,132 [Unprotected] [prefix] v_500 - Allowed
+2026-06-08 21:38:59,910 davey is not installed, voice will NOT be supported
+2026-06-08 21:38:59,911 logging in using static token
+2026-06-08 21:39:01,239 Shard ID None has connected to Gateway (Session ID: 3ef22ac5b2f344dec203e637919784a7).
+2026-06-08 21:39:03,748 [Unprotected] [prefix] v_500 - Allowed
+2026-06-08 21:39:26,159 davey is not installed, voice will NOT be supported
+2026-06-08 21:39:26,160 logging in using static token
+2026-06-08 21:40:00,747 Shard ID None has connected to Gateway (Session ID: 7e0828be224904a18cce5b481088c565).
+2026-06-08 21:40:06,889 [Unprotected] [prefix] v_500 - Allowed
+2026-06-08 21:40:11,052 [Unprotected] [prefix] v_500 - Allowed
+2026-06-08 22:01:41,399 davey is not installed, voice will NOT be supported
+2026-06-08 22:01:41,400 logging in using static token
+2026-06-08 22:01:43,087 Shard ID None has connected to Gateway (Session ID: 2ab2956b8790811838fca67daa49d393).
+2026-06-08 22:02:03,656 [Unprotected] [ping] deafult4355543 - Allowed
+2026-06-08 22:02:06,635 [Admin] [server-settings] deafult4355543 - Allowed
+2026-06-08 22:07:12,397 Shard ID None session has been invalidated.
+2026-06-08 22:07:17,749 Shard ID None has connected to Gateway (Session ID: dc6ffe0a3bc675138439c43060a808ec).

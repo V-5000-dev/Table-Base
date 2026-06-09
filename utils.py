@@ -89,6 +89,7 @@ async def verifyCommandPermissions(ctx_or_interaction, command_type: CommandType
                 CommandType.USER:    discord.Color.light_grey(),
                 CommandType.MANAGER: discord.Color.orange(),
                 CommandType.ADMIN:   discord.Color.red(),
+                CommandType.SERVER_ADMIN:   discord.Color.red(),
             }[command_type],
         )
         embed.add_field(name="Status",    value="Allowed" if allowed else "Denied")
@@ -98,6 +99,7 @@ async def verifyCommandPermissions(ctx_or_interaction, command_type: CommandType
             CommandType.USER:    "https://cdn.discordapp.com/emojis/1512608514919632896.png",
             CommandType.MANAGER: "https://cdn.discordapp.com/emojis/1512608333394350301.png",
             CommandType.ADMIN:   "https://cdn.discordapp.com/emojis/1512608289819463762.png",
+            CommandType.SERVER_ADMIN:   "https://cdn.discordapp.com/emojis/1512608289819463762.png",
         }[command_type])
         await channel.send(embed=embed)
 

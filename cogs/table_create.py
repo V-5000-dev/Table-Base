@@ -19,11 +19,12 @@ class Table_Create(commands.Cog):
             "name": name,
             "rows": 0,
             "columns": 0,
+            "column_names": [],
             "data": [[]]
         }
         config.ALL_TABLES.append(table)
         save_settings()
-        await interaction.response.send_message(f"{CHECK} ``Table with the name`` {name}``created.`` \n ``Set up the Table with````table-settings``")
+        await interaction.response.send_message(f"{CHECK} ``Table with the name`` ``{name}`` ``created.`` \n ``Set up the Table with`` ``table-settings``")
         
         
     @commands.command(name="table-create")

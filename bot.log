@@ -3052,3 +3052,152 @@ discord.app_commands.errors.CommandInvokeError: Command 'ping' raised an excepti
 2026-06-08 22:02:06,635 [Admin] [server-settings] deafult4355543 - Allowed
 2026-06-08 22:07:12,397 Shard ID None session has been invalidated.
 2026-06-08 22:07:17,749 Shard ID None has connected to Gateway (Session ID: dc6ffe0a3bc675138439c43060a808ec).
+2026-06-09 11:46:35,366 davey is not installed, voice will NOT be supported
+2026-06-09 11:46:35,367 logging in using static token
+2026-06-09 11:46:56,646 davey is not installed, voice will NOT be supported
+2026-06-09 11:46:56,647 logging in using static token
+2026-06-09 11:47:01,291 davey is not installed, voice will NOT be supported
+2026-06-09 11:47:01,292 logging in using static token
+2026-06-09 11:55:10,748 davey is not installed, voice will NOT be supported
+2026-06-09 11:55:10,749 logging in using static token
+2026-06-09 11:57:25,215 davey is not installed, voice will NOT be supported
+2026-06-09 11:57:25,216 logging in using static token
+2026-06-09 11:57:35,779 davey is not installed, voice will NOT be supported
+2026-06-09 11:57:35,780 logging in using static token
+2026-06-09 11:57:43,439 davey is not installed, voice will NOT be supported
+2026-06-09 11:57:43,439 logging in using static token
+2026-06-09 11:59:13,082 davey is not installed, voice will NOT be supported
+2026-06-09 11:59:13,082 logging in using static token
+2026-06-09 12:01:55,685 davey is not installed, voice will NOT be supported
+2026-06-09 12:01:55,686 logging in using static token
+2026-06-09 12:03:40,455 davey is not installed, voice will NOT be supported
+2026-06-09 12:03:40,456 logging in using static token
+2026-06-09 12:03:48,346 davey is not installed, voice will NOT be supported
+2026-06-09 12:03:48,347 logging in using static token
+2026-06-09 12:03:49,338 Shard ID None has connected to Gateway (Session ID: 0366bf040cde1957a429113afa7d118d).
+2026-06-09 12:04:03,174 Ignoring exception in command 'table-create'
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 858, in _do_call
+    return await self._callback(self.binding, interaction, **params)  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victor/Documents/Data-Base/cogs/table_create.py", line 14, in database_create
+    if not await verifyCommandPermissions(interaction, CommandType.SERVER_ADMIN):
+                                                       ^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: type object 'CommandType' has no attribute 'SERVER_ADMIN'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/tree.py", line 1302, in _call
+    await command._invoke_with_namespace(interaction, namespace)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 884, in _invoke_with_namespace
+    return await self._do_call(interaction, transformed_values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 877, in _do_call
+    raise CommandInvokeError(self, e) from e
+discord.app_commands.errors.CommandInvokeError: Command 'table-create' raised an exception: AttributeError: type object 'CommandType' has no attribute 'SERVER_ADMIN'
+2026-06-09 12:07:15,784 davey is not installed, voice will NOT be supported
+2026-06-09 12:07:15,784 logging in using static token
+2026-06-09 12:07:16,673 Shard ID None has connected to Gateway (Session ID: 68600314ed7e5d59d8ae72c5dbc991ba).
+2026-06-09 12:07:25,479 Ignoring exception in command 'table-create'
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 858, in _do_call
+    return await self._callback(self.binding, interaction, **params)  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victor/Documents/Data-Base/cogs/table_create.py", line 14, in database_create
+    if not await verifyCommandPermissions(interaction, CommandType.SERVER_ADMIN):
+                                                       ^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: type object 'CommandType' has no attribute 'SERVER_ADMIN'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/tree.py", line 1302, in _call
+    await command._invoke_with_namespace(interaction, namespace)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 884, in _invoke_with_namespace
+    return await self._do_call(interaction, transformed_values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 877, in _do_call
+    raise CommandInvokeError(self, e) from e
+discord.app_commands.errors.CommandInvokeError: Command 'table-create' raised an exception: AttributeError: type object 'CommandType' has no attribute 'SERVER_ADMIN'
+2026-06-09 12:08:06,499 davey is not installed, voice will NOT be supported
+2026-06-09 12:08:06,500 logging in using static token
+2026-06-09 12:08:07,379 Shard ID None has connected to Gateway (Session ID: b326d00d09a2c3d04d071b5b0ffe8d81).
+2026-06-09 12:08:13,478 [Server Admin] [table-create] v_500 - Allowed
+2026-06-09 12:08:35,503 [Server Admin] [table-settings] v_500 - Allowed
+2026-06-09 12:08:45,068 davey is not installed, voice will NOT be supported
+2026-06-09 12:08:45,068 logging in using static token
+2026-06-09 12:08:46,497 Shard ID None has connected to Gateway (Session ID: a3961ae349cd9afb30fbf8676ef48b0e).
+2026-06-09 12:08:54,343 [Server Admin] [table-settings] v_500 - Allowed
+2026-06-09 12:08:58,900 [Server Admin] [table-create] v_500 - Allowed
+2026-06-09 12:08:59,353 Ignoring exception in command 'table-create'
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 858, in _do_call
+    return await self._callback(self.binding, interaction, **params)  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victor/Documents/Data-Base/cogs/table_create.py", line 27, in database_create
+    await interaction.response.send_message(f"{CHECK} ``Table with the name`` {name}``created.`` \n ``Set up the Table with````table-settings``")
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/interactions.py", line 1057, in send_message
+    raise InteractionResponded(self._parent)
+discord.errors.InteractionResponded: This interaction has already been responded to before
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/tree.py", line 1302, in _call
+    await command._invoke_with_namespace(interaction, namespace)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 884, in _invoke_with_namespace
+    return await self._do_call(interaction, transformed_values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 877, in _do_call
+    raise CommandInvokeError(self, e) from e
+discord.app_commands.errors.CommandInvokeError: Command 'table-create' raised an exception: InteractionResponded: This interaction has already been responded to before
+2026-06-09 12:09:29,805 davey is not installed, voice will NOT be supported
+2026-06-09 12:09:29,806 logging in using static token
+2026-06-09 12:09:30,635 Shard ID None has connected to Gateway (Session ID: 31ba30fa7fb7936292bf8a1952d0cbca).
+2026-06-09 12:09:36,173 [Server Admin] [table-settings] v_500 - Allowed
+2026-06-09 12:09:45,994 [Server Admin] [table-settings] v_500 - Allowed
+2026-06-09 12:10:27,036 davey is not installed, voice will NOT be supported
+2026-06-09 12:10:27,037 logging in using static token
+2026-06-09 12:10:27,964 Shard ID None has connected to Gateway (Session ID: aa8c2eed575629170eee360e1f14e8fb).
+2026-06-09 12:10:31,391 [Server Admin] [table-settings] v_500 - Allowed
+2026-06-09 12:10:50,046 davey is not installed, voice will NOT be supported
+2026-06-09 12:10:50,046 logging in using static token
+2026-06-09 12:11:27,908 Shard ID None has connected to Gateway (Session ID: cd7adbf32c57332d7fde2d0279499f30).
+2026-06-09 12:14:17,938 [Server Admin] [table-settings] v_500 - Allowed
+2026-06-09 12:16:40,020 davey is not installed, voice will NOT be supported
+2026-06-09 12:16:40,020 logging in using static token
+2026-06-09 12:16:41,127 Shard ID None has connected to Gateway (Session ID: 1c5a2976141ac55812e6eecdc6142df3).
+2026-06-09 12:16:44,943 [Server Admin] [table-settings] v_500 - Allowed
+2026-06-09 12:17:05,219 davey is not installed, voice will NOT be supported
+2026-06-09 12:17:05,220 logging in using static token
+2026-06-09 12:17:30,312 davey is not installed, voice will NOT be supported
+2026-06-09 12:17:30,312 logging in using static token
+2026-06-09 12:18:23,282 davey is not installed, voice will NOT be supported
+2026-06-09 12:18:23,283 logging in using static token
+2026-06-09 12:18:43,373 davey is not installed, voice will NOT be supported
+2026-06-09 12:18:43,374 logging in using static token
+2026-06-09 12:18:44,314 Shard ID None has connected to Gateway (Session ID: 0ca1b0ccd37fd7a8062a992d772efb9b).
+2026-06-09 12:18:49,357 [Server Admin] [table-settings] v_500 - Allowed
+2026-06-09 12:18:56,459 [Server Admin] [table-settings] v_500 - Allowed
+2026-06-09 12:19:38,126 davey is not installed, voice will NOT be supported
+2026-06-09 12:19:38,127 logging in using static token
+2026-06-09 12:19:39,355 Shard ID None has connected to Gateway (Session ID: fcc5562d7bb36c30f98bc4f71f6080c5).
+2026-06-09 12:19:45,570 [Server Admin] [table-settings] v_500 - Allowed
+2026-06-09 12:23:31,971 [Server Admin] [table-settings] v_500 - Allowed
+2026-06-09 12:25:40,986 davey is not installed, voice will NOT be supported
+2026-06-09 12:25:40,987 logging in using static token
+2026-06-09 12:25:41,892 Shard ID None has connected to Gateway (Session ID: 23ede609f3a870ef086244740edcbdff).
+2026-06-09 12:25:51,275 [Server Admin] [table-settings] v_500 - Allowed
+2026-06-09 12:26:05,914 davey is not installed, voice will NOT be supported
+2026-06-09 12:26:05,915 logging in using static token
+2026-06-09 12:26:41,854 Shard ID None has connected to Gateway (Session ID: 600e1744d3447a5284b62670c28c98f7).
+2026-06-09 12:27:50,601 [Server Admin] [table-settings] v_500 - Allowed
+2026-06-09 12:29:09,772 davey is not installed, voice will NOT be supported
+2026-06-09 12:29:09,773 logging in using static token
+2026-06-09 12:29:10,648 Shard ID None has connected to Gateway (Session ID: 971d9b2f4b72f77fb33c706c53aac4de).
+2026-06-09 12:29:19,491 [Server Admin] [table-settings] v_500 - Allowed
+2026-06-09 12:29:39,168 davey is not installed, voice will NOT be supported
+2026-06-09 12:29:39,169 logging in using static token
+2026-06-09 12:30:10,690 Shard ID None has connected to Gateway (Session ID: 7a334aff40517faa9239cd28a14b20bf).
+2026-06-09 12:35:45,115 [Server Admin] [table-settings] v_500 - Allowed

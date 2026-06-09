@@ -12,10 +12,10 @@ load_dotenv(dotenv_path=".env")
 class Client(commands.Bot):
     async def setup_hook(self):
         await self.load_extension("cogs.ping")
-        await self.load_extension("cogs.database_create")
+        await self.load_extension("cogs.table_create")
+        await self.load_extension("cogs.table_settings")
         await self.load_extension("cogs.server_settings")
         await self.load_extension("cogs.prefix")
-        await self.load_extension("cogs.table")
         self.tree.copy_global_to(guild=GUILD_ID)
         synced = await self.tree.sync(guild=GUILD_ID)
         print(f"Synced {len(synced)} commands: {[c.name for c in synced]}")

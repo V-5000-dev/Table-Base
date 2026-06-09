@@ -20,6 +20,7 @@ class Table_Create(commands.Cog):
             "rows": 0,
             "columns": 0,
             "column_names": [],
+            "member_role_ids": [],  # add this
             "data": [[]]
         }
         config.ALL_TABLES.append(table)

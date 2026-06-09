@@ -3201,3 +3201,19 @@ discord.app_commands.errors.CommandInvokeError: Command 'table-create' raised an
 2026-06-09 12:29:39,169 logging in using static token
 2026-06-09 12:30:10,690 Shard ID None has connected to Gateway (Session ID: 7a334aff40517faa9239cd28a14b20bf).
 2026-06-09 12:35:45,115 [Server Admin] [table-settings] v_500 - Allowed
+2026-06-09 15:48:00,227 davey is not installed, voice will NOT be supported
+2026-06-09 15:48:00,228 logging in using static token
+2026-06-09 15:48:01,187 Shard ID None has connected to Gateway (Session ID: 927b24f0ed065eea726eada5408cc2aa).
+2026-06-09 15:48:08,887 [Server Admin] [table-settings] v_500 - Allowed
+2026-06-09 15:48:28,165 davey is not installed, voice will NOT be supported
+2026-06-09 15:48:28,166 logging in using static token
+2026-06-09 15:49:01,171 Shard ID None has connected to Gateway (Session ID: 0a046f8e15ad355f797968c9d36ed50c).
+2026-06-09 15:49:06,454 [Server Admin] [table-settings] v_500 - Allowed
+2026-06-09 15:49:12,600 Ignoring exception in view <PageView timeout=60 children=5> for item <SelectRoles_Menu placeholder='Select roles...' min_values=1 max_values=6 disabled=False id=None>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/ui/view.py", line 598, in _scheduled_task
+    await item.callback(interaction)
+  File "/Users/victor/Documents/Data-Base/utils.py", line 183, in callback
+    await self.on_submit(interaction, [r for r in selected if r])
+          ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: save_tablemember_roles() missing 1 required positional argument: 'table'

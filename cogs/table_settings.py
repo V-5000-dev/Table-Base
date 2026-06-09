@@ -88,6 +88,24 @@ class RemoveColumn(discord.ui.Button):
     async def callback(self, interaction: discord.Interaction):
         await interaction.response.send_modal(RemoveColumn_Input(self.table))
 
+async def save_tablemember_roles(interaction, roles, table: dict):
+    table["member_role_ids"] = [r.id for r in roles]
+    save_settings()
+    await interaction.response.send_message(
+        f"{CHECK} ``Saved member roles:`` {', '.join(r.name for r in roles)}", ephemeral=True
+    )
+async def save_tablemanager_roles(interaction, roles, table: dict):
+    table["manager_role_ids"] = [r.id for r in roles]
+    save_settings()
+    await interaction.response.send_message(
+        f"{CHECK} ``Saved manager roles:`` {', '.join(r.name for r in roles)}", ephemeral=True
+    )
+async def save_tableadmin_roles(interaction, roles, table: dict):
+    table["admin_role_ids"] = [r.id for r in roles]
+    save_settings()
+    await interaction.response.send_message(
+        f"{CHECK} ``Saved admin roles:`` {', '.join(r.name for r in roles)}", ephemeral=True
+    )
 
 class Table_Settings(commands.Cog):
     def __init__(self, bot):
@@ -116,16 +134,30 @@ class Table_Settings(commands.Cog):
 
         embeds = [
             discord.Embed(
-                title=f"Table Settings - {table_name} - Manage Columns",
-                description="Manage the columns within the table. At least one column is required for the table to function."
+                title=f"Table {table_name} Settings - Manage Columns",
+                description="Manage the columns within the table. At least one column is required."
             ),
+                discord.Embed(title=f"Table {table_name} Settings - Manage User Roles",
+                description="Select which role(s) are members of the table. Members will be able to create requests to add rows to the table, and view their roles."
+            ),
+                discord.Embed(title=f"Table {table_name} Settings - Manage Manager Roles",
+                description="Select which role(s) are managers of the table. Managers can review requests and view the entire table.."
+            ),
+                discord.Embed(title=f"Table {table_name} Settings - Manage Administration Roles",
+                description="Select which role(s) are administrators of the table. Admins have all permissons of Managers, and can also add and remove any row in the table."
+            ),
+            
+            
         ]
-
+        guild = ctx_or_interaction.guild
         view = PageView(
             embeds=embeds,
             ctx_or_interaction=ctx_or_interaction,
             page_menus={
                 0: [lambda: AddColumn(table), lambda: RemoveColumn(table)],
+                1: [lambda: SelectRoles_Menu(guild.roles, lambda i, r: save_tablemember_roles(i, r, table))],
+                2: [lambda: SelectRoles_Menu(guild.roles, lambda i, r: save_tablemanager_roles(i, r, table))],
+                3: [lambda: SelectRoles_Menu(guild.roles, lambda i, r: save_tableadmin_roles(i, r, table))],
             }
         )
 

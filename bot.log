@@ -3217,3 +3217,11 @@ Traceback (most recent call last):
     await self.on_submit(interaction, [r for r in selected if r])
           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 TypeError: save_tablemember_roles() missing 1 required positional argument: 'table'
+2026-06-09 17:08:51,488 davey is not installed, voice will NOT be supported
+2026-06-09 17:08:51,489 logging in using static token
+2026-06-09 17:08:52,469 Shard ID None has connected to Gateway (Session ID: 12f32024f95766fe200c8e7e453accd2).
+2026-06-09 17:09:04,963 [Server Admin] [table-settings] v_500 - Allowed
+2026-06-09 17:11:48,351 davey is not installed, voice will NOT be supported
+2026-06-09 17:11:48,352 logging in using static token
+2026-06-09 17:11:49,129 Shard ID None has connected to Gateway (Session ID: ca0be73e3821d09b16a87a13010b56c9).
+2026-06-09 17:11:54,087 [Server Admin] [table-settings] v_500 - Allowed

@@ -35,10 +35,13 @@ class Table_Create(commands.Cog):
         if any(t["name"] == name for t in config.ALL_TABLES):
             await ctx.response.send_message(f"{ERROR} ``A table with the name {name} already exists.`` ")
         table = {
-            "name": name,
+            "name": 0,
             "rows": 0,
             "columns": 0,
-            "data": [[]]
+            "member_role_ids": [],
+            "manager_role_ids": [],
+            "admin_role_ids": [],
+            "data": []
         }
         config.ALL_TABLES.append(table)
         save_settings()

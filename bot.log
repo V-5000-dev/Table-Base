@@ -3225,3 +3225,15 @@ TypeError: save_tablemember_roles() missing 1 required positional argument: 'tab
 2026-06-09 17:11:48,352 logging in using static token
 2026-06-09 17:11:49,129 Shard ID None has connected to Gateway (Session ID: ca0be73e3821d09b16a87a13010b56c9).
 2026-06-09 17:11:54,087 [Server Admin] [table-settings] v_500 - Allowed
+2026-06-09 20:20:57,118 davey is not installed, voice will NOT be supported
+2026-06-09 20:20:57,119 logging in using static token
+2026-06-09 20:20:58,029 Shard ID None has connected to Gateway (Session ID: c0ee5507a04c2822530cfb59a3013e6a).
+2026-06-09 20:21:08,646 [Server Admin] [table-settings] v_500 - Allowed
+2026-06-09 20:21:48,897 davey is not installed, voice will NOT be supported
+2026-06-09 20:21:48,898 logging in using static token
+2026-06-09 20:21:49,744 Shard ID None has connected to Gateway (Session ID: a7aa8e565cabac432bc95c5b836daefb).
+2026-06-09 20:21:54,669 [Server Admin] [table-settings] v_500 - Allowed
+2026-06-09 20:22:29,804 davey is not installed, voice will NOT be supported
+2026-06-09 20:22:29,804 logging in using static token
+2026-06-09 20:22:30,738 Shard ID None has connected to Gateway (Session ID: b2d400b8d1a2d0c20df308b104a6555b).
+2026-06-09 20:22:48,332 [Server Admin] [table-settings] v_500 - Allowed

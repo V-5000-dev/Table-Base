@@ -124,28 +124,29 @@ class PageView(discord.ui.View):
             else ctx_or_interaction.author.id
         )
         self.page_menus = page_menus or {}
+        self.dynamic_items = []  # track items added per-page
+
         for i, embed in enumerate(self.embeds):
             embed.set_footer(text=f"Page {i + 1} of {len(self.embeds)}")
+
         self.update_page_components()
 
-    async def interaction_check(self, interaction: discord.Interaction) -> bool:
-        if interaction.user.id != self.author_id:
-            await interaction.response.send_message(
-                f"{PERMISSON} ``You cannot interact with other people's embeds.``", ephemeral=True
-            )
-            return False
-        return True
-
     def update_page_components(self):
-        for item in list(self.children):
-            if not isinstance(item, discord.ui.Button):
-                self.remove_item(item)
+        for item in self.dynamic_items:
+            self.remove_item(item)
+        self.dynamic_items.clear()
+
         factories = self.page_menus.get(self.current_page, [])
         if callable(factories):
             factories = [factories]
-        for factory in factories:
-            self.add_item(factory())
 
+        for factory in factories:
+            new_item = factory()
+            self.add_item(new_item)
+            self.dynamic_items.append(new_item)
+
+        self.prev_button.disabled = self.current_page == 0
+        self.next_button.disabled = self.current_page == len(self.embeds) - 1
     async def refresh(self, interaction: discord.Interaction):
         self.update_page_components()
         await interaction.response.edit_message(embed=self.embeds[self.current_page], view=self)

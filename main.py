@@ -14,6 +14,7 @@ class Client(commands.Bot):
         await self.load_extension("cogs.ping")
         await self.load_extension("cogs.table_create")
         await self.load_extension("cogs.table_settings")
+        await self.load_extension("cogs.table_view_all")
         await self.load_extension("cogs.server_settings")
         await self.load_extension("cogs.prefix")
         self.tree.copy_global_to(guild=GUILD_ID)

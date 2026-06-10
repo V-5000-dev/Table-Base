@@ -3237,3 +3237,56 @@ TypeError: save_tablemember_roles() missing 1 required positional argument: 'tab
 2026-06-09 20:22:29,804 logging in using static token
 2026-06-09 20:22:30,738 Shard ID None has connected to Gateway (Session ID: b2d400b8d1a2d0c20df308b104a6555b).
 2026-06-09 20:22:48,332 [Server Admin] [table-settings] v_500 - Allowed
+2026-06-09 22:25:13,232 davey is not installed, voice will NOT be supported
+2026-06-09 22:25:13,233 logging in using static token
+2026-06-09 22:25:14,085 Shard ID None has connected to Gateway (Session ID: 6e9b941690fe538414b21eaad1e53da8).
+2026-06-09 22:25:29,705 davey is not installed, voice will NOT be supported
+2026-06-09 22:25:29,706 logging in using static token
+2026-06-09 22:26:14,095 Shard ID None has connected to Gateway (Session ID: d3904c0a3adc43b0160d1ba01aadd15d).
+2026-06-09 22:26:42,642 davey is not installed, voice will NOT be supported
+2026-06-09 22:26:42,642 logging in using static token
+2026-06-09 22:27:06,454 davey is not installed, voice will NOT be supported
+2026-06-09 22:27:06,455 logging in using static token
+2026-06-09 22:27:19,151 davey is not installed, voice will NOT be supported
+2026-06-09 22:27:19,152 logging in using static token
+2026-06-09 22:27:19,942 Shard ID None has connected to Gateway (Session ID: 2a34f185f4170d4335a34156164833b2).
+2026-06-09 22:27:47,311 Ignoring exception in command None
+discord.ext.commands.errors.CommandNotFound: Command "table-view-all" is not found
+2026-06-09 22:27:58,328 [Manager] [table-view_all] v_500 - Allowed
+2026-06-09 22:27:58,328 Ignoring exception in command 'table-view_all'
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 858, in _do_call
+    return await self._callback(self.binding, interaction, **params)  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victor/Documents/Data-Base/cogs/table_view_all.py", line 110, in database_create
+    await ctx.send(embed=embed)
+          ^^^^^^^^
+AttributeError: 'Interaction' object has no attribute 'send'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/tree.py", line 1302, in _call
+    await command._invoke_with_namespace(interaction, namespace)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 884, in _invoke_with_namespace
+    return await self._do_call(interaction, transformed_values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 877, in _do_call
+    raise CommandInvokeError(self, e) from e
+discord.app_commands.errors.CommandInvokeError: Command 'table-view_all' raised an exception: AttributeError: 'Interaction' object has no attribute 'send'
+2026-06-09 22:31:34,812 davey is not installed, voice will NOT be supported
+2026-06-09 22:31:34,813 logging in using static token
+2026-06-09 22:31:35,726 Shard ID None has connected to Gateway (Session ID: 646b50c7f85fcdf2c158783b95a45e7a).
+2026-06-09 22:31:47,600 [Manager] [table-view-all] v_500 - Allowed
+2026-06-09 22:33:26,138 davey is not installed, voice will NOT be supported
+2026-06-09 22:33:26,138 logging in using static token
+2026-06-09 22:40:52,194 davey is not installed, voice will NOT be supported
+2026-06-09 22:40:52,194 logging in using static token
+2026-06-09 22:40:53,077 Shard ID None has connected to Gateway (Session ID: 2cfd813281a7be8f94a015a4e4667f8f).
+2026-06-09 22:41:06,029 [Manager] [table-view-all] v_500 - Allowed
+2026-06-09 22:44:21,839 davey is not installed, voice will NOT be supported
+2026-06-09 22:44:21,839 logging in using static token
+2026-06-09 22:45:14,381 davey is not installed, voice will NOT be supported
+2026-06-09 22:45:14,382 logging in using static token
+2026-06-09 22:45:15,216 Shard ID None has connected to Gateway (Session ID: ad9a67f3ddb82554575c79e236230192).
+2026-06-09 22:45:25,199 [Manager] [table-view-all] v_500 - Allowed

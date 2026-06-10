@@ -37,7 +37,7 @@ class Table_Create(commands.Cog):
         table = {
             "name": 0,
             "rows": 0,
-            "columns": 0,
+            "columns": 2,
             "member_role_ids": [],
             "manager_role_ids": [],
             "admin_role_ids": [],

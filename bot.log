@@ -3290,3 +3290,83 @@ discord.app_commands.errors.CommandInvokeError: Command 'table-view_all' raised 
 2026-06-09 22:45:14,382 logging in using static token
 2026-06-09 22:45:15,216 Shard ID None has connected to Gateway (Session ID: ad9a67f3ddb82554575c79e236230192).
 2026-06-09 22:45:25,199 [Manager] [table-view-all] v_500 - Allowed
+2026-06-09 23:05:59,824 Shard ID None session has been invalidated.
+2026-06-09 23:06:05,165 Shard ID None has connected to Gateway (Session ID: 0a558b2ca8844d6107b6392d526941ad).
+2026-06-09 23:09:13,343 Shard ID None has successfully RESUMED session 0a558b2ca8844d6107b6392d526941ad.
+2026-06-09 23:12:01,048 Shard ID None session has been invalidated.
+2026-06-09 23:12:06,652 Shard ID None has connected to Gateway (Session ID: f111ef00d7247bf0221be415806898ff).
+2026-06-09 23:31:35,155 Shard ID None session has been invalidated.
+2026-06-09 23:31:40,565 Shard ID None has connected to Gateway (Session ID: ed48ad3fd032ae5870064c04a3b90ad9).
+2026-06-09 23:33:34,386 Shard ID None has successfully RESUMED session ed48ad3fd032ae5870064c04a3b90ad9.
+2026-06-09 23:52:31,252 Shard ID None session has been invalidated.
+2026-06-09 23:59:02,561 Shard ID None session has been invalidated.
+2026-06-09 23:59:08,060 Shard ID None has connected to Gateway (Session ID: 8b0d79fc83f93e0dae1c875f537805e0).
+2026-06-10 00:32:46,666 Shard ID None session has been invalidated.
+2026-06-10 00:48:57,337 Shard ID None session has been invalidated.
+2026-06-10 01:06:46,427 Shard ID None session has been invalidated.
+2026-06-10 01:21:57,258 Shard ID None session has been invalidated.
+2026-06-10 01:37:14,408 Shard ID None session has been invalidated.
+2026-06-10 01:53:42,263 Shard ID None session has been invalidated.
+2026-06-10 02:10:32,471 Shard ID None session has been invalidated.
+2026-06-10 02:18:28,231 Shard ID None session has been invalidated.
+2026-06-10 02:18:33,643 Shard ID None has connected to Gateway (Session ID: f1392a3c81a14c0b8a262645abf690f4).
+2026-06-10 03:46:59,285 Shard ID None session has been invalidated.
+2026-06-10 03:47:04,630 Shard ID None has connected to Gateway (Session ID: 725647bcb2b54572c25f17ee37374e14).
+2026-06-10 05:23:24,400 Shard ID None session has been invalidated.
+2026-06-10 05:40:31,160 Shard ID None session has been invalidated.
+2026-06-10 05:58:16,333 Shard ID None session has been invalidated.
+2026-06-10 06:08:56,285 Shard ID None session has been invalidated.
+2026-06-10 06:09:02,985 Shard ID None has connected to Gateway (Session ID: 1ec0dee47133b36fd025116e089cf9f5).
+2026-06-10 06:44:05,926 Shard ID None session has been invalidated.
+2026-06-10 06:52:51,650 Shard ID None session has been invalidated.
+2026-06-10 06:52:56,977 Shard ID None has connected to Gateway (Session ID: 24cc15faab1c1a93a02ee481ef872ae5).
+2026-06-10 07:58:12,850 Shard ID None session has been invalidated.
+2026-06-10 08:09:56,515 Shard ID None session has been invalidated.
+2026-06-10 08:10:02,606 Shard ID None has connected to Gateway (Session ID: 3afeecf3329442dc33f8abdcc0355d0b).
+2026-06-10 09:00:56,699 Shard ID None session has been invalidated.
+2026-06-10 09:10:57,548 Shard ID None session has been invalidated.
+2026-06-10 09:27:58,340 Shard ID None session has been invalidated.
+2026-06-10 09:44:04,337 Shard ID None session has been invalidated.
+2026-06-10 09:58:53,319 Shard ID None session has been invalidated.
+2026-06-10 09:58:58,758 Shard ID None has connected to Gateway (Session ID: 043e7c8547d83625e0a2e260bf58a829).
+2026-06-10 11:23:18,171 Shard ID None session has been invalidated.
+2026-06-10 11:29:40,140 Shard ID None session has been invalidated.
+2026-06-10 11:29:46,811 Shard ID None has connected to Gateway (Session ID: 5528239dd7060a717d9ce1b19bbb56ba).
+2026-06-10 11:59:08,711 davey is not installed, voice will NOT be supported
+2026-06-10 11:59:08,712 logging in using static token
+2026-06-10 11:59:20,814 davey is not installed, voice will NOT be supported
+2026-06-10 11:59:20,815 logging in using static token
+2026-06-10 11:59:22,233 Shard ID None has connected to Gateway (Session ID: c5fc9fa1f8a0a03aa27f370aeecfae09).
+2026-06-10 11:59:40,241 [Manager] [table-view-all] v_500 - Allowed
+2026-06-10 11:59:51,558 Ignoring exception in command 'table-view-all'
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 858, in _do_call
+    return await self._callback(self.binding, interaction, **params)  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victor/Documents/Data-Base/cogs/table_view_all.py", line 61, in table_view_all
+    await interaction.response.send_message(embed=embed)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/interactions.py", line 1085, in send_message
+    data = await adapter.create_interaction_response(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/webhook/async_.py", line 224, in request
+    raise NotFound(response, data)
+discord.errors.NotFound: 404 Not Found (error code: 10062): Unknown interaction
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/tree.py", line 1302, in _call
+    await command._invoke_with_namespace(interaction, namespace)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 884, in _invoke_with_namespace
+    return await self._do_call(interaction, transformed_values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 877, in _do_call
+    raise CommandInvokeError(self, e) from e
+discord.app_commands.errors.CommandInvokeError: Command 'table-view-all' raised an exception: NotFound: 404 Not Found (error code: 10062): Unknown interaction
+2026-06-10 12:01:25,883 davey is not installed, voice will NOT be supported
+2026-06-10 12:01:25,884 logging in using static token
+2026-06-10 12:01:36,904 davey is not installed, voice will NOT be supported
+2026-06-10 12:01:36,904 logging in using static token

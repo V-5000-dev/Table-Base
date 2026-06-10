@@ -53,13 +53,21 @@ class RemoveColumn_Input(discord.ui.Modal, title="Remove Column"):
         required=True,
         max_length=50
     )
+    
 
     def __init__(self, table: dict):
         super().__init__()
         self.table = table
 
     async def on_submit(self, interaction: discord.Interaction):
-        name = self.column_name.value  
+        name = self.column_name.value 
+
+        if name in ("User", "Timestamp") and self.table["column_names"][:2] == ["User", "Timestamp"]:
+            await interaction.response.send_message(
+                f"{ERROR} ``The`` ``{name}`` ``column cannot be removed.``", ephemeral=True
+            )
+            return
+
 
         try:
             index = self.table["column_names"].index(name)

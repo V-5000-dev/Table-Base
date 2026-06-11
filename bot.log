@@ -3561,3 +3561,10 @@ discord.ext.commands.errors.CommandNotFound: Command "table-view-full" is not fo
 2026-06-11 12:09:28,903 logging in using static token
 2026-06-11 12:11:34,089 davey is not installed, voice will NOT be supported
 2026-06-11 12:11:34,090 logging in using static token
+2026-06-11 12:12:43,670 davey is not installed, voice will NOT be supported
+2026-06-11 12:12:43,671 logging in using static token
+2026-06-11 12:13:09,814 davey is not installed, voice will NOT be supported
+2026-06-11 12:13:09,814 logging in using static token
+2026-06-11 12:13:10,598 Shard ID None has connected to Gateway (Session ID: 22b72d9871f269ab21b800705e328b7b).
+2026-06-11 12:13:37,292 [Admin] [table-add-row-user] v_500 - Allowed
+2026-06-11 12:13:49,282 [Manager] [table-view-full] v_500 - Allowed

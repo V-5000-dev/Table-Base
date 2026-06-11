@@ -3,6 +3,7 @@ import logging
 import json
 import config
 from config import CommandType, GUILD_ID, PERMISSON
+from discord import app_commands
 
 SETTINGS_FILE = "settings.json"
 
@@ -73,6 +74,9 @@ async def verifyCommandPermissions(ctx_or_interaction, command_type: CommandType
             allowed = False
 
     logging.info(f"[{'Unprotected' if command_type is None else command_type.value}] [{command_name}] {user} - {'Allowed' if allowed else 'Denied'}")
+    
+
+
 
     channel_id = config.LOG_CHANNELS.get(command_type) if command_type is not None else None
     channel = _client.get_channel(channel_id) if isinstance(channel_id, int) and channel_id != 0 else None
@@ -182,3 +186,10 @@ class SelectRoles_Menu(discord.ui.Select):
     async def callback(self, interaction: discord.Interaction):
         selected = [interaction.guild.get_role(int(v)) for v in self.values]
         await self.on_submit(interaction, [r for r in selected if r])
+
+async def table_name_autocomplete(interaction: discord.Interaction, current: str):
+    return [
+        app_commands.Choice(name=t["name"], value=t["name"])
+        for t in config.ALL_TABLES
+        if current.lower() in t["name"].lower()
+    ][:25]  

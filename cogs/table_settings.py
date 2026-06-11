@@ -3,7 +3,7 @@ from discord.ext import commands
 from discord import app_commands
 import config
 from config import GUILD_ID, CHECK, ADMIN, USER, MANAGER, ERROR, CommandType
-from utils import verifyCommandPermissions, PageView, SelectRoles_Menu, SelectChannels_Menu, save_settings
+from utils import verifyCommandPermissions, PageView, SelectRoles_Menu, SelectChannels_Menu, save_settings, table_name_autocomplete
 
 
 class AddColumn_Input(discord.ui.Modal, title="Add Column"):
@@ -120,6 +120,7 @@ class Table_Settings(commands.Cog):
         self.bot = bot
 
     @app_commands.command(name="table-settings", description="Configure the settings of a table.")
+    @app_commands.autocomplete(table_name=table_name_autocomplete)
     async def table_settings(self, interaction: discord.Interaction, table_name: str):
         await self.table_settings_logic(interaction, table_name)
 

@@ -12,12 +12,12 @@ class Prefix(commands.Cog):
     async def ping(self, interaction: discord.Interaction):
         if not await verifyCommandPermissions(interaction):
             return
-        await interaction.response.send_message(f"``The command prefix is set to:`` ``{self.bot.command_prefix}.``\n``Server Admins can change this with`` ``set-prefix.``")
+        await interaction.response.send_message(f"``The command prefix is set to:`` ``{self.bot.command_prefix}``\n``Server Admins can change this with`` ``set-prefix.``")
     @commands.command(name="prefix")
     async def ping_prefix(self, ctx):
         if not await verifyCommandPermissions(ctx):
             return
-        await ctx.send(f"``The command prefix is set to:`` ``{self.bot.command_prefix}.``\n``Server Admins can change this with`` ``set-prefix.``")
+        await ctx.send(f"``The command prefix is set to:`` ``{self.bot.command_prefix}``\n``Server Admins can change this with`` ``set-prefix.``")
 
 async def setup(bot):
     await bot.add_cog(Prefix(bot))

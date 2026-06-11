@@ -3370,3 +3370,67 @@ discord.app_commands.errors.CommandInvokeError: Command 'table-view-all' raised 
 2026-06-10 12:01:25,884 logging in using static token
 2026-06-10 12:01:36,904 davey is not installed, voice will NOT be supported
 2026-06-10 12:01:36,904 logging in using static token
+2026-06-10 19:35:43,895 davey is not installed, voice will NOT be supported
+2026-06-10 19:35:43,896 logging in using static token
+2026-06-10 19:36:23,444 davey is not installed, voice will NOT be supported
+2026-06-10 19:36:23,445 logging in using static token
+2026-06-10 19:36:24,489 Shard ID None has connected to Gateway (Session ID: bb02867dc7abc08b05ff325e9edd8eef).
+2026-06-10 19:36:46,560 [Manager] [table-view-all] v_500 - Allowed
+2026-06-10 19:36:58,682 [Server Admin] [table-create] v_500 - Allowed
+2026-06-10 19:37:10,844 Ignoring exception in command None
+discord.ext.commands.errors.CommandNotFound: Command "table-view-all" is not found
+2026-06-10 19:37:16,967 [Manager] [table-view-all] v_500 - Allowed
+2026-06-10 19:39:41,066 davey is not installed, voice will NOT be supported
+2026-06-10 19:39:41,067 logging in using static token
+2026-06-10 19:39:42,268 Shard ID None has connected to Gateway (Session ID: be8614549821f43feafaca653144f3c6).
+2026-06-10 19:39:46,710 [Server Admin] [table-settings] v_500 - Allowed
+2026-06-10 19:39:58,221 [Manager] [table-view-all] v_500 - Allowed
+2026-06-10 19:40:45,094 [Server Admin] [table-create] v_500 - Allowed
+2026-06-10 19:40:48,305 [Server Admin] [table-settings] v_500 - Allowed
+2026-06-10 19:40:57,113 [Manager] [table-view-all] v_500 - Allowed
+2026-06-10 19:42:50,575 davey is not installed, voice will NOT be supported
+2026-06-10 19:42:50,575 logging in using static token
+2026-06-10 19:42:54,535 Shard ID None has connected to Gateway (Session ID: 293f2eb67038e89848c945e9ca51590c).
+2026-06-10 19:46:21,907 [Server Admin] [table-create] v_500 - Allowed
+2026-06-10 19:46:26,495 [Server Admin] [table-settings] v_500 - Allowed
+2026-06-10 19:46:36,233 [Manager] [table-view-all] v_500 - Allowed
+2026-06-10 19:55:51,329 davey is not installed, voice will NOT be supported
+2026-06-10 19:55:51,329 logging in using static token
+2026-06-10 19:56:14,253 davey is not installed, voice will NOT be supported
+2026-06-10 19:56:14,253 logging in using static token
+2026-06-10 19:56:15,052 Shard ID None has connected to Gateway (Session ID: 6e99a5589b3118b282ffc804d4a79954).
+2026-06-10 19:56:24,429 [Server Admin] [table-settings] v_500 - Allowed
+2026-06-10 19:56:28,625 [Manager] [table-view-all] v_500 - Allowed
+2026-06-10 20:00:12,460 [Unprotected] [ping] v_500 - Allowed
+2026-06-10 20:00:27,157 [Unprotected] [prefix] v_500 - Allowed
+2026-06-10 20:01:19,075 [Server Admin] [table-settings] v_500 - Allowed
+2026-06-10 20:01:33,947 [Manager] [table-create] v_500 - Allowed
+2026-06-10 20:01:47,101 [Manager] [table-view-all] v_500 - Allowed
+2026-06-10 20:07:09,793 [Manager] [table-add-row] v_500 - Allowed
+2026-06-10 20:07:27,563 [Manager] [table-view-all] v_500 - Allowed
+2026-06-10 20:29:54,813 davey is not installed, voice will NOT be supported
+2026-06-10 20:29:54,813 logging in using static token
+2026-06-10 20:32:58,352 davey is not installed, voice will NOT be supported
+2026-06-10 20:32:58,352 logging in using static token
+2026-06-10 20:33:42,918 davey is not installed, voice will NOT be supported
+2026-06-10 20:33:42,918 logging in using static token
+2026-06-10 20:33:50,567 Shard ID None has connected to Gateway (Session ID: c3c9eea64e2a7c784ce08782c732707c).
+2026-06-10 20:34:27,550 Ignoring exception in autocomplete for 'table-view-all' (Guild: 1324223207536070697, User: 1057431766568284360)
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/tree.py", line 1289, in _call
+    await command._invoke_autocomplete(interaction, focused, namespace)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 928, in _invoke_autocomplete
+    await interaction.response.autocomplete(choices)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/interactions.py", line 1359, in autocomplete
+    await adapter.create_interaction_response(
+    ...<6 lines>...
+    )
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/webhook/async_.py", line 224, in request
+    raise NotFound(response, data)
+discord.errors.NotFound: 404 Not Found (error code: 10062): Unknown interaction
+2026-06-10 20:36:06,988 Shard ID None has successfully RESUMED session c3c9eea64e2a7c784ce08782c732707c.
+2026-06-10 20:36:06,990 Ignoring exception in command None
+discord.ext.commands.errors.CommandNotFound: Command "table-view-full" is not found
+2026-06-10 20:38:29,409 davey is not installed, voice will NOT be supported
+2026-06-10 20:38:29,410 logging in using static token
+2026-06-10 20:38:45,072 Shard ID None has connected to Gateway (Session ID: 6fe818a810e1df092a9021a03896d8d0).

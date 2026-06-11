@@ -6,12 +6,12 @@ from config import GUILD_ID, CHECK, ERROR, CommandType
 from utils import verifyCommandPermissions, save_settings, table_name_autocomplete
 
 
-class AddRow_Input(discord.ui.Modal, title="Add/Update Row"):
+class AddRow_Input(discord.ui.Modal, title="Add/Update Row of any user."):
     def __init__(self, table: dict, existing_index: int | None):
         super().__init__()
         self.table = table
         self.existing_index = existing_index
-        self.field_columns = table["column_names"][2:]  # skip User, Timestamp
+        self.field_columns = table["column_names"][2:]  
         self.inputs = []
 
         for i, col in enumerate(self.field_columns):
@@ -51,7 +51,7 @@ class AddRow_Input(discord.ui.Modal, title="Add/Update Row"):
             self.table["data"][self.existing_index] = new_row
             save_settings()
             await interaction.response.send_message(
-                f"{CHECK} ``Your row in table`` ``{self.table['name']}`` ``has been updated.``", ephemeral=True
+                f"{CHECK} ``{self.user} row in table`` ``{self.table['name']}`` ``has been updated.``", ephemeral=True
             )
         else:
             self.table["data"].append(new_row)
@@ -62,14 +62,14 @@ class AddRow_Input(discord.ui.Modal, title="Add/Update Row"):
             )
 
 
-class Table_Add_Row(commands.Cog):
+class Table_Add_Row_User(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @app_commands.command(name="table-add-row", description="Add or update your row in the table.")
+    @app_commands.command(name="table-add-row-user", description="Add or update your row in the table.")
     @app_commands.autocomplete(name=table_name_autocomplete)
-    async def table_add_row(self, interaction: discord.Interaction, name: str):
-        if not await verifyCommandPermissions(interaction, CommandType.MANAGER):
+    async def table_add_row(self, interaction: discord.Interaction, name: str, user: str):
+        if not await verifyCommandPermissions(interaction, CommandType.ADMIN):
             return
 
         table = next((t for t in config.ALL_TABLES if t["name"] == name), None)
@@ -88,14 +88,14 @@ class Table_Add_Row(commands.Cog):
             return
 
         existing_index = next(
-            (i for i, r in enumerate(table["data"]) if r[0] == interaction.user.mention),
+            (i for i, r in enumerate(table["data"]) if r[0] == user),
             None
         )
 
         await interaction.response.send_modal(AddRow_Input(table, existing_index))
 
-    @commands.command(name="table-add-row")
-    async def table_add_row_prefix(self, ctx, name: str, *values: str):
+    @commands.command(name="table-add-row-user")
+    async def table_add_row_prefix(self, ctx, name: str, user: str, *values: str):
         if not await verifyCommandPermissions(ctx, CommandType.MANAGER):
             return
 
@@ -105,7 +105,7 @@ class Table_Add_Row(commands.Cog):
             return
 
         new_row = ["None" for _ in range(table["columns"])]
-        new_row[0] = ctx.author.mention
+        new_row[0] = user
         new_row[1] = discord.utils.format_dt(discord.utils.utcnow())
 
         existing_index = next(
@@ -137,4 +137,4 @@ class Table_Add_Row(commands.Cog):
 
 
 async def setup(bot):
-    await bot.add_cog(Table_Add_Row(bot))
+    await bot.add_cog(Table_Add_Row_User(bot))

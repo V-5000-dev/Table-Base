@@ -3434,3 +3434,130 @@ discord.ext.commands.errors.CommandNotFound: Command "table-view-full" is not fo
 2026-06-10 20:38:29,409 davey is not installed, voice will NOT be supported
 2026-06-10 20:38:29,410 logging in using static token
 2026-06-10 20:38:45,072 Shard ID None has connected to Gateway (Session ID: 6fe818a810e1df092a9021a03896d8d0).
+2026-06-10 20:39:14,951 davey is not installed, voice will NOT be supported
+2026-06-10 20:39:14,951 logging in using static token
+2026-06-10 20:40:48,940 Shard ID None has connected to Gateway (Session ID: 64a5f3ce9abf00fce21643ada6aaf6b0).
+2026-06-10 20:43:18,578 [Manager] [table-view-all] v_500 - Allowed
+2026-06-10 21:30:48,789 Shard ID None has successfully RESUMED session 64a5f3ce9abf00fce21643ada6aaf6b0.
+2026-06-10 21:55:37,153 Shard ID None session has been invalidated.
+2026-06-10 21:57:24,698 Shard ID None session has been invalidated.
+2026-06-10 21:57:30,123 Shard ID None has connected to Gateway (Session ID: f7988c99166268027645a92b11161760).
+2026-06-10 22:04:59,227 Shard ID None session has been invalidated.
+2026-06-10 22:05:04,697 Shard ID None has connected to Gateway (Session ID: abc3ae973f8a49fb17c95a3e33bf314f).
+2026-06-10 22:28:12,215 davey is not installed, voice will NOT be supported
+2026-06-10 22:28:12,216 logging in using static token
+2026-06-10 22:28:13,541 Shard ID None has connected to Gateway (Session ID: 32697f730d193661b17a4cb81b8101b5).
+2026-06-10 22:28:28,503 [Manager] [table-view-full] v_500 - Allowed
+2026-06-10 22:36:18,745 davey is not installed, voice will NOT be supported
+2026-06-10 22:36:18,745 logging in using static token
+2026-06-10 22:36:19,613 Shard ID None has connected to Gateway (Session ID: f505ef21569346c177f604890ee5b70d).
+2026-06-10 22:36:26,874 [Manager] [table-view-full] v_500 - Allowed
+2026-06-10 22:39:39,538 davey is not installed, voice will NOT be supported
+2026-06-10 22:39:39,539 logging in using static token
+2026-06-10 22:39:40,414 Shard ID None has connected to Gateway (Session ID: d614a29d646b9b5f659155cfaddae5d6).
+2026-06-10 22:39:46,105 [Server Admin] [table-create] v_500 - Allowed
+2026-06-10 22:39:53,497 [Server Admin] [table-settings] v_500 - Allowed
+2026-06-10 22:40:10,764 [Manager] [table-view-full] v_500 - Allowed
+2026-06-10 22:40:36,413 [Manager] [table-add-row] v_500 - Allowed
+2026-06-10 22:40:45,888 [Manager] [table-view-full] v_500 - Allowed
+2026-06-10 22:43:15,113 davey is not installed, voice will NOT be supported
+2026-06-10 22:43:15,114 logging in using static token
+2026-06-10 22:43:16,197 Shard ID None has connected to Gateway (Session ID: 2b548fddfb592e9de3c33e0f782ffc68).
+2026-06-10 22:43:41,787 [Server Admin] [table-settings] v_500 - Allowed
+2026-06-10 22:55:03,964 davey is not installed, voice will NOT be supported
+2026-06-10 22:55:03,964 logging in using static token
+2026-06-10 22:55:04,965 Shard ID None has connected to Gateway (Session ID: a6dbbcabbcf5f4821930afdf67b4cfc6).
+2026-06-10 22:55:21,017 [Manager] [table-add-row] v_500 - Allowed
+2026-06-10 22:55:31,908 [Manager] [table-view-full] v_500 - Allowed
+2026-06-10 23:00:24,344 Shard ID None session has been invalidated.
+2026-06-10 23:00:30,020 Shard ID None has connected to Gateway (Session ID: 933b79db37678b545005ef266c6a7af5).
+2026-06-10 23:17:20,475 Shard ID None session has been invalidated.
+2026-06-10 23:17:26,194 Shard ID None has connected to Gateway (Session ID: 921a2e03c91ebea1a521d70d7e3d0ded).
+2026-06-10 23:40:23,456 Shard ID None session has been invalidated.
+2026-06-10 23:40:30,059 Shard ID None has connected to Gateway (Session ID: c251337466b8d898fb7ed0a15bab82bb).
+2026-06-11 00:30:51,776 Shard ID None session has been invalidated.
+2026-06-11 00:39:54,868 Shard ID None has connected to Gateway (Session ID: ae5543da8a8162f1cfc2ff22be18b777).
+2026-06-11 01:05:53,805 Shard ID None session has been invalidated.
+2026-06-11 01:05:59,154 Shard ID None has connected to Gateway (Session ID: 6306d8129087dcc3715eb2d86b909495).
+2026-06-11 01:55:11,630 Shard ID None session has been invalidated.
+2026-06-11 02:11:25,566 Shard ID None session has been invalidated.
+2026-06-11 02:26:34,734 Shard ID None session has been invalidated.
+2026-06-11 02:41:45,560 Shard ID None session has been invalidated.
+2026-06-11 02:49:51,546 Shard ID None session has been invalidated.
+2026-06-11 02:49:56,910 Shard ID None has connected to Gateway (Session ID: c1f35305920c3518c327c4753ab04594).
+2026-06-11 03:07:12,751 Shard ID None session has been invalidated.
+2026-06-11 03:25:08,625 Shard ID None session has been invalidated.
+2026-06-11 03:41:07,627 Shard ID None session has been invalidated.
+2026-06-11 03:56:19,481 Shard ID None session has been invalidated.
+2026-06-11 04:13:20,638 Shard ID None session has been invalidated.
+2026-06-11 04:30:23,587 Shard ID None session has been invalidated.
+2026-06-11 04:46:08,599 Shard ID None session has been invalidated.
+2026-06-11 05:03:59,497 Shard ID None session has been invalidated.
+2026-06-11 05:21:59,691 Shard ID None session has been invalidated.
+2026-06-11 05:39:06,571 Shard ID None session has been invalidated.
+2026-06-11 05:54:44,619 Shard ID None session has been invalidated.
+2026-06-11 06:12:00,567 Shard ID None session has been invalidated.
+2026-06-11 06:27:23,489 Shard ID None session has been invalidated.
+2026-06-11 06:42:49,594 Shard ID None session has been invalidated.
+2026-06-11 06:51:14,243 Shard ID None session has been invalidated.
+2026-06-11 06:51:19,639 Shard ID None has connected to Gateway (Session ID: e2d9992203beb84078e6c8fac3b2e85b).
+2026-06-11 07:08:16,200 Shard ID None session has been invalidated.
+2026-06-11 07:40:58,340 Shard ID None session has been invalidated.
+2026-06-11 07:41:11,705 Shard ID None has connected to Gateway (Session ID: 6a3f614c78fec5afb5be722ea60c1168).
+2026-06-11 08:30:23,158 Shard ID None session has been invalidated.
+2026-06-11 08:46:24,392 Shard ID None session has been invalidated.
+2026-06-11 09:03:58,393 Shard ID None session has been invalidated.
+2026-06-11 09:20:05,355 Shard ID None session has been invalidated.
+2026-06-11 09:20:14,855 Shard ID None has connected to Gateway (Session ID: adab0d3080ecb00b431fd43f387dc7ec).
+2026-06-11 09:23:53,139 Shard ID None session has been invalidated.
+2026-06-11 09:40:41,623 Shard ID None session has been invalidated.
+2026-06-11 09:56:54,378 Shard ID None session has been invalidated.
+2026-06-11 10:04:58,402 Shard ID None session has been invalidated.
+2026-06-11 10:05:03,776 Shard ID None has connected to Gateway (Session ID: ae4137e6988acdc5cdf47a260f6608b8).
+2026-06-11 10:59:37,242 Shard ID None session has been invalidated.
+2026-06-11 10:59:42,767 Shard ID None has connected to Gateway (Session ID: 9aff51c72a5e8c83cc77911d820e6852).
+2026-06-11 11:06:02,168 Shard ID None session has been invalidated.
+2026-06-11 11:08:55,093 Shard ID None session has been invalidated.
+2026-06-11 11:09:00,450 Shard ID None has connected to Gateway (Session ID: e0578ed3b10e94fe409e2e964c526148).
+2026-06-11 11:27:10,334 Shard ID None session has been invalidated.
+2026-06-11 11:27:15,934 Shard ID None has connected to Gateway (Session ID: 740ce64e743eab22daf099e3d404c2a6).
+2026-06-11 11:31:25,054 [Server Admin] [table-settings] v_500 - Allowed
+2026-06-11 11:31:41,256 [Manager] [table-view-full] v_500 - Allowed
+2026-06-11 11:33:31,821 davey is not installed, voice will NOT be supported
+2026-06-11 11:33:31,821 logging in using static token
+2026-06-11 11:33:33,066 Shard ID None has connected to Gateway (Session ID: f7d6c0602ba935886988610f1cf23583).
+2026-06-11 11:33:37,881 [Manager] [table-view-full] v_500 - Allowed
+2026-06-11 11:41:37,792 davey is not installed, voice will NOT be supported
+2026-06-11 11:41:37,793 logging in using static token
+2026-06-11 11:41:39,308 Shard ID None has connected to Gateway (Session ID: cd4f373ae46915c72af41388adcba16d).
+2026-06-11 11:41:46,160 [Manager] [table-view-full] v_500 - Allowed
+2026-06-11 11:43:48,156 davey is not installed, voice will NOT be supported
+2026-06-11 11:43:48,156 logging in using static token
+2026-06-11 11:43:49,068 Shard ID None has connected to Gateway (Session ID: 4d4fe159e64c04a860686c6241741773).
+2026-06-11 11:43:53,707 [Manager] [table-view-full] v_500 - Allowed
+2026-06-11 11:44:41,494 [Manager] [table-add-row] v_500 - Allowed
+2026-06-11 11:44:50,411 [Manager] [table-view-full] v_500 - Allowed
+2026-06-11 11:52:03,320 davey is not installed, voice will NOT be supported
+2026-06-11 11:52:03,321 logging in using static token
+2026-06-11 11:52:04,678 Shard ID None has connected to Gateway (Session ID: d2b0f9eaf898758ca7d3c794179d46c3).
+2026-06-11 11:52:10,102 [Manager] [table-view-full] v_500 - Allowed
+2026-06-11 11:52:22,430 [Manager] [table-add-row] v_500 - Allowed
+2026-06-11 11:52:29,457 [Manager] [table-view-full] v_500 - Allowed
+2026-06-11 11:52:52,221 [Manager] [table-add-row] deafult4355543 - Allowed
+2026-06-11 11:53:04,004 [Manager] [table-view-full] deafult4355543 - Allowed
+2026-06-11 12:03:08,252 davey is not installed, voice will NOT be supported
+2026-06-11 12:03:08,252 logging in using static token
+2026-06-11 12:03:09,160 Shard ID None has connected to Gateway (Session ID: 00713dfaefd437fd63db8adb5463c996).
+2026-06-11 12:03:20,224 [Manager] [table-add-row] v_500 - Allowed
+2026-06-11 12:07:33,543 davey is not installed, voice will NOT be supported
+2026-06-11 12:07:33,543 logging in using static token
+2026-06-11 12:08:30,695 davey is not installed, voice will NOT be supported
+2026-06-11 12:08:30,695 logging in using static token
+2026-06-11 12:08:40,717 davey is not installed, voice will NOT be supported
+2026-06-11 12:08:40,717 logging in using static token
+2026-06-11 12:09:02,587 davey is not installed, voice will NOT be supported
+2026-06-11 12:09:02,588 logging in using static token
+2026-06-11 12:09:28,902 davey is not installed, voice will NOT be supported
+2026-06-11 12:09:28,903 logging in using static token
+2026-06-11 12:11:34,089 davey is not installed, voice will NOT be supported
+2026-06-11 12:11:34,090 logging in using static token

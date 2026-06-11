@@ -26,7 +26,12 @@ class AddColumn_Input(discord.ui.Modal, title="Add Column"):
                 f"{ERROR} ``Column`` ``{name}`` ``already exists.``", ephemeral=True
                 )
                  return
-    
+        custom_column_count = len(self.table["column_names"]) - 2  # excluding User, Timestamp
+        if custom_column_count >= 20:
+            await interaction.response.send_message(
+            f"{ERROR} ``Tables are limited to 20 custom columns.``", ephemeral=True
+        )
+            return
         self.table["columns"] += 1
         self.table["column_names"].append(name)
         for row in self.table["data"]:
@@ -73,7 +78,7 @@ class RemoveColumn_Input(discord.ui.Modal, title="Remove Column"):
             index = self.table["column_names"].index(name)
         except ValueError:
             await interaction.response.send_message(
-                f"{ERROR} ``Column`` **{name}** ``not found.``", ephemeral=True
+                f"{ERROR} ``Column`` ``{name}`` ``not found.``", ephemeral=True
             )
             return  
 

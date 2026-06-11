@@ -17,7 +17,7 @@ class Table_Create(commands.Cog):
 
         if any(t["name"] == name for t in config.ALL_TABLES):
             await interaction.response.send_message(
-                f"{ERROR} ``A table with the name`` **{name}** ``already exists.``", ephemeral=True
+                f"{ERROR} ``A table with the name`` ``{name}`` ``already exists.``", ephemeral=True
             )
             return
 
@@ -25,7 +25,7 @@ class Table_Create(commands.Cog):
             "name": name,
             "rows": 0,
             "columns": 2,  # User + Timestamp
-            "column_names": ["User", "Timestamp"],
+            "column_names": ["User", "Ts"],
             "member_role_ids": [],
             "data": []
         }
@@ -33,7 +33,7 @@ class Table_Create(commands.Cog):
         save_settings()
 
         await interaction.response.send_message(
-            f"{CHECK} ``Table with the name`` **{name}** ``created.``\n``Set up the table with`` ``table-settings``"
+            f"{CHECK} ``Table with the name`` ``{name}`` ``created.``\n``Set up the table with`` ``table-settings``"
         )
 
     @commands.command(name="table-create")
@@ -42,7 +42,7 @@ class Table_Create(commands.Cog):
             return
 
         if any(t["name"] == name for t in config.ALL_TABLES):
-            await ctx.send(f"{ERROR} ``A table with the name`` **{name}** ``already exists.``")
+            await ctx.send(f"{ERROR} ``A table with the name`` ``{name}`` ``already exists.``")
             return
 
         table = {
@@ -56,7 +56,7 @@ class Table_Create(commands.Cog):
         config.ALL_TABLES.append(table)
         save_settings()
 
-        await ctx.send(f"{CHECK} ``Table with the name`` **{name}** ``created.``\n``Set up the table with`` ``table-settings``")
+        await ctx.send(f"{CHECK} ``Table with the name`` ``{name}`` ``created.``\n``Set up the table with`` ``table-settings``")
 
 
 async def setup(bot):

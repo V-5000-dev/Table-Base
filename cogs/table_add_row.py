@@ -11,7 +11,7 @@ class AddRow_Input(discord.ui.Modal, title="Add/Update Row"):
         super().__init__()
         self.table = table
         self.existing_index = existing_index
-        self.field_columns = table["column_names"][2:]  # skip User, Timestamp
+        self.field_columns = table["column_names"][2:] 
         self.inputs = []
 
         for i, col in enumerate(self.field_columns):
@@ -32,14 +32,14 @@ class AddRow_Input(discord.ui.Modal, title="Add/Update Row"):
             self.inputs.append(text_input)
 
     async def on_submit(self, interaction: discord.Interaction):
-        new_row = ["None" for _ in range(self.table["columns"])]
+        new_row = ["null" for _ in range(self.table["columns"])]
         new_row[0] = interaction.user.mention
         new_row[1] = discord.utils.format_dt(discord.utils.utcnow())
 
         for i, text_input in enumerate(self.inputs):
             value = text_input.value.strip()
 
-            if value.lower() == "none" or not value:
+            if value.lower() == "null" or not value:
                 if self.existing_index is not None:
                     new_row[2 + i] = self.table["data"][self.existing_index][2 + i]
                 else:

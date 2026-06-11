@@ -3568,3 +3568,107 @@ discord.ext.commands.errors.CommandNotFound: Command "table-view-full" is not fo
 2026-06-11 12:13:10,598 Shard ID None has connected to Gateway (Session ID: 22b72d9871f269ab21b800705e328b7b).
 2026-06-11 12:13:37,292 [Admin] [table-add-row-user] v_500 - Allowed
 2026-06-11 12:13:49,282 [Manager] [table-view-full] v_500 - Allowed
+2026-06-11 13:56:28,982 davey is not installed, voice will NOT be supported
+2026-06-11 13:56:28,983 logging in using static token
+2026-06-11 13:56:47,167 davey is not installed, voice will NOT be supported
+2026-06-11 13:56:47,168 logging in using static token
+2026-06-11 13:57:18,744 davey is not installed, voice will NOT be supported
+2026-06-11 13:57:18,745 logging in using static token
+2026-06-11 13:57:19,858 Shard ID None has connected to Gateway (Session ID: 8fb11a59bd4dada50f31971a579bff6b).
+2026-06-11 13:57:29,078 [Manager] [table-remove-row] v_500 - Allowed
+2026-06-11 13:57:29,095 Ignoring exception in command 'table-remove-row'
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 858, in _do_call
+    return await self._callback(self.binding, interaction, **params)  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victor/Documents/Data-Base/cogs/table_remove_row.py", line 32, in table_add_row
+    for r in table["rows"]:
+             ~~~~~^^^^^^^^
+TypeError: 'int' object is not iterable
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/tree.py", line 1302, in _call
+    await command._invoke_with_namespace(interaction, namespace)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 884, in _invoke_with_namespace
+    return await self._do_call(interaction, transformed_values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 873, in _do_call
+    raise CommandInvokeError(self, e) from e
+discord.app_commands.errors.CommandInvokeError: Command 'table-remove-row' raised an exception: TypeError: 'int' object is not iterable
+2026-06-11 13:58:28,254 davey is not installed, voice will NOT be supported
+2026-06-11 13:58:28,255 logging in using static token
+2026-06-11 13:58:29,064 Shard ID None has connected to Gateway (Session ID: 82fedbc3b748cfb93b54ba6c92f6814c).
+2026-06-11 13:58:34,867 [Manager] [table-remove-row] v_500 - Allowed
+2026-06-11 13:58:34,884 Ignoring exception in command 'table-remove-row'
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 858, in _do_call
+    return await self._callback(self.binding, interaction, **params)  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victor/Documents/Data-Base/cogs/table_remove_row.py", line 29, in table_add_row
+    table.pop["i"]
+    ~~~~~~~~~^^^^^
+TypeError: 'builtin_function_or_method' object is not subscriptable
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/tree.py", line 1302, in _call
+    await command._invoke_with_namespace(interaction, namespace)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 884, in _invoke_with_namespace
+    return await self._do_call(interaction, transformed_values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 873, in _do_call
+    raise CommandInvokeError(self, e) from e
+discord.app_commands.errors.CommandInvokeError: Command 'table-remove-row' raised an exception: TypeError: 'builtin_function_or_method' object is not subscriptable
+2026-06-11 13:59:27,947 davey is not installed, voice will NOT be supported
+2026-06-11 13:59:27,948 logging in using static token
+2026-06-11 13:59:28,908 Shard ID None has connected to Gateway (Session ID: e6a74361485cad82ed1baac9e71b1345).
+2026-06-11 13:59:33,967 [Manager] [table-remove-row] v_500 - Allowed
+2026-06-11 13:59:33,982 Ignoring exception in command 'table-remove-row'
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 858, in _do_call
+    return await self._callback(self.binding, interaction, **params)  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victor/Documents/Data-Base/cogs/table_remove_row.py", line 30, in table_add_row
+    table.pop["i"]
+    ~~~~~~~~~^^^^^
+TypeError: 'builtin_function_or_method' object is not subscriptable
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/tree.py", line 1302, in _call
+    await command._invoke_with_namespace(interaction, namespace)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 884, in _invoke_with_namespace
+    return await self._do_call(interaction, transformed_values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 873, in _do_call
+    raise CommandInvokeError(self, e) from e
+discord.app_commands.errors.CommandInvokeError: Command 'table-remove-row' raised an exception: TypeError: 'builtin_function_or_method' object is not subscriptable
+2026-06-11 14:00:35,107 davey is not installed, voice will NOT be supported
+2026-06-11 14:00:35,108 logging in using static token
+2026-06-11 14:00:37,783 Shard ID None has connected to Gateway (Session ID: 0cab580d4c1cf68ce644a9699461891c).
+2026-06-11 14:00:47,650 [Manager] [table-remove-row] v_500 - Allowed
+2026-06-11 14:00:47,665 Ignoring exception in command 'table-remove-row'
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 858, in _do_call
+    return await self._callback(self.binding, interaction, **params)  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victor/Documents/Data-Base/cogs/table_remove_row.py", line 30, in table_add_row
+    table.pop["r"]
+    ~~~~~~~~~^^^^^
+TypeError: 'builtin_function_or_method' object is not subscriptable
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/tree.py", line 1302, in _call
+    await command._invoke_with_namespace(interaction, namespace)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 884, in _invoke_with_namespace
+    return await self._do_call(interaction, transformed_values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 873, in _do_call
+    raise CommandInvokeError(self, e) from e
+discord.app_commands.errors.CommandInvokeError: Command 'table-remove-row' raised an exception: TypeError: 'builtin_function_or_method' object is not subscriptable

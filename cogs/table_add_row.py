@@ -43,7 +43,7 @@ class AddRow_Input(discord.ui.Modal, title="Add/Update Row"):
                 if self.existing_index is not None:
                     new_row[2 + i] = self.table["data"][self.existing_index][2 + i]
                 else:
-                    new_row[2 + i] = "None"
+                    new_row[2 + i] = "null"
             else:
                 new_row[2 + i] = value
 

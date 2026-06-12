@@ -1,4 +1,5 @@
 import discord
+import io
 import config
 from discord.ext import commands
 from discord import app_commands
@@ -40,9 +41,36 @@ class Table_View_Full(commands.Cog):
 
         return embeds
 
+    def build_table_file(self, table, name):
+        """Builds a .txt file representation of the table."""
+        columns = table["column_names"]
+        rows = table["data"]
+
+        lines = [f"Table: {name}", ""]
+
+        if not columns:
+            lines.append("(no columns)")
+        elif not rows:
+            lines.append(", ".join(columns))
+            lines.append("(no rows)")
+        else:
+            # Header
+            lines.append(" | ".join(str(c) for c in columns))
+            lines.append("-" * 40)
+
+            # Rows
+            for row_index, row in enumerate(rows, start=1):
+                row_str = " | ".join(str(cell) for cell in row)
+                lines.append(f"{row_index}: {row_str}")
+
+        content = "\n".join(lines)
+        buffer = io.BytesIO(content.encode("utf-8"))
+        return discord.File(buffer, filename=f"{name}.txt")
+
     @app_commands.command(name="table-view-full", description="View the entire table.")
     @app_commands.autocomplete(name=table_name_autocomplete)
-    async def table_view_all(self, interaction: discord.Interaction, name: str):
+    @app_commands.describe(view_raw="Send the table as a .txt file instead of an embed.")
+    async def table_view_all(self, interaction: discord.Interaction, name: str, view_raw: bool = False):
         if not await verifyCommandPermissions(interaction, CommandType.MANAGER):
             return
 
@@ -53,8 +81,18 @@ class Table_View_Full(commands.Cog):
             )
             return
 
+        if view_raw:
+            file = self.build_table_file(table, name)
+            await interaction.response.send_message(file=file)
+            return
+
         embeds = self.build_table_embeds(table, name)
 
+        if embeds is None:
+            await interaction.response.send_message(
+                f"{ERROR} ``Table`` ``{name}`` ``has no columns.``", ephemeral=True
+            )
+            return
 
         if len(embeds) == 1:
             await interaction.response.send_message(embed=embeds[0])
@@ -63,7 +101,7 @@ class Table_View_Full(commands.Cog):
             await interaction.response.send_message(embed=embeds[0], view=view)
 
     @commands.command(name="table-view-full")
-    async def table_view_all_prefix(self, ctx, name: str):
+    async def table_view_all_prefix(self, ctx, name: str, view_raw: str = None):
         if not await verifyCommandPermissions(ctx, CommandType.MANAGER):
             return
 
@@ -72,7 +110,16 @@ class Table_View_Full(commands.Cog):
             await ctx.send(f"{ERROR} ``Table`` ``{name}`` ``not found.``")
             return
 
+        if view_raw and view_raw.lower() in ("file", "txt", "true"):
+            file = self.build_table_file(table, name)
+            await ctx.send(file=file)
+            return
+
         embeds = self.build_table_embeds(table, name)
+
+        if embeds is None:
+            await ctx.send(f"{ERROR} ``Table`` ``{name}`` ``has no columns.``")
+            return
 
         if len(embeds) == 1:
             await ctx.send(embed=embeds[0])

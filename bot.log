@@ -3672,3 +3672,157 @@ Traceback (most recent call last):
   File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 873, in _do_call
     raise CommandInvokeError(self, e) from e
 discord.app_commands.errors.CommandInvokeError: Command 'table-remove-row' raised an exception: TypeError: 'builtin_function_or_method' object is not subscriptable
+2026-06-11 14:12:20,047 Shard ID None has successfully RESUMED session 0cab580d4c1cf68ce644a9699461891c.
+2026-06-11 14:38:29,601 Shard ID None session has been invalidated.
+2026-06-11 14:38:35,015 Shard ID None has connected to Gateway (Session ID: 776916af6340c101a41ab0328a458380).
+2026-06-11 15:48:24,357 Shard ID None session has been invalidated.
+2026-06-11 15:48:29,847 Shard ID None has connected to Gateway (Session ID: 12828f7cd560a6ce24f245af1f51e026).
+2026-06-11 15:52:41,881 Shard ID None session has been invalidated.
+2026-06-11 15:59:55,249 Shard ID None session has been invalidated.
+2026-06-11 16:00:00,857 Shard ID None has connected to Gateway (Session ID: a2e6c673d0754c9d1090fff43d1b3180).
+2026-06-11 16:08:51,783 Shard ID None session has been invalidated.
+2026-06-11 16:08:57,589 Shard ID None has connected to Gateway (Session ID: b5650a621533c436ec9f9c9e92ab1450).
+2026-06-11 16:17:08,355 Shard ID None session has been invalidated.
+2026-06-11 16:17:13,723 Shard ID None has connected to Gateway (Session ID: ffe3edc594e721f747969116735683e0).
+2026-06-11 16:43:14,159 Shard ID None session has been invalidated.
+2026-06-11 16:43:19,509 Shard ID None has connected to Gateway (Session ID: 155a5a5832e358bc8b1e5765897511ce).
+2026-06-11 16:46:38,031 Shard ID None has successfully RESUMED session 155a5a5832e358bc8b1e5765897511ce.
+2026-06-11 17:37:10,953 Shard ID None session has been invalidated.
+2026-06-11 17:50:28,341 Shard ID None session has been invalidated.
+2026-06-11 17:50:33,711 Shard ID None has connected to Gateway (Session ID: 0b53e94cf367290dad45a92e4e2303c8).
+2026-06-11 17:51:33,267 Shard ID None has successfully RESUMED session 0b53e94cf367290dad45a92e4e2303c8.
+2026-06-11 18:26:18,114 Shard ID None session has been invalidated.
+2026-06-11 18:31:10,175 Shard ID None session has been invalidated.
+2026-06-11 18:31:15,539 Shard ID None has connected to Gateway (Session ID: de47ef06ada9828790de1661bcde35ff).
+2026-06-11 19:08:58,508 Shard ID None session has been invalidated.
+2026-06-11 19:09:04,068 Shard ID None has connected to Gateway (Session ID: 9c05e1b214343b2fa2e865a5a21f84ad).
+2026-06-11 19:15:15,416 Shard ID None session has been invalidated.
+2026-06-11 19:15:20,860 Shard ID None has connected to Gateway (Session ID: 3acf784af63a76c285e378069064c479).
+2026-06-11 19:36:25,376 Shard ID None session has been invalidated.
+2026-06-11 19:36:30,987 Shard ID None has connected to Gateway (Session ID: b8a566abe392d052a8d81dce94d0e9ed).
+2026-06-11 19:41:50,519 Shard ID None session has been invalidated.
+2026-06-11 19:41:55,978 Shard ID None has connected to Gateway (Session ID: 0f7e23b86335c3da3dab231b3314fbd4).
+2026-06-11 20:21:23,169 Shard ID None session has been invalidated.
+2026-06-11 20:38:07,521 Shard ID None session has been invalidated.
+2026-06-11 20:49:42,583 Shard ID None session has been invalidated.
+2026-06-11 20:49:48,015 Shard ID None has connected to Gateway (Session ID: 134b137631dce6990cc6a989530ab88b).
+2026-06-11 21:48:46,670 Shard ID None session has been invalidated.
+2026-06-11 21:49:17,358 Shard ID None has connected to Gateway (Session ID: be8aa7094d8ab273c31316fceb5960bb).
+2026-06-11 22:03:41,859 Shard ID None has successfully RESUMED session be8aa7094d8ab273c31316fceb5960bb.
+2026-06-11 22:04:38,651 davey is not installed, voice will NOT be supported
+2026-06-11 22:04:38,651 logging in using static token
+2026-06-11 22:04:39,478 Shard ID None has connected to Gateway (Session ID: 02b770d40503e5483a5771db62687fcd).
+2026-06-11 22:04:44,511 [Manager] [table-view-full] v_500 - Allowed
+2026-06-11 22:04:51,943 davey is not installed, voice will NOT be supported
+2026-06-11 22:04:51,943 logging in using static token
+2026-06-11 22:05:39,693 Shard ID None has connected to Gateway (Session ID: 440e796734a26013b1ec3841bcfc36c5).
+2026-06-11 22:06:34,429 [Manager] [table-view-full] v_500 - Allowed
+2026-06-11 22:06:52,313 davey is not installed, voice will NOT be supported
+2026-06-11 22:06:52,313 logging in using static token
+2026-06-11 22:06:53,229 Shard ID None has connected to Gateway (Session ID: 983a608b79731612de1f5dbca0d3dfc7).
+2026-06-11 22:06:57,370 [Manager] [table-view-full] v_500 - Allowed
+2026-06-11 22:07:04,961 [Manager] [table-view-full] v_500 - Allowed
+2026-06-11 22:17:10,017 davey is not installed, voice will NOT be supported
+2026-06-11 22:17:10,018 logging in using static token
+2026-06-11 22:18:43,028 davey is not installed, voice will NOT be supported
+2026-06-11 22:18:43,028 logging in using static token
+2026-06-11 22:19:19,492 davey is not installed, voice will NOT be supported
+2026-06-11 22:19:19,493 logging in using static token
+2026-06-11 22:19:37,009 davey is not installed, voice will NOT be supported
+2026-06-11 22:19:37,010 logging in using static token
+2026-06-11 22:19:43,368 davey is not installed, voice will NOT be supported
+2026-06-11 22:19:43,368 logging in using static token
+2026-06-11 22:19:44,629 Shard ID None has connected to Gateway (Session ID: 1ab4f4c500c3c3b4d70cd91bb4a83b09).
+2026-06-11 22:19:55,810 [Manager] [table-view-full] v_500 - Allowed
+2026-06-11 22:20:02,244 [Manager] [table-view-full] v_500 - Allowed
+2026-06-11 22:20:06,133 [Manager] [table-view-full] v_500 - Allowed
+2026-06-11 22:20:31,898 [Manager] [table-remove-row-user] v_500 - Allowed
+2026-06-11 22:21:55,800 [Manager] [table-view-full] v_500 - Allowed
+2026-06-11 22:22:28,128 davey is not installed, voice will NOT be supported
+2026-06-11 22:22:28,128 logging in using static token
+2026-06-11 22:22:29,118 Shard ID None has connected to Gateway (Session ID: 8c677f2746bde398913d9ad806abb222).
+2026-06-11 22:22:53,382 [Admin] [table-add-row-user] v_500 - Allowed
+2026-06-11 22:23:07,409 [Manager] [table-remove-row-user] v_500 - Allowed
+2026-06-11 22:23:07,410 Ignoring exception in command 'table-remove-row-user'
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 858, in _do_call
+    return await self._callback(self.binding, interaction, **params)  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victor/Documents/Data-Base/cogs/table_remove_row_user.py", line 33, in table_remove_row
+    f"{CHECK} ``Removed``{user.mention} ``row from table`` ``{name}``", ephemeral=True
+                          ^^^^^^^^^^^^
+AttributeError: 'str' object has no attribute 'mention'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/tree.py", line 1302, in _call
+    await command._invoke_with_namespace(interaction, namespace)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 884, in _invoke_with_namespace
+    return await self._do_call(interaction, transformed_values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 877, in _do_call
+    raise CommandInvokeError(self, e) from e
+discord.app_commands.errors.CommandInvokeError: Command 'table-remove-row-user' raised an exception: AttributeError: 'str' object has no attribute 'mention'
+2026-06-11 22:26:07,442 davey is not installed, voice will NOT be supported
+2026-06-11 22:26:07,442 logging in using static token
+2026-06-11 22:26:08,182 Shard ID None has connected to Gateway (Session ID: 8116a20a9eaaac651d2c7e0d6eed2543).
+2026-06-11 22:26:17,352 [Manager] [table-remove-row-user] v_500 - Allowed
+2026-06-11 22:26:24,041 [Manager] [table-view-full] v_500 - Allowed
+2026-06-12 10:55:28,653 davey is not installed, voice will NOT be supported
+2026-06-12 10:55:28,654 logging in using static token
+2026-06-12 10:55:30,028 Shard ID None has connected to Gateway (Session ID: 93236033aec1a2c1595be110309dcbfb).
+2026-06-12 10:59:59,397 davey is not installed, voice will NOT be supported
+2026-06-12 10:59:59,398 logging in using static token
+2026-06-12 11:00:00,290 Shard ID None has connected to Gateway (Session ID: ce943849e609ae225eb765e6d2e80986).
+2026-06-12 11:00:15,331 [Admin] [table-add-row-user] v_500 - Allowed
+2026-06-12 11:00:31,198 [Manager] [table-view-full] v_500 - Allowed
+2026-06-12 11:01:59,247 davey is not installed, voice will NOT be supported
+2026-06-12 11:01:59,248 logging in using static token
+2026-06-12 11:02:00,729 Shard ID None has connected to Gateway (Session ID: bc2fec36ed2106f6beacd590f7a4e501).
+2026-06-12 11:02:10,265 [Manager] [table-add-row] v_500 - Allowed
+2026-06-12 11:02:25,883 [Manager] [table-add-row] v_500 - Allowed
+2026-06-12 11:02:48,134 [Manager] [table-view-full] v_500 - Allowed
+2026-06-12 11:04:16,487 davey is not installed, voice will NOT be supported
+2026-06-12 11:04:16,487 logging in using static token
+2026-06-12 11:04:17,429 Shard ID None has connected to Gateway (Session ID: 16e0cb2ff205365026e4cce0a36a0b36).
+2026-06-12 11:04:26,574 [Admin] [table-add-row-user] v_500 - Allowed
+2026-06-12 11:04:39,036 [Manager] [table-view-full] v_500 - Allowed
+2026-06-12 11:14:09,838 davey is not installed, voice will NOT be supported
+2026-06-12 11:14:09,839 logging in using static token
+2026-06-12 11:14:10,799 Shard ID None has connected to Gateway (Session ID: 402fdfcdfbcfc45d1cc46d1dcce3bb39).
+2026-06-12 11:14:24,910 [Manager] [table-remove-row-user] v_500 - Allowed
+2026-06-12 11:14:32,654 [Manager] [table-view-full] v_500 - Allowed
+2026-06-12 11:14:46,801 [Admin] [table-add-row-user] v_500 - Allowed
+2026-06-12 11:14:59,288 [Manager] [table-view-full] v_500 - Allowed
+2026-06-12 11:15:25,956 davey is not installed, voice will NOT be supported
+2026-06-12 11:15:25,957 logging in using static token
+2026-06-12 11:15:26,971 Shard ID None has connected to Gateway (Session ID: d6373a7f1d37f118e73cb9f90ebf301b).
+2026-06-12 11:15:36,341 [Admin] [table-add-row-user] v_500 - Allowed
+2026-06-12 11:15:43,483 [Manager] [table-view-full] v_500 - Allowed
+2026-06-12 11:18:22,491 davey is not installed, voice will NOT be supported
+2026-06-12 11:18:22,492 logging in using static token
+2026-06-12 11:18:23,363 Shard ID None has connected to Gateway (Session ID: 8be57f451973864de412188de95f4dc9).
+2026-06-12 11:19:13,263 davey is not installed, voice will NOT be supported
+2026-06-12 11:19:13,264 logging in using static token
+2026-06-12 11:19:42,600 davey is not installed, voice will NOT be supported
+2026-06-12 11:19:42,601 logging in using static token
+2026-06-12 11:20:05,270 davey is not installed, voice will NOT be supported
+2026-06-12 11:20:05,271 logging in using static token
+2026-06-12 11:21:26,504 davey is not installed, voice will NOT be supported
+2026-06-12 11:21:26,504 logging in using static token
+2026-06-12 11:21:40,366 davey is not installed, voice will NOT be supported
+2026-06-12 11:21:40,367 logging in using static token
+2026-06-12 11:22:00,027 davey is not installed, voice will NOT be supported
+2026-06-12 11:22:00,028 logging in using static token
+2026-06-12 11:22:06,429 davey is not installed, voice will NOT be supported
+2026-06-12 11:22:06,430 logging in using static token
+2026-06-12 11:27:48,139 davey is not installed, voice will NOT be supported
+2026-06-12 11:27:48,139 logging in using static token
+2026-06-12 11:29:47,907 davey is not installed, voice will NOT be supported
+2026-06-12 11:29:47,908 logging in using static token
+2026-06-12 11:29:48,829 Shard ID None has connected to Gateway (Session ID: 4f3a46b702f4ca13df4db05e4b990bd3).
+2026-06-12 11:30:06,565 [Manager] [table-add-row-user] v_500 - Allowed
+2026-06-12 11:30:15,483 [Manager] [table-view-full] v_500 - Allowed
+2026-06-12 11:30:24,565 [Manager] [table-remove-row-user] v_500 - Allowed
+2026-06-12 11:30:29,171 [Manager] [table-view-full] v_500 - Allowed

@@ -6,12 +6,13 @@ from config import GUILD_ID, CHECK, ERROR, CommandType
 from utils import verifyCommandPermissions, save_settings, table_name_autocomplete
 
 
-class AddRow_Input(discord.ui.Modal, title="Add/Update Row of any user."):
-    def __init__(self, table: dict, existing_index: int | None):
+class AddRow_Input(discord.ui.Modal, title="Add/Update Row"):
+    def __init__(self, table: dict, existing_index: int | None, target_user: discord.Member):
         super().__init__()
         self.table = table
         self.existing_index = existing_index
-        self.field_columns = table["column_names"][2:]  
+        self.target_user = target_user
+        self.field_columns = table["column_names"][2:]
         self.inputs = []
 
         for i, col in enumerate(self.field_columns):
@@ -33,7 +34,7 @@ class AddRow_Input(discord.ui.Modal, title="Add/Update Row of any user."):
 
     async def on_submit(self, interaction: discord.Interaction):
         new_row = ["null" for _ in range(self.table["columns"])]
-        new_row[0] = interaction.user.mention
+        new_row[0] = self.target_user.mention
         new_row[1] = discord.utils.format_dt(discord.utils.utcnow())
 
         for i, text_input in enumerate(self.inputs):
@@ -43,7 +44,7 @@ class AddRow_Input(discord.ui.Modal, title="Add/Update Row of any user."):
                 if self.existing_index is not None:
                     new_row[2 + i] = self.table["data"][self.existing_index][2 + i]
                 else:
-                    new_row[2 + i] = "None"
+                    new_row[2 + i] = "null"
             else:
                 new_row[2 + i] = value
 
@@ -51,14 +52,14 @@ class AddRow_Input(discord.ui.Modal, title="Add/Update Row of any user."):
             self.table["data"][self.existing_index] = new_row
             save_settings()
             await interaction.response.send_message(
-                f"{CHECK} ``{self.user} row in table`` ``{self.table['name']}`` ``has been updated.``", ephemeral=True
+                f"{CHECK} ``{self.target_user.mention}'s row in table`` ``{self.table['name']}`` ``has been updated.``", ephemeral=True
             )
         else:
             self.table["data"].append(new_row)
             self.table["rows"] += 1
             save_settings()
             await interaction.response.send_message(
-                f"{CHECK} ``Row added to table`` ``{self.table['name']}``", ephemeral=True
+                f"{CHECK} ``Row added to table`` ``{self.table['name']}`` ``for`` {self.target_user.mention}", ephemeral=True
             )
 
 
@@ -68,8 +69,8 @@ class Table_Add_Row_User(commands.Cog):
 
     @app_commands.command(name="table-add-row-user", description="Add or update your row in the table.")
     @app_commands.autocomplete(name=table_name_autocomplete)
-    async def table_add_row(self, interaction: discord.Interaction, name: str, user: str):
-        if not await verifyCommandPermissions(interaction, CommandType.ADMIN):
+    async def table_add_row_user(self, interaction: discord.Interaction, name: str, user: discord.Member):
+        if not await verifyCommandPermissions(interaction, CommandType.MANAGER):
             return
 
         table = next((t for t in config.ALL_TABLES if t["name"] == name), None)
@@ -88,14 +89,14 @@ class Table_Add_Row_User(commands.Cog):
             return
 
         existing_index = next(
-            (i for i, r in enumerate(table["data"]) if r[0] == user),
+            (i for i, r in enumerate(table["data"]) if r[0] == user.mention),
             None
         )
 
-        await interaction.response.send_modal(AddRow_Input(table, existing_index))
+        await interaction.response.send_modal(AddRow_Input(table, existing_index, user))
 
     @commands.command(name="table-add-row-user")
-    async def table_add_row_prefix(self, ctx, name: str, user: str, *values: str):
+    async def table_add_row_prefix(self, ctx, name: str, user: discord.Member, *values: str):
         if not await verifyCommandPermissions(ctx, CommandType.MANAGER):
             return
 
@@ -104,36 +105,36 @@ class Table_Add_Row_User(commands.Cog):
             await ctx.send(f"{ERROR} ``Table``  ``{name}`` ``not found.``")
             return
 
-        new_row = ["None" for _ in range(table["columns"])]
-        new_row[0] = user
+        new_row = ["null" for _ in range(table["columns"])]
+        new_row[0] = user.mention
         new_row[1] = discord.utils.format_dt(discord.utils.utcnow())
 
         existing_index = next(
-            (i for i, r in enumerate(table["data"]) if r[0] == ctx.author.mention),
+            (i for i, r in enumerate(table["data"]) if r[0] == user.mention),
             None
         )
 
         custom_columns = table["column_names"][2:]
         for i in range(len(custom_columns)):
-            value = values[i] if i < len(values) else "None"
+            value = values[i] if i < len(values) else "null"
 
-            if value.lower() == "none":
+            if value.lower() == "null":
                 if existing_index is not None:
                     new_row[2 + i] = table["data"][existing_index][2 + i]
                 else:
-                    new_row[2 + i] = "None"
+                    new_row[2 + i] = "null"
             else:
                 new_row[2 + i] = value
 
         if existing_index is not None:
             table["data"][existing_index] = new_row
             save_settings()
-            await ctx.send(f"{CHECK} ``Your row in table`` ``{name}`` ``has been updated.``")
+            await ctx.send(f"{CHECK} ``{user.mention}'s row in table`` ``{name}`` ``has been updated.``")
         else:
             table["data"].append(new_row)
             table["rows"] += 1
             save_settings()
-            await ctx.send(f"{CHECK} ``Row added to table`` ``{name}``")
+            await ctx.send(f"{CHECK} ``Row added to table`` ``{name}`` ``for`` {user.mention}")
 
 
 async def setup(bot):

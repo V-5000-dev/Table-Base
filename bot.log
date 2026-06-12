@@ -3826,3 +3826,57 @@ discord.app_commands.errors.CommandInvokeError: Command 'table-remove-row-user' 
 2026-06-12 11:30:15,483 [Manager] [table-view-full] v_500 - Allowed
 2026-06-12 11:30:24,565 [Manager] [table-remove-row-user] v_500 - Allowed
 2026-06-12 11:30:29,171 [Manager] [table-view-full] v_500 - Allowed
+2026-06-12 12:27:51,901 davey is not installed, voice will NOT be supported
+2026-06-12 12:27:51,901 logging in using static token
+2026-06-12 12:27:52,712 Shard ID None has connected to Gateway (Session ID: 2ea314c141f00afcc10a453b546486e8).
+2026-06-12 12:29:39,772 [Server Admin] [table-settings] v_500 - Allowed
+2026-06-12 12:30:10,337 davey is not installed, voice will NOT be supported
+2026-06-12 12:30:10,337 logging in using static token
+2026-06-12 12:30:11,452 Shard ID None has connected to Gateway (Session ID: 2c5371c22f9a748604283210b5c5485f).
+2026-06-12 12:30:15,572 [Server Admin] [table-settings] v_500 - Allowed
+2026-06-12 12:30:42,639 davey is not installed, voice will NOT be supported
+2026-06-12 12:30:42,639 logging in using static token
+2026-06-12 12:30:43,604 Shard ID None has connected to Gateway (Session ID: b92748951568a41a617f74ebca2b8ef6).
+2026-06-12 12:30:48,681 [Server Admin] [table-settings] v_500 - Allowed
+2026-06-12 12:30:56,737 Ignoring exception in view <PageView timeout=60 children=3> for item <SelectChannels_Menu placeholder='Select a channel...' min_values=1 max_values=1 disabled=False id=None>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/ui/view.py", line 598, in _scheduled_task
+    await item.callback(interaction)
+  File "/Users/victor/Documents/Data-Base/utils.py", line 177, in callback
+    await self.on_submit(interaction, [c for c in selected if c])
+  File "/Users/victor/Documents/Data-Base/cogs/table_settings.py", line 124, in save_requestchannel_id
+    config.TABLE_REQUEST_CHANNEL_ID[CommandType.MANAGER] = channels[0].id
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+TypeError: 'int' object does not support item assignment
+2026-06-12 12:31:27,681 davey is not installed, voice will NOT be supported
+2026-06-12 12:31:27,681 logging in using static token
+2026-06-12 12:31:28,505 Shard ID None has connected to Gateway (Session ID: 050ca6fea1dcafe958f6fa2763135241).
+2026-06-12 12:31:34,190 [Server Admin] [table-settings] v_500 - Allowed
+2026-06-12 12:31:42,408 Ignoring exception in view <PageView timeout=60 children=3> for item <SelectChannels_Menu placeholder='Select a channel...' min_values=1 max_values=1 disabled=False id=None>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/ui/view.py", line 598, in _scheduled_task
+    await item.callback(interaction)
+  File "/Users/victor/Documents/Data-Base/utils.py", line 177, in callback
+    await self.on_submit(interaction, [c for c in selected if c])
+  File "/Users/victor/Documents/Data-Base/cogs/table_settings.py", line 124, in save_requestchannel_id
+    config.TABLE_REQUEST_CHANNEL_ID[CommandType.MANAGER] = channels[0].id
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+TypeError: 'int' object does not support item assignment
+2026-06-12 12:31:51,649 davey is not installed, voice will NOT be supported
+2026-06-12 12:31:51,650 logging in using static token
+2026-06-12 12:32:28,552 Shard ID None has connected to Gateway (Session ID: d133e79928cd5a5390564657eb5e5a0e).
+2026-06-12 12:32:36,422 [Server Admin] [table-settings] v_500 - Allowed
+2026-06-12 12:33:19,652 davey is not installed, voice will NOT be supported
+2026-06-12 12:33:19,653 logging in using static token
+2026-06-12 12:33:47,625 davey is not installed, voice will NOT be supported
+2026-06-12 12:33:47,626 logging in using static token
+2026-06-12 12:33:48,414 Shard ID None has connected to Gateway (Session ID: 0eefdab62bb5c08c3723d7583b33e08f).
+2026-06-12 12:33:59,007 [User] [table-add-row-request] v_500 - Allowed
+2026-06-12 12:35:05,703 [Server Admin] [table-settings] v_500 - Allowed
+2026-06-12 12:35:20,789 [User] [table-add-row-request] v_500 - Allowed
+2026-06-12 12:38:17,123 davey is not installed, voice will NOT be supported
+2026-06-12 12:38:17,124 logging in using static token
+2026-06-12 12:38:21,263 Shard ID None has connected to Gateway (Session ID: d6517373177219020560565afbb70bc0).
+2026-06-12 12:38:33,046 [User] [table-add-row-request] v_500 - Allowed
+2026-06-12 12:38:41,338 [Server Admin] [table-settings] v_500 - Allowed
+2026-06-12 12:38:54,554 [User] [table-add-row-request] v_500 - Allowed

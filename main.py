@@ -17,6 +17,7 @@ class Client(commands.Bot):
         await self.load_extension("cogs.table_view_full")
         await self.load_extension("cogs.table_add_row")
         await self.load_extension("cogs.table_add_row_user")
+        await self.load_extension("cogs.table_add_row_request")
         await self.load_extension("cogs.table_remove_row")
         await self.load_extension("cogs.table_remove_row_user")
         await self.load_extension("cogs.server_settings")

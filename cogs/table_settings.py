@@ -119,6 +119,12 @@ async def save_tableadmin_roles(interaction, roles, table: dict):
     await interaction.response.send_message(
         f"{CHECK} ``Saved admin roles:`` {', '.join(r.name for r in roles)}", ephemeral=True
     )
+async def save_requestchannel_id(interaction, channels, table: dict):
+    if not channels: return
+    config.TABLE_REQUEST_CHANNEL_ID = channels[0].id
+    save_settings()
+    await interaction.response.send_message(f"{CHECK} ``Table update requests set to`` {channels[0].mention}", ephemeral=True)
+
 
 class Table_Settings(commands.Cog):
     def __init__(self, bot):
@@ -160,6 +166,9 @@ class Table_Settings(commands.Cog):
                 discord.Embed(title=f"Table {table_name} Settings - Manage Administration Roles",
                 description="Select which role(s) are administrators of the table. Admins have all permissons of Managers, and can also add and remove any row in the table."
             ),
+                            discord.Embed(title=f"Table {table_name} Settings - Manage Request Channel",
+                description="Select which channel should table modifcation requests should be sent. Table users can create requests, and managers can review them."
+            ),
             
             
         ]
@@ -172,6 +181,7 @@ class Table_Settings(commands.Cog):
                 1: [lambda: SelectRoles_Menu(guild.roles, lambda i, r: save_tablemember_roles(i, r, table))],
                 2: [lambda: SelectRoles_Menu(guild.roles, lambda i, r: save_tablemanager_roles(i, r, table))],
                 3: [lambda: SelectRoles_Menu(guild.roles, lambda i, r: save_tableadmin_roles(i, r, table))],
+                4: [lambda: SelectChannels_Menu(guild.channels, lambda i, r: save_requestchannel_id(i, r, table))],
             }
         )
 

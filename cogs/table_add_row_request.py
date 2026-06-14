@@ -28,12 +28,7 @@ class AddRequest(discord.ui.View):
 
     @discord.ui.button(label="Accept", style=discord.ButtonStyle.success, emoji=f"{CHECK}")
     async def accept(self, interaction: discord.Interaction, button: discord.ui.Button):
-        if not await verifyCommandPermissions(interaction, CommandType.MANAGER):
-            await interaction.response.send_message(
-                f"{ERROR} ``You don't have permission to approve requests.``", ephemeral=True
-            )
-            return
-
+        verifyCommandPermissions(interaction, CommandType.MANAGER)
         if self.existing_index is not None:
             self.table["data"][self.existing_index] = self.new_row
         else:
@@ -48,12 +43,9 @@ class AddRequest(discord.ui.View):
         embed = self.build_embed(status=f"Approved by {interaction.user.mention}", color=discord.Color.green())
         await interaction.response.edit_message(embed=embed, view=self)
 
-    @discord.ui.button(label="Reject", style=discord.ButtonStyle.danger, emoji=f"{X}")
+    @discord.ui.button(label="Reject", style=discord.ButtonStyle.gray, emoji=f"{X}")
     async def reject(self, interaction: discord.Interaction, button: discord.ui.Button):
         if not await verifyCommandPermissions(interaction, CommandType.MANAGER):
-            await interaction.response.send_message(
-                f"{ERROR} ``You don't have permission to reject requests.``", ephemeral=True
-            )
             return
 
         for child in self.children:
@@ -88,7 +80,7 @@ class AddRow_Input(discord.ui.Modal, title="Add/Update Row"):
             self.add_item(text_input)
             self.inputs.append(text_input)
 
-async def on_submit(self, interaction: discord.Interaction):
+    async def on_submit(self, interaction: discord.Interaction):
         new_row = ["null" for _ in range(self.table["columns"])]
         new_row[0] = interaction.user.mention
         new_row[1] = discord.utils.format_dt(discord.utils.utcnow())
@@ -119,7 +111,6 @@ async def on_submit(self, interaction: discord.Interaction):
         await interaction.response.send_message(
             f"{CHECK} ``Your request has been submitted for review.``", ephemeral=True
         )
-    
 
 class Table_Add_Row_Request(commands.Cog):
     def __init__(self, bot):

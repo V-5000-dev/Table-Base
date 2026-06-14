@@ -11,6 +11,7 @@ def load_settings():
     try:
         with open(SETTINGS_FILE, "r") as f:
             data = json.load(f)
+        config.TABLE_REQUEST_CHANNEL_ID = data.get("TABLE_REQUEST_CHANNEL_ID", 0)
         config.SERVER_ADMIN_ROLE_IDS = data.get("SERVER_ADMIN_ROLE_IDS", [])
         config.ADMIN_ROLE_IDS        = data.get("ADMIN_ROLE_IDS", [])
         config.MANAGER_ROLE_IDS      = data.get("MANAGER_ROLE_IDS", [])
@@ -25,6 +26,7 @@ def load_settings():
 
 def save_settings():
     data = {
+        "TABLE_REQUEST_CHANNEL_ID": config.TABLE_REQUEST_CHANNEL_ID,
         "SERVER_ADMIN_ROLE_IDS": config.SERVER_ADMIN_ROLE_IDS,
         "ADMIN_ROLE_IDS":        config.ADMIN_ROLE_IDS,
         "MANAGER_ROLE_IDS":      config.MANAGER_ROLE_IDS,
@@ -37,12 +39,15 @@ def save_settings():
     }
     with open(SETTINGS_FILE, "w") as f:
         json.dump(data, f, indent=4)
-
 async def verifyCommandPermissions(ctx_or_interaction, command_type: CommandType = None) -> bool:
     if isinstance(ctx_or_interaction, discord.Interaction):
         user             = ctx_or_interaction.user
         guild_permissions = ctx_or_interaction.user.guild_permissions
-        command_name     = ctx_or_interaction.command.name
+        if ctx_or_interaction.command is not None:
+            command_name = ctx_or_interaction.command.name
+        else:
+            custom_id = ctx_or_interaction.data.get("custom_id", "unknown") if ctx_or_interaction.data else "unknown"
+            command_name = f"component:{custom_id}"
         _client          = ctx_or_interaction.client
     else:
         user             = ctx_or_interaction.author
@@ -66,15 +71,14 @@ async def verifyCommandPermissions(ctx_or_interaction, command_type: CommandType
 
         if guild_permissions.administrator:
             allowed = True
-        elif  allowed_roles:
-            allowed = True
         elif any(role_id in allowed_roles for role_id in user_role_ids):
             allowed = True
         else:
             allowed = False
 
     logging.info(f"[{'Unprotected' if command_type is None else command_type.value}] [{command_name}] {user} - {'Allowed' if allowed else 'Denied'}")
-    
+
+    return allowed
 
 
 

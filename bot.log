@@ -3880,3 +3880,90 @@ TypeError: 'int' object does not support item assignment
 2026-06-12 12:38:33,046 [User] [table-add-row-request] v_500 - Allowed
 2026-06-12 12:38:41,338 [Server Admin] [table-settings] v_500 - Allowed
 2026-06-12 12:38:54,554 [User] [table-add-row-request] v_500 - Allowed
+2026-06-12 14:24:42,165 Shard ID None has successfully RESUMED session d6517373177219020560565afbb70bc0.
+2026-06-12 15:03:57,664 Shard ID None session has been invalidated.
+2026-06-12 15:04:03,076 Shard ID None has connected to Gateway (Session ID: 26a70b5d035fe2be1a935ab34d3c7010).
+2026-06-12 15:43:14,972 Shard ID None has successfully RESUMED session 26a70b5d035fe2be1a935ab34d3c7010.
+2026-06-12 15:57:15,251 Shard ID None session has been invalidated.
+2026-06-12 15:57:20,759 Shard ID None has connected to Gateway (Session ID: c97abe38844f43f9b010c29dee411c29).
+2026-06-12 16:56:39,437 davey is not installed, voice will NOT be supported
+2026-06-12 16:56:39,437 logging in using static token
+2026-06-12 16:56:40,423 Shard ID None has connected to Gateway (Session ID: 849083df5d988026b405bac0abd2fc9d).
+2026-06-12 16:56:48,356 [User] [table-add-row-request] v_500 - Allowed
+2026-06-12 17:00:33,576 davey is not installed, voice will NOT be supported
+2026-06-12 17:00:33,576 logging in using static token
+2026-06-12 17:00:35,702 Shard ID None has connected to Gateway (Session ID: d863696ccc15f9f76ae55460c0a182e0).
+2026-06-12 17:00:40,067 [Admin] [server-settings] v_500 - Allowed
+2026-06-12 17:01:24,114 [User] [table-add-row-request] v_500 - Allowed
+2026-06-12 17:01:44,137 [User] [table-add-row-request] v_500 - Allowed
+2026-06-12 17:03:39,931 davey is not installed, voice will NOT be supported
+2026-06-12 17:03:39,931 logging in using static token
+2026-06-12 17:03:41,409 Shard ID None has connected to Gateway (Session ID: 6c268c335e9feaa3bb08a24ee5aa5fc1).
+2026-06-12 17:03:50,749 [User] [table-add-row-request] v_500 - Allowed
+2026-06-12 17:04:03,219 [Server Admin] [table-settings] v_500 - Allowed
+2026-06-12 17:04:29,531 [User] [table-add-row-request] v_500 - Allowed
+2026-06-12 17:04:47,157 Ignoring exception in view <AddRequest timeout=None children=2> for item <Button style=<ButtonStyle.success: 3> url=None disabled=False label='Accept' emoji=<PartialEmoji animated=False name='CheckMark' id=1512108503857238076> row=None sku_id=None id=None>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/ui/view.py", line 598, in _scheduled_task
+    await item.callback(interaction)
+  File "/Users/victor/Documents/Data-Base/cogs/table_add_row_request.py", line 31, in accept
+    if not await verifyCommandPermissions(interaction, CommandType.MANAGER):
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victor/Documents/Data-Base/utils.py", line 45, in verifyCommandPermissions
+    command_name     = ctx_or_interaction.command.name
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'name'
+2026-06-12 17:05:38,568 davey is not installed, voice will NOT be supported
+2026-06-12 17:05:38,568 logging in using static token
+2026-06-12 17:05:39,595 Shard ID None has connected to Gateway (Session ID: 09530b03b1e39d377f2bf2c60b9e2647).
+2026-06-12 17:05:46,900 [User] [table-add-row-request] v_500 - Allowed
+2026-06-12 17:07:18,133 davey is not installed, voice will NOT be supported
+2026-06-12 17:07:18,133 logging in using static token
+2026-06-12 17:07:19,389 Shard ID None has connected to Gateway (Session ID: 9908891b63449eca6aa57ff38ffe1398).
+2026-06-12 17:07:22,675 [Server Admin] [table-settings] v_500 - Allowed
+2026-06-12 17:07:56,604 [User] [table-add-row-request] v_500 - Allowed
+2026-06-12 17:08:00,606 Ignoring exception in view <AddRequest timeout=None children=2> for item <Button style=<ButtonStyle.danger: 4> url=None disabled=False label='Reject' emoji=<PartialEmoji animated=False name='CrossMark' id=1511924485324804156> row=None sku_id=None id=None>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/ui/view.py", line 598, in _scheduled_task
+    await item.callback(interaction)
+  File "/Users/victor/Documents/Data-Base/cogs/table_add_row_request.py", line 48, in reject
+    if not await verifyCommandPermissions(interaction, CommandType.MANAGER):
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victor/Documents/Data-Base/utils.py", line 47, in verifyCommandPermissions
+    command_name     = ctx_or_interaction.command.name
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'name'
+2026-06-12 17:10:45,187 davey is not installed, voice will NOT be supported
+2026-06-12 17:10:45,187 logging in using static token
+2026-06-12 17:10:46,089 Shard ID None has connected to Gateway (Session ID: 460fd320f26fa55b084c825473e7775e).
+2026-06-12 17:10:51,550 [User] [table-add-row-request] v_500 - Allowed
+2026-06-12 17:10:55,376 Ignoring exception in view <AddRequest timeout=None children=2> for item <Button style=<ButtonStyle.danger: 4> url=None disabled=False label='Reject' emoji=<PartialEmoji animated=False name='CrossMark' id=1511924485324804156> row=None sku_id=None id=None>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/ui/view.py", line 598, in _scheduled_task
+    await item.callback(interaction)
+  File "/Users/victor/Documents/Data-Base/cogs/table_add_row_request.py", line 48, in reject
+    if not await verifyCommandPermissions(interaction, CommandType.MANAGER):
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victor/Documents/Data-Base/utils.py", line 47, in verifyCommandPermissions
+    command_name     = ctx_or_interaction.command.name
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'name'
+2026-06-12 17:30:26,082 Shard ID None session has been invalidated.
+2026-06-12 17:30:31,502 Shard ID None has connected to Gateway (Session ID: aa7d5253cc823170e17379bc8ada47cd).
+2026-06-12 18:09:13,248 davey is not installed, voice will NOT be supported
+2026-06-12 18:09:13,249 logging in using static token
+2026-06-12 18:09:14,748 Shard ID None has connected to Gateway (Session ID: 9a8b2b9a3812b99658e2a4adbc64c2cd).
+2026-06-12 18:45:01,093 Shard ID None has successfully RESUMED session 9a8b2b9a3812b99658e2a4adbc64c2cd.
+2026-06-12 19:56:11,981 Shard ID None session has been invalidated.
+2026-06-12 19:57:17,650 Shard ID None session has been invalidated.
+2026-06-12 19:58:08,403 Shard ID None has connected to Gateway (Session ID: 066a4830d5a31e6c55baa1b847242127).
+2026-06-12 20:04:25,562 Shard ID None session has been invalidated.
+2026-06-12 20:04:30,950 Shard ID None has connected to Gateway (Session ID: 798dfa7e124a991b46112519dafb994a).
+2026-06-12 20:21:23,339 Shard ID None session has been invalidated.
+2026-06-12 20:23:09,247 Shard ID None session has been invalidated.
+2026-06-12 20:23:55,260 Shard ID None has connected to Gateway (Session ID: 0616357e94a04e5b98d52fcf426f14e8).
+2026-06-12 20:29:24,094 Shard ID None session has been invalidated.
+2026-06-12 20:29:29,781 Shard ID None has connected to Gateway (Session ID: 05fb511bbc444989e9f2718a738c8092).
+2026-06-12 20:34:53,825 Shard ID None session has been invalidated.
+2026-06-12 20:34:59,280 Shard ID None has connected to Gateway (Session ID: 5454a74a17aa303f4518af0d2f3d1e3e).
+2026-06-12 23:03:30,016 Shard ID None has successfully RESUMED session 5454a74a17aa303f4518af0d2f3d1e3e.

@@ -13,6 +13,7 @@ class Client(commands.Bot):
     async def setup_hook(self):
         await self.load_extension("cogs.ping")
         await self.load_extension("cogs.table_create")
+        await self.load_extension("cogs.table_delete")
         await self.load_extension("cogs.table_settings")
         await self.load_extension("cogs.table_view_full")
         await self.load_extension("cogs.table_add_row")

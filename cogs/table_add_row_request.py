@@ -21,18 +21,44 @@ class AddRequest(discord.ui.View):
         )
         embed.set_footer(text=f"Status: {status}")
 
-        for col, val in zip(self.table["column_names"], self.new_row):
-            embed.add_field(name=col, value=str(val), inline=False)
+        if self.existing_index is not None:
+            old_row = self.table["data"][self.existing_index]
+        else:
+            old_row = [None] * len(self.new_row)
+
+        for i, (col, old_val, new_val) in enumerate(zip(self.table["column_names"], old_row, self.new_row)):
+            if i < 2:
+                # User / Timestamp columns - just show the current value
+                value = str(new_val)
+            else:
+                old_display = str(old_val) if old_val is not None else "None"
+                value = f"{old_display} → {new_val}"
+
+            embed.add_field(name=col, value=value, inline=False)
 
         return embed
-
-    @discord.ui.button(label="Accept", style=discord.ButtonStyle.success, emoji=f"{CHECK}")
+    @discord.ui.button(label="Accept", style=discord.ButtonStyle.grey, emoji=f"{CHECK}")
     async def accept(self, interaction: discord.Interaction, button: discord.ui.Button):
-        verifyCommandPermissions(interaction, CommandType.MANAGER)
-        if self.existing_index is not None:
-            self.table["data"][self.existing_index] = self.new_row
+        if not await verifyCommandPermissions(interaction, CommandType.MANAGER):
+            return
+
+        # Re-check for an existing row at accept time, in case data changed
+        # since the request was submitted
+        current_index = next(
+            (i for i, r in enumerate(self.table["data"]) if r[0] == self.new_row[0]),
+            None
+        )
+
+        if current_index is not None:
+            existing_row = self.table["data"][current_index]
+            final_row = [
+                existing_row[i] if val == "null" else val
+                for i, val in enumerate(self.new_row)
+            ]
+            self.table["data"][current_index] = final_row
         else:
-            self.table["data"].append(self.new_row)
+            final_row = list(self.new_row)
+            self.table["data"].append(final_row)
             self.table["rows"] += 1
 
         save_settings()
@@ -42,7 +68,7 @@ class AddRequest(discord.ui.View):
 
         embed = self.build_embed(status=f"Approved by {interaction.user.mention}", color=discord.Color.green())
         await interaction.response.edit_message(embed=embed, view=self)
-
+    
     @discord.ui.button(label="Reject", style=discord.ButtonStyle.gray, emoji=f"{X}")
     async def reject(self, interaction: discord.Interaction, button: discord.ui.Button):
         if not await verifyCommandPermissions(interaction, CommandType.MANAGER):

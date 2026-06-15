@@ -22,7 +22,7 @@ def load_settings():
         config.LOG_CHANNELS[CommandType.MANAGER] = data.get("MANAGER_LOG_CHANNEL", 0)
         config.LOG_CHANNELS[CommandType.ADMIN]   = data.get("ADMIN_LOG_CHANNEL", 0)
         config.ALL_TABLES = data.get('ALL_TABLES', [])
-        config.COMMAND_PREFIX = data.get("COMMAND_PREFIX", "db ")
+        config.COMMAND_PREFIX = data.get("COMMAND_PREFIX", "t! ")
 
       
     except FileNotFoundError:

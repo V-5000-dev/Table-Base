@@ -1,5 +1,4 @@
 {
-    "COMMAND_PREFIX": null,
     "TABLE_REQUEST_CHANNEL_ID": 1512884216118116515,
     "SERVER_ADMIN_ROLE_IDS": [],
     "ADMIN_ROLE_IDS": [],
@@ -22,5 +21,6 @@
             "member_role_ids": [],
             "data": []
         }
-    ]
+    ],
+    "COMMAND_PREFIX": "t. "
 }

@@ -11,7 +11,7 @@ class Table_Remove_Row_User(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
  
-    @app_commands.command(name="table-remove-row-user", description="Remove another user's row from the Table. (Table Admin+)")
+    @app_commands.command(name="table-remove-row-user", description="Remove another user's row from the Table.")
     @app_commands.autocomplete(name=table_name_autocomplete)
     async def table_remove_row_user(self, interaction: discord.Interaction, name: str, user: discord.Member):
         if not await verifyCommandPermissions(interaction, CommandType.MANAGER):

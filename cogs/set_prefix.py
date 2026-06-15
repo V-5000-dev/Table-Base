@@ -2,7 +2,8 @@ import discord
 from discord.ext import commands
 from discord import app_commands
 from config import GUILD_ID, CHECK, ERROR, CommandType
-from utils import verifyCommandPermissions
+from utils import verifyCommandPermissions, save_settings
+import config
 
 
 class Set_Prefix(commands.Cog):
@@ -21,12 +22,16 @@ class Set_Prefix(commands.Cog):
             return
         if include_space:
             self.bot.command_prefix = prefix + " "
+            config.COMMAND_PREFIX = prefix + " "
         else:
             self.bot.command_prefix = prefix
-
+            config.COMMAND_PREFIX = prefix
+        
         await interaction.response.send_message(
-            f"{CHECK} ``The command prefix is set to:`` ``{self.bot.command_prefix}``"
+            f"{CHECK} ``The command prefix is now set to:`` ``{self.bot.command_prefix}``"
         )
+        save_settings()
+
 
     @commands.command(name="set-prefix")
     async def set_prefix_command(self, ctx, prefix: str, include_space: bool):
@@ -39,10 +44,12 @@ class Set_Prefix(commands.Cog):
 
         if include_space:
             self.bot.command_prefix = prefix + " "
+            config.COMMAND_PREFIX = prefix + " "
         else:
             self.bot.command_prefix = prefix
-        await ctx.send(f"{CHECK} ``The command prefix is set to:`` ``{self.bot.command_prefix}``")
-
+            config.COMMAND_PREFIX = prefix
+        await ctx.send(f"{CHECK} ``The command prefix is set to:`` ``{self.bot.command_prefix}``") 
+        save_settings()
 
 async def setup(bot):
     await bot.add_cog(Set_Prefix(bot))

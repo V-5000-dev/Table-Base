@@ -45,7 +45,7 @@ class Server_Settings(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @app_commands.command(name="server-settings", description="Configure server settings.")
+    @app_commands.command(name="server-settings", description="Configure the settings for server.")
     async def server_settings(self, interaction: discord.Interaction):
         await self._server_settings_logic(interaction)
 

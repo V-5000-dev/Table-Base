@@ -139,3 +139,4 @@ class Table_Add_Row_User(commands.Cog):
 
 async def setup(bot):
     await bot.add_cog(Table_Add_Row_User(bot))
+    

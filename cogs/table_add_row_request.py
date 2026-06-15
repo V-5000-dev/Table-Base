@@ -142,7 +142,7 @@ class Table_Add_Row_Request(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @app_commands.command(name="table-add-row-request", description="Create a request to add or update your row in the table.")
+    @app_commands.command(name="table-add-row-request", description="Create a request to add or update your row in the table. ")
     @app_commands.autocomplete(name=table_name_autocomplete)
     async def table_add_row_request(self, interaction: discord.Interaction, name: str):
         if not await verifyCommandPermissions(interaction, CommandType.USER):

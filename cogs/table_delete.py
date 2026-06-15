@@ -56,7 +56,7 @@ class Table_Delete(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @app_commands.command(name="table-delete", description="Delete a table. (Server Admin+)")
+    @app_commands.command(name="table-delete", description="Delete a table.")
     @app_commands.autocomplete(name=table_name_autocomplete)
     async def table_delete(self, interaction: discord.Interaction, name: str):
         if not await verifyCommandPermissions(interaction, CommandType.SERVER_ADMIN):

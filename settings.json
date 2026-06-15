@@ -1,4 +1,5 @@
 {
+    "COMMAND_PREFIX": null,
     "TABLE_REQUEST_CHANNEL_ID": 1512884216118116515,
     "SERVER_ADMIN_ROLE_IDS": [],
     "ADMIN_ROLE_IDS": [],
@@ -10,141 +11,16 @@
     "ADMIN_LOG_CHANNEL": 1511534970533974026,
     "ALL_TABLES": [
         {
-            "name": "table",
-            "rows": 0,
-            "columns": 2,
-            "column_names": [
-                "column1",
-                "column2"
-            ],
-            "data": [
-                [
-                    "",
-                    ""
-                ]
-            ],
-            "admin_role_ids": [
-                1324223207536070697
-            ],
-            "manager_role_ids": [
-                1324223288444059728,
-                1513273423936098374
-            ],
-            "member_role_ids": [
-                1513273040538964098
-            ]
-        },
-        {
-            "name": "table",
-            "rows": 0,
-            "columns": 0,
-            "column_names": [],
-            "data": [
-                []
-            ]
-        },
-        {
-            "name": "test",
-            "rows": 0,
-            "columns": 1,
-            "column_names": [
-                "Column1"
-            ],
-            "member_role_ids": [],
-            "data": [
-                [
-                    ""
-                ]
-            ]
-        },
-        {
-            "name": "t",
-            "rows": 0,
-            "columns": 1,
-            "column_names": [
-                "column1"
-            ],
-            "member_role_ids": [],
-            "data": [
-                [
-                    ""
-                ]
-            ]
-        },
-        {
-            "name": "t2",
+            "name": "Table",
             "rows": 0,
             "columns": 3,
             "column_names": [
                 "User",
                 "Timestamp",
-                "column2"
+                "Column1"
             ],
             "member_role_ids": [],
             "data": []
-        },
-        {
-            "name": "t3",
-            "rows": 1,
-            "columns": 2,
-            "column_names": [
-                "User",
-                "Timestamp"
-            ],
-            "member_role_ids": [],
-            "data": [
-                [
-                    "<@1057431766568284360>",
-                    "<t:1781136429>"
-                ]
-            ]
-        },
-        {
-            "name": "t4",
-            "rows": 3,
-            "columns": 7,
-            "column_names": [
-                "User",
-                "Timestamp",
-                "column1",
-                "column2",
-                "column3",
-                "column4",
-                "column5"
-            ],
-            "member_role_ids": [],
-            "data": [
-                [
-                    "<@1057431766568284360>",
-                    "<t:1781476743>",
-                    "100",
-                    "020",
-                    "300",
-                    "400",
-                    "500"
-                ],
-                [
-                    "<@1057431766568284360>",
-                    "<t:1781277292>",
-                    "1",
-                    "2",
-                    "3",
-                    "4",
-                    "5"
-                ],
-                [
-                    "<@1057431766568284360>",
-                    "<t:1781277338>",
-                    "null",
-                    "null",
-                    "null",
-                    "null",
-                    "null"
-                ]
-            ],
-            "admin_role_ids": [
-                1512884216118116515
-            ]
         }
     ]
 }

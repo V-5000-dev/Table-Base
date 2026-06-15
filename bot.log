@@ -4027,3 +4027,87 @@ AttributeError: 'NoneType' object has no attribute 'name'
 2026-06-14 18:41:23,738 Shard ID None has connected to Gateway (Session ID: 63713685f91d110d6e156e5b88b3bf68).
 2026-06-14 18:41:33,808 [User] [table-add-row-request] v_500 - Allowed
 2026-06-14 18:41:37,813 [Manager] [component:3c5b69bf20ba060ca9449d1c18415e15] v_500 - Allowed
+2026-06-14 19:08:49,600 davey is not installed, voice will NOT be supported
+2026-06-14 19:08:49,600 logging in using static token
+2026-06-14 19:08:50,487 Shard ID None has connected to Gateway (Session ID: 9367a444f9629f5cb368c187ccd39416).
+2026-06-14 19:09:03,231 [Server Admin] [table-delete] v_500 - Allowed
+2026-06-14 19:09:17,890 davey is not installed, voice will NOT be supported
+2026-06-14 19:09:17,890 logging in using static token
+2026-06-14 19:09:50,568 Shard ID None has connected to Gateway (Session ID: 1784544be95fe854df50c7a085c68d15).
+2026-06-14 19:10:26,973 davey is not installed, voice will NOT be supported
+2026-06-14 19:10:26,973 logging in using static token
+2026-06-14 19:10:27,812 Shard ID None has connected to Gateway (Session ID: c34a65e786ff3acd1c8c0d463651374d).
+2026-06-14 19:10:40,670 Ignoring exception in command None
+discord.ext.commands.errors.CommandNotFound: Command "table_delete" is not found
+2026-06-14 19:11:47,689 davey is not installed, voice will NOT be supported
+2026-06-14 19:11:47,690 logging in using static token
+2026-06-14 19:11:48,516 Shard ID None has connected to Gateway (Session ID: 1ab003bf5b2128dc3d58426f20ee1532).
+2026-06-14 19:12:04,811 Ignoring exception in command None
+discord.ext.commands.errors.CommandNotFound: Command "table-delete" is not found
+2026-06-14 19:12:12,573 Ignoring exception in command None
+discord.ext.commands.errors.CommandNotFound: Command "table_delete" is not found
+2026-06-14 19:12:17,137 Ignoring exception in command None
+discord.ext.commands.errors.CommandNotFound: Command "table_delete" is not found
+2026-06-14 19:12:32,942 Ignoring exception in command None
+discord.ext.commands.errors.CommandNotFound: Command "table-delete" is not found
+2026-06-14 19:19:37,410 davey is not installed, voice will NOT be supported
+2026-06-14 19:19:37,410 logging in using static token
+2026-06-14 19:19:38,406 Shard ID None has connected to Gateway (Session ID: 5b9613947fd5e4af619a7d434f1f4f59).
+2026-06-14 19:19:50,471 [Server Admin] [table-delete] v_500 - Allowed
+2026-06-14 19:20:12,816 [Server Admin] [table-delete] v_500 - Allowed
+2026-06-14 19:20:19,672 davey is not installed, voice will NOT be supported
+2026-06-14 19:20:19,673 logging in using static token
+2026-06-14 19:20:20,694 Shard ID None has connected to Gateway (Session ID: 13716d722d0606d2f6b0e47fd7c48829).
+2026-06-14 19:20:25,214 Ignoring exception in command None
+discord.ext.commands.errors.CommandNotFound: Command "table-delte" is not found
+2026-06-14 19:20:30,576 [Server Admin] [table-delete] v_500 - Allowed
+2026-06-14 19:20:45,628 [Server Admin] [table-delete] v_500 - Allowed
+2026-06-14 19:21:02,541 [Server Admin] [table-delete] v_500 - Allowed
+2026-06-14 19:21:13,808 [Server Admin] [table-delete] v_500 - Allowed
+2026-06-14 19:21:19,338 [Server Admin] [table-delete] v_500 - Allowed
+2026-06-14 19:21:23,344 [Server Admin] [table-delete] v_500 - Allowed
+2026-06-14 19:21:26,064 [Server Admin] [table-delete] v_500 - Allowed
+2026-06-14 19:21:37,898 [Server Admin] [table-create] v_500 - Allowed
+2026-06-14 19:21:44,945 [Server Admin] [table-delete] v_500 - Allowed
+2026-06-14 19:21:50,819 [Manager] [table-create] v_500 - Allowed
+2026-06-14 19:22:10,907 [Server Admin] [table-settings] v_500 - Allowed
+2026-06-14 19:22:42,306 [Manager] [table-view-full] v_500 - Allowed
+2026-06-14 19:23:05,344 Ignoring exception in command None
+discord.ext.commands.errors.CommandNotFound: Command "Table-Add-Row-Request" is not found
+2026-06-14 19:33:24,561 davey is not installed, voice will NOT be supported
+2026-06-14 19:33:24,562 logging in using static token
+2026-06-14 19:35:46,153 davey is not installed, voice will NOT be supported
+2026-06-14 19:35:46,155 logging in using static token
+2026-06-14 19:35:55,633 davey is not installed, voice will NOT be supported
+2026-06-14 19:35:55,634 logging in using static token
+2026-06-14 19:36:34,120 davey is not installed, voice will NOT be supported
+2026-06-14 19:36:34,120 logging in using static token
+2026-06-14 19:38:08,280 davey is not installed, voice will NOT be supported
+2026-06-14 19:38:08,281 logging in using static token
+2026-06-14 19:38:09,304 Shard ID None has connected to Gateway (Session ID: 4db46d5a226b371db136823fbd67624b).
+2026-06-14 19:38:17,938 [Server Admin] [set-prefix] v_500 - Allowed
+2026-06-14 19:38:33,707 [Server Admin] [set-prefix] v_500 - Allowed
+2026-06-14 19:38:39,647 [Server Admin] [set-prefix] v_500 - Allowed
+2026-06-14 19:41:03,426 davey is not installed, voice will NOT be supported
+2026-06-14 19:41:03,427 logging in using static token
+2026-06-14 19:41:09,998 davey is not installed, voice will NOT be supported
+2026-06-14 19:41:09,998 logging in using static token
+2026-06-14 19:42:08,565 davey is not installed, voice will NOT be supported
+2026-06-14 19:42:08,566 logging in using static token
+2026-06-14 19:42:10,372 Shard ID None has connected to Gateway (Session ID: 897d163f71b6f12185d68e32582af33f).
+2026-06-14 19:42:38,604 [Unprotected] [prefix] v_500 - Allowed
+2026-06-14 19:42:58,533 [Server Admin] [set-prefix] v_500 - Allowed
+2026-06-14 19:43:04,252 [Unprotected] [prefix] v_500 - Allowed
+2026-06-14 19:43:25,058 davey is not installed, voice will NOT be supported
+2026-06-14 19:43:25,058 logging in using static token
+2026-06-14 19:43:25,917 Shard ID None has connected to Gateway (Session ID: 2d2dd50a369e54741ccf26d9d1f594cf).
+2026-06-14 19:56:22,958 davey is not installed, voice will NOT be supported
+2026-06-14 19:56:22,959 logging in using static token
+2026-06-14 19:56:49,768 davey is not installed, voice will NOT be supported
+2026-06-14 19:56:49,768 logging in using static token
+2026-06-14 19:57:50,561 Shard ID None has connected to Gateway (Session ID: 6fe14406104c047cf07bf3966d4dd6c0).
+2026-06-14 19:58:37,676 davey is not installed, voice will NOT be supported
+2026-06-14 19:58:37,676 logging in using static token
+2026-06-14 19:59:38,681 Shard ID None has connected to Gateway (Session ID: b52572be6769806ce83dcffa1f13cca4).
+2026-06-14 20:16:50,751 [Server Admin] [set-prefix] v_500 - Allowed
+2026-06-14 20:16:56,489 [Unprotected] [ping] v_500 - Allowed

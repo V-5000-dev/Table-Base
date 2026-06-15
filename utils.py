@@ -5,6 +5,7 @@ import config
 from config import CommandType, GUILD_ID, PERMISSON
 from discord import app_commands
 
+
 SETTINGS_FILE = "settings.json"
 
 def load_settings():
@@ -21,6 +22,9 @@ def load_settings():
         config.LOG_CHANNELS[CommandType.MANAGER] = data.get("MANAGER_LOG_CHANNEL", 0)
         config.LOG_CHANNELS[CommandType.ADMIN]   = data.get("ADMIN_LOG_CHANNEL", 0)
         config.ALL_TABLES = data.get('ALL_TABLES', [])
+        config.COMMAND_PREFIX = data.get("COMMAND_PREFIX", "db ")
+
+      
     except FileNotFoundError:
         pass
 
@@ -36,6 +40,7 @@ def save_settings():
         "MANAGER_LOG_CHANNEL":   config.LOG_CHANNELS[CommandType.MANAGER],
         "ADMIN_LOG_CHANNEL":     config.LOG_CHANNELS[CommandType.ADMIN],
         "ALL_TABLES":            config.ALL_TABLES,
+        "COMMAND_PREFIX":        config.COMMAND_PREFIX,
     }
     with open(SETTINGS_FILE, "w") as f:
         json.dump(data, f, indent=4)
@@ -77,46 +82,6 @@ async def verifyCommandPermissions(ctx_or_interaction, command_type: CommandType
             allowed = False
 
     logging.info(f"[{'Unprotected' if command_type is None else command_type.value}] [{command_name}] {user} - {'Allowed' if allowed else 'Denied'}")
-
-    return allowed
-
-
-
-    channel_id = config.LOG_CHANNELS.get(command_type) if command_type is not None else None
-    channel = _client.get_channel(channel_id) if isinstance(channel_id, int) and channel_id != 0 else None
-
-    if channel and (allowed or config.LOG_UNSUCCESSFUL):
-        embed = discord.Embed(
-            title=f"[{command_type.value}] {'Unsuccessful ' if not allowed else ''}Command Log",
-            description=(
-                f"{user.mention} was denied from executing `{command_name}`"
-                if not allowed
-                else f"{user.mention} executed `{command_name}`"
-            ),
-            color={
-                CommandType.USER:    discord.Color.light_grey(),
-                CommandType.MANAGER: discord.Color.orange(),
-                CommandType.ADMIN:   discord.Color.red(),
-                CommandType.SERVER_ADMIN:   discord.Color.red(),
-            }[command_type],
-        )
-        embed.add_field(name="Status",    value="Allowed" if allowed else "Denied")
-        embed.add_field(name="User ID",   value=f"``{user.id}``")
-        embed.add_field(name="Timestamp", value=discord.utils.format_dt(discord.utils.utcnow()))
-        embed.set_thumbnail(url={
-            CommandType.USER:    "https://cdn.discordapp.com/emojis/1512608514919632896.png",
-            CommandType.MANAGER: "https://cdn.discordapp.com/emojis/1512608333394350301.png",
-            CommandType.ADMIN:   "https://cdn.discordapp.com/emojis/1512608289819463762.png",
-            CommandType.SERVER_ADMIN:   "https://cdn.discordapp.com/emojis/1512608289819463762.png",
-        }[command_type])
-        await channel.send(embed=embed)
-
-    if not allowed:
-        msg = f"{PERMISSON} You don't have permission to use this command."
-        if isinstance(ctx_or_interaction, discord.Interaction):
-            await ctx_or_interaction.response.send_message(msg)
-        else:
-            await ctx_or_interaction.send(msg)
 
     return allowed
 

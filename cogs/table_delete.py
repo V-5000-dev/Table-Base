@@ -18,11 +18,11 @@ class DeleteTableConfirm(discord.ui.View):
         if self.message:
             await self.message.edit(content=f"{ERROR} ``Table deletion timed out.``", view=self)
 
-    @discord.ui.button(label="Confirm", style=discord.ButtonStyle.danger, emoji=f"{CHECK}")
+    @discord.ui.button(label="Confirm", style=discord.ButtonStyle.grey, emoji=f"{CHECK}")
     async def confirm(self, interaction: discord.Interaction, button: discord.ui.Button):
         if interaction.user != self.requester:
             await interaction.response.send_message(
-                f"{ERROR} ``This confirmation is not for you.``", ephemeral=True
+                f"{ERROR} ``You cannot interact with other people's embeds.``", ephemeral=True
             )
             return
 
@@ -40,7 +40,7 @@ class DeleteTableConfirm(discord.ui.View):
     async def cancel(self, interaction: discord.Interaction, button: discord.ui.Button):
         if interaction.user != self.requester:
             await interaction.response.send_message(
-                f"{ERROR} ``This confirmation is not for you.``", ephemeral=True
+                f"{ERROR} ``You cannot interact with other people's embeds.``", ephemeral=True
             )
             return
 
@@ -71,11 +71,27 @@ class Table_Delete(commands.Cog):
 
         view = DeleteTableConfirm(table, interaction.user)
         await interaction.response.send_message(
-            f"⚠️ ``Are you sure you want to delete table`` ``{name}`` ``? This cannot be undone.``",
+            f"{ERROR} ``Are you sure you want to delete table`` ``{name}`` ``? This cannot be undone.``",
             view=view,
             ephemeral=True
         )
         view.message = await interaction.original_response()
+
+    @commands.command(name="table-delete")
+    async def table_delete_prefix(self, ctx, name: str):
+        if not await verifyCommandPermissions(ctx, CommandType.SERVER_ADMIN):
+            return
+
+        table = next((t for t in config.ALL_TABLES if t["name"] == name), None)
+        if table is None:
+            await ctx.send(f"{ERROR} ``Table`` ``{name}`` ``not found.``")
+            return
+
+        view = DeleteTableConfirm(table, ctx.author)
+        view.message = await ctx.send(
+            f"{ERROR} ``Are you sure you want to delete table`` ``{name}`` ``? This cannot be undone.``",
+            view=view
+        )
 
 
 async def setup(bot):

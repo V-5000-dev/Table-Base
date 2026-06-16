@@ -1,26 +1,46 @@
 {
-    "TABLE_REQUEST_CHANNEL_ID": 1512884216118116515,
-    "SERVER_ADMIN_ROLE_IDS": [],
+    "TABLE_REQUEST_CHANNEL_ID": 1515923446532538389,
+    "SERVER_ADMIN_ROLE_IDS": [
+        1513273040538964098
+    ],
     "ADMIN_ROLE_IDS": [],
     "MANAGER_ROLE_IDS": [],
     "MEMBER_ROLE_IDS": [],
-    "LOG_UNSUCCESSFUL": true,
-    "USER_LOG_CHANNEL": 1511534970533974026,
-    "MANAGER_LOG_CHANNEL": 1511534970533974026,
-    "ADMIN_LOG_CHANNEL": 1511534970533974026,
+    "LOG_UNSUCCESSFUL": false,
+    "USER_LOG_CHANNEL": 1515923430804033658,
+    "MANAGER_LOG_CHANNEL": 1515923430804033658,
+    "ADMIN_LOG_CHANNEL": 1515923430804033658,
     "ALL_TABLES": [
         {
             "name": "Table",
-            "rows": 0,
-            "columns": 3,
+            "rows": 1,
+            "columns": 5,
             "column_names": [
                 "User",
-                "Timestamp",
-                "Column1"
+                "Ts",
+                "Patrol Callsign",
+                "Column1",
+                "Column2"
             ],
-            "member_role_ids": [],
-            "data": []
+            "member_role_ids": [
+                1513273423936098374
+            ],
+            "data": [
+                [
+                    "<@1057431766568284360>",
+                    "<t:1781586413>",
+                    "1",
+                    "2",
+                    "3"
+                ]
+            ],
+            "manager_role_ids": [
+                1324223288444059728
+            ],
+            "admin_role_ids": [
+                1512602718978707569
+            ]
         }
     ],
-    "COMMAND_PREFIX": "t. "
+    "COMMAND_PREFIX": "t! "
 }

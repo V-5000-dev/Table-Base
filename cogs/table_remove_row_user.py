@@ -6,15 +6,14 @@ from config import GUILD_ID, CHECK, ERROR, CommandType
 from utils import verifyCommandPermissions, save_settings, table_name_autocomplete
 
 
-
 class Table_Remove_Row_User(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
- 
+
     @app_commands.command(name="table-remove-row-user", description="Remove another user's row from the Table.")
     @app_commands.autocomplete(name=table_name_autocomplete)
     async def table_remove_row_user(self, interaction: discord.Interaction, name: str, user: discord.Member):
-        if not await verifyCommandPermissions(interaction, CommandType.MANAGER):
+        if not await verifyCommandPermissions(interaction, CommandType.ADMIN):
             return
 
         table = next((t for t in config.ALL_TABLES if t["name"] == name), None)
@@ -49,14 +48,14 @@ class Table_Remove_Row_User(commands.Cog):
             return
 
         for i, r in enumerate(table["data"]):
-            if r[0] == ctx.author.mention:
+            if r[0] == user:
                 del table["data"][i]
                 table["rows"] -= 1
                 save_settings()
-                await ctx.send(f"{CHECK} ``Removed {ctx.user.mention} row from table`` ``{name}`` ``.``")
+                await ctx.send(f"{CHECK} ``Removed`` {user} ``'s row from table`` ``{name}``")
                 return
 
-        await ctx.send(f"{ERROR} ``Failed to find {ctx.user.mention} row in table`` ``{name}``")
+        await ctx.send(f"{ERROR} ``Failed to find`` {user} ``'s row in table`` ``{name}``")
 
 
 async def setup(bot):

@@ -7,7 +7,6 @@ from discord import app_commands
 
 
 SETTINGS_FILE = "settings.json"
-
 def load_settings():
     try:
         with open(SETTINGS_FILE, "r") as f:
@@ -44,47 +43,89 @@ def save_settings():
     }
     with open(SETTINGS_FILE, "w") as f:
         json.dump(data, f, indent=4)
-async def verifyCommandPermissions(ctx_or_interaction, command_type: CommandType = None) -> bool:
+async def verifyCommandPermissions(ctx_or_interaction, command_type: CommandType = None, *required_roles) -> bool:
     if isinstance(ctx_or_interaction, discord.Interaction):
-        user             = ctx_or_interaction.user
+        user = ctx_or_interaction.user
         guild_permissions = ctx_or_interaction.user.guild_permissions
-        if ctx_or_interaction.command is not None:
-            command_name = ctx_or_interaction.command.name
-        else:
-            custom_id = ctx_or_interaction.data.get("custom_id", "unknown") if ctx_or_interaction.data else "unknown"
-            command_name = f"component:{custom_id}"
-        _client          = ctx_or_interaction.client
+        command_name = ctx_or_interaction.command.name
+        client = ctx_or_interaction.client
     else:
-        user             = ctx_or_interaction.author
+        user = ctx_or_interaction.author
         guild_permissions = ctx_or_interaction.author.guild_permissions
-        command_name     = ctx_or_interaction.command.name
-        _client          = ctx_or_interaction.bot
+        command_name = ctx_or_interaction.command.name
+        client = ctx_or_interaction.bot
+
+    user_role_ids = [role.id for role in user.roles]
 
     if command_type is None:
         allowed = True
+    elif guild_permissions.administrator:
+        allowed = True
+    elif any(role_id in required_roles for role_id in user_role_ids):
+        allowed = True
     else:
-        user_role_ids = [role.id for role in user.roles]
-        allowed_roles = []
-        if command_type == CommandType.USER:
-            allowed_roles += config.MEMBER_ROLE_IDS
-        if command_type in (CommandType.MANAGER, CommandType.USER):
-            allowed_roles += config.MANAGER_ROLE_IDS
-        if command_type in (CommandType.ADMIN, CommandType.MANAGER, CommandType.USER):
-            allowed_roles += config.ADMIN_ROLE_IDS
+        allowed = False
+        for table in config.ALL_TABLES:
+            member_roles       = table.get("member_role_ids", [])
+            manager_roles      = table.get("manager_role_ids", [])
+            admin_roles        = table.get("admin_role_ids", [])
+            server_admin_roles = table.get("server_admin_role_ids", [])
 
-        allowed_roles += config.SERVER_ADMIN_ROLE_IDS
+            has_member       = any(r in member_roles       for r in user_role_ids)
+            has_manager      = any(r in manager_roles      for r in user_role_ids)
+            has_admin        = any(r in admin_roles        for r in user_role_ids)
+            has_server_admin = any(r in server_admin_roles for r in user_role_ids)
 
-        if guild_permissions.administrator:
-            allowed = True
-        elif any(role_id in allowed_roles for role_id in user_role_ids):
-            allowed = True
+            if command_type == CommandType.USER          and (has_member or has_manager or has_admin or has_server_admin):
+                allowed = True
+                break
+            elif command_type == CommandType.MANAGER     and (has_manager or has_admin or has_server_admin):
+                allowed = True
+                break
+            elif command_type == CommandType.ADMIN       and (has_admin or has_server_admin):
+                allowed = True
+                break
+            elif command_type == CommandType.SERVER_ADMIN and has_server_admin:
+                allowed = True
+                break
+        
+
+    logging.info(f"[{command_type.value if command_type else 'NONE'}] [{command_name}] {user} - {'Allowed' if allowed else 'Denied'}")
+
+    if command_type is not None:
+        channel_id = config.LOG_CHANNELS[command_type]
+        channel = client.get_channel(channel_id)
+        if channel:
+            embed = discord.Embed(
+                title=f"[{command_type.value}] Command Log",
+                description=f"{user.mention} executed `{command_name}`" if allowed else f"{user.mention} was denied from executing `{command_name}`",
+                color={
+                    CommandType.USER: discord.Color.light_grey(),
+                    CommandType.MANAGER: discord.Color.orange(),
+                    CommandType.ADMIN: discord.Color.red(),
+                    CommandType.SERVER_ADMIN: discord.Color.dark_red(),
+                }[command_type]
+            )
+            embed.add_field(name="Status", value="Allowed" if allowed else "Denied")
+            embed.add_field(name="User ID", value=user.id)
+            embed.add_field(name="Timestamp", value=discord.utils.format_dt(discord.utils.utcnow()))
+
+            thumbnails = {
+                CommandType.USER: "https://cdn.discordapp.com/emojis/1512608514919632896.png",
+                CommandType.MANAGER: "https://cdn.discordapp.com/emojis/1512608333394350301.png",
+                CommandType.ADMIN: "https://cdn.discordapp.com/emojis/1512608289819463762.png",
+                CommandType.SERVER_ADMIN: "https://cdn.discordapp.com/emojis/1512608289819463762.png",
+            }
+            embed.set_thumbnail(url=thumbnails[command_type])
+            await channel.send(embed=embed)
+
+    if not allowed:
+        if isinstance(ctx_or_interaction, discord.Interaction):
+            await ctx_or_interaction.response.send_message(f"{PERMISSON} You don't have permission to use this command.", ephemeral=True)
         else:
-            allowed = False
-
-    logging.info(f"[{'Unprotected' if command_type is None else command_type.value}] [{command_name}] {user} - {'Allowed' if allowed else 'Denied'}")
+            await ctx_or_interaction.send(f"{PERMISSON} You don't have permission to use this command.")
 
     return allowed
-
 
 class PageView(discord.ui.View):
     def __init__(self, embeds, ctx_or_interaction, page_menus=None):
@@ -97,7 +138,7 @@ class PageView(discord.ui.View):
             else ctx_or_interaction.author.id
         )
         self.page_menus = page_menus or {}
-        self.dynamic_items = []  # track items added per-page
+        self.dynamic_items = []  
 
         for i, embed in enumerate(self.embeds):
             embed.set_footer(text=f"Page {i + 1} of {len(self.embeds)}")
@@ -120,45 +161,60 @@ class PageView(discord.ui.View):
 
         self.prev_button.disabled = self.current_page == 0
         self.next_button.disabled = self.current_page == len(self.embeds) - 1
+
     async def refresh(self, interaction: discord.Interaction):
         self.update_page_components()
         await interaction.response.edit_message(embed=self.embeds[self.current_page], view=self)
 
     @discord.ui.button(label="Previous", style=discord.ButtonStyle.secondary)
     async def prev_button(self, interaction: discord.Interaction, button: discord.ui.Button):
+        if interaction.user.id != self.author_id:
+            await interaction.response.send_message(f"{PERMISSON} ``You did not invoke this command.``", ephemeral=True)
+            return
         self.current_page = max(0, self.current_page - 1)
         await self.refresh(interaction)
 
     @discord.ui.button(label="Next", style=discord.ButtonStyle.secondary)
     async def next_button(self, interaction: discord.Interaction, button: discord.ui.Button):
+        if interaction.user.id != self.author_id:
+            await interaction.response.send_message(f"{PERMISSON} ``You did not invoke this command.``", ephemeral=True)
+            return
         self.current_page = min(len(self.embeds) - 1, self.current_page + 1)
         await self.refresh(interaction)
 
-
 class SelectChannels_Menu(discord.ui.Select):
-    def __init__(self, channels: list[discord.TextChannel], on_submit):
+    def __init__(self, channels: list[discord.TextChannel], on_submit, ctx_or_interaction):
         self.on_submit = on_submit
+        self.allowed_user = ctx_or_interaction.user if isinstance(ctx_or_interaction, discord.Interaction) else ctx_or_interaction.author
         options = [discord.SelectOption(label=c.name, value=str(c.id)) for c in channels[:25]]
         super().__init__(placeholder="Select a channel...", min_values=1, max_values=1, options=options)
 
     async def callback(self, interaction: discord.Interaction):
+        if interaction.user != self.allowed_user:
+            await interaction.response.send_message(f"{PERMISSON} ``You did not invoke this command.``", ephemeral=True)
+            return
         selected = [interaction.guild.get_channel(int(v)) for v in self.values]
         await self.on_submit(interaction, [c for c in selected if c])
 
 
 class SelectRoles_Menu(discord.ui.Select):
-    def __init__(self, roles, on_submit):
+    def __init__(self, roles, on_submit, ctx_or_interaction):
         self.on_submit = on_submit
+        self.allowed_user = ctx_or_interaction.user if isinstance(ctx_or_interaction, discord.Interaction) else ctx_or_interaction.author
         options = [discord.SelectOption(label=r.name, value=str(r.id)) for r in roles[:25]]
         super().__init__(placeholder="Select roles...", min_values=1, max_values=len(options), options=options)
 
     async def callback(self, interaction: discord.Interaction):
+        if interaction.user != self.allowed_user:
+            await interaction.response.send_message(f"{PERMISSON} ``You did not invoke this command.``", ephemeral=True)
+            return
         selected = [interaction.guild.get_role(int(v)) for v in self.values]
         await self.on_submit(interaction, [r for r in selected if r])
+
 
 async def table_name_autocomplete(interaction: discord.Interaction, current: str):
     return [
         app_commands.Choice(name=t["name"], value=t["name"])
         for t in config.ALL_TABLES
         if current.lower() in t["name"].lower()
-    ][:25]  
+    ][:25]

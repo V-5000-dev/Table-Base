@@ -11,15 +11,14 @@ class Table_View(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
+
     def build_row_embed(self, table, name, row):
         columns = table["column_names"]
-
-        embed = discord.Embed(title=f"Table: {name}", description="Your row")
-
-        for col, cell in zip(columns, row):
-            embed.add_field(name=col, value=str(cell), inline=False)
-
+        embed = discord.Embed(title=f"Table: {name}", description="(Your row)")
+        value = "\n".join(f"`{col}`: {cell}" for col, cell in zip(columns, row))
+        embed.add_field(name="", value=value, inline=False)
         return embed
+
 
     def build_row_file(self, table, name, row):
         """Builds a .txt file representation of a single row."""

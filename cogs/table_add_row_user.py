@@ -52,7 +52,7 @@ class AddRow_Input(discord.ui.Modal, title="Add/Update Row"):
             self.table["data"][self.existing_index] = new_row
             save_settings()
             await interaction.response.send_message(
-                f"{CHECK} ``{self.target_user.mention}'s row in table`` ``{self.table['name']}`` ``has been updated.``", ephemeral=True
+                f"{CHECK} {self.target_user.mention} ``row in table`` ``{self.table['name']}`` ``has been updated.``", ephemeral=True
             )
         else:
             self.table["data"].append(new_row)
@@ -70,7 +70,7 @@ class Table_Add_Row_User(commands.Cog):
     @app_commands.command(name="table-add-row-user", description="Add or update your row in the table.")
     @app_commands.autocomplete(name=table_name_autocomplete)
     async def table_add_row_user(self, interaction: discord.Interaction, name: str, user: discord.Member):
-        if not await verifyCommandPermissions(interaction, CommandType.MANAGER):
+        if not await verifyCommandPermissions(interaction, CommandType.ADMIN):
             return
 
         table = next((t for t in config.ALL_TABLES if t["name"] == name), None)
@@ -80,9 +80,14 @@ class Table_Add_Row_User(commands.Cog):
             )
             return
 
+        if len(table["column_names"]) - 2 == 0:
+            await interaction.response.send_message(
+            f"{ERROR} ``This table has no columns.``",
+            ephemeral=True
+        )
         if len(table["column_names"]) - 2 > 20:
             await interaction.response.send_message(
-                f"{ERROR} ``This table has too many custom columns to add a row via this command "
+                f"{ERROR} ``This table has too many columns to add a row via this command "
                 f"(max 20 supported).``",
                 ephemeral=True
             )
@@ -97,12 +102,25 @@ class Table_Add_Row_User(commands.Cog):
 
     @commands.command(name="table-add-row-user")
     async def table_add_row_prefix(self, ctx, name: str, user: discord.Member, *values: str):
-        if not await verifyCommandPermissions(ctx, CommandType.MANAGER):
+        if not await verifyCommandPermissions(ctx, CommandType.ADMIN):
             return
 
         table = next((t for t in config.ALL_TABLES if t["name"] == name), None)
         if table is None:
             await ctx.send(f"{ERROR} ``Table``  ``{name}`` ``not found.``")
+            return
+        
+        if len(table["column_names"]) - 2 == 0:
+            await ctx.response.send_message(
+            f"{ERROR} ``This table has no columns.``",
+            ephemeral=True
+        )
+        if len(table["column_names"]) - 2 > 20:
+            await ctx.response.send_message(
+                f"{ERROR} ``This table has too many columns to add a row via this command "
+                f"(max 20 supported).``",
+                ephemeral=True
+            )
             return
 
         new_row = ["null" for _ in range(table["columns"])]
@@ -129,7 +147,7 @@ class Table_Add_Row_User(commands.Cog):
         if existing_index is not None:
             table["data"][existing_index] = new_row
             save_settings()
-            await ctx.send(f"{CHECK} ``{user.mention}'s row in table`` ``{name}`` ``has been updated.``")
+            await ctx.send(f"{CHECK} {user.mention} ``row in table`` ``{name}`` ``has been updated.``")
         else:
             table["data"].append(new_row)
             table["rows"] += 1
@@ -139,4 +157,3 @@ class Table_Add_Row_User(commands.Cog):
 
 async def setup(bot):
     await bot.add_cog(Table_Add_Row_User(bot))
-    

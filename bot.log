@@ -4194,3 +4194,979 @@ discord.ext.commands.errors.CommandNotFound: Command "Table-Add-Row-Request" is 
 2026-06-15 00:11:27,863 Shard ID None has connected to Gateway (Session ID: 1272b65ebcf8b4044f2d8607053818a9).
 2026-06-15 00:11:35,457 [Unprotected] [prefix] v_500 - Allowed
 2026-06-15 00:12:11,024 [Server Admin] [set-prefix] v_500 - Allowed
+2026-06-15 00:13:28,077 davey is not installed, voice will NOT be supported
+2026-06-15 00:13:28,077 logging in using static token
+2026-06-15 00:14:29,333 Shard ID None has connected to Gateway (Session ID: 1ae507bf15a6af06d1bf417290dfb08c).
+2026-06-15 00:14:37,347 [Unprotected] [prefix] v_500 - Allowed
+2026-06-15 00:14:43,566 [Server Admin] [set-prefix] v_500 - Allowed
+2026-06-15 00:14:46,962 davey is not installed, voice will NOT be supported
+2026-06-15 00:14:46,962 logging in using static token
+2026-06-15 00:15:47,989 Shard ID None has connected to Gateway (Session ID: 71f262693c9521d4d151b0e3ee65ede6).
+2026-06-15 00:15:59,749 [Unprotected] [prefix] v_500 - Allowed
+2026-06-15 00:16:15,857 [Server Admin] [set-prefix] v_500 - Allowed
+2026-06-15 00:16:20,118 [Server Admin] [set-prefix] v_500 - Allowed
+2026-06-15 00:16:37,847 [Admin] [server-settings] v_500 - Allowed
+2026-06-15 00:17:29,196 [Server Admin] [table-delete] v_500 - Allowed
+2026-06-15 00:17:44,125 [Server Admin] [table-create] v_500 - Allowed
+2026-06-15 00:17:58,216 [Manager] [table-add-row] v_500 - Allowed
+2026-06-15 00:17:58,282 Ignoring exception in command 'table-add-row'
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 858, in _do_call
+    return await self._callback(self.binding, interaction, **params)  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victor/Documents/Data-Base/cogs/table_add_row.py", line 95, in table_add_row
+    await interaction.response.send_modal(AddRow_Input(table, existing_index))
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/interactions.py", line 1300, in send_modal
+    response = await adapter.create_interaction_response(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/webhook/async_.py", line 226, in request
+    raise HTTPException(response, data)
+discord.errors.HTTPException: 400 Bad Request (error code: 50035): Invalid Form Body
+In data.components: Must be between 1 and 40 in length.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/tree.py", line 1302, in _call
+    await command._invoke_with_namespace(interaction, namespace)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 884, in _invoke_with_namespace
+    return await self._do_call(interaction, transformed_values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 877, in _do_call
+    raise CommandInvokeError(self, e) from e
+discord.app_commands.errors.CommandInvokeError: Command 'table-add-row' raised an exception: HTTPException: 400 Bad Request (error code: 50035): Invalid Form Body
+In data.components: Must be between 1 and 40 in length.
+2026-06-15 11:31:40,332 davey is not installed, voice will NOT be supported
+2026-06-15 11:31:40,332 logging in using static token
+2026-06-15 11:32:41,820 Shard ID None has connected to Gateway (Session ID: 3d441ee657c17dc169fedd2c7848e258).
+2026-06-15 11:32:57,586 [Manager] [table-view-full] v_500 - Allowed
+2026-06-15 11:33:16,987 [Admin] [server-settings] v_500 - Allowed
+2026-06-15 11:33:45,579 [Manager] [table-view-full] v_500 - Allowed
+2026-06-15 11:41:39,374 davey is not installed, voice will NOT be supported
+2026-06-15 11:41:39,375 logging in using static token
+2026-06-15 11:42:40,512 Shard ID None has connected to Gateway (Session ID: a662df989fd1a5f0f63751d76078b6d7).
+2026-06-15 11:42:44,469 [Unprotected] [prefix] v_500 - Allowed
+2026-06-15 11:42:53,850 [Server Admin] [table-settings] v_500 - Allowed
+2026-06-15 11:53:19,173 davey is not installed, voice will NOT be supported
+2026-06-15 11:53:19,173 logging in using static token
+2026-06-15 11:54:20,240 Shard ID None has connected to Gateway (Session ID: 96eb264059da4c16ccc948401aa19c05).
+2026-06-15 11:55:07,694 Ignoring exception in command 'prefix'
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 858, in _do_call
+    return await self._callback(self.binding, interaction, **params)  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victor/Documents/Data-Base/cogs/prefix.py", line 13, in ping
+    if not await verifyCommandPermissions(interaction):
+                 ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+TypeError: verifyCommandPermissions() missing 1 required positional argument: 'command_type'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/tree.py", line 1302, in _call
+    await command._invoke_with_namespace(interaction, namespace)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 884, in _invoke_with_namespace
+    return await self._do_call(interaction, transformed_values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 873, in _do_call
+    raise CommandInvokeError(self, e) from e
+discord.app_commands.errors.CommandInvokeError: Command 'prefix' raised an exception: TypeError: verifyCommandPermissions() missing 1 required positional argument: 'command_type'
+2026-06-15 11:57:03,210 davey is not installed, voice will NOT be supported
+2026-06-15 11:57:03,210 logging in using static token
+2026-06-15 11:58:04,244 Shard ID None has connected to Gateway (Session ID: d6661f9acc58df8fee3f5fb83c23ce8f).
+2026-06-15 11:58:15,021 [NONE] [prefix] v_500 - Allowed
+2026-06-15 11:58:21,711 [Admin] [server-settings] v_500 - Allowed
+2026-06-15 11:58:37,229 [NONE] [prefix] v_500 - Allowed
+2026-06-15 11:58:41,020 [Server Admin] [table-settings] v_500 - Allowed
+2026-06-15 11:58:41,020 Ignoring exception in command 'table-settings'
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 858, in _do_call
+    return await self._callback(self.binding, interaction, **params)  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victor/Documents/Data-Base/cogs/table_settings.py", line 136, in table_settings
+    await self.table_settings_logic(interaction, table_name)
+  File "/Users/victor/Documents/Data-Base/cogs/table_settings.py", line 143, in table_settings_logic
+    if not await verifyCommandPermissions(ctx_or_interaction, CommandType.SERVER_ADMIN):
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victor/Documents/Data-Base/utils.py", line 79, in verifyCommandPermissions
+    channel_id = LOG_CHANNELS[command_type]
+                 ~~~~~~~~~~~~^^^^^^^^^^^^^^
+KeyError: <CommandType.SERVER_ADMIN: 'Server Admin'>
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/tree.py", line 1302, in _call
+    await command._invoke_with_namespace(interaction, namespace)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 884, in _invoke_with_namespace
+    return await self._do_call(interaction, transformed_values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 877, in _do_call
+    raise CommandInvokeError(self, e) from e
+discord.app_commands.errors.CommandInvokeError: Command 'table-settings' raised an exception: KeyError: <CommandType.SERVER_ADMIN: 'Server Admin'>
+2026-06-15 11:59:26,377 davey is not installed, voice will NOT be supported
+2026-06-15 11:59:26,378 logging in using static token
+2026-06-15 12:00:27,905 Shard ID None has connected to Gateway (Session ID: fbdb05071e4c4cb8174c8dfefe353103).
+2026-06-15 12:01:17,986 [Server Admin] [table-settings] v_500 - Allowed
+2026-06-15 12:01:27,320 [Manager] [table-view-full] v_500 - Allowed
+2026-06-15 12:01:34,369 [Admin] [server-settings] v_500 - Allowed
+2026-06-15 12:01:47,755 [Manager] [table-view-full] v_500 - Allowed
+2026-06-15 12:04:25,409 davey is not installed, voice will NOT be supported
+2026-06-15 12:04:25,410 logging in using static token
+2026-06-15 12:05:26,868 Shard ID None has connected to Gateway (Session ID: 11083a4d130196bc3595484dd66c1006).
+2026-06-15 12:05:50,247 [NONE] [prefix] v_500 - Allowed
+2026-06-15 12:05:56,338 [Admin] [server-settings] v_500 - Allowed
+2026-06-15 12:06:09,467 [NONE] [prefix] v_500 - Allowed
+2026-06-15 12:06:14,228 [Server Admin] [table-settings] v_500 - Allowed
+2026-06-15 12:06:34,258 [Manager] [table-add-row] v_500 - Allowed
+2026-06-15 12:06:34,549 Ignoring exception in command 'table-add-row'
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 858, in _do_call
+    return await self._callback(self.binding, interaction, **params)  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victor/Documents/Data-Base/cogs/table_add_row.py", line 95, in table_add_row
+    await interaction.response.send_modal(AddRow_Input(table, existing_index))
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/interactions.py", line 1300, in send_modal
+    response = await adapter.create_interaction_response(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/webhook/async_.py", line 226, in request
+    raise HTTPException(response, data)
+discord.errors.HTTPException: 400 Bad Request (error code: 50035): Invalid Form Body
+In data.components: Must be between 1 and 40 in length.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/tree.py", line 1302, in _call
+    await command._invoke_with_namespace(interaction, namespace)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 884, in _invoke_with_namespace
+    return await self._do_call(interaction, transformed_values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 877, in _do_call
+    raise CommandInvokeError(self, e) from e
+discord.app_commands.errors.CommandInvokeError: Command 'table-add-row' raised an exception: HTTPException: 400 Bad Request (error code: 50035): Invalid Form Body
+In data.components: Must be between 1 and 40 in length.
+2026-06-15 12:07:56,532 [NONE] [prefix] v_500 - Allowed
+2026-06-15 12:07:59,692 [NONE] [ping] v_500 - Allowed
+2026-06-15 12:08:15,231 [User] [table-add-row-request] v_500 - Allowed
+2026-06-15 12:08:15,569 Ignoring exception in command 'table-add-row-request'
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 858, in _do_call
+    return await self._callback(self.binding, interaction, **params)  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victor/Documents/Data-Base/cogs/table_add_row_request.py", line 171, in table_add_row_request
+    await interaction.response.send_modal(AddRow_Input(table, existing_index))
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/interactions.py", line 1300, in send_modal
+    response = await adapter.create_interaction_response(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/webhook/async_.py", line 226, in request
+    raise HTTPException(response, data)
+discord.errors.HTTPException: 400 Bad Request (error code: 50035): Invalid Form Body
+In data.components: Must be between 1 and 40 in length.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/tree.py", line 1302, in _call
+    await command._invoke_with_namespace(interaction, namespace)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 884, in _invoke_with_namespace
+    return await self._do_call(interaction, transformed_values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 877, in _do_call
+    raise CommandInvokeError(self, e) from e
+discord.app_commands.errors.CommandInvokeError: Command 'table-add-row-request' raised an exception: HTTPException: 400 Bad Request (error code: 50035): Invalid Form Body
+In data.components: Must be between 1 and 40 in length.
+2026-06-15 12:13:31,832 davey is not installed, voice will NOT be supported
+2026-06-15 12:13:31,832 logging in using static token
+2026-06-15 12:14:32,828 Shard ID None has connected to Gateway (Session ID: a5b417e89ef20cb9e4d99443b8f628f6).
+2026-06-15 12:14:40,120 [NONE] [prefix] v_500 - Allowed
+2026-06-15 12:14:43,349 [User] [table-add-row-request] v_500 - Allowed
+2026-06-15 12:14:43,722 Ignoring exception in command 'table-add-row-request'
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 858, in _do_call
+    return await self._callback(self.binding, interaction, **params)  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victor/Documents/Data-Base/cogs/table_add_row_request.py", line 171, in table_add_row_request
+    await interaction.response.send_modal(AddRow_Input(table, existing_index))
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/interactions.py", line 1300, in send_modal
+    response = await adapter.create_interaction_response(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/webhook/async_.py", line 226, in request
+    raise HTTPException(response, data)
+discord.errors.HTTPException: 400 Bad Request (error code: 50035): Invalid Form Body
+In data.components: Must be between 1 and 40 in length.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/tree.py", line 1302, in _call
+    await command._invoke_with_namespace(interaction, namespace)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 884, in _invoke_with_namespace
+    return await self._do_call(interaction, transformed_values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 877, in _do_call
+    raise CommandInvokeError(self, e) from e
+discord.app_commands.errors.CommandInvokeError: Command 'table-add-row-request' raised an exception: HTTPException: 400 Bad Request (error code: 50035): Invalid Form Body
+In data.components: Must be between 1 and 40 in length.
+2026-06-15 12:14:51,914 [Server Admin] [table-settings] v_500 - Allowed
+2026-06-15 12:15:07,394 [User] [table-add-row-request] v_500 - Allowed
+2026-06-15 12:15:32,650 [Manager] [table-view-full] v_500 - Allowed
+2026-06-15 12:15:39,078 Ignoring exception in view <AddRequest timeout=None children=2> for item <Button style=<ButtonStyle.secondary: 2> url=None disabled=False label='Accept' emoji=<PartialEmoji animated=False name='CheckMark' id=1512108503857238076> row=None sku_id=None id=None>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/ui/view.py", line 598, in _scheduled_task
+    await item.callback(interaction)
+  File "/Users/victor/Documents/Data-Base/cogs/table_add_row_request.py", line 42, in accept
+    if not await verifyCommandPermissions(interaction, CommandType.MANAGER):
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victor/Documents/Data-Base/utils.py", line 50, in verifyCommandPermissions
+    command_name = ctx_or_interaction.command.name
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'name'
+2026-06-15 12:16:04,944 davey is not installed, voice will NOT be supported
+2026-06-15 12:16:04,945 logging in using static token
+2026-06-15 12:17:06,456 Shard ID None has connected to Gateway (Session ID: 314bb10223b86e749a05b8d9677886c9).
+2026-06-15 12:17:36,574 [Server Admin] [table-settings] v_500 - Allowed
+2026-06-15 12:18:03,289 [User] [table-add-row-request] v_500 - Allowed
+2026-06-15 12:18:03,453 Ignoring exception in command 'table-add-row-request'
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 858, in _do_call
+    return await self._callback(self.binding, interaction, **params)  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victor/Documents/Data-Base/cogs/table_add_row_request.py", line 150, in table_add_row_request
+    if len(table["column_names"]) - 2 == 0:
+           ^^^^^
+UnboundLocalError: cannot access local variable 'table' where it is not associated with a value
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/tree.py", line 1302, in _call
+    await command._invoke_with_namespace(interaction, namespace)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 884, in _invoke_with_namespace
+    return await self._do_call(interaction, transformed_values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 877, in _do_call
+    raise CommandInvokeError(self, e) from e
+discord.app_commands.errors.CommandInvokeError: Command 'table-add-row-request' raised an exception: UnboundLocalError: cannot access local variable 'table' where it is not associated with a value
+2026-06-15 12:18:15,987 [Manager] [table-add-row] v_500 - Allowed
+2026-06-15 12:18:16,597 Ignoring exception in command 'table-add-row'
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 858, in _do_call
+    return await self._callback(self.binding, interaction, **params)  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victor/Documents/Data-Base/cogs/table_add_row.py", line 100, in table_add_row
+    await interaction.response.send_modal(AddRow_Input(table, existing_index))
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/interactions.py", line 1292, in send_modal
+    raise InteractionResponded(self._parent)
+discord.errors.InteractionResponded: This interaction has already been responded to before
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/tree.py", line 1302, in _call
+    await command._invoke_with_namespace(interaction, namespace)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 884, in _invoke_with_namespace
+    return await self._do_call(interaction, transformed_values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 877, in _do_call
+    raise CommandInvokeError(self, e) from e
+discord.app_commands.errors.CommandInvokeError: Command 'table-add-row' raised an exception: InteractionResponded: This interaction has already been responded to before
+2026-06-15 12:20:57,859 davey is not installed, voice will NOT be supported
+2026-06-15 12:20:57,860 logging in using static token
+2026-06-15 12:21:59,033 Shard ID None has connected to Gateway (Session ID: 7a5d5ca04ce38bc08e7878ba828fe083).
+2026-06-15 12:23:12,388 [User] [table-add-row-request] v_500 - Allowed
+2026-06-15 12:23:12,605 Ignoring exception in command 'table-add-row-request'
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 858, in _do_call
+    return await self._callback(self.binding, interaction, **params)  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victor/Documents/Data-Base/cogs/table_add_row_request.py", line 150, in table_add_row_request
+    if len(table["column_names"]) - 2 == 0:
+           ^^^^^
+UnboundLocalError: cannot access local variable 'table' where it is not associated with a value
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/tree.py", line 1302, in _call
+    await command._invoke_with_namespace(interaction, namespace)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 884, in _invoke_with_namespace
+    return await self._do_call(interaction, transformed_values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 877, in _do_call
+    raise CommandInvokeError(self, e) from e
+discord.app_commands.errors.CommandInvokeError: Command 'table-add-row-request' raised an exception: UnboundLocalError: cannot access local variable 'table' where it is not associated with a value
+2026-06-15 12:23:26,365 [User] [table-add-row-request] v_500 - Allowed
+2026-06-15 12:23:27,148 Ignoring exception in command table-add-row-request
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/ext/commands/core.py", line 266, in wrapped
+    ret = await coro(*args, **kwargs)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victor/Documents/Data-Base/cogs/table_add_row_request.py", line 191, in table_add_row_prefix_request
+    if len(name["column_names"]) - 2 == 0:
+           ~~~~^^^^^^^^^^^^^^^^
+TypeError: string indices must be integers, not 'str'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/ext/commands/bot.py", line 1376, in invoke
+    await ctx.command.invoke(ctx)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/ext/commands/core.py", line 1064, in invoke
+    await injected(*ctx.args, **ctx.kwargs)  # type: ignore
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/ext/commands/core.py", line 275, in wrapped
+    raise CommandInvokeError(exc) from exc
+discord.ext.commands.errors.CommandInvokeError: Command raised an exception: TypeError: string indices must be integers, not 'str'
+2026-06-15 12:24:53,723 davey is not installed, voice will NOT be supported
+2026-06-15 12:24:53,723 logging in using static token
+2026-06-15 12:25:54,719 Shard ID None has connected to Gateway (Session ID: c6d6aaa11c0937d40c56132ffd5f7bde).
+2026-06-15 12:26:04,986 [User] [table-add-row-request] v_500 - Allowed
+2026-06-15 12:26:05,247 Ignoring exception in command 'table-add-row-request'
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 858, in _do_call
+    return await self._callback(self.binding, interaction, **params)  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victor/Documents/Data-Base/cogs/table_add_row_request.py", line 150, in table_add_row_request
+    if len(name["column_names"]) - 2 == 0:
+           ~~~~^^^^^^^^^^^^^^^^
+TypeError: string indices must be integers, not 'str'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/tree.py", line 1302, in _call
+    await command._invoke_with_namespace(interaction, namespace)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 884, in _invoke_with_namespace
+    return await self._do_call(interaction, transformed_values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 873, in _do_call
+    raise CommandInvokeError(self, e) from e
+discord.app_commands.errors.CommandInvokeError: Command 'table-add-row-request' raised an exception: TypeError: string indices must be integers, not 'str'
+2026-06-15 12:28:00,356 davey is not installed, voice will NOT be supported
+2026-06-15 12:28:00,357 logging in using static token
+2026-06-15 12:29:01,539 Shard ID None has connected to Gateway (Session ID: 552c5bca1f6cc18e4c5ada8ebd892ca5).
+2026-06-15 12:29:32,723 [Server Admin] [table-settings] v_500 - Allowed
+2026-06-15 12:29:47,166 [User] [table-add-row-request] v_500 - Allowed
+2026-06-15 12:29:47,647 Ignoring exception in command 'table-add-row-request'
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 858, in _do_call
+    return await self._callback(self.binding, interaction, **params)  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victor/Documents/Data-Base/cogs/table_add_row_request.py", line 150, in table_add_row_request
+    if len(name["column_names"]) - 2 == 0:
+           ~~~~^^^^^^^^^^^^^^^^
+TypeError: string indices must be integers, not 'str'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/tree.py", line 1302, in _call
+    await command._invoke_with_namespace(interaction, namespace)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 884, in _invoke_with_namespace
+    return await self._do_call(interaction, transformed_values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 873, in _do_call
+    raise CommandInvokeError(self, e) from e
+discord.app_commands.errors.CommandInvokeError: Command 'table-add-row-request' raised an exception: TypeError: string indices must be integers, not 'str'
+2026-06-15 12:29:56,222 [Manager] [table-add-row] v_500 - Allowed
+2026-06-15 12:30:08,736 [Manager] [table-view-full] v_500 - Allowed
+2026-06-15 12:30:15,439 Ignoring exception in command table-view-full
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/ext/commands/bot.py", line 1376, in invoke
+    await ctx.command.invoke(ctx)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/ext/commands/core.py", line 1056, in invoke
+    await self.prepare(ctx)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/ext/commands/core.py", line 973, in prepare
+    await self._parse_arguments(ctx)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/ext/commands/core.py", line 880, in _parse_arguments
+    transformed = await self.transform(ctx, param, attachments)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/ext/commands/core.py", line 732, in transform
+    raise MissingRequiredArgument(param)
+discord.ext.commands.errors.MissingRequiredArgument: name is a required argument that is missing.
+2026-06-15 12:30:22,853 [Manager] [table-view-full] v_500 - Allowed
+2026-06-15 12:30:41,933 Ignoring exception in command 'table-view-user'
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 858, in _do_call
+    return await self._callback(self.binding, interaction, **params)  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victor/Documents/Data-Base/cogs/table_view_user.py", line 41, in table_view_row
+    if not await verifyCommandPermissions(interaction, CommandType.MANGER):
+                                                       ^^^^^^^^^^^^^^^^^^
+AttributeError: type object 'CommandType' has no attribute 'MANGER'. Did you mean: 'MANAGER'?
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/tree.py", line 1302, in _call
+    await command._invoke_with_namespace(interaction, namespace)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 884, in _invoke_with_namespace
+    return await self._do_call(interaction, transformed_values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 877, in _do_call
+    raise CommandInvokeError(self, e) from e
+discord.app_commands.errors.CommandInvokeError: Command 'table-view-user' raised an exception: AttributeError: type object 'CommandType' has no attribute 'MANGER'
+2026-06-15 12:30:49,959 [User] [table-view] v_500 - Allowed
+2026-06-15 13:36:38,084 Shard ID None session has been invalidated.
+2026-06-15 13:36:43,474 Shard ID None has connected to Gateway (Session ID: 68c14aca5f1b240671f7a54413e424fa).
+2026-06-15 14:35:50,299 Shard ID None session has been invalidated.
+2026-06-15 14:35:55,648 Shard ID None has connected to Gateway (Session ID: 53bb48c257d4a51ee56f10ed392ba62f).
+2026-06-15 14:40:11,562 Shard ID None session has been invalidated.
+2026-06-15 14:40:17,140 Shard ID None has connected to Gateway (Session ID: be8a6a60e8a984310e2b571b42ec34f0).
+2026-06-15 14:49:01,503 Shard ID None session has been invalidated.
+2026-06-15 14:49:06,855 Shard ID None has connected to Gateway (Session ID: 04c7cc0c614ac1f4a4ac579475e428a2).
+2026-06-15 14:56:03,998 Shard ID None session has been invalidated.
+2026-06-15 14:56:09,484 Shard ID None has connected to Gateway (Session ID: 1c78d973933624fe00fdf4a8f7b4a303).
+2026-06-15 15:19:03,555 Shard ID None session has been invalidated.
+2026-06-15 15:32:00,535 Shard ID None session has been invalidated.
+2026-06-15 15:32:06,149 Shard ID None has connected to Gateway (Session ID: a531cf10a6ec817959b62de51b3729b0).
+2026-06-15 15:48:19,752 Shard ID None session has been invalidated.
+2026-06-15 15:48:25,197 Shard ID None has connected to Gateway (Session ID: b348bbcba3acb094022f7026b798f0b2).
+2026-06-15 15:52:00,726 Shard ID None has successfully RESUMED session b348bbcba3acb094022f7026b798f0b2.
+2026-06-15 15:56:50,966 davey is not installed, voice will NOT be supported
+2026-06-15 15:56:50,967 logging in using static token
+2026-06-15 15:57:51,876 Shard ID None has connected to Gateway (Session ID: b571baa94d6a499b2da89b497d95e256).
+2026-06-15 15:59:25,161 [User] [table-add-row-request] v_500 - Allowed
+2026-06-15 15:59:25,348 Ignoring exception in command 'table-add-row-request'
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 858, in _do_call
+    return await self._callback(self.binding, interaction, **params)  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victor/Documents/Data-Base/cogs/table_add_row_request.py", line 150, in table_add_row_request
+    if len(name["column_names"]) - 2 == 0:
+           ~~~~^^^^^^^^^^^^^^^^
+TypeError: string indices must be integers, not 'str'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/tree.py", line 1302, in _call
+    await command._invoke_with_namespace(interaction, namespace)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 884, in _invoke_with_namespace
+    return await self._do_call(interaction, transformed_values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 873, in _do_call
+    raise CommandInvokeError(self, e) from e
+discord.app_commands.errors.CommandInvokeError: Command 'table-add-row-request' raised an exception: TypeError: string indices must be integers, not 'str'
+2026-06-15 17:11:10,698 davey is not installed, voice will NOT be supported
+2026-06-15 17:11:10,699 logging in using static token
+2026-06-15 17:12:12,094 Shard ID None has connected to Gateway (Session ID: 067602444f710e77e314f29358a5b30b).
+2026-06-15 17:13:20,298 [User] [table-add-row-request] v_500 - Allowed
+2026-06-15 17:13:28,274 Ignoring exception in view <AddRequest timeout=None children=2> for item <Button style=<ButtonStyle.secondary: 2> url=None disabled=False label='Accept' emoji=<PartialEmoji animated=False name='CheckMark' id=1512108503857238076> row=None sku_id=None id=None>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/ui/view.py", line 598, in _scheduled_task
+    await item.callback(interaction)
+  File "/Users/victor/Documents/Data-Base/cogs/table_add_row_request.py", line 42, in accept
+    if not await verifyCommandPermissions(interaction, CommandType.MANAGER):
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victor/Documents/Data-Base/utils.py", line 50, in verifyCommandPermissions
+    command_name = ctx_or_interaction.command.name
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'name'
+2026-06-15 17:14:56,681 davey is not installed, voice will NOT be supported
+2026-06-15 17:14:56,681 logging in using static token
+2026-06-15 17:15:58,250 Shard ID None has connected to Gateway (Session ID: 0cf79c693c90490e030320041a1c501a).
+2026-06-15 17:16:27,626 [Manager] [table-add-row] v_500 - Allowed
+2026-06-15 17:16:35,534 Ignoring exception in command None
+discord.ext.commands.errors.CommandNotFound: Command "table-add-row-request" is not found
+2026-06-15 17:16:48,990 [User] [table-add-row-request] v_500 - Allowed
+2026-06-15 17:16:57,808 [Manager] [table-view-full] v_500 - Allowed
+2026-06-15 17:17:06,248 [User] [table-add-row-request] v_500 - Allowed
+2026-06-15 17:17:16,584 [Manager] [table-view-full] v_500 - Allowed
+2026-06-15 17:17:20,304 [Server Admin] [table-settings] v_500 - Allowed
+2026-06-15 17:17:35,323 [User] [table-add-row-request] v_500 - Allowed
+2026-06-15 17:32:36,308 Shard ID None session has been invalidated.
+2026-06-15 17:32:42,198 Shard ID None has connected to Gateway (Session ID: 3b08065c9464aee38cdc8d97bf3a5824).
+2026-06-15 17:48:57,417 Shard ID None session has been invalidated.
+2026-06-15 17:49:02,947 Shard ID None has connected to Gateway (Session ID: 590a65d8ea5181c87659067abafe05b7).
+2026-06-15 18:56:55,236 Shard ID None session has been invalidated.
+2026-06-15 18:57:00,637 Shard ID None has connected to Gateway (Session ID: 1c21f1f5b1e12dcdd0396c3832d5a32e).
+2026-06-15 19:25:04,675 Shard ID None session has been invalidated.
+2026-06-15 19:25:10,035 Shard ID None has connected to Gateway (Session ID: f87ba36d75dd828cab7c1b9e95c51d15).
+2026-06-15 19:55:45,351 davey is not installed, voice will NOT be supported
+2026-06-15 19:55:45,351 logging in using static token
+2026-06-15 19:56:46,518 Shard ID None has connected to Gateway (Session ID: cf173ca3a26ae352f6cdb20d01d04c5f).
+2026-06-15 19:58:58,814 Ignoring exception in command 'table-view-user'
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 858, in _do_call
+    return await self._callback(self.binding, interaction, **params)  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victor/Documents/Data-Base/cogs/table_view_user.py", line 41, in table_view_row
+    if not await verifyCommandPermissions(interaction, CommandType.MANGER):
+                                                       ^^^^^^^^^^^^^^^^^^
+AttributeError: type object 'CommandType' has no attribute 'MANGER'. Did you mean: 'MANAGER'?
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/tree.py", line 1302, in _call
+    await command._invoke_with_namespace(interaction, namespace)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 884, in _invoke_with_namespace
+    return await self._do_call(interaction, transformed_values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 877, in _do_call
+    raise CommandInvokeError(self, e) from e
+discord.app_commands.errors.CommandInvokeError: Command 'table-view-user' raised an exception: AttributeError: type object 'CommandType' has no attribute 'MANGER'
+2026-06-15 19:59:25,898 davey is not installed, voice will NOT be supported
+2026-06-15 19:59:25,898 logging in using static token
+2026-06-15 20:00:27,136 Shard ID None has connected to Gateway (Session ID: a624650bd05cf02310c88c68e9756b3e).
+2026-06-15 20:26:01,851 Shard ID None session has been invalidated.
+2026-06-15 20:26:07,564 Shard ID None has connected to Gateway (Session ID: 97f9c1b63f0767fb799bf8295f09cd40).
+2026-06-15 20:30:28,919 [Manager] [table-view-user] v_500 - Allowed
+2026-06-15 20:30:42,030 [Manager] [table-add-row] v_500 - Allowed
+2026-06-15 20:30:42,682 Ignoring exception in command 'table-add-row'
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 858, in _do_call
+    return await self._callback(self.binding, interaction, **params)  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victor/Documents/Data-Base/cogs/table_add_row.py", line 100, in table_add_row
+    await interaction.response.send_modal(AddRow_Input(table, existing_index))
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/interactions.py", line 1292, in send_modal
+    raise InteractionResponded(self._parent)
+discord.errors.InteractionResponded: This interaction has already been responded to before
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/tree.py", line 1302, in _call
+    await command._invoke_with_namespace(interaction, namespace)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 884, in _invoke_with_namespace
+    return await self._do_call(interaction, transformed_values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 877, in _do_call
+    raise CommandInvokeError(self, e) from e
+discord.app_commands.errors.CommandInvokeError: Command 'table-add-row' raised an exception: InteractionResponded: This interaction has already been responded to before
+2026-06-15 20:30:50,489 [Server Admin] [table-settings] v_500 - Allowed
+2026-06-15 20:36:18,698 davey is not installed, voice will NOT be supported
+2026-06-15 20:36:18,698 logging in using static token
+2026-06-15 20:37:20,042 Shard ID None has connected to Gateway (Session ID: 3f5ae37d8aa04d4ccc730774dfd6f613).
+2026-06-15 20:37:27,277 [Server Admin] [table-settings] v_500 - Allowed
+2026-06-15 20:38:03,001 davey is not installed, voice will NOT be supported
+2026-06-15 20:38:03,002 logging in using static token
+2026-06-15 20:39:04,220 Shard ID None has connected to Gateway (Session ID: a15632a063afe6d5f7f8cac40894a0d9).
+2026-06-15 20:51:01,484 davey is not installed, voice will NOT be supported
+2026-06-15 20:51:01,485 logging in using static token
+2026-06-15 20:52:02,333 Shard ID None has connected to Gateway (Session ID: 69804eea39c1abe96368e2ecbbb3322b).
+2026-06-15 20:53:18,005 [Server Admin] [table-settings] v_500 - Allowed
+2026-06-15 20:58:37,690 davey is not installed, voice will NOT be supported
+2026-06-15 20:58:37,691 logging in using static token
+2026-06-15 20:59:39,234 Shard ID None has connected to Gateway (Session ID: b01c5eeb4b23013ac5a3884b9356ee80).
+2026-06-15 21:00:36,156 [Server Admin] [table-settings] v_500 - Allowed
+2026-06-15 21:00:48,661 [Server Admin] [table-settings] v_500 - Allowed
+2026-06-15 21:00:57,281 [Server Admin] [table-create] v_500 - Allowed
+2026-06-15 21:01:06,671 [Server Admin] [table-create] v_500 - Allowed
+2026-06-15 21:01:24,530 [Server Admin] [table-delete] v_500 - Allowed
+2026-06-15 21:01:43,227 [Manager] [table-view-full] v_500 - Allowed
+2026-06-15 21:01:53,604 [Manager] [table-add-row-user] v_500 - Allowed
+2026-06-15 21:02:39,209 Ignoring exception in command None
+discord.ext.commands.errors.CommandNotFound: Command "table-add" is not found
+2026-06-15 21:02:49,771 [Manager] [table-add-row] v_500 - Allowed
+2026-06-15 21:03:09,268 [User] [table-view] v_500 - Allowed
+2026-06-15 21:03:39,011 Ignoring exception in command None
+discord.ext.commands.errors.CommandNotFound: Command "table-view-user" is not found
+2026-06-15 21:03:52,625 [Manager] [table-view-user] v_500 - Allowed
+2026-06-15 21:04:11,807 [Manager] [table-view-user] v_500 - Allowed
+2026-06-15 21:04:18,161 [Manager] [table-view-full] v_500 - Allowed
+2026-06-15 21:08:20,391 davey is not installed, voice will NOT be supported
+2026-06-15 21:08:20,392 logging in using static token
+2026-06-15 21:09:21,246 Shard ID None has connected to Gateway (Session ID: 5aaa43a4b74a3b9734596fa94b5bd6ed).
+2026-06-15 21:10:01,636 [Manager] [table-view-user] v_500 - Allowed
+2026-06-15 21:10:09,476 [Manager] [table-view-full] v_500 - Allowed
+2026-06-15 21:10:20,146 [Manager] [table-view-user] v_500 - Allowed
+2026-06-15 21:35:12,780 davey is not installed, voice will NOT be supported
+2026-06-15 21:35:12,780 logging in using static token
+2026-06-15 21:36:13,762 Shard ID None has connected to Gateway (Session ID: d1328b29584058959e45bdb7af6de4d0).
+2026-06-15 21:39:36,789 [Manager] [table-view-user] v_500 - Allowed
+2026-06-15 21:39:42,024 [Manager] [table-view-full] v_500 - Allowed
+2026-06-15 21:43:18,345 davey is not installed, voice will NOT be supported
+2026-06-15 21:43:18,345 logging in using static token
+2026-06-15 21:44:19,255 Shard ID None has connected to Gateway (Session ID: fa0ee0a13872539d2287b663373f82f1).
+2026-06-15 21:44:30,252 [Manager] [table-view-user] v_500 - Allowed
+2026-06-15 21:46:23,884 davey is not installed, voice will NOT be supported
+2026-06-15 21:46:23,885 logging in using static token
+2026-06-15 21:49:32,568 davey is not installed, voice will NOT be supported
+2026-06-15 21:49:32,569 logging in using static token
+2026-06-15 21:50:33,688 Shard ID None has connected to Gateway (Session ID: 13cc0bae1e90c3e5a1a54f1572569117).
+2026-06-15 22:06:13,246 [Manager] [table-view-user] v_500 - Allowed
+2026-06-15 22:06:19,886 [User] [table-view] v_500 - Allowed
+2026-06-15 22:07:13,851 davey is not installed, voice will NOT be supported
+2026-06-15 22:07:13,852 logging in using static token
+2026-06-15 22:08:14,875 Shard ID None has connected to Gateway (Session ID: babcb8a3edc91935122b558d753f3ae4).
+2026-06-15 22:13:31,377 [Manager] [table-view-user] v_500 - Allowed
+2026-06-15 22:13:42,183 [Manager] [table-remove-row-user] v_500 - Allowed
+2026-06-15 22:13:48,487 [User] [table-view] v_500 - Allowed
+2026-06-15 22:15:18,619 [Admin] [server-settings] v_500 - Allowed
+2026-06-15 22:15:25,064 [Server Admin] [table-settings] v_500 - Allowed
+2026-06-15 22:16:11,125 [NONE] [ping] deafult4355543 - Allowed
+2026-06-15 22:16:14,874 [Admin] [server-settings] deafult4355543 - Allowed
+2026-06-15 22:16:23,522 [Manager] [table-add-row] deafult4355543 - Allowed
+2026-06-15 22:18:41,177 davey is not installed, voice will NOT be supported
+2026-06-15 22:18:41,178 logging in using static token
+2026-06-15 22:19:42,285 Shard ID None has connected to Gateway (Session ID: 0c7373a84e2bd0526f152840d115cc04).
+2026-06-15 22:28:05,951 [Admin] [server-settings] v_500 - Allowed
+2026-06-15 22:30:54,386 davey is not installed, voice will NOT be supported
+2026-06-15 22:30:54,386 logging in using static token
+2026-06-15 22:31:55,322 Shard ID None has connected to Gateway (Session ID: 6e5521b56273c1730d046b399a39b7c4).
+2026-06-15 22:33:59,280 [Admin] [server-settings] deafult4355543 - Denied
+2026-06-15 22:34:06,824 [Manager] [table-add-row] deafult4355543 - Denied
+2026-06-15 22:34:12,785 [Manager] [table-view-full] deafult4355543 - Denied
+2026-06-15 22:34:28,282 [User] [table-add-row-request] deafult4355543 - Denied
+2026-06-15 22:34:53,544 [Server Admin] [table-settings] v_500 - Allowed
+2026-06-15 22:35:05,292 [User] [table-add-row-request] deafult4355543 - Denied
+2026-06-15 22:42:40,278 Shard ID None session has been invalidated.
+2026-06-15 22:42:45,883 Shard ID None has connected to Gateway (Session ID: 83ab31fff87450bd9d6464c6f6d3a40f).
+2026-06-15 23:00:16,564 davey is not installed, voice will NOT be supported
+2026-06-15 23:00:16,565 logging in using static token
+2026-06-15 23:01:17,620 Shard ID None has connected to Gateway (Session ID: c89f207ee7125083e329dbf6f0564569).
+2026-06-15 23:01:51,819 [User] [table-add-row-request] deafult4355543 - Allowed
+2026-06-15 23:02:03,896 [Manager] [table-add-row-user] deafult4355543 - Denied
+2026-06-15 23:02:49,115 [Manager] [table-add-row-user] deafult4355543 - Allowed
+2026-06-15 23:03:06,675 [Manager] [table-view-full] deafult4355543 - Allowed
+2026-06-15 23:03:20,888 [Manager] [table-add-row-user] deafult4355543 - Allowed
+2026-06-15 23:04:43,377 [Manager] [table-view-user] v_500 - Allowed
+2026-06-15 23:05:06,801 [Manager] [table-view-user] v_500 - Allowed
+2026-06-15 23:06:31,715 davey is not installed, voice will NOT be supported
+2026-06-15 23:06:31,716 logging in using static token
+2026-06-15 23:09:33,469 davey is not installed, voice will NOT be supported
+2026-06-15 23:09:33,470 logging in using static token
+2026-06-15 23:10:35,151 Shard ID None has connected to Gateway (Session ID: 34a810d430199c11fb1abc9aa525e4cd).
+2026-06-15 23:19:29,546 [Admin] [table-remove-row-user] v_500 - Allowed
+2026-06-15 23:19:52,132 [Manager] [table-add-row-user] v_500 - Allowed
+2026-06-15 23:20:52,668 [Admin] [table-remove-row-user] deafult4355543 - Allowed
+2026-06-15 23:21:04,465 [Server Admin] [table-settings] v_500 - Allowed
+2026-06-15 23:22:23,360 [Server Admin] [table-settings] v_500 - Allowed
+2026-06-15 23:22:42,709 [Manager] [table-remove-row] deafult4355543 - Allowed
+2026-06-15 23:23:22,589 [Admin] [table-remove-row-user] v_500 - Allowed
+2026-06-15 23:23:38,885 davey is not installed, voice will NOT be supported
+2026-06-15 23:23:38,886 logging in using static token
+2026-06-15 23:24:16,249 davey is not installed, voice will NOT be supported
+2026-06-15 23:24:16,250 logging in using static token
+2026-06-15 23:25:17,203 Shard ID None has connected to Gateway (Session ID: 86ad694c45a75b406786a7732ed68acc).
+2026-06-15 23:26:17,703 [Admin] [table-remove-row-user] deafult4355543 - Allowed
+2026-06-15 23:26:31,415 [Admin] [server-settings] v_500 - Allowed
+2026-06-15 23:26:55,039 Ignoring exception in command table-add-row-user
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/ext/commands/bot.py", line 1376, in invoke
+    await ctx.command.invoke(ctx)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/ext/commands/core.py", line 1056, in invoke
+    await self.prepare(ctx)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/ext/commands/core.py", line 973, in prepare
+    await self._parse_arguments(ctx)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/ext/commands/core.py", line 880, in _parse_arguments
+    transformed = await self.transform(ctx, param, attachments)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/ext/commands/core.py", line 750, in transform
+    return await run_converters(ctx, converter, argument, param)  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/ext/commands/converter.py", line 1466, in run_converters
+    return await _actual_conversion(ctx, converter, argument, param)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/ext/commands/converter.py", line 1350, in _actual_conversion
+    return await converter().convert(ctx, argument)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/ext/commands/converter.py", line 283, in convert
+    raise MemberNotFound(argument)
+discord.ext.commands.errors.MemberNotFound: Member "CHP-2" not found.
+2026-06-15 23:27:04,050 [Manager] [table-add-row-user] v_500 - Allowed
+2026-06-15 23:27:21,176 [Admin] [table-remove-row-user] deafult4355543 - Allowed
+2026-06-15 23:27:49,857 [Server Admin] [table-settings] v_500 - Allowed
+2026-06-15 23:28:02,503 [Manager] [table-add-row-user] v_500 - Allowed
+2026-06-15 23:28:13,991 [Admin] [table-remove-row-user] deafult4355543 - Allowed
+2026-06-15 23:28:14,304 Ignoring exception in command table-remove-row-user
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/ext/commands/core.py", line 266, in wrapped
+    ret = await coro(*args, **kwargs)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victor/Documents/Data-Base/cogs/table_remove_row_user.py", line 59, in table_remove_row_prefix
+    await ctx.send(f"{ERROR} ``Failed to find {ctx.user.mention} row in table`` ``{name}``")
+                                               ^^^^^^^^
+AttributeError: 'Context' object has no attribute 'user'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/ext/commands/bot.py", line 1376, in invoke
+    await ctx.command.invoke(ctx)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/ext/commands/core.py", line 1064, in invoke
+    await injected(*ctx.args, **ctx.kwargs)  # type: ignore
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/ext/commands/core.py", line 275, in wrapped
+    raise CommandInvokeError(exc) from exc
+discord.ext.commands.errors.CommandInvokeError: Command raised an exception: AttributeError: 'Context' object has no attribute 'user'
+2026-06-15 23:28:34,719 [Admin] [table-remove-row-user] deafult4355543 - Allowed
+2026-06-15 23:28:52,646 davey is not installed, voice will NOT be supported
+2026-06-15 23:28:52,647 logging in using static token
+2026-06-15 23:29:53,878 Shard ID None has connected to Gateway (Session ID: 91a91cd229dce87d0cfab0febe3d5404).
+2026-06-15 23:30:37,683 [Admin] [table-remove-row-user] deafult4355543 - Allowed
+2026-06-15 23:32:20,692 davey is not installed, voice will NOT be supported
+2026-06-15 23:32:20,692 logging in using static token
+2026-06-15 23:33:22,477 Shard ID None has connected to Gateway (Session ID: 5c2082f8804f94a29bbdd9a4f72d4e61).
+2026-06-15 23:39:38,396 davey is not installed, voice will NOT be supported
+2026-06-15 23:39:38,397 logging in using static token
+2026-06-15 23:40:39,650 Shard ID None has connected to Gateway (Session ID: ce1cb5332271e9545e5a2b0c7e18775b).
+2026-06-15 23:42:24,198 [Admin] [table-remove-row-user] deafult4355543 - Allowed
+2026-06-15 23:42:24,601 Ignoring exception in command table-remove-row-user
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/ext/commands/core.py", line 266, in wrapped
+    ret = await coro(*args, **kwargs)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victor/Documents/Data-Base/cogs/table_remove_row_user.py", line 59, in table_remove_row_prefix
+    await ctx.send(f"{ERROR} ``Failed to find {ctx.user.mention} row in table`` ``{name}``")
+                                               ^^^^^^^^
+AttributeError: 'Context' object has no attribute 'user'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/ext/commands/bot.py", line 1376, in invoke
+    await ctx.command.invoke(ctx)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/ext/commands/core.py", line 1064, in invoke
+    await injected(*ctx.args, **ctx.kwargs)  # type: ignore
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/ext/commands/core.py", line 275, in wrapped
+    raise CommandInvokeError(exc) from exc
+discord.ext.commands.errors.CommandInvokeError: Command raised an exception: AttributeError: 'Context' object has no attribute 'user'
+2026-06-15 23:42:58,994 [Admin] [table-remove-row-user] deafult4355543 - Allowed
+2026-06-15 23:48:18,266 davey is not installed, voice will NOT be supported
+2026-06-15 23:48:18,266 logging in using static token
+2026-06-15 23:49:19,198 Shard ID None has connected to Gateway (Session ID: b886fdcfb71aef40c40103fc4caa4e47).
+2026-06-15 23:49:50,319 [Admin] [table-remove-row-user] deafult4355543 - Allowed
+2026-06-15 23:53:10,798 davey is not installed, voice will NOT be supported
+2026-06-15 23:53:10,798 logging in using static token
+2026-06-15 23:54:11,793 Shard ID None has connected to Gateway (Session ID: 028165f53b18edf62b06a947f5eae3e6).
+2026-06-15 23:55:11,669 [Admin] [table-remove-row-user] deafult4355543 - Allowed
+2026-06-15 23:55:26,450 [Admin] [table-remove-row-user] deafult4355543 - Allowed
+2026-06-15 23:55:43,823 davey is not installed, voice will NOT be supported
+2026-06-15 23:55:43,824 logging in using static token
+2026-06-15 23:56:44,698 Shard ID None has connected to Gateway (Session ID: 887d0d8e5597ae596da302e456f9e106).
+2026-06-15 23:57:21,941 [Admin] [table-remove-row-user] deafult4355543 - Allowed
+2026-06-15 23:58:53,920 davey is not installed, voice will NOT be supported
+2026-06-15 23:58:53,920 logging in using static token
+2026-06-15 23:59:54,798 Shard ID None has connected to Gateway (Session ID: ad9af0feaf8ba536e68b0b0b3b07f485).
+2026-06-16 00:04:44,206 [Admin] [table-remove-row-user] deafult4355543 - Allowed
+2026-06-16 00:04:56,956 [Server Admin] [table-create] deafult4355543 - Allowed
+2026-06-16 00:05:29,148 [Server Admin] [table-delete] deafult4355543 - Denied
+2026-06-16 00:05:33,280 [Admin] [table-remove-row-user] deafult4355543 - Denied
+2026-06-16 00:05:44,514 [Server Admin] [table-settings] v_500 - Allowed
+2026-06-16 00:05:54,853 [Admin] [server-settings] v_500 - Allowed
+2026-06-16 00:16:07,825 Shard ID None has successfully RESUMED session ad9af0feaf8ba536e68b0b0b3b07f485.
+2026-06-16 00:17:00,171 davey is not installed, voice will NOT be supported
+2026-06-16 00:17:00,171 logging in using static token
+2026-06-16 00:18:01,159 Shard ID None has connected to Gateway (Session ID: 3e10cf5a5c5a34a82edcdd59de4a1aa0).
+2026-06-16 00:20:02,515 [Admin] [server-settings] v_500 - Allowed
+2026-06-16 00:20:02,902 Ignoring exception in command 'server-settings'
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 858, in _do_call
+    return await self._callback(self.binding, interaction, **params)  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victor/Documents/Data-Base/cogs/server_settings.py", line 77, in server_settings
+    await self._server_settings_logic(interaction)
+  File "/Users/victor/Documents/Data-Base/cogs/server_settings.py", line 97, in _server_settings_logic
+    view = PageView(
+        embeds=embeds,
+    ...<7 lines>...
+        }
+    )
+  File "/Users/victor/Documents/Data-Base/utils.py", line 146, in __init__
+    self.update_page_components()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/Users/victor/Documents/Data-Base/utils.py", line 158, in update_page_components
+    new_item = factory()
+  File "/Users/victor/Documents/Data-Base/cogs/server_settings.py", line 101, in <lambda>
+    0: [lambda: SelectRoles_Menu(guild.roles, save_serveradmin_roles, ctx_or_interaction)],
+                ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: SelectRoles_Menu.__init__() takes 3 positional arguments but 4 were given
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/tree.py", line 1302, in _call
+    await command._invoke_with_namespace(interaction, namespace)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 884, in _invoke_with_namespace
+    return await self._do_call(interaction, transformed_values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 873, in _do_call
+    raise CommandInvokeError(self, e) from e
+discord.app_commands.errors.CommandInvokeError: Command 'server-settings' raised an exception: TypeError: SelectRoles_Menu.__init__() takes 3 positional arguments but 4 were given
+2026-06-16 00:23:23,119 davey is not installed, voice will NOT be supported
+2026-06-16 00:23:23,119 logging in using static token
+2026-06-16 00:24:23,967 Shard ID None has connected to Gateway (Session ID: 36c619942f7094777c2d76c01ca90163).
+2026-06-16 00:25:24,573 [Admin] [server-settings] v_500 - Allowed
+2026-06-16 00:25:25,108 Ignoring exception in command 'server-settings'
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 858, in _do_call
+    return await self._callback(self.binding, interaction, **params)  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victor/Documents/Data-Base/cogs/server_settings.py", line 77, in server_settings
+    await self._server_settings_logic(interaction)
+  File "/Users/victor/Documents/Data-Base/cogs/server_settings.py", line 97, in _server_settings_logic
+    view = PageView(
+        embeds=embeds,
+    ...<7 lines>...
+        }
+    )
+  File "/Users/victor/Documents/Data-Base/utils.py", line 146, in __init__
+    self.update_page_components()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/Users/victor/Documents/Data-Base/utils.py", line 158, in update_page_components
+    new_item = factory()
+  File "/Users/victor/Documents/Data-Base/cogs/server_settings.py", line 101, in <lambda>
+    0: [lambda: SelectRoles_Menu(guild.roles, save_serveradmin_roles, ctx_or_interaction)],
+                ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: SelectRoles_Menu.__init__() takes 3 positional arguments but 4 were given
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/tree.py", line 1302, in _call
+    await command._invoke_with_namespace(interaction, namespace)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 884, in _invoke_with_namespace
+    return await self._do_call(interaction, transformed_values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 873, in _do_call
+    raise CommandInvokeError(self, e) from e
+discord.app_commands.errors.CommandInvokeError: Command 'server-settings' raised an exception: TypeError: SelectRoles_Menu.__init__() takes 3 positional arguments but 4 were given
+2026-06-16 00:30:41,241 davey is not installed, voice will NOT be supported
+2026-06-16 00:30:41,241 logging in using static token
+2026-06-16 00:31:42,150 Shard ID None has connected to Gateway (Session ID: 0ffafb0b8c411409122a767c926bd4f7).
+2026-06-16 00:32:31,117 [Admin] [server-settings] v_500 - Allowed
+2026-06-16 00:32:31,443 Ignoring exception in command 'server-settings'
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 858, in _do_call
+    return await self._callback(self.binding, interaction, **params)  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victor/Documents/Data-Base/cogs/server_settings.py", line 56, in server_settings
+    await self._server_settings_logic(interaction)
+  File "/Users/victor/Documents/Data-Base/cogs/server_settings.py", line 76, in _server_settings_logic
+    view = PageView(
+        embeds=embeds,
+    ...<7 lines>...
+        }
+    )
+  File "/Users/victor/Documents/Data-Base/utils.py", line 146, in __init__
+    self.update_page_components()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/Users/victor/Documents/Data-Base/utils.py", line 158, in update_page_components
+    new_item = factory()
+  File "/Users/victor/Documents/Data-Base/cogs/server_settings.py", line 80, in <lambda>
+    0: [lambda: SelectRoles_Menu(guild.roles, save_serveradmin_roles, ctx_or_interaction)],
+                ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: SelectRoles_Menu.__init__() takes 3 positional arguments but 4 were given
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/tree.py", line 1302, in _call
+    await command._invoke_with_namespace(interaction, namespace)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 884, in _invoke_with_namespace
+    return await self._do_call(interaction, transformed_values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 873, in _do_call
+    raise CommandInvokeError(self, e) from e
+discord.app_commands.errors.CommandInvokeError: Command 'server-settings' raised an exception: TypeError: SelectRoles_Menu.__init__() takes 3 positional arguments but 4 were given
+2026-06-16 00:39:33,317 Shard ID None session has been invalidated.
+2026-06-16 00:39:38,786 Shard ID None has connected to Gateway (Session ID: cbac03d65356a7df7b5af72815cc7f1f).
+2026-06-16 00:41:36,753 davey is not installed, voice will NOT be supported
+2026-06-16 00:41:36,754 logging in using static token
+2026-06-16 00:42:37,696 Shard ID None has connected to Gateway (Session ID: 5d2c2c6bd058aa34b7f935237b87730e).
+2026-06-16 00:42:59,059 [Admin] [server-settings] v_500 - Allowed
+2026-06-16 00:46:38,450 davey is not installed, voice will NOT be supported
+2026-06-16 00:46:38,450 logging in using static token
+2026-06-16 00:47:40,403 Shard ID None has connected to Gateway (Session ID: a78c6f5e6259db53c640fd50ae145f1c).
+2026-06-16 00:48:22,390 [Admin] [server-settings] v_500 - Allowed
+2026-06-16 00:49:01,418 davey is not installed, voice will NOT be supported
+2026-06-16 00:49:01,419 logging in using static token
+2026-06-16 00:50:02,292 Shard ID None has connected to Gateway (Session ID: ac191350dff9ff49c63a41b7eaa50917).
+2026-06-16 00:50:19,458 [Admin] [server-settings] v_500 - Allowed
+2026-06-16 00:50:42,471 [Admin] [server-settings] v_500 - Allowed
+2026-06-16 00:50:49,571 [Admin] [server-settings] v_500 - Allowed
+2026-06-16 00:50:57,061 [Server Admin] [table-settings] v_500 - Allowed
+2026-06-16 00:51:14,161 davey is not installed, voice will NOT be supported
+2026-06-16 00:51:14,161 logging in using static token
+2026-06-16 00:52:14,986 Shard ID None has connected to Gateway (Session ID: 5be19d2e05acbed007149e92fa9a0ac2).
+2026-06-16 00:53:17,575 [Admin] [server-settings] v_500 - Allowed
+2026-06-16 00:56:25,323 davey is not installed, voice will NOT be supported
+2026-06-16 00:56:25,323 logging in using static token
+2026-06-16 00:56:35,179 davey is not installed, voice will NOT be supported
+2026-06-16 00:56:35,180 logging in using static token
+2026-06-16 00:56:35,639 We are being rate limited. PUT https://discord.com/api/v10/applications/1511396343682302122/guilds/1324223207536070697/commands responded with 429. Retrying in 20.14 seconds.
+2026-06-16 00:57:56,458 Shard ID None has connected to Gateway (Session ID: 2e82916d427413a7f54e3984600773f4).
+2026-06-16 00:58:09,184 [Admin] [server-settings] v_500 - Allowed
+2026-06-16 00:58:19,407 davey is not installed, voice will NOT be supported
+2026-06-16 00:58:19,407 logging in using static token
+2026-06-16 00:58:56,511 Shard ID None has connected to Gateway (Session ID: 056d8e39e1eb89a7f3b6066aefc666c8).
+2026-06-16 00:59:30,010 [Admin] [server-settings] v_500 - Allowed
+2026-06-16 01:00:29,744 davey is not installed, voice will NOT be supported
+2026-06-16 01:00:29,744 logging in using static token
+2026-06-16 01:01:30,773 Shard ID None has connected to Gateway (Session ID: 5b8671760c682a62cd884cd2f75e0c4f).
+2026-06-16 01:01:34,745 [Admin] [server-settings] v_500 - Allowed
+2026-06-16 01:01:53,334 [Server Admin] [table-settings] v_500 - Allowed
+2026-06-16 01:02:11,327 [Server Admin] [table-create] deafult4355543 - Denied
+2026-06-16 01:02:23,679 [Server Admin] [table-delete] deafult4355543 - Allowed
+2026-06-16 01:02:50,063 [Server Admin] [table-delete] deafult4355543 - Denied
+2026-06-16 01:02:54,217 [NONE] [ping] deafult4355543 - Allowed
+2026-06-16 01:03:07,740 [Server Admin] [table-create] v_500 - Allowed
+2026-06-16 01:03:16,069 [User] [table-view] v_500 - Allowed
+2026-06-16 01:03:20,581 [Server Admin] [table-settings] v_500 - Allowed
+2026-06-16 01:03:36,401 [User] [table-add-row-request] v_500 - Allowed
+2026-06-16 01:03:51,666 [Admin] [table-add-row-user] v_500 - Allowed
+2026-06-16 01:04:06,236 [User] [table-view] v_500 - Allowed
+2026-06-16 01:04:14,959 [Manager] [table-view-user] v_500 - Allowed
+2026-06-16 01:04:21,930 [Manager] [table-view-full] v_500 - Allowed
+2026-06-16 01:05:18,306 [Admin] [table-add-row-user] deafult4355543 - Allowed
+2026-06-16 01:05:34,159 [Manager] [table-view-user] deafult4355543 - Allowed
+2026-06-16 01:05:46,194 Ignoring exception in command table-view-user
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/ext/commands/bot.py", line 1376, in invoke
+    await ctx.command.invoke(ctx)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/ext/commands/core.py", line 1056, in invoke
+    await self.prepare(ctx)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/ext/commands/core.py", line 973, in prepare
+    await self._parse_arguments(ctx)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/ext/commands/core.py", line 880, in _parse_arguments
+    transformed = await self.transform(ctx, param, attachments)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/ext/commands/core.py", line 732, in transform
+    raise MissingRequiredArgument(param)
+discord.ext.commands.errors.MissingRequiredArgument: user is a required argument that is missing.
+2026-06-16 01:05:54,050 [Manager] [table-view-user] deafult4355543 - Allowed
+2026-06-16 01:06:16,528 Ignoring exception in command table-remove-row-user
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/ext/commands/bot.py", line 1376, in invoke
+    await ctx.command.invoke(ctx)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/ext/commands/core.py", line 1056, in invoke
+    await self.prepare(ctx)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/ext/commands/core.py", line 973, in prepare
+    await self._parse_arguments(ctx)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/ext/commands/core.py", line 880, in _parse_arguments
+    transformed = await self.transform(ctx, param, attachments)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/ext/commands/core.py", line 732, in transform
+    raise MissingRequiredArgument(param)
+discord.ext.commands.errors.MissingRequiredArgument: user is a required argument that is missing.
+2026-06-16 01:06:19,967 [Admin] [table-remove-row-user] deafult4355543 - Allowed
+2026-06-16 01:06:28,610 [Admin] [table-remove-row-user] deafult4355543 - Allowed
+2026-06-16 01:06:32,720 [NONE] [ping] deafult4355543 - Allowed
+2026-06-16 01:06:42,020 Ignoring exception in command None
+discord.ext.commands.errors.CommandNotFound: Command "add-row-user" is not found
+2026-06-16 01:06:53,674 [Admin] [table-add-row-user] deafult4355543 - Allowed
+2026-06-16 01:07:02,733 [Manager] [table-view-user] deafult4355543 - Allowed
+2026-06-16 01:07:21,136 [Server Admin] [table-settings] deafult4355543 - Denied
+2026-06-16 01:07:28,661 [Server Admin] [table-settings] v_500 - Allowed
+2026-06-16 01:07:39,173 [Admin] [server-settings] v_500 - Allowed
+2026-06-16 01:07:54,086 [Admin] [server-settings] deafult4355543 - Allowed
+2026-06-16 01:08:32,694 [Server Admin] [table-settings] v_500 - Allowed
+2026-06-16 01:08:39,898 [Server Admin] [table-settings] deafult4355543 - Denied

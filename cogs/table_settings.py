@@ -2,7 +2,7 @@ import discord
 from discord.ext import commands
 from discord import app_commands
 import config
-from config import GUILD_ID, CHECK, ADMIN, USER, MANAGER, ERROR, CommandType
+from config import GUILD_ID, CHECK, ADMIN, USER, MANAGER, PERMISSON, CommandType
 from utils import verifyCommandPermissions, PageView, SelectRoles_Menu, SelectChannels_Menu, save_settings, table_name_autocomplete
 
 
@@ -17,20 +17,20 @@ class AddColumn_Input(discord.ui.Modal, title="Add Column"):
     def __init__(self, table: dict):
         super().__init__()
         self.table = table
-    
+
     async def on_submit(self, interaction: discord.Interaction):
         name = self.column_name.value
         for n in self.table["column_names"]:
             if n == name:
-                 await interaction.response.send_message(
-                f"{ERROR} ``Column`` ``{name}`` ``already exists.``", ephemeral=True
+                await interaction.response.send_message(
+                    f"{PERMISSON} ``Column`` ``{name}`` ``already exists.``", ephemeral=True
                 )
-                 return
-        custom_column_count = len(self.table["column_names"]) - 2  # excluding User, Timestamp
+                return
+        custom_column_count = len(self.table["column_names"]) - 2
         if custom_column_count >= 20:
             await interaction.response.send_message(
-            f"{ERROR} ``Tables are limited to 20 custom columns.``", ephemeral=True
-        )
+                f"{PERMISSON} ``Tables are limited to 20 custom columns.``", ephemeral=True
+            )
             return
         self.table["columns"] += 1
         self.table["column_names"].append(name)
@@ -42,12 +42,57 @@ class AddColumn_Input(discord.ui.Modal, title="Add Column"):
         )
 
 
-class AddColumn(discord.ui.Button):
+class RenameTable_Input(discord.ui.Modal, title="Rename Table"):
+    new_name = discord.ui.TextInput(
+        label="Enter a new name for the table",
+        placeholder="Type here...",
+        required=True,
+        max_length=50
+    )
+
     def __init__(self, table: dict):
-        super().__init__(label="Add Column", style=discord.ButtonStyle.green)
+        super().__init__()
         self.table = table
 
+    async def on_submit(self, interaction: discord.Interaction):
+        name = self.new_name.value.strip()
+
+        if any(t["name"] == name for t in config.ALL_TABLES if t is not self.table):
+            await interaction.response.send_message(
+                f"{PERMISSON} ``A table named`` ``{name}`` ``already exists.``", ephemeral=True
+            )
+            return
+
+        self.table["name"] = name
+        save_settings()
+        await interaction.response.send_message(
+            f"{CHECK} ``Table renamed to`` ``{name}``.", ephemeral=True
+        )
+
+
+class RenameTable(discord.ui.Button):
+    def __init__(self, table: dict, ctx_or_interaction):
+        super().__init__(label="Rename Table", style=discord.ButtonStyle.blurple)
+        self.table = table
+        self.allowed_user = ctx_or_interaction.user if isinstance(ctx_or_interaction, discord.Interaction) else ctx_or_interaction.author
+
     async def callback(self, interaction: discord.Interaction):
+        if interaction.user != self.allowed_user:
+            await interaction.response.send_message(f"{PERMISSON} ``You did not invoke this command.``", ephemeral=True)
+            return
+        await interaction.response.send_modal(RenameTable_Input(self.table))
+
+
+class AddColumn(discord.ui.Button):
+    def __init__(self, table: dict, ctx_or_interaction):
+        super().__init__(label="Add Column", style=discord.ButtonStyle.green)
+        self.table = table
+        self.allowed_user = ctx_or_interaction.user if isinstance(ctx_or_interaction, discord.Interaction) else ctx_or_interaction.author
+
+    async def callback(self, interaction: discord.Interaction):
+        if interaction.user != self.allowed_user:
+            await interaction.response.send_message(f"{PERMISSON} ``You did not invoke this command.``", ephemeral=True)
+            return
         await interaction.response.send_modal(AddColumn_Input(self.table))
 
 
@@ -58,29 +103,27 @@ class RemoveColumn_Input(discord.ui.Modal, title="Remove Column"):
         required=True,
         max_length=50
     )
-    
 
     def __init__(self, table: dict):
         super().__init__()
         self.table = table
 
     async def on_submit(self, interaction: discord.Interaction):
-        name = self.column_name.value 
+        name = self.column_name.value
 
         if name in ("User", "Timestamp") and self.table["column_names"][:2] == ["User", "Timestamp"]:
             await interaction.response.send_message(
-                f"{ERROR} ``The`` ``{name}`` ``column cannot be removed.``", ephemeral=True
+                f"{PERMISSON} ``The`` ``{name}`` ``column cannot be removed.``", ephemeral=True
             )
             return
-
 
         try:
             index = self.table["column_names"].index(name)
         except ValueError:
             await interaction.response.send_message(
-                f"{ERROR} ``Column`` ``{name}`` ``not found.``", ephemeral=True
+                f"{PERMISSON} ``Column`` ``{name}`` ``not found.``", ephemeral=True
             )
-            return  
+            return
 
         self.table["columns"] -= 1
         self.table["column_names"].pop(index)
@@ -94,12 +137,17 @@ class RemoveColumn_Input(discord.ui.Modal, title="Remove Column"):
 
 
 class RemoveColumn(discord.ui.Button):
-    def __init__(self, table: dict):
+    def __init__(self, table: dict, ctx_or_interaction):
         super().__init__(label="Remove Column", style=discord.ButtonStyle.red)
         self.table = table
+        self.allowed_user = ctx_or_interaction.user if isinstance(ctx_or_interaction, discord.Interaction) else ctx_or_interaction.author
 
     async def callback(self, interaction: discord.Interaction):
+        if interaction.user != self.allowed_user:
+            await interaction.response.send_message(f"{PERMISSON} ``You did not invoke this command.``", ephemeral=True)
+            return
         await interaction.response.send_modal(RemoveColumn_Input(self.table))
+
 
 async def save_tablemember_roles(interaction, roles, table: dict):
     table["member_role_ids"] = [r.id for r in roles]
@@ -107,18 +155,24 @@ async def save_tablemember_roles(interaction, roles, table: dict):
     await interaction.response.send_message(
         f"{CHECK} ``Saved member roles:`` {', '.join(r.name for r in roles)}", ephemeral=True
     )
+
+
 async def save_tablemanager_roles(interaction, roles, table: dict):
     table["manager_role_ids"] = [r.id for r in roles]
     save_settings()
     await interaction.response.send_message(
         f"{CHECK} ``Saved manager roles:`` {', '.join(r.name for r in roles)}", ephemeral=True
     )
+
+
 async def save_tableadmin_roles(interaction, roles, table: dict):
     table["admin_role_ids"] = [r.id for r in roles]
     save_settings()
     await interaction.response.send_message(
         f"{CHECK} ``Saved admin roles:`` {', '.join(r.name for r in roles)}", ephemeral=True
     )
+
+
 async def save_requestchannel_id(interaction, channels, table: dict):
     if not channels: return
     config.TABLE_REQUEST_CHANNEL_ID = channels[0].id
@@ -145,7 +199,7 @@ class Table_Settings(commands.Cog):
 
         table = next((t for t in config.ALL_TABLES if t["name"] == table_name), None)
         if table is None:
-            msg = f"{ERROR} ``Table`` ``{table_name}`` ``not found.``"
+            msg = f"{PERMISSON} ``Table`` ``{table_name}`` ``not found.``"
             if isinstance(ctx_or_interaction, discord.Interaction):
                 await ctx_or_interaction.response.send_message(msg, ephemeral=True)
             else:
@@ -153,6 +207,10 @@ class Table_Settings(commands.Cog):
             return
 
         embeds = [
+            discord.Embed(                                                       
+                title=f"Table {table_name} Settings - Rename Table",
+                description="Rename this table. The new name must be unique across all tables."
+            ),
             discord.Embed(
                 title=f"Table {table_name} Settings - Manage Columns",
                 description="Manage the columns within the table. At least one column is required."
@@ -177,11 +235,12 @@ class Table_Settings(commands.Cog):
             embeds=embeds,
             ctx_or_interaction=ctx_or_interaction,
             page_menus={
-                0: [lambda: AddColumn(table), lambda: RemoveColumn(table)],
-                1: [lambda: SelectRoles_Menu(guild.roles, lambda i, r: save_tablemember_roles(i, r, table))],
-                2: [lambda: SelectRoles_Menu(guild.roles, lambda i, r: save_tablemanager_roles(i, r, table))],
-                3: [lambda: SelectRoles_Menu(guild.roles, lambda i, r: save_tableadmin_roles(i, r, table))],
-                4: [lambda: SelectChannels_Menu(guild.channels, lambda i, r: save_requestchannel_id(i, r, table))],
+                0: [lambda: RenameTable(table, ctx_or_interaction)],
+                1: [lambda: AddColumn(table, ctx_or_interaction), lambda: RemoveColumn(table, ctx_or_interaction)],
+                2: [lambda: SelectRoles_Menu(guild.roles, lambda i, r: save_tablemember_roles(i, r, table),ctx_or_interaction)],
+                3: [lambda: SelectRoles_Menu(guild.roles, lambda i, r: save_tablemanager_roles(i, r, table), ctx_or_interaction)],
+                4: [lambda: SelectRoles_Menu(guild.roles, lambda i, r: save_tableadmin_roles(i, r, table), ctx_or_interaction)],
+                5: [lambda: SelectChannels_Menu(guild.channels, lambda i, r: save_requestchannel_id(i, r, table), ctx_or_interaction)],
             }
         )
 

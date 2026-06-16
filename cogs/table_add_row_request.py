@@ -39,11 +39,7 @@ class AddRequest(discord.ui.View):
         return embed
     @discord.ui.button(label="Accept", style=discord.ButtonStyle.grey, emoji=f"{CHECK}")
     async def accept(self, interaction: discord.Interaction, button: discord.ui.Button):
-        if not await verifyCommandPermissions(interaction, CommandType.MANAGER):
-            return
 
-        # Re-check for an existing row at accept time, in case data changed
-        # since the request was submitted
         current_index = next(
             (i for i, r in enumerate(self.table["data"]) if r[0] == self.new_row[0]),
             None
@@ -71,8 +67,7 @@ class AddRequest(discord.ui.View):
     
     @discord.ui.button(label="Reject", style=discord.ButtonStyle.gray, emoji=f"{X}")
     async def reject(self, interaction: discord.Interaction, button: discord.ui.Button):
-        if not await verifyCommandPermissions(interaction, CommandType.MANAGER):
-            return
+
 
         for child in self.children:
             child.disabled = True
@@ -139,40 +134,63 @@ class AddRow_Input(discord.ui.Modal, title="Add/Update Row"):
         )
 
 class Table_Add_Row_Request(commands.Cog):
-    def __init__(self, bot):
+  def __init__(self, bot):
         self.bot = bot
 
-    @app_commands.command(name="table-add-row-request", description="Create a request to add or update your row in the table. ")
-    @app_commands.autocomplete(name=table_name_autocomplete)
-    async def table_add_row_request(self, interaction: discord.Interaction, name: str):
-        if not await verifyCommandPermissions(interaction, CommandType.USER):
-            return
+  @app_commands.command(name="table-add-row-request", description="Create a request to add or update your row in the table. ")
+  @app_commands.autocomplete(name=table_name_autocomplete)
+  async def table_add_row_request(self, interaction: discord.Interaction, name: str):
+    if not await verifyCommandPermissions(interaction, CommandType.USER):
+        return
 
-        table = next((t for t in config.ALL_TABLES if t["name"] == name), None)
-        if table is None:
-            await interaction.response.send_message(
-                f"{ERROR} ``Table`` ``{name}`` ``not found.``", ephemeral=True
-            )
-            return
-
-        if len(table["column_names"]) - 2 > 20:
-            await interaction.response.send_message(
-                f"{ERROR} ``This table has too many custom columns to add a row via this command "
-                f"(max 20 supported).``",
-                ephemeral=True
-            )
-            return
-
-        existing_index = next(
-            (i for i, r in enumerate(table["data"]) if r[0] == interaction.user.mention),
-            None
+    table = next((t for t in config.ALL_TABLES if t["name"] == name), None)
+    if table is None:
+        await interaction.response.send_message(
+            f"{ERROR} ``Table`` ``{name}`` ``not found.``", ephemeral=True
         )
+        return
 
-        await interaction.response.send_modal(AddRow_Input(table, existing_index))
+    if len(table["column_names"]) - 2 == 0:
+        await interaction.response.send_message(
+            f"{ERROR} ``This table has no columns.``",
+            ephemeral=True
+        )
+        return
+
+    if len(table["column_names"]) - 2 > 20:
+        await interaction.response.send_message(
+            f"{ERROR} ``This table has too many columns to add a row via this command "
+            f"(max 20 supported).``",
+            ephemeral=True
+        )
+        return
+
+    existing_index = next(
+        (i for i, r in enumerate(table["data"]) if r[0] == interaction.user.mention),
+        None
+    )
+
+    await interaction.response.send_modal(AddRow_Input(table, existing_index))
 
     @commands.command(name="table-add-row-request")
     async def table_add_row_prefix_request(self, ctx, name: str, *values: str):
         if not await verifyCommandPermissions(ctx, CommandType.USER):
+            return
+
+        table = next((t for t in config.ALL_TABLES if t["name"] == name), None)
+        if table is None:
+            await ctx.send(f"{ERROR} ``Table``  ``{name}`` ``not found.``")
+            return
+
+        if len(table["column_names"]) - 2 == 0:
+            await ctx.send(f"{ERROR} ``This table has no columns.``")
+            return
+
+        if len(table["column_names"]) - 2 > 20:
+            await ctx.send(
+                f"{ERROR} ``This table has too many columns to add a row via this command "
+                f"(max 20 supported).``"
+            )
             return
 
         table = next((t for t in config.ALL_TABLES if t["name"] == name), None)

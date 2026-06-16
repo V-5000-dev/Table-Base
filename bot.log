@@ -140,3 +140,21 @@ TypeError: SelectChannels_Menu.__init__() takes 3 positional arguments but 4 wer
 2026-06-16 13:36:28,361 Shard ID None has connected to Gateway (Session ID: e6b0984b793daf5eb4aa7aa9801df7bb).
 2026-06-16 13:36:38,910 [User] [table-add-row-request] v_500 - Allowed
 2026-06-16 13:36:47,603 [Admin] [table-add-row-user] v_500 - Allowed
+2026-06-16 19:52:44,146 davey is not installed, voice will NOT be supported
+2026-06-16 19:52:44,147 logging in using static token
+2026-06-16 19:52:45,183 Shard ID None has connected to Gateway (Session ID: 0e916b851245c46cc7fc4002a585ff33).
+2026-06-16 19:52:52,463 [User] [table-add-row-request] v_500 - Allowed
+2026-06-16 19:53:23,595 Ignoring exception in autocomplete for 'table-view-user' (Guild: 1189678601205973002, User: 1057431766568284360)
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/tree.py", line 1289, in _call
+    await command._invoke_autocomplete(interaction, focused, namespace)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/commands.py", line 928, in _invoke_autocomplete
+    await interaction.response.autocomplete(choices)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/interactions.py", line 1359, in autocomplete
+    await adapter.create_interaction_response(
+    ...<6 lines>...
+    )
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/webhook/async_.py", line 226, in request
+    raise HTTPException(response, data)
+discord.errors.HTTPException: 400 Bad Request (error code: 40060): Interaction has already been acknowledged.
+2026-06-16 19:53:37,341 [Manager] [table-view-user] v_500 - Allowed

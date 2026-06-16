@@ -33,11 +33,12 @@ class AddRequest(discord.ui.View):
             else:
                 if new_val == "None":
                     continue
-            old_display = str(old_val) if old_val is not None else "None"
-            value = f"{old_display} → {new_val}"
+                old_display = str(old_val) if old_val is not None else "None"
+                value = f"{old_display} → {new_val}"
+
+            embed.add_field(name=col, value=value, inline=False)
 
         return embed
-
     def build_ping_content(self):
         if not self.table.get("ping_managers", False):
             return None
@@ -127,7 +128,13 @@ class AddRow_Input(discord.ui.Modal, title="Add/Update Row"):
         view = AddRequest(self.table, self.existing_index, interaction.user, new_row)
         embed = view.build_embed()
         content = view.build_ping_content()
-
+        if self.existing_index is not None:
+            existing_row = self.table["data"][self.existing_index]
+            if new_row[2:] == existing_row[2:]:
+                await interaction.response.send_message(
+                f"{ERROR} ``No changes were made, request cancelled.``", ephemeral=True
+                )
+            return
         review_channel = interaction.client.get_channel(config.TABLE_REQUEST_CHANNEL_ID)
         if review_channel is None:
             await interaction.response.send_message(

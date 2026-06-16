@@ -20,6 +20,11 @@ class Table_Create(commands.Cog):
                 f"{ERROR} ``A table with the name`` ``{name}`` ``already exists.``", ephemeral=True
             )
             return
+        if len(config.ALL_TABLES) >= 20:
+            await interaction.response.send_message(
+                f"{ERROR} ``The maximum of 20 tables has been reached.``", ephemeral=True
+            )
+            return
 
         table = {
             "name": name,
@@ -43,6 +48,11 @@ class Table_Create(commands.Cog):
 
         if any(t["name"] == name for t in config.ALL_TABLES):
             await ctx.send(f"{ERROR} ``A table with the name`` ``{name}`` ``already exists.``")
+            return
+        if len(config.ALL_TABLES) >= 20:
+            await ctx.response.send_message(
+                f"{ERROR} ``The maximum of 20 tables has been reached.``", ephemeral=True
+            )
             return
 
         table = {

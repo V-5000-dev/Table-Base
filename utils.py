@@ -217,31 +217,24 @@ class SelectChannels_Menu(discord.ui.ChannelSelect):
 
 
 class SelectRolesView(discord.ui.View):
-    def __init__(self, roles, on_submit, ctx_or_interaction):
+    def __init__(self, on_submit, ctx_or_interaction):
         super().__init__(timeout=300)
-        self.add_item(SelectRoles_Menu(roles, on_submit, ctx_or_interaction))
+        self.add_item(SelectRoles_Menu(on_submit, ctx_or_interaction))
 
 
-class SelectRoles_Menu(discord.ui.Select):
-    def __init__(self, roles, on_submit, ctx_or_interaction):
+class SelectRoles_Menu(discord.ui.RoleSelect):
+    def __init__(self, on_submit, ctx_or_interaction):
+        super().__init__(
+            placeholder="Select roles...",
+            min_values=1,
+            max_values=25
+        )
+
         self.on_submit = on_submit
-
         self.allowed_user = (
             ctx_or_interaction.user
             if isinstance(ctx_or_interaction, discord.Interaction)
             else ctx_or_interaction.author
-        )
-
-        options = [
-            discord.SelectOption(label=r.name, value=str(r.id))
-            for r in roles[:25]
-        ]
-
-        super().__init__(
-            placeholder="Select roles...",
-            min_values=1,
-            max_values=len(options),
-            options=options
         )
 
     async def callback(self, interaction: discord.Interaction):
@@ -252,15 +245,7 @@ class SelectRoles_Menu(discord.ui.Select):
             )
             return
 
-        selected = [
-            interaction.guild.get_role(int(v))
-            for v in self.values
-        ]
-
-        await self.on_submit(
-            interaction,
-            [r for r in selected if r]
-        )
+        await self.on_submit(interaction, self.values)
 
 async def table_name_autocomplete(interaction: discord.Interaction, current: str):
     return [

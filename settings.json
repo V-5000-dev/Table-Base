@@ -8,23 +8,6 @@
     "USER_LOG_CHANNEL": 0,
     "MANAGER_LOG_CHANNEL": 0,
     "ADMIN_LOG_CHANNEL": 0,
-    "ALL_TABLES": [
-        {
-            "name": "Table",
-            "rows": 0,
-            "columns": 3,
-            "column_names": [
-                "User",
-                "Ts",
-                "."
-            ],
-            "member_role_ids": [],
-            "ping_managers": false,
-            "data": [],
-            "manager_role_ids": [
-                1324223288444059728
-            ]
-        }
-    ],
-    "COMMAND_PREFIX": "t! "
+    "ALL_TABLES": [],
+    "COMMAND_PREFIX": "t!"
 }

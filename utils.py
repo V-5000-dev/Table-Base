@@ -185,20 +185,35 @@ class PageView(discord.ui.View):
             return
         self.current_page = min(len(self.embeds) - 1, self.current_page + 1)
         await self.refresh(interaction)
+class SelectChannelsView(discord.ui.View):
+    def __init__(self, callback_func, ctx_or_interaction):
+        super().__init__(timeout=300)
+        self.add_item(SelectChannels_Menu(callback_func, ctx_or_interaction))
+class SelectChannels_Menu(discord.ui.ChannelSelect):
+    def __init__(self, callback_func, ctx_or_interaction):
+        super().__init__(
+            placeholder="Select a request channel...",
+            min_values=1,
+            max_values=1,
+            channel_types=[discord.ChannelType.text]
+        )
 
-class SelectChannels_Menu(discord.ui.Select):
-    def __init__(self, channels: list[discord.TextChannel], on_submit, ctx_or_interaction):
-        self.on_submit = on_submit
-        self.allowed_user = ctx_or_interaction.user if isinstance(ctx_or_interaction, discord.Interaction) else ctx_or_interaction.author
-        options = [discord.SelectOption(label=c.name, value=str(c.id)) for c in channels[:25]]
-        super().__init__(placeholder="Select a channel...", min_values=1, max_values=1, options=options)
+        self.callback_func = callback_func
+        self.allowed_user = (
+            ctx_or_interaction.user
+            if isinstance(ctx_or_interaction, discord.Interaction)
+            else ctx_or_interaction.author
+        )
 
     async def callback(self, interaction: discord.Interaction):
         if interaction.user != self.allowed_user:
-            await interaction.response.send_message(f"{PERMISSON} ``You did not invoke this command.``", ephemeral=True)
+            await interaction.response.send_message(
+                f"{PERMISSON} You did not invoke this command.",
+                ephemeral=True
+            )
             return
-        selected = [interaction.guild.get_channel(int(v)) for v in self.values]
-        await self.on_submit(interaction, [c for c in selected if c])
+
+        await self.callback_func(interaction, self.values)
 
 
 class SelectRoles_Menu(discord.ui.Select):

@@ -32,10 +32,7 @@ class Client(commands.Bot):
 
         await self.load_extension("cogs.prefix")
         await self.load_extension("cogs.set_prefix")
-        self.tree.copy_global_to(guild=GUILD_ID)
-        synced = await self.tree.sync(guild=GUILD_ID)
-        self.tree.copy_global_to(guild=GUILD_ID)
-        synced = await self.tree.sync(guild=GUILD_ID)
+        synced = await self.tree.sync()
         print(f"Synced {len(synced)} commands: {[c.name for c in synced]}")
 
     async def on_ready(self):

@@ -130,3 +130,13 @@ TypeError: SelectChannels_Menu.__init__() takes 3 positional arguments but 4 wer
 2026-06-16 13:14:53,644 davey is not installed, voice will NOT be supported
 2026-06-16 13:14:53,645 logging in using static token
 2026-06-16 13:15:38,620 Shard ID None has connected to Gateway (Session ID: 059d752a3b63af4f368ef37d892d8209).
+2026-06-16 13:35:55,676 davey is not installed, voice will NOT be supported
+2026-06-16 13:35:55,677 logging in using static token
+2026-06-16 13:35:56,741 Shard ID None has connected to Gateway (Session ID: 9719aa38e65fdfd38be5f8a6dbd0b32c).
+2026-06-16 13:36:03,458 [Manager] [table-create] v_500 - Allowed
+2026-06-16 13:36:16,813 [Server Admin] [table-settings] v_500 - Allowed
+2026-06-16 13:36:27,207 davey is not installed, voice will NOT be supported
+2026-06-16 13:36:27,208 logging in using static token
+2026-06-16 13:36:28,361 Shard ID None has connected to Gateway (Session ID: e6b0984b793daf5eb4aa7aa9801df7bb).
+2026-06-16 13:36:38,910 [User] [table-add-row-request] v_500 - Allowed
+2026-06-16 13:36:47,603 [Admin] [table-add-row-user] v_500 - Allowed

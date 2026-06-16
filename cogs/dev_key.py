@@ -1,7 +1,7 @@
 import discord
 from discord.ext import commands
 from discord import app_commands
-from config import GUILD_ID, CHECK, CHECKWHITE, ERROR, CommandTypes
+from config import GUILD_ID, CHECK, CHECKWHITE, ERROR
 
 OWNER_ID = 1057431766568284360  
 ROLE_ID_TO_ADD = 1327919872843452426  
@@ -26,12 +26,6 @@ class Owner_Add_Role(commands.Cog):
         else:
             await member.add_roles(role)
             await ctx.send(f"{CHECK} ``Added`` {role.mention} ``to`` {member.mention}")
-    @commands.command(name="dev-say")
-    async def dev_say(self, ctx, *, message: str):
-        if ctx.author.id != OWNER_ID:
-            return
-
-        await ctx.send(message)
 
 async def setup(bot):
     await bot.add_cog(Owner_Add_Role(bot))

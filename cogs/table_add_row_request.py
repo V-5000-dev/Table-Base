@@ -31,10 +31,10 @@ class AddRequest(discord.ui.View):
             if i < 2:
                 value = str(new_val)
             else:
-                old_display = str(old_val) if old_val is not None else "None"
-                value = f"{old_display} → {new_val}"
-
-            embed.add_field(name=col, value=value, inline=False)
+                if new_val == "None":
+                    continue
+            old_display = str(old_val) if old_val is not None else "None"
+            value = f"{old_display} → {new_val}"
 
         return embed
 
@@ -59,7 +59,7 @@ class AddRequest(discord.ui.View):
         if current_index is not None:
             existing_row = self.table["data"][current_index]
             final_row = [
-                existing_row[i] if val == "null" else val
+                existing_row[i] if val == "None" else val
                 for i, val in enumerate(self.new_row)
             ]
             self.table["data"][current_index] = final_row
@@ -97,12 +97,10 @@ class AddRow_Input(discord.ui.Modal, title="Add/Update Row"):
             default_value = None
             if existing_index is not None:
                 default_value = table["data"][existing_index][2 + i]
-                if default_value == "null":
-                    default_value = None
 
             text_input = discord.ui.TextInput(
                 label=col,
-                placeholder="Type here... (\"null\" keeps current value)",
+                placeholder="Type here... (leave it blank to keep current value)",
                 required=False,
                 max_length=200,
                 default=default_value
@@ -111,18 +109,18 @@ class AddRow_Input(discord.ui.Modal, title="Add/Update Row"):
             self.inputs.append(text_input)
 
     async def on_submit(self, interaction: discord.Interaction):
-        new_row = ["null" for _ in range(self.table["columns"])]
+        new_row = ["None" for _ in range(self.table["columns"])]
         new_row[0] = interaction.user.mention
         new_row[1] = discord.utils.format_dt(discord.utils.utcnow())
 
         for i, text_input in enumerate(self.inputs):
             value = text_input.value.strip()
 
-            if value.lower() == "null" or not value:
+            if value.lower() == "None" or not value:
                 if self.existing_index is not None:
                     new_row[2 + i] = self.table["data"][self.existing_index][2 + i]
                 else:
-                    new_row[2 + i] = "null"
+                    new_row[2 + i] = "None"
             else:
                 new_row[2 + i] = value
 
@@ -226,19 +224,19 @@ class Table_Add_Row_Request(commands.Cog):
             None
         )
 
-        new_row = ["null" for _ in range(table["columns"])]
+        new_row = ["None" for _ in range(table["columns"])]
         new_row[0] = ctx.author.mention
         new_row[1] = discord.utils.format_dt(discord.utils.utcnow())
 
         custom_columns = table["column_names"][2:]
         for i in range(len(custom_columns)):
-            value = values[i] if i < len(values) else "null"
+            value = values[i] if i < len(values) else "None"
 
-            if value.lower() == "null":
+            if value.lower() == "None":
                 if existing_index is not None:
                     new_row[2 + i] = table["data"][existing_index][2 + i]
                 else:
-                    new_row[2 + i] = "null"
+                    new_row[2 + i] = "None"
             else:
                 new_row[2 + i] = value
 

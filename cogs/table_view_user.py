@@ -57,11 +57,11 @@ class Table_View_User(commands.Cog):
 
         if view_raw:
             file = self.build_row_file(table, name, row)
-            await interaction.response.send_message(file=file, ephemeral=True)
+            await interaction.response.send_message(file=file)
             return
 
         embed = self.build_row_embed(table, name, row)
-        await interaction.response.send_message(embed=embed, ephemeral=True)
+        await interaction.response.send_message(embed=embed)
 
     @commands.command(name="table-view-user")
     async def table_view_row_prefix(self, ctx, name: str, user: str, view_raw: str = None):

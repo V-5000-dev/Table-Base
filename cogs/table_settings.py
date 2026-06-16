@@ -2,7 +2,7 @@ import discord
 from discord.ext import commands
 from discord import app_commands
 import config
-from config import GUILD_ID, CHECK, ADMIN, USER, MANAGER, PERMISSON, CommandType
+from config import GUILD_ID, CHECK, ADMIN, USER, MANAGER, PERMISSON, ERROR, CommandType
 from utils import verifyCommandPermissions, PageView, SelectRoles_Menu, SelectChannels_Menu, save_settings, table_name_autocomplete
 
 
@@ -218,7 +218,7 @@ class Table_Settings(commands.Cog):
 
         table = next((t for t in config.ALL_TABLES if t["name"] == table_name), None)
         if table is None:
-            msg = f"{PERMISSON} ``Table`` ``{table_name}`` ``not found.``"
+            msg = f"{ERROR} ``Table`` ``{table_name}`` ``not found.``"
             if isinstance(ctx_or_interaction, discord.Interaction):
                 await ctx_or_interaction.response.send_message(msg, ephemeral=True)
             else:

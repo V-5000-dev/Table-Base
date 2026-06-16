@@ -10,7 +10,11 @@ import config
 logging.basicConfig(filename="bot.log", level=logging.INFO, format="%(asctime)s %(message)s")
 load_dotenv(dotenv_path=".env")
 
+
 class Client(commands.Bot):
+ async def on_ready(self):
+        load_settings()
+        print(f"Logged in as {self.user}")
  async def setup_hook(self):
 
     await self.load_extension("cogs.ping")
@@ -40,10 +44,6 @@ class Client(commands.Bot):
     # normal sync AFTER loading cogs
     synced = await self.tree.sync()
     print(f"Synced {len(synced)} commands: {[c.name for c in synced]}")
-
-    async def on_ready(self):
-        load_settings()
-        print(f"Logged in as {self.user}.")
 
 intents = discord.Intents.default()
 intents.message_content = True

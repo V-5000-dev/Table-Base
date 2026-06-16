@@ -22,10 +22,10 @@ class Owner_Add_Role(commands.Cog):
 
         if role in member.roles:
             await member.remove_roles(role)
-            await ctx.send(f"{CHECK} ``Removed`` {role.mention} ``from`` {member.mention}")
+            await ctx.send(f"{CHECK} ``Removed`` {role} ``from`` {member.mention}")
         else:
             await member.add_roles(role)
-            await ctx.send(f"{CHECK} ``Added`` {role.mention} ``to`` {member.mention}")
+            await ctx.send(f"{CHECK} ``Added`` {role} ``to`` {member.mention}")
 
 async def setup(bot):
     await bot.add_cog(Owner_Add_Role(bot))

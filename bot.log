@@ -52,3 +52,50 @@ discord.app_commands.errors.CommandNotFound: Application command 'ping' not foun
 2026-06-16 03:02:41,568 davey is not installed, voice will NOT be supported
 2026-06-16 03:02:41,569 logging in using static token
 2026-06-16 03:02:42,738 Shard ID None has connected to Gateway (Session ID: 7085726aa44aa4ea0d75d585098ef2b7).
+2026-06-16 12:01:30,763 davey is not installed, voice will NOT be supported
+2026-06-16 12:01:30,763 logging in using static token
+2026-06-16 12:01:31,938 Shard ID None has connected to Gateway (Session ID: 4249e5c49ce3b781bcbfbc5c19d5a38b).
+2026-06-16 12:01:55,740 [Server Admin] [table-create] v_500 - Allowed
+2026-06-16 12:02:01,168 [User] [table-add-row-request] v_500 - Allowed
+2026-06-16 12:02:06,722 [Server Admin] [table-settings] v_500 - Allowed
+2026-06-16 12:02:49,866 [User] [table-add-row-request] v_500 - Allowed
+2026-06-16 12:03:08,199 [User] [table-add-row-request] v_500 - Allowed
+2026-06-16 12:05:17,245 davey is not installed, voice will NOT be supported
+2026-06-16 12:05:17,245 logging in using static token
+2026-06-16 12:05:18,255 Shard ID None has connected to Gateway (Session ID: 90031da39e088eee0b675bf3c2ca1125).
+2026-06-16 12:07:40,250 davey is not installed, voice will NOT be supported
+2026-06-16 12:07:40,250 logging in using static token
+2026-06-16 12:07:41,704 Shard ID None has connected to Gateway (Session ID: 038fac20b00c85c4f28930d53149307d).
+2026-06-16 12:07:49,953 [Server Admin] [table-create] v_500 - Allowed
+2026-06-16 12:07:59,410 [Manager] [table-view-full] v_500 - Allowed
+2026-06-16 12:08:04,841 davey is not installed, voice will NOT be supported
+2026-06-16 12:08:04,842 logging in using static token
+2026-06-16 12:08:41,553 Shard ID None has connected to Gateway (Session ID: 5dbd7336602847000fd8a76e72e96427).
+2026-06-16 12:09:25,457 [Manager] [table-view-full] v_500 - Allowed
+2026-06-16 12:10:26,693 davey is not installed, voice will NOT be supported
+2026-06-16 12:10:26,694 logging in using static token
+2026-06-16 12:10:27,719 Shard ID None has connected to Gateway (Session ID: 0235873c405eae8ab7b5d5bf5f813455).
+2026-06-16 12:10:31,978 [Server Admin] [table-create] v_500 - Allowed
+2026-06-16 12:10:39,714 davey is not installed, voice will NOT be supported
+2026-06-16 12:10:39,714 logging in using static token
+2026-06-16 12:11:27,676 Shard ID None has connected to Gateway (Session ID: 4abf33146e3c0106d97fc41ded5ee16a).
+2026-06-16 12:12:49,384 davey is not installed, voice will NOT be supported
+2026-06-16 12:12:49,384 logging in using static token
+2026-06-16 12:12:50,350 Shard ID None has connected to Gateway (Session ID: e0207db296a2a67a44dcfb0b1d7b0619).
+2026-06-16 12:13:00,685 [Server Admin] [table-create] v_500 - Allowed
+2026-06-16 12:13:08,327 davey is not installed, voice will NOT be supported
+2026-06-16 12:13:08,328 logging in using static token
+2026-06-16 12:13:50,627 Shard ID None has connected to Gateway (Session ID: 8c05f77e93ae8f30b0fdd4761ac0d58d).
+2026-06-16 12:14:16,834 [Manager] [table-view-full] v_500 - Allowed
+2026-06-16 12:16:24,004 davey is not installed, voice will NOT be supported
+2026-06-16 12:16:24,004 logging in using static token
+2026-06-16 12:16:24,924 Shard ID None has connected to Gateway (Session ID: b6ac64ceb9a856563480dd969b1cc7a6).
+2026-06-16 12:18:16,387 davey is not installed, voice will NOT be supported
+2026-06-16 12:18:16,388 logging in using static token
+2026-06-16 12:18:17,524 Shard ID None has connected to Gateway (Session ID: a5411deaf4ba74632de82be091b28a91).
+2026-06-16 12:18:25,394 [Server Admin] [table-create] v_500 - Allowed
+2026-06-16 12:18:43,629 [User] [table-add-row-request] v_500 - Allowed
+2026-06-16 12:18:48,740 [Server Admin] [table-settings] v_500 - Allowed
+2026-06-16 12:18:57,459 [User] [table-add-row-request] v_500 - Allowed
+2026-06-16 12:19:13,108 [User] [table-add-row-request] v_500 - Allowed
+2026-06-16 12:19:26,121 [User] [table-add-row-request] v_500 - Allowed

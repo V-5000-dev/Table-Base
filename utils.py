@@ -41,8 +41,12 @@ def save_settings():
         "ALL_TABLES":            config.ALL_TABLES,
         "COMMAND_PREFIX":        config.COMMAND_PREFIX,
     }
-    with open(SETTINGS_FILE, "w") as f:
-        json.dump(data, f, indent=4)
+    try:
+        with open(SETTINGS_FILE, "w") as f:
+            json.dump(data, f, indent=4)
+    except TypeError as e:
+        print(f"FAILED TO SAVE SETTINGS: {e}")
+        raise
 async def verifyCommandPermissions(ctx_or_interaction, command_type: CommandType = None, *required_roles) -> bool:
     if isinstance(ctx_or_interaction, discord.Interaction):
         user = ctx_or_interaction.user

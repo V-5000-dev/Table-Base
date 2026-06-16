@@ -32,6 +32,7 @@ class Table_Create(commands.Cog):
             "columns": 2,  # User + Timestamp
             "column_names": ["User", "Ts"],
             "member_role_ids": [],
+            "ping_managers": True,
             "data": []
         }
         config.ALL_TABLES.append(table)
@@ -61,6 +62,7 @@ class Table_Create(commands.Cog):
             "columns": 2,  # User + Timestamp
             "column_names": ["User", "Timestamp"],
             "member_role_ids": [],
+            "ping_managers": True,
             "data": []
         }
         config.ALL_TABLES.append(table)

@@ -262,7 +262,7 @@ class Table_Settings(commands.Cog):
                 2: [lambda: SelectRoles_Menu(guild.roles, lambda i, r: save_tablemember_roles(i, r, table),ctx_or_interaction)],
                 3: [lambda: SelectRoles_Menu(guild.roles, lambda i, r: save_tablemanager_roles(i, r, table), ctx_or_interaction)],
                 4: [lambda: SelectRoles_Menu(guild.roles, lambda i, r: save_tableadmin_roles(i, r, table), ctx_or_interaction)],
-                5: [lambda: SelectChannels_Menu(guild.channels, lambda i, r: save_requestchannel_id(i, r, table), ctx_or_interaction)],
+                5: [lambda: SelectChannels_Menu(lambda i, r: save_requestchannel_id(i, r, table), ctx_or_interaction)],
                 6: [lambda: TogglePingRequest(table, ctx_or_interaction)],
             }
         )

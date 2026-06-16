@@ -78,9 +78,9 @@ class Server_Settings(commands.Cog):
             ctx_or_interaction=ctx_or_interaction,
             page_menus={
                 0: [lambda: SelectRoles_Menu(guild.roles, save_serveradmin_roles, ctx_or_interaction)],
-                1: [lambda: SelectChannels_Menu(guild.text_channels, set_user_log_channel, ctx_or_interaction)],
-                2: [lambda: SelectChannels_Menu(guild.text_channels, set_manager_log_channel, ctx_or_interaction)],
-                3: [lambda: SelectChannels_Menu(guild.text_channels, set_admin_log_channel, ctx_or_interaction)],
+                1: [lambda: SelectChannels_Menu(set_user_log_channel, ctx_or_interaction)],
+                2: [lambda: SelectChannels_Menu(set_manager_log_channel, ctx_or_interaction)],
+                3: [lambda: SelectChannels_Menu(set_admin_log_channel, ctx_or_interaction)],
                 4: [lambda: ToggleLoggingButton(ctx_or_interaction)],
             }
         )

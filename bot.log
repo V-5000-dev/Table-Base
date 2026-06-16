@@ -99,3 +99,27 @@ discord.app_commands.errors.CommandNotFound: Application command 'ping' not foun
 2026-06-16 12:18:57,459 [User] [table-add-row-request] v_500 - Allowed
 2026-06-16 12:19:13,108 [User] [table-add-row-request] v_500 - Allowed
 2026-06-16 12:19:26,121 [User] [table-add-row-request] v_500 - Allowed
+2026-06-16 12:43:05,849 davey is not installed, voice will NOT be supported
+2026-06-16 12:43:05,849 logging in using static token
+2026-06-16 12:43:07,035 Shard ID None has connected to Gateway (Session ID: 96ce60fc88beeafdee9d1b18aac4e65b).
+2026-06-16 12:43:12,620 [Server Admin] [server-settings] v_500 - Allowed
+2026-06-16 12:43:13,931 Ignoring exception in view <PageView timeout=60 children=2> for item <Button style=<ButtonStyle.secondary: 2> url=None disabled=False label='Next' emoji=None row=None sku_id=None id=None>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/ui/view.py", line 598, in _scheduled_task
+    await item.callback(interaction)
+  File "/Users/victor/Documents/Data-Base/utils.py", line 187, in next_button
+    await self.refresh(interaction)
+  File "/Users/victor/Documents/Data-Base/utils.py", line 170, in refresh
+    self.update_page_components()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/Users/victor/Documents/Data-Base/utils.py", line 162, in update_page_components
+    new_item = factory()
+  File "/Users/victor/Documents/Data-Base/cogs/server_settings.py", line 81, in <lambda>
+    1: [lambda: SelectChannels_Menu(guild.text_channels, set_user_log_channel, ctx_or_interaction)],
+                ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: SelectChannels_Menu.__init__() takes 3 positional arguments but 4 were given
+2026-06-16 12:43:30,850 davey is not installed, voice will NOT be supported
+2026-06-16 12:43:30,851 logging in using static token
+2026-06-16 12:44:06,962 Shard ID None has connected to Gateway (Session ID: cbc8a753608f50d7c2216f31c819d159).
+2026-06-16 12:44:38,427 [Server Admin] [server-settings] v_500 - Allowed
+2026-06-16 12:44:49,344 [Server Admin] [server-settings] v_500 - Allowed

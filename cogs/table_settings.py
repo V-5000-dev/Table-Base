@@ -154,7 +154,7 @@ class RemoveColumn_Input(discord.ui.Modal, title="Remove Column"):
             f"{CHECK} ``Column`` ``{name}`` ``removed.``", ephemeral=True
         )
 
-
+#commit
 class RemoveColumn(discord.ui.Button):
     def __init__(self, table: dict, ctx_or_interaction):
         super().__init__(label="Remove Column", style=discord.ButtonStyle.red)

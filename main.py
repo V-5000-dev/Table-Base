@@ -44,4 +44,5 @@ class Client(commands.Bot):
 intents = discord.Intents.default()
 intents.message_content = True
 client = Client(command_prefix=config.COMMAND_PREFIX, intents=intents)
+
 client.run(os.getenv('TOKEN'))

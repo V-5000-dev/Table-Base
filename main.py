@@ -11,31 +11,34 @@ logging.basicConfig(filename="bot.log", level=logging.INFO, format="%(asctime)s 
 load_dotenv(dotenv_path=".env")
 
 class Client(commands.Bot):
-    async def setup_hook(self):
-        await self.load_extension("cogs.ping")
+ async def setup_hook(self):
 
-        await self.load_extension("cogs.table_create")
-        await self.load_extension("cogs.table_delete")
+    await self.load_extension("cogs.ping")
 
-        await self.load_extension("cogs.table_settings")
+    await self.load_extension("cogs.table_create")
+    await self.load_extension("cogs.table_delete")
 
-        await self.load_extension("cogs.table_view_all")
-        await self.load_extension("cogs.table_view_user")
-        await self.load_extension("cogs.table_view")
+    await self.load_extension("cogs.table_settings")
 
-        await self.load_extension("cogs.table_add_row_user")
-        await self.load_extension("cogs.table_add_row_request")
+    await self.load_extension("cogs.table_view_all")
+    await self.load_extension("cogs.table_view_user")
+    await self.load_extension("cogs.table_view")
 
-        await self.load_extension("cogs.table_remove_row_user")
+    await self.load_extension("cogs.table_add_row_user")
+    await self.load_extension("cogs.table_add_row_request")
 
-        await self.load_extension("cogs.server_settings")
+    await self.load_extension("cogs.table_remove_row_user")
 
-        await self.load_extension("cogs.dev_key")
+    await self.load_extension("cogs.server_settings")
 
-        await self.load_extension("cogs.prefix")
-        await self.load_extension("cogs.set_prefix")
-        synced = await self.tree.sync()
-        print(f"Synced {len(synced)} commands: {[c.name for c in synced]}")
+    await self.load_extension("cogs.dev_key")
+
+    await self.load_extension("cogs.prefix")
+    await self.load_extension("cogs.set_prefix")
+
+    # normal sync AFTER loading cogs
+    synced = await self.tree.sync()
+    print(f"Synced {len(synced)} commands: {[c.name for c in synced]}")
 
     async def on_ready(self):
         load_settings()

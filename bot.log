@@ -2,3 +2,53 @@
 2026-06-16 02:39:13,334 logging in using static token
 2026-06-16 02:39:51,027 davey is not installed, voice will NOT be supported
 2026-06-16 02:39:51,027 logging in using static token
+2026-06-16 02:40:31,004 davey is not installed, voice will NOT be supported
+2026-06-16 02:40:31,004 logging in using static token
+2026-06-16 02:40:32,476 Shard ID None has connected to Gateway (Session ID: 74221e2cb25c01bf12ce22d9b42a397d).
+2026-06-16 02:44:37,607 davey is not installed, voice will NOT be supported
+2026-06-16 02:44:37,607 logging in using static token
+2026-06-16 02:44:40,686 Shard ID None has connected to Gateway (Session ID: 98daf803a248dec99a2d7d677701b5e6).
+2026-06-16 02:44:45,697 [NONE] [ping] v_500 - Allowed
+2026-06-16 02:46:16,875 davey is not installed, voice will NOT be supported
+2026-06-16 02:46:16,876 logging in using static token
+2026-06-16 02:47:18,235 Shard ID None has connected to Gateway (Session ID: e21892552f75f92359ab5a9b79c22b36).
+2026-06-16 02:48:23,531 davey is not installed, voice will NOT be supported
+2026-06-16 02:48:23,531 logging in using static token
+2026-06-16 02:48:24,556 Shard ID None has connected to Gateway (Session ID: c3b8e2a7d21484e81debf4698c96a5ee).
+2026-06-16 02:48:30,651 [NONE] [ping] v_500 - Allowed
+2026-06-16 02:49:23,132 davey is not installed, voice will NOT be supported
+2026-06-16 02:49:23,133 logging in using static token
+2026-06-16 02:49:40,837 davey is not installed, voice will NOT be supported
+2026-06-16 02:49:40,837 logging in using static token
+2026-06-16 02:50:02,851 davey is not installed, voice will NOT be supported
+2026-06-16 02:50:02,851 logging in using static token
+2026-06-16 02:50:14,908 davey is not installed, voice will NOT be supported
+2026-06-16 02:50:14,909 logging in using static token
+2026-06-16 02:50:52,320 davey is not installed, voice will NOT be supported
+2026-06-16 02:50:52,321 logging in using static token
+2026-06-16 02:51:02,824 davey is not installed, voice will NOT be supported
+2026-06-16 02:51:02,825 logging in using static token
+2026-06-16 02:52:08,619 davey is not installed, voice will NOT be supported
+2026-06-16 02:52:08,620 logging in using static token
+2026-06-16 02:53:09,636 Shard ID None has connected to Gateway (Session ID: 805c50d2929b0e5a70ba57d51c91fa09).
+2026-06-16 02:53:28,337 Ignoring exception in command tree
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/tree.py", line 1138, in wrapper
+    await self._call(interaction)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/tree.py", line 1270, in _call
+    command, options = self._get_app_command_options(data)
+                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/discord/app_commands/tree.py", line 1174, in _get_app_command_options
+    raise CommandNotFound(name, parents)
+discord.app_commands.errors.CommandNotFound: Application command 'ping' not found
+2026-06-16 02:53:44,308 davey is not installed, voice will NOT be supported
+2026-06-16 02:53:44,309 logging in using static token
+2026-06-16 02:56:04,728 davey is not installed, voice will NOT be supported
+2026-06-16 02:56:04,728 logging in using static token
+2026-06-16 02:57:06,509 Shard ID None has connected to Gateway (Session ID: b6dcbcaf85bb86b10d84001aef4eaa8a).
+2026-06-16 02:59:16,579 [NONE] [ping] v_500 - Allowed
+2026-06-16 02:59:22,217 [NONE] [ping] v_500 - Allowed
+2026-06-16 02:59:25,166 [NONE] [ping] v_500 - Allowed
+2026-06-16 03:02:41,568 davey is not installed, voice will NOT be supported
+2026-06-16 03:02:41,569 logging in using static token
+2026-06-16 03:02:42,738 Shard ID None has connected to Gateway (Session ID: 7085726aa44aa4ea0d75d585098ef2b7).

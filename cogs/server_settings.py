@@ -89,6 +89,6 @@ class Server_Settings(commands.Cog):
             await ctx_or_interaction.response.send_message(embed=embeds[0], view=view)
         else:
             await ctx_or_interaction.send(embed=embeds[0], view=view)
-
+#commit
 async def setup(bot):
     await bot.add_cog(Server_Settings(bot))

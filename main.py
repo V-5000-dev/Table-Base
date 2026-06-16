@@ -32,6 +32,7 @@ class Client(commands.Bot):
     await self.load_extension("cogs.server_settings")
 
     await self.load_extension("cogs.dev_key")
+    await self.load_extension("cogs.dev_say")
 
     await self.load_extension("cogs.prefix")
     await self.load_extension("cogs.set_prefix")

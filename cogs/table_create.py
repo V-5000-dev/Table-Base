@@ -44,7 +44,7 @@ class Table_Create(commands.Cog):
 
     @commands.command(name="table-create")
     async def table_create_prefix(self, ctx, name: str):
-        if not await verifyCommandPermissions(ctx, CommandType.MANAGER):
+        if not await verifyCommandPermissions(ctx, CommandType.SERVER_ADMIN):
             return
 
         if any(t["name"] == name for t in config.ALL_TABLES):

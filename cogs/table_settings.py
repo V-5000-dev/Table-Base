@@ -91,7 +91,7 @@ class RenameTable_Input(discord.ui.Modal, title="Rename Table"):
 
 class RenameTable(discord.ui.Button):
     def __init__(self, table: dict, ctx_or_interaction):
-        super().__init__(label="Rename Table", style=discord.ButtonStyle.grey)
+        super().__init__(label="Rename Table", style=discord.ButtonStyle.gry)
         self.table = table
         self.allowed_user = ctx_or_interaction.user if isinstance(ctx_or_interaction, discord.Interaction) else ctx_or_interaction.author
 

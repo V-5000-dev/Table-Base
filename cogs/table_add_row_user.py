@@ -6,6 +6,49 @@ from config import GUILD_ID, CHECK, ERROR, CommandType
 from utils import verifyCommandPermissions, save_settings, table_name_autocomplete
 
 
+class ContinueRowInput(discord.ui.View):
+    """
+    Bridges two modal pages.
+
+    Discord will not let you open a modal directly in response to a
+    modal *submission* (MODAL_SUBMIT interactions can only be answered
+    with a message-type response). So instead of chaining
+    modal -> modal, we chain modal -> message-with-button -> modal:
+
+        1. Page 1 modal submits -> bot sends a message with a
+           "Continue" button (a valid response to MODAL_SUBMIT).
+        2. User clicks the button -> that's a component interaction,
+           which IS allowed to open a modal -> bot opens page 2.
+    """
+    def __init__(self, table: dict, existing_index: int | None, target_user: discord.Member,
+                 new_row: list, next_page: int):
+        super().__init__(timeout=300)
+        self.table = table
+        self.existing_index = existing_index
+        self.target_user = target_user
+        self.new_row = new_row
+        self.next_page = next_page
+
+    @discord.ui.button(label="Continue", style=discord.ButtonStyle.grey, emoji="➡️")
+    async def continue_button(self, interaction: discord.Interaction, button: discord.ui.Button):
+        next_modal = AddRow_Input(
+            self.table, self.existing_index, self.target_user,
+            new_row=self.new_row, page=self.next_page
+        )
+        await interaction.response.send_modal(next_modal)
+
+        for child in self.children:
+            child.disabled = True
+        try:
+            await interaction.edit_original_response(view=self)
+        except discord.HTTPException:
+            pass
+
+    async def on_timeout(self):
+        for child in self.children:
+            child.disabled = True
+
+
 class AddRow_Input(discord.ui.Modal, title="Add/Update Row"):
     def __init__(self, table: dict, existing_index: int | None, target_user: discord.Member,
                  new_row: list | None = None, page: int = 0):
@@ -61,13 +104,17 @@ class AddRow_Input(discord.ui.Modal, title="Add/Update Row"):
                 self.new_row[2 + col_index] = value
 
         if self.page + 1 < len(self.pages):
-            next_modal = AddRow_Input(
-                self.table, self.existing_index, self.target_user,
-                new_row=self.new_row, page=self.page + 1
+            view = ContinueRowInput(self.table, self.existing_index, self.target_user, self.new_row, self.page + 1)
+            await interaction.response.send_message(
+                f"Page {self.page + 1}/{len(self.pages)} saved. Click **Continue** to fill out the next page.",
+                view=view,
+                ephemeral=True
             )
-            await interaction.response.send_modal(next_modal)
             return
 
+        await self.finalize(interaction)
+
+    async def finalize(self, interaction: discord.Interaction):
         if self.existing_index is not None:
             self.table["data"][self.existing_index] = self.new_row
             save_settings()
@@ -122,15 +169,20 @@ class Table_Add_Row_User(commands.Cog):
 
         custom_column_count = len(table["column_names"]) - 2
 
+        # The modal has to be the FIRST response to this interaction (you can't
+        # defer/message first and send a modal afterward), so send it before
+        # doing anything else.
+        await interaction.response.send_modal(AddRow_Input(table, existing_index, user))
+
         if custom_column_count > 5:
             prefix = getattr(config, "COMMAND_PREFIX", "t! ")
             await interaction.followup.send(
-                f"``This table has more than 5 columns, so you'll need to fill out multiple popups in sequence.``\n"
-                f"``You can use the prefix command to do so one step:`` ``{prefix}table-add-row-user {name} @user value1 value2 ...``",
-            ephemeral=True
-        )
-
-        await interaction.response.send_modal(AddRow_Input(table, existing_index, user))
+                f"``This table has more than 5 columns, so you'll fill out multiple popups in "
+                f"sequence — click Continue between each one.``\n"
+                f"``Alternatively, the prefix command lets you do it in one step:`` "
+                f"``{prefix}table-add-row-user {name} @user value1 value2 ...``",
+                ephemeral=True
+            )
 
     @commands.command(name="table-add-row-user")
     async def table_add_row_prefix(self, ctx, name: str, user: discord.Member, *values: str):

@@ -1,0 +1,45 @@
+{
+    "TABLE_REQUEST_CHANNEL_ID": 1515923446532538389,
+    "SERVER_ADMIN_ROLE_IDS": [],
+    "ADMIN_ROLE_IDS": [],
+    "MANAGER_ROLE_IDS": [],
+    "MEMBER_ROLE_IDS": [],
+    "LOG_UNSUCCESSFUL": true,
+    "USER_LOG_CHANNEL": 0,
+    "MANAGER_LOG_CHANNEL": 0,
+    "ADMIN_LOG_CHANNEL": 0,
+    "ALL_TABLES": [
+        {
+            "name": "test",
+            "rows": 1,
+            "columns": 9,
+            "column_names": [
+                "User",
+                "Ts",
+                "1",
+                "2",
+                "3",
+                "4",
+                "5",
+                "6",
+                "7"
+            ],
+            "member_role_ids": [],
+            "ping_managers": true,
+            "data": [
+                [
+                    "<@1057431766568284360>",
+                    "<t:1781665831>",
+                    "1",
+                    "2",
+                    "3",
+                    "4",
+                    "5",
+                    "6",
+                    "7"
+                ]
+            ]
+        }
+    ],
+    "COMMAND_PREFIX": "t!"
+}

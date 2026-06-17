@@ -145,6 +145,8 @@ class AddRow_Input(discord.ui.Modal, title="Add/Update Row"):
                 self.table, self.existing_index,
                 new_row=self.new_row, page=self.page + 1
             )
+            print(f"DEBUG next_modal title: {next_modal.title!r}")
+            print(f"DEBUG next_modal children: {[(type(c).__name__, getattr(c, 'label', None), getattr(c, 'style', None)) for c in next_modal.children]}")
             await interaction.response.send_modal(next_modal)
             return
 
@@ -231,7 +233,7 @@ class Table_Add_Row_Request(commands.Cog):
             prefix = getattr(config, "COMMAND_PREFIX", "t! ")
             await interaction.followup.send(
                 f"``This table has more than 5 columns, so you'll need to fill out multiple popups in sequence.``\n"
-                f"``Tip: the prefix command lets you do this in one step:`` ``{prefix}table-add-row-request {name} value1 value2 ...``",
+                f"``You can use the prefix command to do so one step:`` ``{prefix}table-add-row-user {name} @user value1 value2 ...``",
                 ephemeral=True
             )
 

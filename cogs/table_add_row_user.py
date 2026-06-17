@@ -126,7 +126,7 @@ class Table_Add_Row_User(commands.Cog):
             prefix = getattr(config, "COMMAND_PREFIX", "t! ")
             await interaction.followup.send(
                 f"``This table has more than 5 columns, so you'll need to fill out multiple popups in sequence.``\n"
-                f"``Tip: the prefix command lets you do this in one step:`` ``{prefix}table-add-row-user {name} @user value1 value2 ...``",
+                f"``You can use the prefix command to do so one step:`` ``{prefix}table-add-row-user {name} @user value1 value2 ...``",
             ephemeral=True
         )
 

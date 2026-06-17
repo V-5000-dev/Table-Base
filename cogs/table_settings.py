@@ -175,7 +175,6 @@ async def save_tablemember_roles(interaction, roles, table: dict):
         f"{CHECK} ``Saved member roles:`` {', '.join(r.name for r in roles)}", ephemeral=True
     )
 
-
 async def save_tablemanager_roles(interaction, roles, table: dict):
     table["manager_role_ids"] = [r.id for r in roles]
     save_settings()
@@ -197,7 +196,11 @@ async def save_requestchannel_id(interaction, channels, table: dict):
     config.TABLE_REQUEST_CHANNEL_ID = channels[0].id
     save_settings()
     await interaction.response.send_message(f"{CHECK} ``Table update requests set to`` {channels[0].mention}", ephemeral=True)
-
+async def save_backupchannel_id(interaction, channels, table: dict):
+    if not channels: return
+    config.TABLE_BACKUP_CHANNEL_ID = channels[0].id
+    save_settings()
+    await interaction.response.send_message(f"{CHECK} ``Table backups set to`` {channels[0].mention}", ephemeral=True)
 
 class Table_Settings(commands.Cog):
     def __init__(self, bot):
@@ -249,6 +252,9 @@ class Table_Settings(commands.Cog):
                                         discord.Embed(title=f"Table {table_name} Settings - Manage Request Settings",
                 description="Enable or disable sumbitted requests pinging all roles with manager permissons for this table."
             ),
+                                                 discord.Embed(title=f"Table {table_name} Settings - Manage Table Backup",
+                description="Select which channel should a backup of a Table be send every 24 hours. If you delete a Table, you can find all of it's information stored in the backup, allowing it to be recreated. Leave this empty if you do not wish for it to be logged."
+            ),
             
             
         ]
@@ -264,6 +270,7 @@ class Table_Settings(commands.Cog):
                 4: [lambda: SelectRoles_Menu(lambda i, r: save_tableadmin_roles(i, r, table), ctx_or_interaction)],
                 5: [lambda: SelectChannels_Menu(lambda i, r: save_requestchannel_id(i, r, table), ctx_or_interaction)],
                 6: [lambda: TogglePingRequest(table, ctx_or_interaction)],
+                 5: [lambda: SelectChannels_Menu(lambda i, r: save_requestchannel_id(i, r, table), ctx_or_interaction)],
             }
         )
 

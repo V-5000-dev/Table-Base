@@ -12,6 +12,7 @@ def load_settings():
         with open(SETTINGS_FILE, "r") as f:
             data = json.load(f)
         config.TABLE_REQUEST_CHANNEL_ID = data.get("TABLE_REQUEST_CHANNEL_ID", 0)
+        config.TABLE_BACKUP_CHANNEL_ID = data.get("TABLE_BACKUP_CHANNEL_ID", 0)
         config.SERVER_ADMIN_ROLE_IDS = data.get("SERVER_ADMIN_ROLE_IDS", [])
         config.ADMIN_ROLE_IDS        = data.get("ADMIN_ROLE_IDS", [])
         config.MANAGER_ROLE_IDS      = data.get("MANAGER_ROLE_IDS", [])
@@ -30,6 +31,7 @@ def load_settings():
 def save_settings():
     data = {
         "TABLE_REQUEST_CHANNEL_ID": config.TABLE_REQUEST_CHANNEL_ID,
+        "TABLE_BACKUP_CHANNEL_ID": config.TABLE_BACKUP_CHANNEL_ID,
         "SERVER_ADMIN_ROLE_IDS": config.SERVER_ADMIN_ROLE_IDS,
         "ADMIN_ROLE_IDS":        config.ADMIN_ROLE_IDS,
         "MANAGER_ROLE_IDS":      config.MANAGER_ROLE_IDS,

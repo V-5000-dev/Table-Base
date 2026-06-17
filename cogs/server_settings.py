@@ -71,6 +71,7 @@ class Server_Settings(commands.Cog):
             discord.Embed(title="Server Settings - Management Log Channels", description="Select which channel should receive logs for protected database management commands. Leaving this empty will prevent database management commands from being logged."),
             discord.Embed(title="Server Settings - Administrative Log Channels", description="Select which channel should receive logs for protected database admin and server commands. Leaving this empty will prevent admin commands from being logged."),
             discord.Embed(title="Server Settings - Logging Settings", description="Toggle whether unsuccessful command logs from unauthorized users should be logged."),
+    
         ]
 
         view = PageView(

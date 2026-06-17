@@ -91,7 +91,7 @@ class RenameTable_Input(discord.ui.Modal, title="Rename Table"):
 
 class RenameTable(discord.ui.Button):
     def __init__(self, table: dict, ctx_or_interaction):
-        super().__init__(label="Rename Table", style=discord.ButtonStyle.blurple)
+        super().__init__(label="Rename Table", style=discord.ButtonStyle.grey)
         self.table = table
         self.allowed_user = ctx_or_interaction.user if isinstance(ctx_or_interaction, discord.Interaction) else ctx_or_interaction.author
 
@@ -270,7 +270,7 @@ class Table_Settings(commands.Cog):
                 4: [lambda: SelectRoles_Menu(lambda i, r: save_tableadmin_roles(i, r, table), ctx_or_interaction)],
                 5: [lambda: SelectChannels_Menu(lambda i, r: save_requestchannel_id(i, r, table), ctx_or_interaction)],
                 6: [lambda: TogglePingRequest(table, ctx_or_interaction)],
-                 5: [lambda: SelectChannels_Menu(lambda i, r: save_requestchannel_id(i, r, table), ctx_or_interaction)],
+                7: [lambda: SelectChannels_Menu(lambda i, r: save_backupchannel_id(i, r, table), ctx_or_interaction)],
             }
         )
 

@@ -7,18 +7,29 @@ from utils import verifyCommandPermissions, save_settings, table_name_autocomple
 
 
 class AddRow_Input(discord.ui.Modal, title="Add/Update Row"):
-    def __init__(self, table: dict, existing_index: int | None, target_user: discord.Member):
-        super().__init__()
+    def __init__(self, table: dict, existing_index: int | None, target_user: discord.Member,
+                 new_row: list | None = None, page: int = 0):
+        self.field_columns = table["column_names"][2:]
+        self.pages = [self.field_columns[i:i + 5] for i in range(0, len(self.field_columns), 5)]
+        page_columns = self.pages[page] if self.pages else []
+
+        page_count = len(self.pages)
+        title = "Add/Update Row" if page_count <= 1 else f"Add/Update Row (Page {page + 1}/{page_count})"
+        super().__init__(title=title)
+
         self.table = table
         self.existing_index = existing_index
         self.target_user = target_user
-        self.field_columns = table["column_names"][2:]
+        self.page = page
+        self.new_row = new_row if new_row is not None else ["null" for _ in range(table["columns"])]
         self.inputs = []
 
-        for i, col in enumerate(self.field_columns):
+        start_offset = page * 5
+        for i, col in enumerate(page_columns):
+            col_index = start_offset + i
             default_value = None
             if existing_index is not None:
-                default_value = table["data"][existing_index][2 + i]
+                default_value = table["data"][existing_index][2 + col_index]
                 if default_value == "null":
                     default_value = None
 
@@ -33,29 +44,38 @@ class AddRow_Input(discord.ui.Modal, title="Add/Update Row"):
             self.inputs.append(text_input)
 
     async def on_submit(self, interaction: discord.Interaction):
-        new_row = ["null" for _ in range(self.table["columns"])]
-        new_row[0] = self.target_user.mention
-        new_row[1] = discord.utils.format_dt(discord.utils.utcnow())
+        self.new_row[0] = self.target_user.mention
+        self.new_row[1] = discord.utils.format_dt(discord.utils.utcnow())
 
+        start_offset = self.page * 5
         for i, text_input in enumerate(self.inputs):
+            col_index = start_offset + i
             value = text_input.value.strip()
 
             if value.lower() == "null" or not value:
                 if self.existing_index is not None:
-                    new_row[2 + i] = self.table["data"][self.existing_index][2 + i]
+                    self.new_row[2 + col_index] = self.table["data"][self.existing_index][2 + col_index]
                 else:
-                    new_row[2 + i] = "null"
+                    self.new_row[2 + col_index] = "null"
             else:
-                new_row[2 + i] = value
+                self.new_row[2 + col_index] = value
+
+        if self.page + 1 < len(self.pages):
+            next_modal = AddRow_Input(
+                self.table, self.existing_index, self.target_user,
+                new_row=self.new_row, page=self.page + 1
+            )
+            await interaction.response.send_modal(next_modal)
+            return
 
         if self.existing_index is not None:
-            self.table["data"][self.existing_index] = new_row
+            self.table["data"][self.existing_index] = self.new_row
             save_settings()
             await interaction.response.send_message(
                 f"{CHECK} {self.target_user.mention} ``row in table`` ``{self.table['name']}`` ``has been updated.``", ephemeral=True
             )
         else:
-            self.table["data"].append(new_row)
+            self.table["data"].append(self.new_row)
             self.table["rows"] += 1
             save_settings()
             await interaction.response.send_message(
@@ -82,9 +102,11 @@ class Table_Add_Row_User(commands.Cog):
 
         if len(table["column_names"]) - 2 == 0:
             await interaction.response.send_message(
-            f"{ERROR} ``This table has no columns.``",
-            ephemeral=True
-        )
+                f"{ERROR} ``This table has no columns.``",
+                ephemeral=True
+            )
+            return
+
         if len(table["column_names"]) - 2 > 20:
             await interaction.response.send_message(
                 f"{ERROR} ``This table has too many columns to add a row via this command "
@@ -98,6 +120,16 @@ class Table_Add_Row_User(commands.Cog):
             None
         )
 
+        custom_column_count = len(table["column_names"]) - 2
+
+        if custom_column_count > 5:
+            prefix = getattr(config, "COMMAND_PREFIX", "t! ")
+            await interaction.followup.send(
+                f"``This table has more than 5 columns, so you'll need to fill out multiple popups in sequence.``\n"
+                f"``Tip: the prefix command lets you do this in one step:`` ``{prefix}table-add-row-user {name} @user value1 value2 ...``",
+            ephemeral=True
+        )
+
         await interaction.response.send_modal(AddRow_Input(table, existing_index, user))
 
     @commands.command(name="table-add-row-user")
@@ -109,17 +141,15 @@ class Table_Add_Row_User(commands.Cog):
         if table is None:
             await ctx.send(f"{ERROR} ``Table``  ``{name}`` ``not found.``")
             return
-        
+
         if len(table["column_names"]) - 2 == 0:
-            await ctx.response.send_message(
-            f"{ERROR} ``This table has no columns.``",
-            ephemeral=True
-        )
+            await ctx.send(f"{ERROR} ``This table has no columns.``")
+            return
+
         if len(table["column_names"]) - 2 > 20:
-            await ctx.response.send_message(
+            await ctx.send(
                 f"{ERROR} ``This table has too many columns to add a row via this command "
-                f"(max 20 supported).``",
-                ephemeral=True
+                f"(max 20 supported).``"
             )
             return
 

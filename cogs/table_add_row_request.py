@@ -39,6 +39,7 @@ class AddRequest(discord.ui.View):
             embed.add_field(name=col, value=value, inline=False)
 
         return embed
+
     def build_ping_content(self):
         if not self.table.get("ping_managers", False):
             return None
@@ -87,17 +88,30 @@ class AddRequest(discord.ui.View):
 
 
 class AddRow_Input(discord.ui.Modal, title="Add/Update Row"):
-    def __init__(self, table: dict, existing_index: int | None):
-        super().__init__()
+    def __init__(self, table: dict, existing_index: int | None,
+                 new_row: list | None = None, page: int = 0):
+        self.field_columns = table["column_names"][2:]
+        self.pages = [self.field_columns[i:i + 5] for i in range(0, len(self.field_columns), 5)]
+        page_columns = self.pages[page] if self.pages else []
+
+        page_count = len(self.pages)
+        title = "Add/Update Row" if page_count <= 1 else f"Add/Update Row (Page {page + 1}/{page_count})"
+        super().__init__(title=title)
+
         self.table = table
         self.existing_index = existing_index
-        self.field_columns = table["column_names"][2:]
+        self.page = page
+        self.new_row = new_row if new_row is not None else ["None" for _ in range(table["columns"])]
         self.inputs = []
 
-        for i, col in enumerate(self.field_columns):
+        start_offset = page * 5
+        for i, col in enumerate(page_columns):
+            col_index = start_offset + i
             default_value = None
             if existing_index is not None:
-                default_value = table["data"][existing_index][2 + i]
+                default_value = table["data"][existing_index][2 + col_index]
+                if default_value == "None":
+                    default_value = None
 
             text_input = discord.ui.TextInput(
                 label=col,
@@ -110,31 +124,42 @@ class AddRow_Input(discord.ui.Modal, title="Add/Update Row"):
             self.inputs.append(text_input)
 
     async def on_submit(self, interaction: discord.Interaction):
-        new_row = ["None" for _ in range(self.table["columns"])]
-        new_row[0] = interaction.user.mention
-        new_row[1] = discord.utils.format_dt(discord.utils.utcnow())
+        self.new_row[0] = interaction.user.mention
+        self.new_row[1] = discord.utils.format_dt(discord.utils.utcnow())
 
+        start_offset = self.page * 5
         for i, text_input in enumerate(self.inputs):
+            col_index = start_offset + i
             value = text_input.value.strip()
 
-            if value.lower() == "None" or not value:
+            if value.lower() == "none" or not value:
                 if self.existing_index is not None:
-                    new_row[2 + i] = self.table["data"][self.existing_index][2 + i]
+                    self.new_row[2 + col_index] = self.table["data"][self.existing_index][2 + col_index]
                 else:
-                    new_row[2 + i] = "None"
+                    self.new_row[2 + col_index] = "None"
             else:
-                new_row[2 + i] = value
+                self.new_row[2 + col_index] = value
 
-        view = AddRequest(self.table, self.existing_index, interaction.user, new_row)
-        embed = view.build_embed()
-        content = view.build_ping_content()
+        if self.page + 1 < len(self.pages):
+            next_modal = AddRow_Input(
+                self.table, self.existing_index,
+                new_row=self.new_row, page=self.page + 1
+            )
+            await interaction.response.send_modal(next_modal)
+            return
+
         if self.existing_index is not None:
             existing_row = self.table["data"][self.existing_index]
-            if new_row[2:] == existing_row[2:]:
+            if self.new_row[2:] == existing_row[2:]:
                 await interaction.response.send_message(
-                f"{ERROR} ``No changes were made, request cancelled.``", ephemeral=True
+                    f"{ERROR} ``No changes were made, request cancelled.``", ephemeral=True
                 )
-            return
+                return
+
+        view = AddRequest(self.table, self.existing_index, interaction.user, self.new_row)
+        embed = view.build_embed()
+        content = view.build_ping_content()
+
         review_channel = interaction.client.get_channel(config.TABLE_REQUEST_CHANNEL_ID)
         if review_channel is None:
             await interaction.response.send_message(
@@ -198,7 +223,17 @@ class Table_Add_Row_Request(commands.Cog):
             None
         )
 
+        custom_column_count = len(table["column_names"]) - 2
+
         await interaction.response.send_modal(AddRow_Input(table, existing_index))
+
+        if custom_column_count > 5:
+            prefix = getattr(config, "COMMAND_PREFIX", "t! ")
+            await interaction.followup.send(
+                f"``This table has more than 5 columns, so you'll need to fill out multiple popups in sequence.``\n"
+                f"``Tip: the prefix command lets you do this in one step:`` ``{prefix}table-add-row-request {name} value1 value2 ...``",
+                ephemeral=True
+            )
 
     @commands.command(name="table-add-row-request")
     async def table_add_row_prefix_request(self, ctx, name: str, *values: str):
@@ -239,13 +274,19 @@ class Table_Add_Row_Request(commands.Cog):
         for i in range(len(custom_columns)):
             value = values[i] if i < len(values) else "None"
 
-            if value.lower() == "None":
+            if value.lower() == "none":
                 if existing_index is not None:
                     new_row[2 + i] = table["data"][existing_index][2 + i]
                 else:
                     new_row[2 + i] = "None"
             else:
                 new_row[2 + i] = value
+
+        if existing_index is not None:
+            existing_row = table["data"][existing_index]
+            if new_row[2:] == existing_row[2:]:
+                await ctx.send(f"{ERROR} ``No changes were made, request cancelled.``")
+                return
 
         view = AddRequest(table, existing_index, ctx.author, new_row)
         embed = view.build_embed()

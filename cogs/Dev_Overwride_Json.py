@@ -47,7 +47,7 @@ class Dev_Overwride_Json(commands.Cog):
         self.bot = bot
 
     @commands.command(name="dev-overwrite-json")
-    async def dev_restore_settings(self, ctx, target_guild_id: int = None):
+    async def dev_overwride_json(self, ctx, target_guild_id: int = None):
         """
         Owner-only. Attach a settings_export.json backup to this command
         to overwrite the live settings.json with it.

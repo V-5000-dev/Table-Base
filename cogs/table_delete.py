@@ -2,15 +2,16 @@ import discord
 import config
 from discord.ext import commands
 from discord import app_commands
-from config import GUILD_ID, CHECK, ERROR, X,CommandType
+from config import GUILD_ID, CHECK, ERROR, X, CommandType
 from utils import verifyCommandPermissions, save_settings, table_name_autocomplete
 
 
 class DeleteTableConfirm(discord.ui.View):
-    def __init__(self, table: dict, requester: discord.Member):
+    def __init__(self, table: dict, requester: discord.Member, guild_id: int):
         super().__init__(timeout=60)
         self.table = table
         self.requester = requester
+        self.guild_id = guild_id
 
     async def on_timeout(self):
         for child in self.children:
@@ -26,8 +27,9 @@ class DeleteTableConfirm(discord.ui.View):
             )
             return
 
-        config.ALL_TABLES.remove(self.table)
-        save_settings()
+        settings = config.get_guild(self.guild_id)
+        settings["ALL_TABLES"].remove(self.table)
+        save_settings(self.guild_id)
 
         for child in self.children:
             child.disabled = True
@@ -62,14 +64,15 @@ class Table_Delete(commands.Cog):
         if not await verifyCommandPermissions(interaction, CommandType.SERVER_ADMIN):
             return
 
-        table = next((t for t in config.ALL_TABLES if t["name"] == name), None)
+        settings = config.get_guild(interaction.guild_id)
+        table = next((t for t in settings["ALL_TABLES"] if t["name"] == name), None)
         if table is None:
             await interaction.response.send_message(
                 f"{ERROR} ``Table`` ``{name}`` ``not found.``", ephemeral=True
             )
             return
 
-        view = DeleteTableConfirm(table, interaction.user)
+        view = DeleteTableConfirm(table, interaction.user, interaction.guild_id)
         await interaction.response.send_message(
             f"{ERROR} ``Are you sure you want to delete table`` ``{name}`` ``? This cannot be undone.``",
             view=view,
@@ -82,12 +85,13 @@ class Table_Delete(commands.Cog):
         if not await verifyCommandPermissions(ctx, CommandType.SERVER_ADMIN):
             return
 
-        table = next((t for t in config.ALL_TABLES if t["name"] == name), None)
+        settings = config.get_guild(ctx.guild.id)
+        table = next((t for t in settings["ALL_TABLES"] if t["name"] == name), None)
         if table is None:
             await ctx.send(f"{ERROR} ``Table`` ``{name}`` ``not found.``")
             return
 
-        view = DeleteTableConfirm(table, ctx.author)
+        view = DeleteTableConfirm(table, ctx.author, ctx.guild.id)
         view.message = await ctx.send(
             f"{ERROR} ``Are you sure you want to delete table`` ``{name}`` ``? This cannot be undone.``",
             view=view

@@ -20,14 +20,12 @@ class AddColumn_Input(discord.ui.Modal, title="Add Column"):
 
     async def on_submit(self, interaction: discord.Interaction):
         name = self.column_name.value
-        for n in self.table["column_names"]:
-            if n == name:
-                await interaction.response.send_message(
-                    f"{PERMISSON} ``Column`` ``{name}`` ``already exists.``", ephemeral=True
-                )
-                return
-        custom_column_count = len(self.table["column_names"]) - 2
-        if custom_column_count >= 20:
+        if name in self.table["column_names"]:
+            await interaction.response.send_message(
+                f"{PERMISSON} ``Column`` ``{name}`` ``already exists.``", ephemeral=True
+            )
+            return
+        if len(self.table["column_names"]) - 2 >= 20:
             await interaction.response.send_message(
                 f"{PERMISSON} ``Tables are limited to 20 custom columns.``", ephemeral=True
             )
@@ -40,6 +38,7 @@ class AddColumn_Input(discord.ui.Modal, title="Add Column"):
         await interaction.response.send_message(
             f"{CHECK} ``Column`` ``{name}`` ``created.``", ephemeral=True
         )
+
 
 class TogglePingRequest(discord.ui.Button):
     def __init__(self, table: dict, ctx_or_interaction):
@@ -55,12 +54,12 @@ class TogglePingRequest(discord.ui.Button):
         if interaction.user != self.allowed_user:
             await interaction.response.send_message(f"{PERMISSON} ``You did not invoke this command.``", ephemeral=True)
             return
-
         self.table["ping_managers"] = not self.table.get("ping_managers", False)
         save_settings()
-
-        self.label = "Disable manager pings" if self.table["ping_managers"] else "Enable manager pings"
+        self.label = "Disable request pings" if self.table["ping_managers"] else "Enable request pings"
         await interaction.response.edit_message(view=self.view)
+
+
 class RenameTable_Input(discord.ui.Modal, title="Rename Table"):
     new_name = discord.ui.TextInput(
         label="Enter a new name for the table",
@@ -75,8 +74,9 @@ class RenameTable_Input(discord.ui.Modal, title="Rename Table"):
 
     async def on_submit(self, interaction: discord.Interaction):
         name = self.new_name.value.strip()
+        guild_settings = config.get_guild(interaction.guild.id)
 
-        if any(t["name"] == name for t in config.ALL_TABLES if t is not self.table):
+        if any(t["name"] == name for t in guild_settings["ALL_TABLES"] if t is not self.table):
             await interaction.response.send_message(
                 f"{PERMISSON} ``A table named`` ``{name}`` ``already exists.``", ephemeral=True
             )
@@ -91,7 +91,7 @@ class RenameTable_Input(discord.ui.Modal, title="Rename Table"):
 
 class RenameTable(discord.ui.Button):
     def __init__(self, table: dict, ctx_or_interaction):
-        super().__init__(label="Rename Table", style=discord.ButtonStyle.gry)
+        super().__init__(label="Rename Table", style=discord.ButtonStyle.grey)  # was: .gry (typo)
         self.table = table
         self.allowed_user = ctx_or_interaction.user if isinstance(ctx_or_interaction, discord.Interaction) else ctx_or_interaction.author
 
@@ -154,7 +154,7 @@ class RemoveColumn_Input(discord.ui.Modal, title="Remove Column"):
             f"{CHECK} ``Column`` ``{name}`` ``removed.``", ephemeral=True
         )
 
-#commit
+
 class RemoveColumn(discord.ui.Button):
     def __init__(self, table: dict, ctx_or_interaction):
         super().__init__(label="Remove Column", style=discord.ButtonStyle.red)
@@ -175,6 +175,7 @@ async def save_tablemember_roles(interaction, roles, table: dict):
         f"{CHECK} ``Saved member roles:`` {', '.join(r.name for r in roles)}", ephemeral=True
     )
 
+
 async def save_tablemanager_roles(interaction, roles, table: dict):
     table["manager_role_ids"] = [r.id for r in roles]
     save_settings()
@@ -192,15 +193,26 @@ async def save_tableadmin_roles(interaction, roles, table: dict):
 
 
 async def save_requestchannel_id(interaction, channels, table: dict):
-    if not channels: return
-    config.TABLE_REQUEST_CHANNEL_ID = channels[0].id
+    if not channels:
+        return
+    guild_settings = config.get_guild(interaction.guild.id)
+    guild_settings["TABLE_REQUEST_CHANNEL_ID"] = channels[0].id  # was: config.TABLE_REQUEST_CHANNEL_ID
     save_settings()
-    await interaction.response.send_message(f"{CHECK} ``Table update requests set to`` {channels[0].mention}", ephemeral=True)
+    await interaction.response.send_message(
+        f"{CHECK} ``Table update requests set to`` {channels[0].mention}", ephemeral=True
+    )
+
+
 async def save_backupchannel_id(interaction, channels, table: dict):
-    if not channels: return
-    config.TABLE_BACKUP_CHANNEL_ID = channels[0].id
+    if not channels:
+        return
+    guild_settings = config.get_guild(interaction.guild.id)
+    guild_settings["TABLE_BACKUP_CHANNEL_ID"] = channels[0].id  # was: config.TABLE_BACKUP_CHANNEL_ID
     save_settings()
-    await interaction.response.send_message(f"{CHECK} ``Table backups set to`` {channels[0].mention}", ephemeral=True)
+    await interaction.response.send_message(
+        f"{CHECK} ``Table backups set to`` {channels[0].mention}", ephemeral=True
+    )
+
 
 class Table_Settings(commands.Cog):
     def __init__(self, bot):
@@ -219,7 +231,8 @@ class Table_Settings(commands.Cog):
         if not await verifyCommandPermissions(ctx_or_interaction, CommandType.SERVER_ADMIN):
             return
 
-        table = next((t for t in config.ALL_TABLES if t["name"] == table_name), None)
+        guild_settings = config.get_guild(ctx_or_interaction.guild.id)
+        table = next((t for t in guild_settings["ALL_TABLES"] if t["name"] == table_name), None)
         if table is None:
             msg = f"{ERROR} ``Table`` ``{table_name}`` ``not found.``"
             if isinstance(ctx_or_interaction, discord.Interaction):
@@ -229,7 +242,7 @@ class Table_Settings(commands.Cog):
             return
 
         embeds = [
-            discord.Embed(                                                       
+            discord.Embed(
                 title=f"Table {table_name} Settings - Rename Table",
                 description="Rename this table. The new name must be unique across all tables."
             ),
@@ -237,40 +250,44 @@ class Table_Settings(commands.Cog):
                 title=f"Table {table_name} Settings - Manage Columns",
                 description="Manage the columns within the table. At least one column is required."
             ),
-                discord.Embed(title=f"Table {table_name} Settings - Manage User Roles",
+            discord.Embed(
+                title=f"Table {table_name} Settings - Manage User Roles",
                 description="Select which role(s) are members of the table. Members will be able to create requests to add rows to the table, and view their roles."
             ),
-                discord.Embed(title=f"Table {table_name} Settings - Manage Manager Roles",
-                description="Select which role(s) are managers of the table. Managers can review requests and view the entire table.."
+            discord.Embed(
+                title=f"Table {table_name} Settings - Manage Manager Roles",
+                description="Select which role(s) are managers of the table. Managers can review requests and view the entire table."
             ),
-                discord.Embed(title=f"Table {table_name} Settings - Manage Administration Roles",
-                description="Select which role(s) are administrators of the table. Admins have all permissons of Managers, and can also add and remove any row in the table."
+            discord.Embed(
+                title=f"Table {table_name} Settings - Manage Administration Roles",
+                description="Select which role(s) are administrators of the table. Admins have all permissions of Managers, and can also add and remove any row in the table."
             ),
-                            discord.Embed(title=f"Table {table_name} Settings - Manage Request Channel",
-                description="Select which channel should table modifcation requests should be sent. Table users can create requests, and managers can review them."
+            discord.Embed(
+                title=f"Table {table_name} Settings - Manage Request Channel",
+                description="Select which channel table modification requests should be sent to. Table users can create requests, and managers can review them."
             ),
-                                        discord.Embed(title=f"Table {table_name} Settings - Manage Request Settings",
-                description="Enable or disable sumbitted requests pinging all roles with manager permissons for this table."
+            discord.Embed(
+                title=f"Table {table_name} Settings - Manage Request Settings",
+                description="Enable or disable submitted requests pinging all roles with manager permissions for this table."
             ),
-                                                 discord.Embed(title=f"Table {table_name} Settings - Manage Table Backup",
-                description="Select which channel should a backup of a Table be send every 24 hours. If you delete a Table, you can find all of it's information stored in the backup, allowing it to be recreated. Leave this empty if you do not wish for it to be logged."
+            discord.Embed(
+                title=f"Table {table_name} Settings - Manage Table Backup",
+                description="Select which channel should receive a backup of the table every 24 hours. If you delete a table, you can find all of its information stored in the backup, allowing it to be recreated. Leave this empty if you do not wish for it to be logged."
             ),
-            
-            
         ]
-        guild = ctx_or_interaction.guild
+
         view = PageView(
             embeds=embeds,
             ctx_or_interaction=ctx_or_interaction,
             page_menus={
                 0: [lambda: RenameTable(table, ctx_or_interaction)],
                 1: [lambda: AddColumn(table, ctx_or_interaction), lambda: RemoveColumn(table, ctx_or_interaction)],
-                2: [lambda: SelectRoles_Menu(lambda i, r: save_tablemember_roles(i, r, table),ctx_or_interaction)],
+                2: [lambda: SelectRoles_Menu(lambda i, r: save_tablemember_roles(i, r, table), ctx_or_interaction)],
                 3: [lambda: SelectRoles_Menu(lambda i, r: save_tablemanager_roles(i, r, table), ctx_or_interaction)],
                 4: [lambda: SelectRoles_Menu(lambda i, r: save_tableadmin_roles(i, r, table), ctx_or_interaction)],
-                5: [lambda: SelectChannels_Menu(lambda i, r: save_requestchannel_id(i, r, table), ctx_or_interaction)],
+                5: [lambda: SelectChannels_Menu(lambda i, c: save_requestchannel_id(i, c, table), ctx_or_interaction)],
                 6: [lambda: TogglePingRequest(table, ctx_or_interaction)],
-                7: [lambda: SelectChannels_Menu(lambda i, r: save_backupchannel_id(i, r, table), ctx_or_interaction)],
+                7: [lambda: SelectChannels_Menu(lambda i, c: save_backupchannel_id(i, c, table), ctx_or_interaction)],
             }
         )
 

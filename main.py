@@ -6,7 +6,7 @@ import logging
 import os
 
 import config
-from utils import load_settings
+from utils import load_settings, save_settings
 
 logging.basicConfig(
     filename="bot.log",
@@ -15,6 +15,12 @@ logging.basicConfig(
 )
 
 load_dotenv(dotenv_path=".env")
+
+
+def get_prefix(bot, message):
+    if message.guild:
+        return config.get_guild(message.guild.id)["COMMAND_PREFIX"]
+    return "t! "
 
 
 class Client(commands.Bot):
@@ -40,22 +46,26 @@ class Client(commands.Bot):
         print(f"Synced {len(synced)} commands")
 
     @tasks.loop(hours=24)
-    async def backup_settings(self):
-        channel = self.get_channel(config.TABLE_BACKUP_CHANNEL_ID)
+    async def backup_tables(self):
+        for guild_id, guild_settings in config.GUILD_SETTINGS.items():
+            channel_id = guild_settings.get("TABLE_BACKUP_CHANNEL_ID", 0)
+            if not channel_id:
+                continue
 
-        if channel and os.path.exists("settings.json"):
-            unix_time = int(datetime.now().timestamp())
-
-            await channel.send(
-                content=f"Settings Backup\n🕒 <t:{unix_time}:F>",
-                file=discord.File("settings.json")
-            )
+            channel = self.get_channel(channel_id)
+            if channel and os.path.exists("settings.json"):
+                unix_time = int(datetime.now().timestamp())
+                await channel.send(
+                    content=f"Settings Backup\n🕒 <t:{unix_time}:F>",
+                    file=discord.File("settings.json")
+                )
 
     async def on_ready(self):
         load_settings()
+        save_settings()  # write out any new default keys added since last run
 
-        if not self.backup_settings.is_running():
-            self.backup_settings.start()
+        if not self.backup_tables.is_running():
+            self.backup_tables.start()
 
         print(f"Logged in as {self.user}")
 
@@ -64,7 +74,7 @@ intents = discord.Intents.default()
 intents.message_content = True
 
 client = Client(
-    command_prefix=config.COMMAND_PREFIX,
+    command_prefix=get_prefix,
     intents=intents
 )
 

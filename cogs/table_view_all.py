@@ -54,14 +54,10 @@ class Table_View_Full(commands.Cog):
             lines.append(", ".join(columns))
             lines.append("(no rows)")
         else:
-            # Header
             lines.append(" | ".join(str(c) for c in columns))
             lines.append("-" * 40)
-
-            # Rows
             for row_index, row in enumerate(rows, start=1):
-                row_str = " | ".join(str(cell) for cell in row)
-                lines.append(f"{row_index}: {row_str}")
+                lines.append(f"{row_index}: {' | '.join(str(cell) for cell in row)}")
 
         content = "\n".join(lines)
         buffer = io.BytesIO(content.encode("utf-8"))
@@ -74,7 +70,8 @@ class Table_View_Full(commands.Cog):
         if not await verifyCommandPermissions(interaction, CommandType.MANAGER):
             return
 
-        table = next((t for t in config.ALL_TABLES if t["name"] == name), None)
+        guild_settings = config.get_guild(interaction.guild.id)
+        table = next((t for t in guild_settings["ALL_TABLES"] if t["name"] == name), None)
         if table is None:
             await interaction.response.send_message(
                 f"{ERROR} ``Table`` ``{name}`` ``not found.``", ephemeral=True
@@ -82,12 +79,10 @@ class Table_View_Full(commands.Cog):
             return
 
         if view_raw:
-            file = self.build_table_file(table, name)
-            await interaction.response.send_message(file=file)
+            await interaction.response.send_message(file=self.build_table_file(table, name))
             return
 
         embeds = self.build_table_embeds(table, name)
-
         if embeds is None:
             await interaction.response.send_message(
                 f"{ERROR} ``Table`` ``{name}`` ``has no columns.``", ephemeral=True
@@ -105,18 +100,17 @@ class Table_View_Full(commands.Cog):
         if not await verifyCommandPermissions(ctx, CommandType.MANAGER):
             return
 
-        table = next((t for t in config.ALL_TABLES if t["name"] == name), None)
+        guild_settings = config.get_guild(ctx.guild.id)
+        table = next((t for t in guild_settings["ALL_TABLES"] if t["name"] == name), None)
         if table is None:
             await ctx.send(f"{ERROR} ``Table`` ``{name}`` ``not found.``")
             return
 
         if view_raw and view_raw.lower() in ("file", "txt", "true"):
-            file = self.build_table_file(table, name)
-            await ctx.send(file=file)
+            await ctx.send(file=self.build_table_file(table, name))
             return
 
         embeds = self.build_table_embeds(table, name)
-
         if embeds is None:
             await ctx.send(f"{ERROR} ``Table`` ``{name}`` ``has no columns.``")
             return

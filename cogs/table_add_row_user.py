@@ -21,19 +21,20 @@ class ContinueRowInput(discord.ui.View):
            which IS allowed to open a modal -> bot opens page 2.
     """
     def __init__(self, table: dict, existing_index: int | None, target_user: discord.Member,
-                 new_row: list, next_page: int):
+                 new_row: list, next_page: int, guild_id: int):
         super().__init__(timeout=300)
         self.table = table
         self.existing_index = existing_index
         self.target_user = target_user
         self.new_row = new_row
         self.next_page = next_page
+        self.guild_id = guild_id
 
     @discord.ui.button(label="Continue", style=discord.ButtonStyle.grey, emoji="➡️")
     async def continue_button(self, interaction: discord.Interaction, button: discord.ui.Button):
         next_modal = AddRow_Input(
             self.table, self.existing_index, self.target_user,
-            new_row=self.new_row, page=self.next_page
+            new_row=self.new_row, page=self.next_page, guild_id=self.guild_id
         )
         await interaction.response.send_modal(next_modal)
 
@@ -51,7 +52,7 @@ class ContinueRowInput(discord.ui.View):
 
 class AddRow_Input(discord.ui.Modal, title="Add/Update Row"):
     def __init__(self, table: dict, existing_index: int | None, target_user: discord.Member,
-                 new_row: list | None = None, page: int = 0):
+                 new_row: list | None = None, page: int = 0, guild_id: int = 0):
         self.field_columns = table["column_names"][2:]
         self.pages = [self.field_columns[i:i + 5] for i in range(0, len(self.field_columns), 5)]
         page_columns = self.pages[page] if self.pages else []
@@ -64,6 +65,7 @@ class AddRow_Input(discord.ui.Modal, title="Add/Update Row"):
         self.existing_index = existing_index
         self.target_user = target_user
         self.page = page
+        self.guild_id = guild_id
         self.new_row = new_row if new_row is not None else ["null" for _ in range(table["columns"])]
         self.inputs = []
 
@@ -104,7 +106,10 @@ class AddRow_Input(discord.ui.Modal, title="Add/Update Row"):
                 self.new_row[2 + col_index] = value
 
         if self.page + 1 < len(self.pages):
-            view = ContinueRowInput(self.table, self.existing_index, self.target_user, self.new_row, self.page + 1)
+            view = ContinueRowInput(
+                self.table, self.existing_index, self.target_user,
+                self.new_row, self.page + 1, self.guild_id
+            )
             await interaction.response.send_message(
                 f"Page {self.page + 1}/{len(self.pages)} saved. Click **Continue** to fill out the next page.",
                 view=view,
@@ -119,14 +124,16 @@ class AddRow_Input(discord.ui.Modal, title="Add/Update Row"):
             self.table["data"][self.existing_index] = self.new_row
             save_settings()
             await interaction.response.send_message(
-                f"{CHECK} {self.target_user.mention} ``row in table`` ``{self.table['name']}`` ``has been updated.``", ephemeral=True
+                f"{CHECK} {self.target_user.mention} ``row in table`` ``{self.table['name']}`` ``has been updated.``",
+                ephemeral=True
             )
         else:
             self.table["data"].append(self.new_row)
             self.table["rows"] += 1
             save_settings()
             await interaction.response.send_message(
-                f"{CHECK} ``Row added to table`` ``{self.table['name']}`` ``for`` {self.target_user.mention}", ephemeral=True
+                f"{CHECK} ``Row added to table`` ``{self.table['name']}`` ``for`` {self.target_user.mention}",
+                ephemeral=True
             )
 
 
@@ -134,13 +141,15 @@ class Table_Add_Row_User(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @app_commands.command(name="table-add-row-user", description="Add or update your row in the table.")
+    @app_commands.command(name="table-add-row-user", description="Add or update a user's row in the table.")
     @app_commands.autocomplete(name=table_name_autocomplete)
     async def table_add_row_user(self, interaction: discord.Interaction, name: str, user: discord.Member):
         if not await verifyCommandPermissions(interaction, CommandType.ADMIN):
             return
 
-        table = next((t for t in config.ALL_TABLES if t["name"] == name), None)
+        guild_settings = config.get_guild(interaction.guild.id)
+
+        table = next((t for t in guild_settings["ALL_TABLES"] if t["name"] == name), None)
         if table is None:
             await interaction.response.send_message(
                 f"{ERROR} ``Table`` ``{name}`` ``not found.``", ephemeral=True
@@ -149,15 +158,13 @@ class Table_Add_Row_User(commands.Cog):
 
         if len(table["column_names"]) - 2 == 0:
             await interaction.response.send_message(
-                f"{ERROR} ``This table has no columns.``",
-                ephemeral=True
+                f"{ERROR} ``This table has no columns.``", ephemeral=True
             )
             return
 
         if len(table["column_names"]) - 2 > 20:
             await interaction.response.send_message(
-                f"{ERROR} ``This table has too many columns to add a row via this command "
-                f"(max 20 supported).``",
+                f"{ERROR} ``This table has too many columns to add a row via this command (max 20 supported).``",
                 ephemeral=True
             )
             return
@@ -167,15 +174,10 @@ class Table_Add_Row_User(commands.Cog):
             None
         )
 
-        custom_column_count = len(table["column_names"]) - 2
+        await interaction.response.send_modal(AddRow_Input(table, existing_index, user, guild_id=interaction.guild.id))
 
-        # The modal has to be the FIRST response to this interaction (you can't
-        # defer/message first and send a modal afterward), so send it before
-        # doing anything else.
-        await interaction.response.send_modal(AddRow_Input(table, existing_index, user))
-
-        if custom_column_count > 5:
-            prefix = getattr(config, "COMMAND_PREFIX", "t! ")
+        if len(table["column_names"]) - 2 > 5:
+            prefix = guild_settings["COMMAND_PREFIX"]
             await interaction.followup.send(
                 f"``This table has more than 5 columns, so you'll fill out multiple popups in "
                 f"sequence — click Continue between each one.``\n"
@@ -189,9 +191,11 @@ class Table_Add_Row_User(commands.Cog):
         if not await verifyCommandPermissions(ctx, CommandType.ADMIN):
             return
 
-        table = next((t for t in config.ALL_TABLES if t["name"] == name), None)
+        guild_settings = config.get_guild(ctx.guild.id)
+
+        table = next((t for t in guild_settings["ALL_TABLES"] if t["name"] == name), None)
         if table is None:
-            await ctx.send(f"{ERROR} ``Table``  ``{name}`` ``not found.``")
+            await ctx.send(f"{ERROR} ``Table`` ``{name}`` ``not found.``")
             return
 
         if len(table["column_names"]) - 2 == 0:
@@ -200,29 +204,23 @@ class Table_Add_Row_User(commands.Cog):
 
         if len(table["column_names"]) - 2 > 20:
             await ctx.send(
-                f"{ERROR} ``This table has too many columns to add a row via this command "
-                f"(max 20 supported).``"
+                f"{ERROR} ``This table has too many columns to add a row via this command (max 20 supported).``"
             )
             return
-
-        new_row = ["null" for _ in range(table["columns"])]
-        new_row[0] = user.mention
-        new_row[1] = discord.utils.format_dt(discord.utils.utcnow())
 
         existing_index = next(
             (i for i, r in enumerate(table["data"]) if r[0] == user.mention),
             None
         )
 
-        custom_columns = table["column_names"][2:]
-        for i in range(len(custom_columns)):
-            value = values[i] if i < len(values) else "null"
+        new_row = ["null" for _ in range(table["columns"])]
+        new_row[0] = user.mention
+        new_row[1] = discord.utils.format_dt(discord.utils.utcnow())
 
+        for i in range(len(table["column_names"]) - 2):
+            value = values[i] if i < len(values) else "null"
             if value.lower() == "null":
-                if existing_index is not None:
-                    new_row[2 + i] = table["data"][existing_index][2 + i]
-                else:
-                    new_row[2 + i] = "null"
+                new_row[2 + i] = table["data"][existing_index][2 + i] if existing_index is not None else "null"
             else:
                 new_row[2 + i] = value
 

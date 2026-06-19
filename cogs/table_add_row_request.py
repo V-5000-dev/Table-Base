@@ -22,10 +22,7 @@ class AddRequest(discord.ui.View):
         )
         embed.set_footer(text=f"Status: {status}")
 
-        if self.existing_index is not None:
-            old_row = self.table["data"][self.existing_index]
-        else:
-            old_row = [None] * len(self.new_row)
+        old_row = self.table["data"][self.existing_index] if self.existing_index is not None else [None] * len(self.new_row)
 
         for i, (col, old_val, new_val) in enumerate(zip(self.table["column_names"], old_row, self.new_row)):
             if i < 2:
@@ -45,7 +42,6 @@ class AddRequest(discord.ui.View):
             return None
 
         manager_role_ids = self.table.get("manager_role_ids", [])
-
         if not manager_role_ids:
             return None
 
@@ -66,8 +62,7 @@ class AddRequest(discord.ui.View):
             ]
             self.table["data"][current_index] = final_row
         else:
-            final_row = list(self.new_row)
-            self.table["data"].append(final_row)
+            self.table["data"].append(list(self.new_row))
             self.table["rows"] += 1
 
         save_settings()
@@ -101,18 +96,19 @@ class ContinueRowInput(discord.ui.View):
         2. User clicks the button -> that's a component interaction,
            which IS allowed to open a modal -> bot opens page 2.
     """
-    def __init__(self, table: dict, existing_index: int | None, new_row: list, next_page: int):
+    def __init__(self, table: dict, existing_index: int | None, new_row: list, next_page: int, guild_id: int):
         super().__init__(timeout=300)
         self.table = table
         self.existing_index = existing_index
         self.new_row = new_row
         self.next_page = next_page
+        self.guild_id = guild_id
 
     @discord.ui.button(label="Continue", style=discord.ButtonStyle.grey, emoji="➡️")
     async def continue_button(self, interaction: discord.Interaction, button: discord.ui.Button):
         next_modal = AddRow_Input(
             self.table, self.existing_index,
-            new_row=self.new_row, page=self.next_page
+            new_row=self.new_row, page=self.next_page, guild_id=self.guild_id
         )
         await interaction.response.send_modal(next_modal)
 
@@ -130,7 +126,7 @@ class ContinueRowInput(discord.ui.View):
 
 class AddRow_Input(discord.ui.Modal, title="Add/Update Row"):
     def __init__(self, table: dict, existing_index: int | None,
-                 new_row: list | None = None, page: int = 0):
+                 new_row: list | None = None, page: int = 0, guild_id: int = 0):
         self.field_columns = table["column_names"][2:]
         self.pages = [self.field_columns[i:i + 5] for i in range(0, len(self.field_columns), 5)]
         page_columns = self.pages[page] if self.pages else []
@@ -142,6 +138,7 @@ class AddRow_Input(discord.ui.Modal, title="Add/Update Row"):
         self.table = table
         self.existing_index = existing_index
         self.page = page
+        self.guild_id = guild_id
         self.new_row = new_row if new_row is not None else ["None" for _ in range(table["columns"])]
         self.inputs = []
 
@@ -182,7 +179,7 @@ class AddRow_Input(discord.ui.Modal, title="Add/Update Row"):
                 self.new_row[2 + col_index] = value
 
         if self.page + 1 < len(self.pages):
-            view = ContinueRowInput(self.table, self.existing_index, self.new_row, self.page + 1)
+            view = ContinueRowInput(self.table, self.existing_index, self.new_row, self.page + 1, self.guild_id)
             await interaction.response.send_message(
                 f"Page {self.page + 1}/{len(self.pages)} saved. Click **Continue** to fill out the next page.",
                 view=view,
@@ -201,11 +198,13 @@ class AddRow_Input(discord.ui.Modal, title="Add/Update Row"):
                 )
                 return
 
+        guild_settings = config.get_guild(self.guild_id)
+
         view = AddRequest(self.table, self.existing_index, interaction.user, self.new_row)
         embed = view.build_embed()
         content = view.build_ping_content()
 
-        review_channel = interaction.client.get_channel(config.TABLE_REQUEST_CHANNEL_ID)
+        review_channel = interaction.client.get_channel(guild_settings["TABLE_REQUEST_CHANNEL_ID"])
         if review_channel is None:
             await interaction.response.send_message(
                 f"{ERROR} ``Could not find the request review channel. Contact an admin.``", ephemeral=True
@@ -234,7 +233,9 @@ class Table_Add_Row_Request(commands.Cog):
         if not await verifyCommandPermissions(interaction, CommandType.USER):
             return
 
-        table = next((t for t in config.ALL_TABLES if t["name"] == name), None)
+        guild_settings = config.get_guild(interaction.guild.id)
+
+        table = next((t for t in guild_settings["ALL_TABLES"] if t["name"] == name), None)
         if table is None:
             await interaction.response.send_message(
                 f"{ERROR} ``Table`` ``{name}`` ``not found.``", ephemeral=True
@@ -243,20 +244,18 @@ class Table_Add_Row_Request(commands.Cog):
 
         if len(table["column_names"]) - 2 == 0:
             await interaction.response.send_message(
-                f"{ERROR} ``This table has no columns.``",
-                ephemeral=True
+                f"{ERROR} ``This table has no columns.``", ephemeral=True
             )
             return
 
         if len(table["column_names"]) - 2 > 20:
             await interaction.response.send_message(
-                f"{ERROR} ``This table has too many columns to add a row via this command "
-                f"(max 20 supported).``",
+                f"{ERROR} ``This table has too many columns to add a row via this command (max 20 supported).``",
                 ephemeral=True
             )
             return
 
-        review_channel = interaction.client.get_channel(config.TABLE_REQUEST_CHANNEL_ID)
+        review_channel = interaction.client.get_channel(guild_settings["TABLE_REQUEST_CHANNEL_ID"])
         if review_channel is None:
             await interaction.response.send_message(
                 f"{ERROR} ``Could not find the request review channel. Contact an admin.``", ephemeral=True
@@ -268,15 +267,16 @@ class Table_Add_Row_Request(commands.Cog):
             None
         )
 
-        await interaction.response.send_modal(AddRow_Input(table, existing_index))
-
+        await interaction.response.send_modal(AddRow_Input(table, existing_index, guild_id=interaction.guild.id))
 
     @commands.command(name="table-add-row-request")
     async def table_add_row_prefix_request(self, ctx, name: str, *values: str):
         if not await verifyCommandPermissions(ctx, CommandType.USER):
             return
 
-        table = next((t for t in config.ALL_TABLES if t["name"] == name), None)
+        guild_settings = config.get_guild(ctx.guild.id)
+
+        table = next((t for t in guild_settings["ALL_TABLES"] if t["name"] == name), None)
         if table is None:
             await ctx.send(f"{ERROR} ``Table`` ``{name}`` ``not found.``")
             return
@@ -287,12 +287,11 @@ class Table_Add_Row_Request(commands.Cog):
 
         if len(table["column_names"]) - 2 > 20:
             await ctx.send(
-                f"{ERROR} ``This table has too many columns to add a row via this command "
-                f"(max 20 supported).``"
+                f"{ERROR} ``This table has too many columns to add a row via this command (max 20 supported).``"
             )
             return
 
-        review_channel = ctx.bot.get_channel(config.TABLE_REQUEST_CHANNEL_ID)
+        review_channel = ctx.bot.get_channel(guild_settings["TABLE_REQUEST_CHANNEL_ID"])
         if review_channel is None:
             await ctx.send(f"{ERROR} ``Could not find the request review channel. Contact an admin.``")
             return
@@ -306,23 +305,16 @@ class Table_Add_Row_Request(commands.Cog):
         new_row[0] = ctx.author.mention
         new_row[1] = discord.utils.format_dt(discord.utils.utcnow())
 
-        custom_columns = table["column_names"][2:]
-        for i in range(len(custom_columns)):
+        for i, col in enumerate(table["column_names"][2:]):
             value = values[i] if i < len(values) else "None"
-
             if value.lower() == "none":
-                if existing_index is not None:
-                    new_row[2 + i] = table["data"][existing_index][2 + i]
-                else:
-                    new_row[2 + i] = "None"
+                new_row[2 + i] = table["data"][existing_index][2 + i] if existing_index is not None else "None"
             else:
                 new_row[2 + i] = value
 
-        if existing_index is not None:
-            existing_row = table["data"][existing_index]
-            if new_row[2:] == existing_row[2:]:
-                await ctx.send(f"{ERROR} ``No changes were made, request cancelled.``")
-                return
+        if existing_index is not None and new_row[2:] == table["data"][existing_index][2:]:
+            await ctx.send(f"{ERROR} ``No changes were made, request cancelled.``")
+            return
 
         view = AddRequest(table, existing_index, ctx.author, new_row)
         embed = view.build_embed()

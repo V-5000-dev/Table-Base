@@ -15,12 +15,14 @@ class Table_Create(commands.Cog):
         if not await verifyCommandPermissions(interaction, CommandType.SERVER_ADMIN):
             return
 
-        if any(t["name"] == name for t in config.ALL_TABLES):
+        guild_settings = config.get_guild(interaction.guild.id)
+
+        if any(t["name"] == name for t in guild_settings["ALL_TABLES"]):
             await interaction.response.send_message(
                 f"{ERROR} ``A table with the name`` ``{name}`` ``already exists.``", ephemeral=True
             )
             return
-        if len(config.ALL_TABLES) >= 20:
+        if len(guild_settings["ALL_TABLES"]) >= 20:
             await interaction.response.send_message(
                 f"{ERROR} ``The maximum of 20 tables has been reached.``", ephemeral=True
             )
@@ -29,13 +31,13 @@ class Table_Create(commands.Cog):
         table = {
             "name": name,
             "rows": 0,
-            "columns": 2,  # User + Timestamp
-            "column_names": ["User", "Ts"],
+            "columns": 2,
+            "column_names": ["User", "Timestamp"],
             "member_role_ids": [],
             "ping_managers": True,
             "data": []
         }
-        config.ALL_TABLES.append(table)
+        guild_settings["ALL_TABLES"].append(table)
         save_settings()
 
         await interaction.response.send_message(
@@ -47,28 +49,30 @@ class Table_Create(commands.Cog):
         if not await verifyCommandPermissions(ctx, CommandType.SERVER_ADMIN):
             return
 
-        if any(t["name"] == name for t in config.ALL_TABLES):
+        guild_settings = config.get_guild(ctx.guild.id)
+
+        if any(t["name"] == name for t in guild_settings["ALL_TABLES"]):
             await ctx.send(f"{ERROR} ``A table with the name`` ``{name}`` ``already exists.``")
             return
-        if len(config.ALL_TABLES) >= 20:
-            await ctx.response.send_message(
-                f"{ERROR} ``The maximum of 20 tables has been reached.``", ephemeral=True
-            )
+        if len(guild_settings["ALL_TABLES"]) >= 20:
+            await ctx.send(f"{ERROR} ``The maximum of 20 tables has been reached.``")
             return
 
         table = {
             "name": name,
             "rows": 0,
-            "columns": 2,  # User + Timestamp
+            "columns": 2,
             "column_names": ["User", "Timestamp"],
             "member_role_ids": [],
             "ping_managers": True,
             "data": []
         }
-        config.ALL_TABLES.append(table)
+        guild_settings["ALL_TABLES"].append(table)
         save_settings()
 
-        await ctx.send(f"{CHECK} ``Table with the name`` ``{name}`` ``created.``\n``Set up the table with`` ``table-settings``")
+        await ctx.send(
+            f"{CHECK} ``Table with the name`` ``{name}`` ``created.``\n``Set up the table with`` ``table-settings``"
+        )
 
 
 async def setup(bot):

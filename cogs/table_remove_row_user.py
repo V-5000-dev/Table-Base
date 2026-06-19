@@ -16,7 +16,8 @@ class Table_Remove_Row_User(commands.Cog):
         if not await verifyCommandPermissions(interaction, CommandType.ADMIN):
             return
 
-        table = next((t for t in config.ALL_TABLES if t["name"] == name), None)
+        settings = config.get_guild(interaction.guild_id)
+        table = next((t for t in settings["ALL_TABLES"] if t["name"] == name), None)
         if table is None:
             await interaction.response.send_message(
                 f"{ERROR} ``Table`` ``{name}`` ``not found.``", ephemeral=True
@@ -27,7 +28,7 @@ class Table_Remove_Row_User(commands.Cog):
             if r[0] == user.mention:
                 del table["data"][i]
                 table["rows"] -= 1
-                save_settings()
+                save_settings()  # was: save_settings(interaction.guild_id)
                 await interaction.response.send_message(
                     f"{CHECK} ``Removed`` {user.mention} ``'s row from table`` ``{name}``", ephemeral=True
                 )
@@ -38,24 +39,25 @@ class Table_Remove_Row_User(commands.Cog):
         )
 
     @commands.command(name="table-remove-row-user")
-    async def table_remove_row_prefix(self, ctx, name: str, user: str):
+    async def table_remove_row_prefix(self, ctx, name: str, user: discord.Member):  # was: user: str
         if not await verifyCommandPermissions(ctx, CommandType.ADMIN):
             return
 
-        table = next((t for t in config.ALL_TABLES if t["name"] == name), None)
+        settings = config.get_guild(ctx.guild.id)
+        table = next((t for t in settings["ALL_TABLES"] if t["name"] == name), None)
         if table is None:
             await ctx.send(f"{ERROR} ``Table`` ``{name}`` ``not found.``")
             return
 
         for i, r in enumerate(table["data"]):
-            if r[0] == user:
+            if r[0] == user.mention:  # was: r[0] == user
                 del table["data"][i]
                 table["rows"] -= 1
-                save_settings()
-                await ctx.send(f"{CHECK} ``Removed`` {user} ``'s row from table`` ``{name}``")
+                save_settings()  # was: save_settings(ctx.guild.id)
+                await ctx.send(f"{CHECK} ``Removed`` {user.mention} ``'s row from table`` ``{name}``")
                 return
 
-        await ctx.send(f"{ERROR} ``Failed to find`` {user} ``'s row in table`` ``{name}``")
+        await ctx.send(f"{ERROR} ``Failed to find`` {user.mention} ``'s row in table`` ``{name}``")
 
 
 async def setup(bot):

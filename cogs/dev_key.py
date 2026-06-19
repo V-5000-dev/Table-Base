@@ -1,7 +1,7 @@
 import discord
 from discord.ext import commands
 from discord import app_commands
-from config import GUILD_ID, CHECK, CHECKWHITE, ERROR
+from config import GUILD_ID, CHECK, ERROR
 
 OWNER_ID = 1057431766568284360  
 ROLE_ID_TO_ADD = 1327919872843452426  

@@ -158,3 +158,18 @@ Traceback (most recent call last):
     raise HTTPException(response, data)
 discord.errors.HTTPException: 400 Bad Request (error code: 40060): Interaction has already been acknowledged.
 2026-06-16 19:53:37,341 [Manager] [table-view-user] v_500 - Allowed
+2026-06-19 00:07:18,923 davey is not installed, voice will NOT be supported
+2026-06-19 00:07:18,923 logging in using static token
+2026-06-19 00:07:48,500 davey is not installed, voice will NOT be supported
+2026-06-19 00:07:48,500 logging in using static token
+2026-06-19 00:07:58,484 davey is not installed, voice will NOT be supported
+2026-06-19 00:07:58,485 logging in using static token
+2026-06-19 00:09:22,986 davey is not installed, voice will NOT be supported
+2026-06-19 00:09:22,987 logging in using static token
+2026-06-19 00:09:34,622 davey is not installed, voice will NOT be supported
+2026-06-19 00:09:34,622 logging in using static token
+2026-06-19 00:09:40,212 davey is not installed, voice will NOT be supported
+2026-06-19 00:09:40,213 logging in using static token
+2026-06-19 00:09:49,780 davey is not installed, voice will NOT be supported
+2026-06-19 00:09:49,780 logging in using static token
+2026-06-19 00:09:50,726 Shard ID None has connected to Gateway (Session ID: b44e53a9bb466dfee1cb41293c0507fe).

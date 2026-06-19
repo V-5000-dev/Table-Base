@@ -1,7 +1,7 @@
 import discord
 from discord.ext import commands
 from discord import app_commands
-from config import GUILD_ID, CHECK, CHECKWHITE, CommandType
+from config import GUILD_ID, CHECK, CommandType
 from utils import verifyCommandPermissions
 
 class Prefix(commands.Cog):

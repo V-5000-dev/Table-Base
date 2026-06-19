@@ -35,7 +35,8 @@ class Table_View_User(commands.Cog):
         if not await verifyCommandPermissions(interaction, CommandType.MANAGER):
             return
 
-        table = next((t for t in config.ALL_TABLES if t["name"] == name), None)
+        guild_settings = config.get_guild(interaction.guild.id)
+        table = next((t for t in guild_settings["ALL_TABLES"] if t["name"] == name), None)
         if table is None:
             await interaction.response.send_message(
                 f"{ERROR} ``Table`` ``{name}`` ``not found.``", ephemeral=True
@@ -56,19 +57,18 @@ class Table_View_User(commands.Cog):
             return
 
         if view_raw:
-            file = self.build_row_file(table, name, row)
-            await interaction.response.send_message(file=file)
+            await interaction.response.send_message(file=self.build_row_file(table, name, row))
             return
 
-        embed = self.build_row_embed(table, name, row)
-        await interaction.response.send_message(embed=embed)
+        await interaction.response.send_message(embed=self.build_row_embed(table, name, row))
 
     @commands.command(name="table-view-user")
-    async def table_view_row_prefix(self, ctx, name: str, user: str, view_raw: str = None):
+    async def table_view_row_prefix(self, ctx, name: str, user: discord.Member, view_raw: str = None):  # was: user: str
         if not await verifyCommandPermissions(ctx, CommandType.MANAGER):
             return
 
-        table = next((t for t in config.ALL_TABLES if t["name"] == name), None)
+        guild_settings = config.get_guild(ctx.guild.id)
+        table = next((t for t in guild_settings["ALL_TABLES"] if t["name"] == name), None)
         if table is None:
             await ctx.send(f"{ERROR} ``Table`` ``{name}`` ``not found.``")
             return
@@ -77,18 +77,16 @@ class Table_View_User(commands.Cog):
             await ctx.send(f"{ERROR} ``Table`` ``{name}`` ``has no columns.``")
             return
 
-        row = next((r for r in table["data"] if r[0] == user), None)
+        row = next((r for r in table["data"] if r[0] == user.mention), None)  # was: r[0] == user
         if row is None:
-            await ctx.send(f"{ERROR} {user} ``has no rows.``")
+            await ctx.send(f"{ERROR} {user.mention} ``has no rows.``")  # was: {user}
             return
 
         if view_raw and view_raw.lower() in ("file", "txt", "true"):
-            file = self.build_row_file(table, name, row)
-            await ctx.send(file=file)
+            await ctx.send(file=self.build_row_file(table, name, row))
             return
 
-        embed = self.build_row_embed(table, name, row)
-        await ctx.send(embed=embed)
+        await ctx.send(embed=self.build_row_embed(table, name, row))
 
 
 async def setup(bot):

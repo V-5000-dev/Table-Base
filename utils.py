@@ -13,27 +13,31 @@ def load_settings():
     try:
         with open(SETTINGS_FILE, "r") as f:
             data = json.load(f)
-
-        for guild_id_str, guild_data in data.items():
-            guild_id = int(guild_id_str)
-            settings = config.get_guild(guild_id)
-
-            settings["TABLE_REQUEST_CHANNEL_ID"] = guild_data.get("TABLE_REQUEST_CHANNEL_ID", 0)
-            settings["TABLE_BACKUP_CHANNEL_ID"]  = guild_data.get("TABLE_BACKUP_CHANNEL_ID", 0)
-            settings["SERVER_ADMIN_ROLE_IDS"]    = guild_data.get("SERVER_ADMIN_ROLE_IDS", [])
-            settings["ADMIN_ROLE_IDS"]           = guild_data.get("ADMIN_ROLE_IDS", [])
-            settings["MANAGER_ROLE_IDS"]         = guild_data.get("MANAGER_ROLE_IDS", [])
-            settings["MEMBER_ROLE_IDS"]          = guild_data.get("MEMBER_ROLE_IDS", [])
-            settings["LOG_UNSUCCESSFUL"]         = guild_data.get("LOG_UNSUCCESSFUL", True)
-            settings["LOG_CHANNELS"][CommandType.USER]    = guild_data.get("USER_LOG_CHANNEL", 0)
-            settings["LOG_CHANNELS"][CommandType.MANAGER] = guild_data.get("MANAGER_LOG_CHANNEL", 0)
-            settings["LOG_CHANNELS"][CommandType.ADMIN]   = guild_data.get("ADMIN_LOG_CHANNEL", 0)
-            settings["ALL_TABLES"]               = guild_data.get("ALL_TABLES", [])
-            settings["COMMAND_PREFIX"]           = guild_data.get("COMMAND_PREFIX", "t! ")
-
     except FileNotFoundError:
-        pass
+        return
 
+    for guild_id_str, guild_data in data.items():
+        try:
+            guild_id = int(guild_id_str)
+        except (ValueError, TypeError):
+            # Skip leftover/legacy top-level keys that aren't guild IDs
+            continue
+        if not isinstance(guild_data, dict):
+            continue
+
+        settings = config.get_guild(guild_id)
+        settings["TABLE_REQUEST_CHANNEL_ID"] = guild_data.get("TABLE_REQUEST_CHANNEL_ID", 0)
+        settings["TABLE_BACKUP_CHANNEL_ID"]  = guild_data.get("TABLE_BACKUP_CHANNEL_ID", 0)
+        settings["SERVER_ADMIN_ROLE_IDS"]    = guild_data.get("SERVER_ADMIN_ROLE_IDS", [])
+        settings["ADMIN_ROLE_IDS"]           = guild_data.get("ADMIN_ROLE_IDS", [])
+        settings["MANAGER_ROLE_IDS"]         = guild_data.get("MANAGER_ROLE_IDS", [])
+        settings["MEMBER_ROLE_IDS"]          = guild_data.get("MEMBER_ROLE_IDS", [])
+        settings["LOG_UNSUCCESSFUL"]         = guild_data.get("LOG_UNSUCCESSFUL", True)
+        settings["LOG_CHANNELS"][CommandType.USER]    = guild_data.get("USER_LOG_CHANNEL", 0)
+        settings["LOG_CHANNELS"][CommandType.MANAGER] = guild_data.get("MANAGER_LOG_CHANNEL", 0)
+        settings["LOG_CHANNELS"][CommandType.ADMIN]   = guild_data.get("ADMIN_LOG_CHANNEL", 0)
+        settings["ALL_TABLES"]               = guild_data.get("ALL_TABLES", [])
+        settings["COMMAND_PREFIX"]           = guild_data.get("COMMAND_PREFIX", "t! ")
 
 def save_settings():
     """Save all guilds' settings to JSON."""

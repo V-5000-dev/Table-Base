@@ -46,7 +46,7 @@ class Dev_Restore_Json(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command(name="dev-restore-settings")
+    @commands.command(name="dev-restore-json")
     async def dev_restore_settings(self, ctx, target_guild_id: int = None):
         """
         Owner-only. Attach a settings_export.json backup to this command

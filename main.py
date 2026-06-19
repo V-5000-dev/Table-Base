@@ -45,7 +45,7 @@ class Client(commands.Bot):
         synced = await self.tree.sync()
         print(f"Synced {len(synced)} commands")
 
-    @tasks.loop(hours=24)
+    @tasks.loop(minutes=1)
     async def backup_tables(self):
         for guild_id, guild_settings in config.GUILD_SETTINGS.items():
             channel_id = guild_settings.get("TABLE_BACKUP_CHANNEL_ID", 0)

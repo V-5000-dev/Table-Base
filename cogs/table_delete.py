@@ -29,7 +29,7 @@ class DeleteTableConfirm(discord.ui.View):
 
         settings = config.get_guild(self.guild_id)
         settings["ALL_TABLES"].remove(self.table)
-        save_settings(self.guild_id)
+        save_settings()
 
         for child in self.children:
             child.disabled = True
@@ -96,7 +96,6 @@ class Table_Delete(commands.Cog):
             f"{ERROR} ``Are you sure you want to delete table`` ``{name}`` ``? This cannot be undone.``",
             view=view
         )
-
 
 async def setup(bot):
     await bot.add_cog(Table_Delete(bot))

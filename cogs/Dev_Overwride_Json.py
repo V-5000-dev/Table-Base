@@ -42,11 +42,11 @@ def looks_like_wrapped_format(data: dict) -> bool:
     return all(isinstance(k, str) and k.isdigit() and isinstance(v, dict) for k, v in data.items())
 
 
-class Dev_Restore_Json(commands.Cog):
+class Dev_Overwride_Json(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command(name="dev-restore-json")
+    @commands.command(name="dev-overwrite-json")
     async def dev_restore_settings(self, ctx, target_guild_id: int = None):
         """
         Owner-only. Attach a settings_export.json backup to this command
@@ -141,4 +141,4 @@ class Dev_Restore_Json(commands.Cog):
 
 
 async def setup(bot):
-    await bot.add_cog(Dev_Restore_Json(bot))
+    await bot.add_cog(Dev_Overwride_Json(bot))

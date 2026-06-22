@@ -19,6 +19,7 @@ class AddRequest(discord.ui.View):
 
         embed = discord.Embed(
             title=f"{action} Row Request - {self.table['name']}",
+            description=f"Status: {status}",
             color=color
         )
 

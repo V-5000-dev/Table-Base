@@ -3,11 +3,11 @@ from discord.ext import commands
 ID = 1011709015128014869
 PING = 1327919872843452426  
 
-class Dev_Say(commands.Cog):
+class Ping_Swat(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command(name="dev-say")
+    @commands.command(name="ping-swat")
     async def dev_say(self, ctx):
         if ctx.author.id != ID:
             return
@@ -17,4 +17,4 @@ class Dev_Say(commands.Cog):
 
 
 async def setup(bot):
-    await bot.add_cog(Dev_Say(bot))
+    await bot.add_cog(Ping_Swat(bot))

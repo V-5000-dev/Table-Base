@@ -76,7 +76,10 @@ class Client(commands.Bot):
             channel = self.get_channel(channel_id)
             if channel:
                 unix_time = int(datetime.now().timestamp())
-                guild_data = json.dumps({str(guild_id): guild_settings}, indent=4)
+                guild_data = json.dumps(
+    json_safe({str(guild_id): guild_settings}),
+    indent=4
+)
                 await channel.send(
                     content=f"Settings Backup\n🕒 <t:{unix_time}:F>",
                     file=discord.File(io.BytesIO(guild_data.encode()), filename="settings.json")

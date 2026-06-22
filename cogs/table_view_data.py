@@ -16,7 +16,7 @@ class Table_View_Data(commands.Cog):
         embed = discord.Embed(title=f"Table: {name}", description=f"Found {len(rows)} matching row(s)")
         for row in rows:
             value = "\n".join(f"`{col}`: {cell}" for col, cell in zip(columns, row))
-            embed.add_field(name=f"Row — {row[0]}", value=value, inline=False)
+           # embed.add_field(name=f"Row — {row[0]}", value=value, inline=False)
         return embed
 
     def build_rows_file(self, table, name, rows):

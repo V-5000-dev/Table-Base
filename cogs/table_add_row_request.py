@@ -20,7 +20,7 @@ class AddRequest(discord.ui.View):
             title=f"{action} Row Request - {self.table['name']}",
             color=color
         )
-        embed.set_footer(text=f"Status: {status}")
+        embed.description(text=f"Status: {status}")
 
         old_row = self.table["data"][self.existing_index] if self.existing_index is not None else [None] * len(self.new_row)
 

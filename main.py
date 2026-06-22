@@ -9,6 +9,21 @@ import io
 
 import config
 from utils import load_settings, save_settings
+from enum import Enum
+
+def json_safe(obj):
+    if isinstance(obj, dict):
+        return {
+            (k.name if isinstance(k, Enum) else str(k) if not isinstance(k, (str, int, float, bool, type(None))) else k):
+            json_safe(v)
+            for k, v in obj.items()
+        }
+    elif isinstance(obj, list):
+        return [json_safe(v) for v in obj]
+    elif isinstance(obj, Enum):
+        return obj.name  
+    else:
+        return obj
 
 logging.basicConfig(
     filename="bot.log",
@@ -61,7 +76,7 @@ class Client(commands.Bot):
             channel = self.get_channel(channel_id)
             if channel:
                 unix_time = int(datetime.now().timestamp())
-                guild_data = json.dumps({str(guild_id): guild_settings}, indent=4, default=str)
+                guild_data = json.dumps({str(guild_id): guild_settings}, indent=4)
                 await channel.send(
                     content=f"Settings Backup\n🕒 <t:{unix_time}:F>",
                     file=discord.File(io.BytesIO(guild_data.encode()), filename="settings.json")

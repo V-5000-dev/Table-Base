@@ -16,22 +16,30 @@ class AddRequest(discord.ui.View):
 
     def build_embed(self, status: str = "Pending", color: discord.Color = discord.Color.gold()):
         action = "Update" if self.existing_index is not None else "Add"
+
         embed = discord.Embed(
             title=f"{action} Row Request - {self.table['name']}",
             color=color
         )
+
         embed.set_author(name=f"Status: {status}")
 
-        old_row = self.table["data"][self.existing_index] if self.existing_index is not None else [None] * len(self.new_row)
+        old_row = (
+            self.table["data"][self.existing_index]
+            if self.existing_index is not None
+            else [None] * len(self.new_row)
+        )
 
-        for i, (col, old_val, new_val) in enumerate(zip(self.table["column_names"], old_row, self.new_row)):
-            if i < 2:
-                value = str(new_val)
-            else:
-                if new_val == "None":
-                    continue
-                old_display = str(old_val) if old_val is not None else "None"
-                value = f"{old_display} → {new_val}"
+        for col, old_val, new_val in zip(self.table["column_names"], old_row, self.new_row):
+
+       
+            if new_val == "None":
+                new_val = None
+
+            if new_val == old_val:
+                continue
+
+            value = str(new_val) if new_val is not None else "None"
 
             embed.add_field(name=col, value=value, inline=False)
 

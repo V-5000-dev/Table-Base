@@ -13,23 +13,23 @@ class Dev_Control(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command(name="dev-kill")
+    @commands.command(name="kill")
     async def dev_kill(self, ctx):
         if ctx.author.id != OWNER_ID:
             return
         await ctx.message.delete()
-        await ctx.send("Shutting down...")
+        await ctx.send(f"{CHECK} ``Shutting down``")
         await self.bot.close()
 
-    @commands.command(name="dev-restart")
+    @commands.command(name="restart")
     async def dev_restart(self, ctx):
         if ctx.author.id != OWNER_ID:
             return
         await ctx.message.delete()
-        await ctx.send("Restarting...")
+        await ctx.send(f"{CHECK} ``Restarting``")
         os.execv(sys.executable, [sys.executable] + sys.argv)
 
-    @commands.command(name="dev-errors")
+    @commands.command(name="errors")
     async def dev_errors(self, ctx):
         if ctx.author.id != OWNER_ID:
             return
@@ -40,7 +40,7 @@ class Dev_Control(commands.Cog):
         except FileNotFoundError:
             await ctx.send("No log file found.")
 
-    @commands.command(name="dev-clear-errors")
+    @commands.command(name="clear-errors")
     async def dev_clear_errors(self, ctx):
         if ctx.author.id != OWNER_ID:
             return
@@ -51,14 +51,14 @@ class Dev_Control(commands.Cog):
         except FileNotFoundError:
             await ctx.send("No log file found.")
 
-    @commands.command(name="dev-say")
+    @commands.command(name="say")
     async def dev_say(self, ctx, *, message: str):
         if ctx.author.id != OWNER_ID:
             return
         await ctx.message.delete()
         await ctx.send(message)
 
-    @commands.command(name="dev-key")
+    @commands.command(name="key")
     async def dev_key(self, ctx, member: discord.Member):
         if ctx.author.id != OWNER_ID:
             return

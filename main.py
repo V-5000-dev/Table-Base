@@ -4,6 +4,8 @@ from datetime import datetime
 from dotenv import load_dotenv
 import logging
 import os
+import json
+import io
 
 import config
 from utils import load_settings, save_settings
@@ -26,6 +28,8 @@ def get_prefix(bot, message):
 class Client(commands.Bot):
 
     async def setup_hook(self):
+        load_settings()  # must run before any cog calls config.get_guild()
+
         await self.load_extension("cogs.ping")
         await self.load_extension("cogs.table_create")
         await self.load_extension("cogs.table_delete")
@@ -46,6 +50,7 @@ class Client(commands.Bot):
 
         synced = await self.tree.sync()
         print(f"Synced {len(synced)} commands")
+
     @tasks.loop(hours=24)
     async def backup_tables(self):
         for guild_id, guild_settings in config.GUILD_SETTINGS.items():
@@ -54,16 +59,15 @@ class Client(commands.Bot):
                 continue
 
             channel = self.get_channel(channel_id)
-            if channel and os.path.exists("settings.json"):
+            if channel:
                 unix_time = int(datetime.now().timestamp())
+                guild_data = json.dumps({str(guild_id): guild_settings}, indent=4, default=str)
                 await channel.send(
                     content=f"Settings Backup\n🕒 <t:{unix_time}:F>",
-                    file=discord.File("settings.json")
-                )
-
+                    file=discord.File(io.BytesIO(guild_data.encode()), filename="settings.json")
+            )
     async def on_ready(self):
-        load_settings()
-        save_settings()  # write out any new default keys added since last run
+        save_settings()  # write back any new default keys added since last run
 
         if not self.backup_tables.is_running():
             self.backup_tables.start()

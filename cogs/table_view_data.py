@@ -14,11 +14,11 @@ class Table_View_Data(commands.Cog):
     def build_rows_embed(self, table, name, rows):
         columns = table["column_names"]
         embed = discord.Embed(title=f"Table: {name}", description=f"Found {len(rows)} matching row(s)")
-        row_index = 1
+        row_index = 0
         for row in rows:
             row_index += 1
             value = "\n".join(f"`{col}`: {cell}" for col, cell in zip(columns, row))
-            embed.add_field(name=f"Row — {row_index}", value=value, inline=False)
+            embed.add_field(name=f"Row {row_index}", value=value, inline=False)
         return embed
 
     def build_rows_file(self, table, name, rows):

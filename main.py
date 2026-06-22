@@ -41,10 +41,10 @@ class Client(commands.Bot):
         await self.load_extension("cogs.table_add_row_request")
         await self.load_extension("cogs.table_remove_row_user")
         await self.load_extension("cogs.server_settings")
-        await self.load_extension("cogs.dev_key")
-        await self.load_extension("cogs.dev_say")
+        await self.load_extension("cogs.dev_control")
         await self.load_extension("cogs.dev_restore_settings")
         await self.load_extension("cogs.dev_cat_file")
+        await self.load_extension("cogs.ping_swat")
         await self.load_extension("cogs.prefix")
         await self.load_extension("cogs.set_prefix")
 

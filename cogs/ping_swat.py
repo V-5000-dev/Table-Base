@@ -1,7 +1,7 @@
 import discord
 from discord.ext import commands
 ID = 1011709015128014869
-PING = 1327919872843452426  
+PING = 1260041432841064510  
 
 class Ping_Swat(commands.Cog):
     def __init__(self, bot):

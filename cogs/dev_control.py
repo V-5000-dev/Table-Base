@@ -29,7 +29,7 @@ class Dev_Control(commands.Cog):
         await ctx.send(f"{CHECK} ``Shutting down``")
         await self.bot.close()
 
-@commands.command(name="dev-commands")
+@commands.command(name="commands")
 async def dev_commands(self, ctx):
     if ctx.author.id != OWNER_ID:
         return

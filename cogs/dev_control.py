@@ -29,28 +29,27 @@ class Dev_Control(commands.Cog):
         await ctx.send(f"{CHECK} ``Shutting down``")
         await self.bot.close()
 
-@commands.command(name="commands")
-async def dev_commands(self, ctx):
-    if ctx.author.id != OWNER_ID:
-        return
-    await ctx.message.delete()
+    @commands.command(name="commands")
+    async def dev_commands(self, ctx):
+        if ctx.author.id != OWNER_ID:
+            return
 
-    prefix_commands = sorted(c.name for c in self.bot.commands)
-    slash_commands = sorted(c.name for c in self.bot.tree.get_commands())
+        prefix_commands = sorted(c.name for c in self.bot.commands)
+        slash_commands = sorted(c.name for c in self.bot.tree.get_commands())
 
-    embed = discord.Embed(title="Loaded Commands")
-    embed.add_field(
-        name="Prefix Commands",
-        value="\n".join(f"`{c}`" for c in prefix_commands) or "None",
-        inline=True
-    )
-    embed.add_field(
-        name="Slash Commands",
-        value="\n".join(f"`/{c}`" for c in slash_commands) or "None",
-        inline=True
-    )
+        embed = discord.Embed(title="Loaded Commands")
+        embed.add_field(
+            name="Prefix Commands",
+            value="\n".join(f"`{c}`" for c in prefix_commands) or "None",
+            inline=True
+        )
+        embed.add_field(
+         name="Slash Commands",
+            value="\n".join(f"`/{c}`" for c in slash_commands) or "None",
+            inline=True
+        )
 
-    await ctx.send(embed=embed)
+        await ctx.send(embed=embed)
 
     @commands.command(name="restart")
     async def dev_restart(self, ctx):

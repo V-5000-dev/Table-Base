@@ -4,6 +4,7 @@ import os
 import sys
 from discord.ext import commands
 from config import CHECK, ERROR
+import subprocess
 
 OWNER_ID = 1057431766568284360
 ROLE_ID_TO_ADD = 1327919872843452426
@@ -21,13 +22,7 @@ class Dev_Control(commands.Cog):
         await ctx.send(f"{CHECK} ``Shutting down``")
         await self.bot.close()
     
-    @commands.command(name="kill")
-    async def dev_kill(self, ctx):
-        if ctx.author.id != OWNER_ID:
-            return
-        await ctx.message.delete()
-        await ctx.send(f"{CHECK} ``Shutting down``")
-        await self.bot.close()
+
 
     @commands.command(name="commands")
     async def dev_commands(self, ctx):
@@ -50,6 +45,27 @@ class Dev_Control(commands.Cog):
         )
 
         await ctx.send(embed=embed)
+
+    
+    @commands.command(name="update")
+    async def dev_update(self, ctx):
+        if ctx.author.id != OWNER_ID:
+            return
+        await ctx.message.delete()
+
+        result = subprocess.run(["git", "pull"], capture_output=True, text=True)
+        output = result.stdout.strip() or result.stderr.strip() or "No output."
+
+        embed = discord.Embed(title="Git Pull")
+        embed.add_field(name="Output", value=f"```{output}```", inline=False)
+
+        await ctx.send(embed=embed)
+
+        if result.returncode == 0:
+            await ctx.send(f"{CHECK} ``Restarting``")
+            os.execv(sys.executable, [sys.executable] + sys.argv)
+        else:
+            await ctx.send(f"{ERROR} ``Git pull failed, not restarting.``")
 
     @commands.command(name="restart")
     async def dev_restart(self, ctx):

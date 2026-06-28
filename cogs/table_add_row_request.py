@@ -14,37 +14,40 @@ class AddRequest(discord.ui.View):
         self.requester = requester
         self.new_row = new_row
 
-    def build_embed(self, status: str = "Pending", color: discord.Color = discord.Color.gold()):
-        action = "Update" if self.existing_index is not None else "Add"
+    def build_embed(self, status: str = "Pending", color: discord.Color = discord.Color.gold(), reviewer: discord.Member | None = None):
+     action = "Update" if self.existing_index is not None else "Add"
 
-        embed = discord.Embed(
-            title=f"{action} Row Request - {self.table['name']}",
-            description=f"**Status: {status}**",
-            color=color
-        )
+     embed = discord.Embed(
+        title=f"{action} Row Request - {self.table['name']}",
+        description=f"**Status: {status}**",
+        color=color
+    )
 
-        embed.set_author(name=f"Status: {status}")
+     embed.set_author(name=f"Status: {status}")
 
-        old_row = (
-            self.table["data"][self.existing_index]
-            if self.existing_index is not None
-            else [None] * len(self.new_row)
-        )
+     old_row = (
+        self.table["data"][self.existing_index]
+        if self.existing_index is not None
+        else [None] * len(self.new_row)
+    )
 
-        for col, old_val, new_val in zip(self.table["column_names"], old_row, self.new_row):
+     for i, (col, old_val, new_val) in enumerate(zip(self.table["column_names"], old_row, self.new_row)):
 
-       
-            if new_val == "None":
-                new_val = None
+        if new_val == "None":
+            new_val = None
 
-            if new_val == old_val:
-                continue
+        # Always show the user column (index 0), skip all other unchanged fields
+        if i != 0 and new_val == old_val:
+            continue
 
-            value = str(new_val) if new_val is not None else "None"
+        value = str(new_val) if new_val is not None else "None"
 
-            embed.add_field(name=col, value=value, inline=False)
+        embed.add_field(name=col, value=value, inline=False)
 
-        return embed
+     if reviewer is not None:
+        embed.add_field(name="Reviewed By", value=reviewer.mention, inline=False)
+
+     return embed
 
     def build_ping_content(self):
         if not self.table.get("ping_managers", False):
@@ -57,38 +60,40 @@ class AddRequest(discord.ui.View):
         return " ".join(f"<@&{r}>" for r in manager_role_ids)
 
     @discord.ui.button(label="Accept", style=discord.ButtonStyle.grey, emoji=f"{CHECK}")
+    
+    @discord.ui.button(label="Accept", style=discord.ButtonStyle.grey, emoji=f"{CHECK}")
     async def accept(self, interaction: discord.Interaction, button: discord.ui.Button):
-        current_index = next(
-            (i for i, r in enumerate(self.table["data"]) if r[0] == self.new_row[0]),
-            None
-        )
+     current_index = next(
+        (i for i, r in enumerate(self.table["data"]) if r[0] == self.new_row[0]),
+        None
+     )
 
-        if current_index is not None:
-            existing_row = self.table["data"][current_index]
-            final_row = [
-                existing_row[i] if val == "None" else val
-                for i, val in enumerate(self.new_row)
-            ]
-            self.table["data"][current_index] = final_row
-        else:
-            self.table["data"].append(list(self.new_row))
-            self.table["rows"] += 1
+     if current_index is not None:
+        existing_row = self.table["data"][current_index]
+        final_row = [
+            existing_row[i] if val == "None" else val
+            for i, val in enumerate(self.new_row)
+        ]
+        self.table["data"][current_index] = final_row
+     else:
+        self.table["data"].append(list(self.new_row))
+        self.table["rows"] += 1
 
-        save_settings()
+     save_settings()
 
-        for child in self.children:
-            child.disabled = True
+     for child in self.children:
+        child.disabled = True
 
-        embed = self.build_embed(status=f"Approved by {interaction.user.mention}", color=discord.Color.green())
-        await interaction.response.edit_message(embed=embed, view=self)
+     embed = self.build_embed(status="Approved", color=discord.Color.green(), reviewer=interaction.user)
+     await interaction.response.edit_message(embed=embed, view=self)
 
-    @discord.ui.button(label="Reject", style=discord.ButtonStyle.gray, emoji=f"{X}")
-    async def reject(self, interaction: discord.Interaction, button: discord.ui.Button):
-        for child in self.children:
-            child.disabled = True
+@discord.ui.button(label="Reject", style=discord.ButtonStyle.gray, emoji=f"{X}")
+async def reject(self, interaction: discord.Interaction, button: discord.ui.Button):
+    for child in self.children:
+        child.disabled = True
 
-        embed = self.build_embed(status=f"Rejected by {interaction.user.mention}", color=discord.Color.red())
-        await interaction.response.edit_message(embed=embed, view=self)
+    embed = self.build_embed(status="Rejected", color=discord.Color.red(), reviewer=interaction.user)
+    await interaction.response.edit_message(embed=embed, view=self)
 
 
 class ContinueRowInput(discord.ui.View):

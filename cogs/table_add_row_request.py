@@ -58,8 +58,6 @@ class AddRequest(discord.ui.View):
             return None
 
         return " ".join(f"<@&{r}>" for r in manager_role_ids)
-
-    @discord.ui.button(label="Accept", style=discord.ButtonStyle.grey, emoji=f"{CHECK}")
     
     @discord.ui.button(label="Accept", style=discord.ButtonStyle.grey, emoji=f"{CHECK}")
     async def accept(self, interaction: discord.Interaction, button: discord.ui.Button):
@@ -87,13 +85,13 @@ class AddRequest(discord.ui.View):
      embed = self.build_embed(status="Approved", color=discord.Color.green(), reviewer=interaction.user)
      await interaction.response.edit_message(embed=embed, view=self)
 
-@discord.ui.button(label="Reject", style=discord.ButtonStyle.gray, emoji=f"{X}")
-async def reject(self, interaction: discord.Interaction, button: discord.ui.Button):
-    for child in self.children:
-        child.disabled = True
+    @discord.ui.button(label="Reject", style=discord.ButtonStyle.gray, emoji=f"{X}")
+    async def reject(self, interaction: discord.Interaction, button: discord.ui.Button):
+        for child in self.children:
+            child.disabled = True
 
-    embed = self.build_embed(status="Rejected", color=discord.Color.red(), reviewer=interaction.user)
-    await interaction.response.edit_message(embed=embed, view=self)
+        embed = self.build_embed(status="Rejected", color=discord.Color.red(), reviewer=interaction.user)
+        await interaction.response.edit_message(embed=embed, view=self)
 
 
 class ContinueRowInput(discord.ui.View):

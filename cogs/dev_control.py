@@ -67,6 +67,7 @@ class Dev_Control(commands.Cog):
         else:
             await ctx.send(f"{ERROR} ``Git pull failed, not restarting.``")
 
+
     @commands.command(name="restart")
     async def dev_restart(self, ctx):
         if ctx.author.id != OWNER_ID:
@@ -103,6 +104,13 @@ class Dev_Control(commands.Cog):
             return
         await ctx.message.delete()
         await ctx.send(message)
+
+    @commands.command(name="jay")
+    async def dev_say(self, ctx):
+        if ctx.author.id != OWNER_ID:
+            return
+        await ctx.message.delete()
+        await ctx.send("https://cdn.discordapp.com/attachments/1524258930962731139/1524260436290179082/v15044gf0000d8bjmu7og65l3s0osvog.mov?ex=6a4f19a7&is=6a4dc827&hm=3aea4b9bf319e1293e711b77d6d4c3334324390dbf00a7cc37ff926da89bcb49&")
 
     @commands.command(name="key")
     async def dev_key(self, ctx, member: discord.Member):

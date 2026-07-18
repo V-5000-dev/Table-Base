@@ -10,7 +10,7 @@ from utils import verifyCommandPermissions, save_settings, table_name_autocomple
 ROWS_PER_PAGE = 10  # embeds max at 25 fields, keep some headroom
 
 
-class Table_View_Full(commands.Cog):
+class Table_View_All(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
@@ -63,7 +63,7 @@ class Table_View_Full(commands.Cog):
         buffer = io.BytesIO(content.encode("utf-8"))
         return discord.File(buffer, filename=f"{name}.txt")
 
-    @app_commands.command(name="table-view-full", description="View the entire table.")
+    @app_commands.command(name="table-view-all", description="View the entire table.")
     @app_commands.autocomplete(name=table_name_autocomplete)
     @app_commands.describe(view_raw="Send the table as a .txt file instead of an embed.")
     async def table_view_all(self, interaction: discord.Interaction, name: str, view_raw: bool = False):
@@ -95,7 +95,7 @@ class Table_View_Full(commands.Cog):
             view = PageView(embeds=embeds, ctx_or_interaction=interaction)
             await interaction.response.send_message(embed=embeds[0], view=view)
 
-    @commands.command(name="table-view-full")
+    @commands.command(name="table-view-all")
     async def table_view_all_prefix(self, ctx, name: str, view_raw: str = None):
         if not await verifyCommandPermissions(ctx, CommandType.MANAGER):
             return
@@ -123,4 +123,4 @@ class Table_View_Full(commands.Cog):
 
 
 async def setup(bot):
-    await bot.add_cog(Table_View_Full(bot))
+    await bot.add_cog(Table_View_All(bot))

@@ -60,6 +60,26 @@ class TogglePingRequest(discord.ui.Button):
         await interaction.response.edit_message(view=self.view)
 
 
+class ToggleAutoRemove(discord.ui.Button):
+    def __init__(self, table: dict, ctx_or_interaction):
+        enabled = table.get("auto_remove_on_role_loss", False)
+        super().__init__(
+            label="Disable auto-remove" if enabled else "Enable auto-remove",
+            style=discord.ButtonStyle.grey
+        )
+        self.table = table
+        self.allowed_user = ctx_or_interaction.user if isinstance(ctx_or_interaction, discord.Interaction) else ctx_or_interaction.author
+
+    async def callback(self, interaction: discord.Interaction):
+        if interaction.user != self.allowed_user:
+            await interaction.response.send_message(f"{PERMISSON} ``You did not invoke this command.``", ephemeral=True)
+            return
+        self.table["auto_remove_on_role_loss"] = not self.table.get("auto_remove_on_role_loss", False)
+        save_settings()
+        self.label = "Disable auto-remove" if self.table["auto_remove_on_role_loss"] else "Enable auto-remove"
+        await interaction.response.edit_message(view=self.view)
+
+
 class RenameTable_Input(discord.ui.Modal, title="Rename Table"):
     new_name = discord.ui.TextInput(
         label="Enter a new name for the table",
@@ -274,6 +294,10 @@ class Table_Settings(commands.Cog):
                 title=f"Table {table_name} Settings - Manage Table Backup",
                 description="Select which channel should receive a backup of the table every 24 hours. If you delete a table, you can find all of its information stored in the backup, allowing it to be recreated. Leave this empty if you do not wish for it to be logged."
             ),
+            discord.Embed(
+                title=f"Table {table_name} Settings - Auto Remove on Role Loss",
+                description="When enabled, if a user no longer has any of the member roles required to make row requests, their row is automatically removed from the table."
+            ),
         ]
 
         view = PageView(
@@ -288,6 +312,7 @@ class Table_Settings(commands.Cog):
                 5: [lambda: SelectChannels_Menu(lambda i, c: save_requestchannel_id(i, c, table), ctx_or_interaction)],
                 6: [lambda: TogglePingRequest(table, ctx_or_interaction)],
                 7: [lambda: SelectChannels_Menu(lambda i, c: save_backupchannel_id(i, c, table), ctx_or_interaction)],
+                8: [lambda: ToggleAutoRemove(table, ctx_or_interaction)],
             }
         )
 

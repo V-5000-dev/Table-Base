@@ -54,6 +54,7 @@ class Dev_Control(commands.Cog):
     @tasks.loop(seconds=60)
     async def check_role_loss(self):
         from utils import save_settings
+        import re
         changed = False
         for guild in self.bot.guilds:
             settings = config.get_guild(guild.id)
@@ -65,10 +66,10 @@ class Dev_Control(commands.Cog):
                     continue
                 for i in range(len(table["data"]) - 1, -1, -1):
                     mention = table["data"][i][0]
-                    uid = mention.strip("<@!>")
-                    if not uid.isdigit():
+                    match = re.fullmatch(r"<@!?(\d+)>", mention)
+                    if not match:
                         continue
-                    member = guild.get_member(int(uid))
+                    member = guild.get_member(int(match.group(1)))
                     if member is None:
                         continue
                     if not {r.id for r in member.roles} & member_role_ids:
@@ -77,6 +78,10 @@ class Dev_Control(commands.Cog):
                         changed = True
         if changed:
             save_settings()
+
+    @check_role_loss.before_loop
+    async def before_check_role_loss(self):
+        await self.bot.wait_until_ready()
 
     @commands.command(name="kill")
     async def dev_kill(self, ctx):

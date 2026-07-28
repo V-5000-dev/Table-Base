@@ -35,7 +35,6 @@ class Table_Create(commands.Cog):
             "column_names": ["User", "Timestamp"],
             "member_role_ids": [],
             "ping_managers": True,
-            "auto_remove_on_role_loss": False,
             "data": []
         }
         guild_settings["ALL_TABLES"].append(table)
@@ -66,7 +65,6 @@ class Table_Create(commands.Cog):
             "column_names": ["User", "Timestamp"],
             "member_role_ids": [],
             "ping_managers": True,
-            "auto_remove_on_role_loss": False,
             "data": []
         }
         guild_settings["ALL_TABLES"].append(table)

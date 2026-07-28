@@ -4,7 +4,7 @@ import os
 import sys
 import json
 import subprocess
-from discord.ext import commands, tasks
+from discord.ext import commands
 from config import CHECK, ERROR
 import config
 
@@ -44,44 +44,6 @@ def looks_like_wrapped_format(data: dict) -> bool:
 class Dev_Control(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-
-    async def cog_load(self):
-        self.check_role_loss.start()
-
-    async def cog_unload(self):
-        self.check_role_loss.cancel()
-
-    @tasks.loop(seconds=60)
-    async def check_role_loss(self):
-        from utils import save_settings
-        import re
-        changed = False
-        for guild in self.bot.guilds:
-            settings = config.get_guild(guild.id)
-            for table in settings["ALL_TABLES"]:
-                if not table.get("auto_remove_on_role_loss", False):
-                    continue
-                member_role_ids = set(table.get("member_role_ids", []))
-                if not member_role_ids:
-                    continue
-                for i in range(len(table["data"]) - 1, -1, -1):
-                    mention = table["data"][i][0]
-                    match = re.fullmatch(r"<@!?(\d+)>", mention)
-                    if not match:
-                        continue
-                    member = guild.get_member(int(match.group(1)))
-                    if member is None:
-                        continue
-                    if not {r.id for r in member.roles} & member_role_ids:
-                        del table["data"][i]
-                        table["rows"] -= 1
-                        changed = True
-        if changed:
-            save_settings()
-
-    @check_role_loss.before_loop
-    async def before_check_role_loss(self):
-        await self.bot.wait_until_ready()
 
     @commands.command(name="kill")
     async def dev_kill(self, ctx):

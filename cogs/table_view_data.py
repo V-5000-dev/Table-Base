@@ -11,14 +11,12 @@ class Table_View_Data(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    def build_rows_embed(self, table, name, rows):
+    def build_rows_embed(self, table, name, matches):
         columns = table["column_names"]
-        embed = discord.Embed(title=f"Table: {name}", description=f"Found {len(rows)} matching row(s)")
-        row_index = 0
-        for row in rows:
-            row_index += 1
+        embed = discord.Embed(title=f"Table: {name}", description=f"Found {len(matches)} matching row(s)")
+        for row_num, row in matches:
             value = "\n".join(f"`{col}`: {cell}" for col, cell in zip(columns, row))
-            embed.add_field(name=f"Row {row_index}", value=value, inline=False)
+            embed.add_field(name=f"Row {row_num}", value=value, inline=False)
         return embed
 
     def build_rows_file(self, table, name, rows):
@@ -56,7 +54,11 @@ class Table_View_Data(commands.Cog):
             )
             return
 
-        matches = [row for row in table["data"] if any(query.lower() in str(cell).lower() for cell in row)]
+        matches = [
+            (i + 1, row)
+            for i, row in enumerate(table["data"])
+            if any(query.lower() in str(cell).lower() for cell in row)
+        ]
         if not matches:
             await interaction.response.send_message(
                 f"{ERROR} ``No rows found containing`` ``{query}``.", ephemeral=True
@@ -64,7 +66,7 @@ class Table_View_Data(commands.Cog):
             return
 
         if view_raw:
-            await interaction.response.send_message(file=self.build_rows_file(table, name, matches))
+            await interaction.response.send_message(file=self.build_rows_file(table, name, [r for _, r in matches]))
             return
 
         embed = self.build_rows_embed(table, name, matches)
@@ -75,6 +77,7 @@ class Table_View_Data(commands.Cog):
             return
 
         await interaction.response.send_message(embed=embed)
+
 
     @commands.command(name="table-view-data")
     async def table_view_data_prefix(self, ctx, name: str, query: str, view_raw: str = None):
@@ -91,13 +94,17 @@ class Table_View_Data(commands.Cog):
             await ctx.send(f"{ERROR} ``Table`` ``{name}`` ``has no columns.``")
             return
 
-        matches = [row for row in table["data"] if any(query.lower() in str(cell).lower() for cell in row)]
+        matches = [
+            (i + 1, row)
+            for i, row in enumerate(table["data"])
+            if any(query.lower() in str(cell).lower() for cell in row)
+        ]
         if not matches:
             await ctx.send(f"{ERROR} ``No rows found containing`` ``{query}``.")
             return
 
         if view_raw and view_raw.lower() in ("file", "txt", "true"):
-            await ctx.send(file=self.build_rows_file(table, name, matches))
+            await ctx.send(file=self.build_rows_file(table, name, [r for _, r in matches]))
             return
 
         embed = self.build_rows_embed(table, name, matches)

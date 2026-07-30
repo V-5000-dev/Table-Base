@@ -62,6 +62,7 @@ class Client(commands.Bot):
         await self.load_extension("cogs.ping_swat")
         await self.load_extension("cogs.prefix")
         await self.load_extension("cogs.set_prefix")
+        await self.load_extension("cogs.dev_group_funds")
 
         synced = await self.tree.sync()
         print(f"Synced {len(synced)} commands")

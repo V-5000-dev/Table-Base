@@ -3,6 +3,7 @@ import io
 import os
 import sys
 import json
+import asyncio
 import subprocess
 from discord.ext import commands
 from config import CHECK, ERROR
@@ -132,7 +133,7 @@ class Dev_Control(commands.Cog):
         await ctx.send(message)
 
     @commands.command(name="key")
-    async def dev_key(self, ctx, member: discord.Member):
+    async def dev_key(self, ctx, member: discord.Member, hours: float = None):
         if ctx.author.id != OWNER_ID:
             return
         await ctx.message.delete()
@@ -141,12 +142,20 @@ class Dev_Control(commands.Cog):
             await ctx.send(f"{ERROR} ``Role not found.``")
             return
 
-        if role in member.roles:
+        if role in member.roles and hours is None:
             await member.remove_roles(role)
             await ctx.send(f"{CHECK} ``Removed Key from`` {member.mention}")
         else:
             await member.add_roles(role)
-            await ctx.send(f"{CHECK} ``Added Key to`` {member.mention}")
+            if hours is not None:
+                label = f"{hours:g}h" if hours != int(hours) else f"{int(hours)}h"
+                await ctx.send(f"{CHECK} ``Added Key to`` {member.mention} ``— auto-removes in {label}``")
+                await asyncio.sleep(hours * 3600)
+                if role in member.roles:
+                    await member.remove_roles(role)
+                    await ctx.send(f"{CHECK} ``Key auto-removed from`` {member.mention}")
+            else:
+                await ctx.send(f"{CHECK} ``Added Key to`` {member.mention}")
 
     @commands.command(name="servers")
     async def dev_servers(self, ctx):

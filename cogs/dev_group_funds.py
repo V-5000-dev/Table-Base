@@ -75,29 +75,31 @@ class Dev_GroupFunds(commands.Cog):
                     await message.edit(embed=embed)
                 except (discord.NotFound, discord.Forbidden):
                     break
-                except Exception:
-                    pass
+                except Exception as e:
+                    print(f"[groupfunds] live loop error: {e}")
 
     @commands.command(name="groupfunds")
     async def dev_group_funds(self, ctx, group_id: int):
         if ctx.author.id != OWNER_ID:
             return
 
-        await ctx.message.delete()
-
         cookie = os.getenv("ROBLOSECURITY")
 
-        async with aiohttp.ClientSession() as session:
-            group_name, current_funds, pending_funds, total = await self._fetch_funds(session, group_id, cookie)
-
-        if group_name is None:
-            await ctx.send(f"{ERROR} ``Could not fetch group {group_id}.``")
+        try:
+            async with aiohttp.ClientSession() as session:
+                group_name, current_funds, pending_funds, total = await self._fetch_funds(session, group_id, cookie)
+        except Exception as e:
+            await ctx.send(f"{ERROR} ``Fetch error: {e}``")
             return
 
+        if group_name is None:
+            await ctx.send(f"{ERROR} ``Could not fetch group {group_id} — check the group ID or API availability.``")
+            return
+
+        await ctx.message.delete()
         embed = self._build_embed(group_id, group_name, current_funds, pending_funds, total)
         message = await ctx.send(embed=embed)
 
-        # cancel any existing live loop for this message (shouldn't happen, but safety)
         old_task = self._live.get(message.id)
         if old_task:
             old_task.cancel()

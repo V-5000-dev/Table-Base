@@ -65,7 +65,8 @@ class Dev_GroupFunds(commands.Cog):
         return embed
 
     async def _live_loop(self, message: discord.Message, group_id: int, cookie):
-        async with aiohttp.ClientSession() as session:
+        timeout = aiohttp.ClientTimeout(total=30)
+        async with aiohttp.ClientSession(timeout=timeout) as session:
             while True:
                 await asyncio.sleep(60)
                 try:
@@ -94,7 +95,8 @@ class Dev_GroupFunds(commands.Cog):
 
         try:
             print("[dev_group_funds] starting fetch")
-            async with aiohttp.ClientSession() as session:
+            timeout = aiohttp.ClientTimeout(total=30)
+            async with aiohttp.ClientSession(timeout=timeout) as session:
                 group_name, current_funds, pending_funds, total = await self._fetch_funds(session, group_id, cookie)
             print(f"[dev_group_funds] fetch done: {group_name}, {current_funds}, {pending_funds}")
         except Exception as e:

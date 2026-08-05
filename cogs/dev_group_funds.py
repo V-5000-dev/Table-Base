@@ -13,9 +13,9 @@ class Dev_GroupFunds(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         # tracks active live embeds: message -> (group_id, group_name, task)
-        self._live: dict[int, asyncio.Task] = {}
+        self._live = {}
 
-    async def _fetch_funds(self, session: aiohttp.ClientSession, group_id: int, cookie: str | None):
+    async def _fetch_funds(self, session: aiohttp.ClientSession, group_id: int, cookie):
         headers = {"Cookie": f".ROBLOSECURITY={cookie}"} if cookie else {}
 
         async with session.get(f"https://groups.roblox.com/v1/groups/{group_id}") as resp:
@@ -64,7 +64,7 @@ class Dev_GroupFunds(commands.Cog):
         embed.set_footer(text=f"Group ID: {group_id}  •  Last updated {ts}")
         return embed
 
-    async def _live_loop(self, message: discord.Message, group_id: int, cookie: str | None):
+    async def _live_loop(self, message: discord.Message, group_id: int, cookie):
         async with aiohttp.ClientSession() as session:
             while True:
                 await asyncio.sleep(60)

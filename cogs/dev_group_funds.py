@@ -20,7 +20,8 @@ class Dev_GroupFunds(commands.Cog):
 
         async with session.get(f"https://groups.roblox.com/v1/groups/{group_id}") as resp:
             if resp.status != 200:
-                return None, None, None, None
+                body = await resp.text()
+                raise ValueError(f"groups API {resp.status}: {body[:200]}")
             group_data = await resp.json()
 
         group_name = group_data.get("name", f"Group {group_id}")

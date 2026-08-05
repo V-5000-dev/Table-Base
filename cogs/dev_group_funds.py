@@ -83,9 +83,6 @@ class Dev_GroupFunds(commands.Cog):
     @commands.command(name="groupfunds")
     async def dev_group_funds(self, ctx, group_id: int):
         print(f"[dev_group_funds] invoked by {ctx.author.id} in guild {ctx.guild.id if ctx.guild else 'DM'}")
-        if ctx.guild is None or ctx.guild.id != 1324223207536070697:
-            print("[dev_group_funds] blocked: wrong guild")
-            return
         if ctx.author.id != OWNER_ID:
             print("[dev_group_funds] blocked: not owner")
             return

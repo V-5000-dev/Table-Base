@@ -90,18 +90,25 @@ class Dev_GroupFunds(commands.Cog):
             return
 
         cookie = os.getenv("ROBLOSECURITY")
+        print(f"[dev_group_funds] cookie set: {bool(cookie)}, group_id: {group_id}")
 
         try:
+            print("[dev_group_funds] starting fetch")
             async with aiohttp.ClientSession() as session:
                 group_name, current_funds, pending_funds, total = await self._fetch_funds(session, group_id, cookie)
+            print(f"[dev_group_funds] fetch done: {group_name}, {current_funds}, {pending_funds}")
         except Exception as e:
-            await ctx.send(f"{ERROR} ``Fetch error: {e}``")
+            import traceback
+            tb = traceback.format_exc()
+            print(f"[dev_group_funds] exception: {tb}")
+            await ctx.send(f"{ERROR} ``Fetch error: {type(e).__name__}: {e}``")
             return
 
         if group_name is None:
             await ctx.send(f"{ERROR} ``Could not fetch group {group_id} — check the group ID or API availability.``")
             return
 
+        print("[dev_group_funds] sending embed")
         await ctx.message.delete()
         embed = self._build_embed(group_id, group_name, current_funds, pending_funds, total)
         message = await ctx.send(embed=embed)

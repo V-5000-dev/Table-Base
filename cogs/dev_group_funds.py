@@ -1,10 +1,13 @@
 import discord
 import aiohttp
 import asyncio
+import logging
 import os
 from datetime import datetime, timezone
 from discord.ext import commands
 from config import CHECK, ERROR
+
+log = logging.getLogger(__name__)
 
 OWNER_ID = 1057431766568284360
 
@@ -78,28 +81,28 @@ class Dev_GroupFunds(commands.Cog):
                 except (discord.NotFound, discord.Forbidden):
                     break
                 except Exception as e:
-                    print(f"[groupfunds] live loop error: {e}")
+                    log.error(f"[groupfunds] live loop error: {e}")
 
     @commands.command(name="groupfunds")
     async def dev_group_funds(self, ctx, group_id: int):
-        print(f"[dev_group_funds] invoked by {ctx.author.id} in guild {ctx.guild.id if ctx.guild else 'DM'}")
+        log.info(f"[dev_group_funds] invoked by {ctx.author.id} in guild {ctx.guild.id if ctx.guild else 'DM'}")
         if ctx.author.id != OWNER_ID:
             print("[dev_group_funds] blocked: not owner")
             return
 
         cookie = os.getenv("ROBLOSECURITY")
-        print(f"[dev_group_funds] cookie set: {bool(cookie)}, group_id: {group_id}")
+        log.info(f"[dev_group_funds] cookie set: {bool(cookie)}, group_id: {group_id}")
 
         try:
             print("[dev_group_funds] starting fetch")
             timeout = aiohttp.ClientTimeout(total=30)
             async with aiohttp.ClientSession(timeout=timeout) as session:
                 group_name, current_funds, pending_funds, total = await self._fetch_funds(session, group_id, cookie)
-            print(f"[dev_group_funds] fetch done: {group_name}, {current_funds}, {pending_funds}")
+            log.info(f"[dev_group_funds] fetch done: {group_name}, {current_funds}, {pending_funds}")
         except Exception as e:
             import traceback
             tb = traceback.format_exc()
-            print(f"[dev_group_funds] exception: {tb}")
+            log.error(f"[dev_group_funds] exception: {tb}")
             await ctx.send(f"{ERROR} ``Fetch error: {type(e).__name__}: {e}``")
             return
 

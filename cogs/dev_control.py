@@ -95,6 +95,46 @@ class Dev_Control(commands.Cog):
         else:
             await ctx.send(f"{ERROR} ``Update failed, not restarting.``")
 
+    @commands.command(name="push")
+    async def dev_push(self, ctx, branch: str = "main"):
+        if ctx.author.id != OWNER_ID:
+            return
+        await ctx.message.delete()
+
+        result = subprocess.run(["git", "push", "origin", branch], capture_output=True, text=True)
+        output = (result.stdout + result.stderr).strip() or "No output."
+        embed = discord.Embed(title=f"Git Push → {branch}")
+        embed.add_field(name="Output", value=f"```{output[:1000]}```", inline=False)
+        icon = CHECK if result.returncode == 0 else ERROR
+        await ctx.send(f"{icon} ``{'Push successful.' if result.returncode == 0 else 'Push failed.'}``", embed=embed)
+
+    @commands.command(name="pushupdate")
+    async def dev_pushupdate(self, ctx, branch: str = "main"):
+        if ctx.author.id != OWNER_ID:
+            return
+        await ctx.message.delete()
+
+        push = subprocess.run(["git", "push", "origin", branch], capture_output=True, text=True)
+        push_output = (push.stdout + push.stderr).strip() or "No output."
+        embed = discord.Embed(title=f"Push + Update → {branch}")
+        embed.add_field(name="Push Output", value=f"```{push_output[:1000]}```", inline=False)
+
+        if push.returncode != 0:
+            await ctx.send(f"{ERROR} ``Push failed, aborting update.``", embed=embed)
+            return
+
+        fetch = subprocess.run(["git", "fetch", "origin", branch], capture_output=True, text=True)
+        reset = subprocess.run(["git", "reset", "--hard", f"origin/{branch}"], capture_output=True, text=True)
+        update_output = (fetch.stdout + fetch.stderr + reset.stdout + reset.stderr).strip() or "No output."
+        embed.add_field(name="Update Output", value=f"```{update_output[:1000]}```", inline=False)
+
+        await ctx.send(f"{CHECK} ``Push successful. Restarting...``", embed=embed)
+
+        if fetch.returncode == 0 and reset.returncode == 0:
+            os.execv(sys.executable, [sys.executable] + sys.argv)
+        else:
+            await ctx.send(f"{ERROR} ``Update failed, not restarting.``")
+
     @commands.command(name="restart")
     async def dev_restart(self, ctx):
         if ctx.author.id != OWNER_ID:

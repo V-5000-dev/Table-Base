@@ -59,6 +59,16 @@ class AddRequest(discord.ui.View):
 
         return " ".join(f"<@&{r}>" for r in manager_role_ids)
     
+    async def _dm_requester(self, status: str, color: discord.Color, reviewer: discord.Member):
+        embed = self.build_embed(status=status, color=color, reviewer=reviewer)
+        try:
+            await self.requester.send(
+                content=f"Your request for table **{self.table['name']}** has been **{status}**.",
+                embed=embed
+            )
+        except discord.HTTPException:
+            pass
+
     @discord.ui.button(label="Accept", style=discord.ButtonStyle.grey, emoji=f"{CHECK}")
     async def accept(self, interaction: discord.Interaction, button: discord.ui.Button):
      current_index = next(
@@ -84,6 +94,7 @@ class AddRequest(discord.ui.View):
 
      embed = self.build_embed(status="Approved", color=discord.Color.green(), reviewer=interaction.user)
      await interaction.response.edit_message(embed=embed, view=self)
+     await self._dm_requester("Approved", discord.Color.green(), interaction.user)
 
     @discord.ui.button(label="Reject", style=discord.ButtonStyle.gray, emoji=f"{X}")
     async def reject(self, interaction: discord.Interaction, button: discord.ui.Button):
@@ -92,6 +103,7 @@ class AddRequest(discord.ui.View):
 
         embed = self.build_embed(status="Rejected", color=discord.Color.red(), reviewer=interaction.user)
         await interaction.response.edit_message(embed=embed, view=self)
+        await self._dm_requester("Rejected", discord.Color.red(), interaction.user)
 
 
 class ContinueRowInput(discord.ui.View):

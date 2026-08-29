@@ -74,7 +74,7 @@ class Dev_Control(commands.Cog):
             inline=True
         )
         await ctx.send(embed=embed)
-
+#commit
     @commands.command(name="update")
     async def dev_update(self, ctx):
         if ctx.author.id != OWNER_ID:
@@ -96,24 +96,34 @@ class Dev_Control(commands.Cog):
             await ctx.send(f"{ERROR} ``Update failed, not restarting.``")
 
     @commands.command(name="push")
-    async def dev_push(self, ctx, branch: str = "main"):
+    async def dev_push(self, ctx, *, message: str):
         if ctx.author.id != OWNER_ID:
             return
         await ctx.message.delete()
 
-        result = subprocess.run(["git", "push", "origin", branch], capture_output=True, text=True)
-        output = (result.stdout + result.stderr).strip() or "No output."
-        embed = discord.Embed(title=f"Git Push → {branch}")
+        branch = subprocess.run(["git", "branch", "--show-current"], capture_output=True, text=True).stdout.strip() or "main"
+        add = subprocess.run(["git", "add", "."], capture_output=True, text=True)
+        commit = subprocess.run(["git", "commit", "-m", message], capture_output=True, text=True)
+        push = subprocess.run(["git", "push", "origin", branch], capture_output=True, text=True)
+
+        output = (add.stdout + add.stderr + commit.stdout + commit.stderr + push.stdout + push.stderr).strip() or "No output."
+        embed = discord.Embed(title="Git Commit & Push")
         embed.add_field(name="Output", value=f"```{output[:1000]}```", inline=False)
-        icon = CHECK if result.returncode == 0 else ERROR
-        await ctx.send(f"{icon} ``{'Push successful.' if result.returncode == 0 else 'Push failed.'}``", embed=embed)
+
+        if commit.returncode == 0 and push.returncode == 0:
+            await ctx.send(f"{CHECK} ``Committed and pushed.``", embed=embed)
+        elif commit.returncode != 0:
+            await ctx.send(f"{ERROR} ``Commit failed.``", embed=embed)
+        else:
+            await ctx.send(f"{ERROR} ``Push failed.``", embed=embed)
 
     @commands.command(name="pushupdate")
-    async def dev_pushupdate(self, ctx, branch: str = "main"):
+    async def dev_pushupdate(self, ctx):
         if ctx.author.id != OWNER_ID:
             return
         await ctx.message.delete()
 
+        branch = subprocess.run(["git", "branch", "--show-current"], capture_output=True, text=True).stdout.strip() or "main"
         push = subprocess.run(["git", "push", "origin", branch], capture_output=True, text=True)
         push_output = (push.stdout + push.stderr).strip() or "No output."
         embed = discord.Embed(title=f"Push + Update → {branch}")

@@ -32,7 +32,7 @@ def default_guild_settings():
         "MANAGER_ROLE_IDS": [],
         "MEMBER_ROLE_IDS": [],
         "LOG_UNSUCCESSFUL": True,
-        "LOG_CHANNELS": {          # fresh dict every call — was being shared
+        "LOG_CHANNELS": {         
             CommandType.USER: 0,
             CommandType.MANAGER: 0,
             CommandType.ADMIN: 0,

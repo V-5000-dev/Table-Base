@@ -11,7 +11,6 @@ class ToggleLoggingButton(discord.ui.Button):
         super().__init__(label="Disable logs from unsuccessful command attempts", style=discord.ButtonStyle.grey)
         self.allowed_user = ctx_or_interaction.user if isinstance(ctx_or_interaction, discord.Interaction) else ctx_or_interaction.author
         self.guild_id = ctx_or_interaction.guild.id
-        # Sync button label with current guild setting on init
         guild_settings = config.get_guild(self.guild_id)
         if not guild_settings["LOG_UNSUCCESSFUL"]:
             self.label = "Enable logs from unsuccessful command attempts"

@@ -63,7 +63,7 @@ class Table_View_User(commands.Cog):
         await interaction.response.send_message(embed=self.build_row_embed(table, name, row))
 
     @commands.command(name="table-view-user")
-    async def table_view_row_prefix(self, ctx, name: str, user: discord.Member, view_raw: str = None):  # was: user: str
+    async def table_view_row_prefix(self, ctx, name: str, user: discord.Member, view_raw: str = None):  
         if not await verifyCommandPermissions(ctx, CommandType.MANAGER):
             return
 
@@ -77,9 +77,9 @@ class Table_View_User(commands.Cog):
             await ctx.send(f"{ERROR} ``Table`` ``{name}`` ``has no columns.``")
             return
 
-        row = next((r for r in table["data"] if r[0] == user.mention), None)  # was: r[0] == user
+        row = next((r for r in table["data"] if r[0] == user.mention), None)  #
         if row is None:
-            await ctx.send(f"{ERROR} {user.mention} ``has no rows.``")  # was: {user}
+            await ctx.send(f"{ERROR} {user.mention} ``has no rows.``") 
             return
 
         if view_raw and view_raw.lower() in ("file", "txt", "true"):

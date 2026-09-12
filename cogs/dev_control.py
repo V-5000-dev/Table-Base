@@ -269,7 +269,9 @@ class Dev_Control(commands.Cog):
         lines = [f"{e}/" if os.path.isdir(os.path.join(path, e)) else e for e in entries]
         await ctx.send(f"``Contents of`` ``{path}``:\n```\n{chr(10).join(lines)}\n```")
 
+
     @commands.command(name="restore-settings")
+    #(Coded with Claude)
     async def dev_restore_settings(self, ctx, target_guild_id: int = None):
         if ctx.author.id != OWNER_ID:
             return

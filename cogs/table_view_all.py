@@ -7,7 +7,7 @@ from config import GUILD_ID, CHECK, ERROR, CommandType
 from utils import verifyCommandPermissions, save_settings, table_name_autocomplete, PageView
 
 
-ROWS_PER_PAGE = 10  # embeds max at 25 fields, keep some headroom
+ROWS_PER_PAGE = 10  
 
 
 class Table_View_All(commands.Cog):

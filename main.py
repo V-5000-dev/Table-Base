@@ -86,7 +86,7 @@ class Client(commands.Bot):
                     file=discord.File(io.BytesIO(guild_data.encode()), filename="settings.json")
             )
     async def on_ready(self):
-        save_settings()  # write back any new default keys added since last run
+        save_settings() 
 
         if not self.backup_tables.is_running():
             self.backup_tables.start()

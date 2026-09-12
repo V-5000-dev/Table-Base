@@ -28,7 +28,7 @@ class Table_Remove_Row_User(commands.Cog):
             if r[0] == user.mention:
                 del table["data"][i]
                 table["rows"] -= 1
-                save_settings()  # was: save_settings(interaction.guild_id)
+                save_settings()  # prev: save_settings(interaction.guild_id)
                 await interaction.response.send_message(
                     f"{CHECK} ``Removed`` {user.mention} ``'s row from table`` ``{name}``", ephemeral=True
                 )
@@ -50,10 +50,10 @@ class Table_Remove_Row_User(commands.Cog):
             return
 
         for i, r in enumerate(table["data"]):
-            if r[0] == user.mention:  # was: r[0] == user
+            if r[0] == user.mention:  
                 del table["data"][i]
                 table["rows"] -= 1
-                save_settings()  # was: save_settings(ctx.guild.id)
+                save_settings()  # prev: save_settings(ctx.guild.id)
                 await ctx.send(f"{CHECK} ``Removed`` {user.mention} ``'s row from table`` ``{name}``")
                 return
 

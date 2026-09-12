@@ -21,9 +21,6 @@ import json
 import sys
 import os
 
-# Keys we expect in the OLD flat-format file. Anything else gets ignored
-# with a warning rather than silently dropped, so you notice if something
-# looks off.
 EXPECTED_KEYS = {
     "TABLE_REQUEST_CHANNEL_ID",
     "TABLE_BACKUP_CHANNEL_ID",
@@ -48,7 +45,6 @@ def main():
     old_path = sys.argv[1]
     guild_id_str = sys.argv[2]
 
-    # Validate guild_id looks like a real Discord snowflake (numeric, long)
     if not guild_id_str.isdigit():
         print(f"Error: guild_id must be a number, got: {guild_id_str!r}")
         sys.exit(1)
@@ -60,8 +56,6 @@ def main():
     with open(old_path, "r") as f:
         old_data = json.load(f)
 
-    # Detect whether this file is already in the NEW wrapped format
-    # (i.e. its top-level keys are all numeric guild IDs already).
     already_wrapped = all(
         isinstance(k, str) and k.isdigit() and isinstance(v, dict)
         for k, v in old_data.items()

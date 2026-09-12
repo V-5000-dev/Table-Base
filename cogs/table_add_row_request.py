@@ -36,7 +36,6 @@ class AddRequest(discord.ui.View):
         if new_val == "None":
             new_val = None
 
-        # Always show the user column (index 0), skip all other unchanged fields
         if i != 0 and new_val == old_val:
             continue
 

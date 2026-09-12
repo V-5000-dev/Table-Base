@@ -20,7 +20,6 @@ def load_settings():
         try:
             guild_id = int(guild_id_str)
         except (ValueError, TypeError):
-            # Skip leftover/legacy top-level keys that aren't guild IDs
             continue
         if not isinstance(guild_data, dict):
             continue
@@ -93,12 +92,10 @@ async def verifyCommandPermissions(ctx_or_interaction, command_type: CommandType
     else:
         allowed = False
 
-        # SERVER_ADMIN is a guild-level role, not per-table
         has_server_admin = any(r in guild_settings["SERVER_ADMIN_ROLE_IDS"] for r in user_role_ids)
         if has_server_admin:
             allowed = True
         elif command_type != CommandType.SERVER_ADMIN:
-            # Table-specific role checks
             for table in guild_settings["ALL_TABLES"]:
                 has_member  = any(r in table.get("member_role_ids",  []) for r in user_role_ids)
                 has_manager = any(r in table.get("manager_role_ids", []) for r in user_role_ids)
@@ -111,7 +108,6 @@ async def verifyCommandPermissions(ctx_or_interaction, command_type: CommandType
                 elif command_type == CommandType.ADMIN   and has_admin:
                     allowed = True; break
 
-    # Respect LOG_UNSUCCESSFUL: skip logging denied attempts if the flag is off
     should_log = allowed or guild_settings["LOG_UNSUCCESSFUL"]
 
     if should_log:

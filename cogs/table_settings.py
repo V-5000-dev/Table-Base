@@ -196,7 +196,7 @@ async def save_requestchannel_id(interaction, channels, table: dict):
     if not channels:
         return
     guild_settings = config.get_guild(interaction.guild.id)
-    guild_settings["TABLE_REQUEST_CHANNEL_ID"] = channels[0].id  # was: config.TABLE_REQUEST_CHANNEL_ID
+    guild_settings["TABLE_REQUEST_CHANNEL_ID"] = channels[0].id  # prev config.TABLE_REQUEST_CHANNEL_ID
     save_settings()
     await interaction.response.send_message(
         f"{CHECK} ``Table update requests set to`` {channels[0].mention}", ephemeral=True
@@ -207,7 +207,7 @@ async def save_backupchannel_id(interaction, channels, table: dict):
     if not channels:
         return
     guild_settings = config.get_guild(interaction.guild.id)
-    guild_settings["TABLE_BACKUP_CHANNEL_ID"] = channels[0].id  # was: config.TABLE_BACKUP_CHANNEL_ID
+    guild_settings["TABLE_BACKUP_CHANNEL_ID"] = channels[0].id  # prev config.TABLE_BACKUP_CHANNEL_ID
     save_settings()
     await interaction.response.send_message(
         f"{CHECK} ``Table backups set to`` {channels[0].mention}", ephemeral=True

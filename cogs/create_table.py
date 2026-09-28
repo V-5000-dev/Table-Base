@@ -76,4 +76,4 @@ class Table_Create(commands.Cog):
 
 
 async def setup(bot):
-    await bot.add_cog(Create_Table(bot))
+    await bot.add_cog(create_table(bot))

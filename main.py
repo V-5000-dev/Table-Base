@@ -60,7 +60,6 @@ class Client(commands.Bot):
         await self.load_extension("cogs.remove_row_by_user")
         await self.load_extension("cogs.server_settings")
         await self.load_extension("cogs.dev_control")
-        await self.load_extension("cogs.ping_swat")
         await self.load_extension("cogs.prefix")
         await self.load_extension("cogs.set_prefix")
         await self.load_extension("cogs.dev_group_funds")

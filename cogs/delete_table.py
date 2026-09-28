@@ -58,7 +58,7 @@ class Table_Delete(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @app_commands.command(name="table-delete", description="Delete a table.")
+    @app_commands.command(name="delete-table", description="Delete a table.")
     @app_commands.autocomplete(name=table_name_autocomplete)
     async def table_delete(self, interaction: discord.Interaction, name: str):
         if not await verifyCommandPermissions(interaction, CommandType.SERVER_ADMIN):
@@ -80,7 +80,7 @@ class Table_Delete(commands.Cog):
         )
         view.message = await interaction.original_response()
 
-    @commands.command(name="table-delete")
+    @commands.command(name="delete-table")
     async def table_delete_prefix(self, ctx, name: str):
         if not await verifyCommandPermissions(ctx, CommandType.SERVER_ADMIN):
             return
@@ -98,4 +98,4 @@ class Table_Delete(commands.Cog):
         )
 
 async def setup(bot):
-    await bot.add_cog(Table_Delete(bot))
+    await bot.add_cog(Delete_Table(bot))

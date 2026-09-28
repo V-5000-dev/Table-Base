@@ -10,7 +10,7 @@ class Table_Remove_Row(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @app_commands.command(name="table-remove-row", description="Remove a row from the table by row number.")
+    @app_commands.command(name="remove-row-by-id", description="Remove a row from the table by row number.")
     @app_commands.autocomplete(name=table_name_autocomplete)
     async def table_remove_row(self, interaction: discord.Interaction, name: str, row: int):
         if not await verifyCommandPermissions(interaction, CommandType.MANAGER):
@@ -37,7 +37,7 @@ class Table_Remove_Row(commands.Cog):
             f"{CHECK} ``Removed row {row} from table`` ``{name}``.", ephemeral=True
         )
 
-    @commands.command(name="table-remove-row")
+    @commands.command(name="remove-row-by-id")
     async def table_remove_row_prefix(self, ctx, name: str, row: int):
         if not await verifyCommandPermissions(ctx, CommandType.MANAGER):
             return
@@ -59,4 +59,4 @@ class Table_Remove_Row(commands.Cog):
 
 
 async def setup(bot):
-    await bot.add_cog(Table_Remove_Row(bot))
+    await bot.add_cog(Remove_Row_By_ID(bot))

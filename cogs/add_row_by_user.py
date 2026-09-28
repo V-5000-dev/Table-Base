@@ -141,7 +141,7 @@ class Table_Add_Row_User(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @app_commands.command(name="table-add-row-user", description="Add or update a user's row in the table.")
+    @app_commands.command(name="add-row-by-user", description="Add or update a user's row in the table.")
     @app_commands.autocomplete(name=table_name_autocomplete)
     async def table_add_row_user(self, interaction: discord.Interaction, name: str, user: discord.Member):
         if not await verifyCommandPermissions(interaction, CommandType.ADMIN):
@@ -186,7 +186,7 @@ class Table_Add_Row_User(commands.Cog):
                 ephemeral=True
             )
 
-    @commands.command(name="table-add-row-user")
+    @commands.command(name="add-row-by-user")
     async def table_add_row_prefix(self, ctx, name: str, user: discord.Member, *values: str):
         if not await verifyCommandPermissions(ctx, CommandType.ADMIN):
             return
@@ -236,4 +236,4 @@ class Table_Add_Row_User(commands.Cog):
 
 
 async def setup(bot):
-    await bot.add_cog(Table_Add_Row_User(bot))
+    await bot.add_cog(Add_Row_By_User(bot))

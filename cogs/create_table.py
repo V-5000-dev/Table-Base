@@ -10,7 +10,7 @@ class Table_Create(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @app_commands.command(name="table-create", description="Create a new table.")
+    @app_commands.command(name="create-table", description="Create a new table.")
     async def table_create(self, interaction: discord.Interaction, name: str):
         if not await verifyCommandPermissions(interaction, CommandType.SERVER_ADMIN):
             return
@@ -44,7 +44,7 @@ class Table_Create(commands.Cog):
             f"{CHECK} ``Table with the name`` ``{name}`` ``created.``\n``Set up the table with`` ``table-settings``"
         )
 
-    @commands.command(name="table-create")
+    @commands.command(name="create-table")
     async def table_create_prefix(self, ctx, name: str):
         if not await verifyCommandPermissions(ctx, CommandType.SERVER_ADMIN):
             return
@@ -76,4 +76,4 @@ class Table_Create(commands.Cog):
 
 
 async def setup(bot):
-    await bot.add_cog(Table_Create(bot))
+    await bot.add_cog(Create_Table(bot))

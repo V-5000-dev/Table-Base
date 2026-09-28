@@ -10,7 +10,7 @@ class Table_Remove_Row_User(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @app_commands.command(name="table-remove-row-user", description="Remove another user's row from the Table.")
+    @app_commands.command(name="remove_row_by_user", description="Remove another user's row from the Table.")
     @app_commands.autocomplete(name=table_name_autocomplete)
     async def table_remove_row_user(self, interaction: discord.Interaction, name: str, user: discord.Member):
         if not await verifyCommandPermissions(interaction, CommandType.ADMIN):
@@ -38,7 +38,7 @@ class Table_Remove_Row_User(commands.Cog):
             f"{ERROR} ``Failed to find`` {user.mention} ``'s row in table`` ``{name}``", ephemeral=True
         )
 
-    @commands.command(name="table-remove-row-user")
+    @commands.command(name="remove_row_by_user")
     async def table_remove_row_prefix(self, ctx, name: str, user: discord.Member):  # was: user: str
         if not await verifyCommandPermissions(ctx, CommandType.ADMIN):
             return
@@ -61,4 +61,4 @@ class Table_Remove_Row_User(commands.Cog):
 
 
 async def setup(bot):
-    await bot.add_cog(Table_Remove_Row_User(bot))
+    await bot.add_cog(Remove_Row_By_User(bot))

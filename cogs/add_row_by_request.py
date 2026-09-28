@@ -6,7 +6,7 @@ from config import GUILD_ID, CHECK, ERROR, X, CommandType
 from utils import verifyCommandPermissions, save_settings, table_name_autocomplete
 
 
-class Add_Row_By_Request(discord.ui.View):
+class AddRequest(discord.ui.View):
     def __init__(self, table: dict, existing_index: int | None, requester: discord.Member, new_row: list):
         super().__init__(timeout=None)
         self.table = table
@@ -246,11 +246,11 @@ class AddRow_Input(discord.ui.Modal, title="Add/Update Row"):
         )
 
 
-class Table_Add_Row_Request(commands.Cog):
+class Add_Row_By_Request(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @app_commands.command(name="add-row-by-request", description="Create a request to add or update your row in the table.")
+    @app_commands.command(name="add-row-by-", description="Create a request to add or update your row in the table.")
     @app_commands.autocomplete(name=table_name_autocomplete)
     async def table_add_row_request(self, interaction: discord.Interaction, name: str):
         if not await verifyCommandPermissions(interaction, CommandType.USER):

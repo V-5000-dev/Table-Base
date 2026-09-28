@@ -123,4 +123,4 @@ class View_Table(commands.Cog):
 
 
 async def setup(bot):
-    await bot.add_cog(View_Tablel(bot))
+    await bot.add_cog(View_Table(bot))

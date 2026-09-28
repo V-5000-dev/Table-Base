@@ -7,7 +7,7 @@ from config import CHECK, ERROR, CommandType
 from utils import verifyCommandPermissions, table_name_autocomplete
 
 
-class Table_View_Row_By_ID(commands.Cog):
+class View_Row_By_ID(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 

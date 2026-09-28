@@ -137,7 +137,7 @@ class AddRow_Input(discord.ui.Modal, title="Add/Update Row"):
             )
 
 
-class Table_Add_Row_User(commands.Cog):
+class Add_Row_By_User(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 

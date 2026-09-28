@@ -10,7 +10,7 @@ from utils import verifyCommandPermissions, save_settings, table_name_autocomple
 ROWS_PER_PAGE = 10  
 
 
-class Table_View_All(commands.Cog):
+class View_Table(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 

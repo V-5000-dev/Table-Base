@@ -7,7 +7,7 @@ from config import GUILD_ID, CHECK, ERROR, CommandType
 from utils import verifyCommandPermissions, save_settings, table_name_autocomplete
 
 
-class Table_View_Data(commands.Cog):
+class View_Row_By_Value(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
@@ -116,4 +116,4 @@ class Table_View_Data(commands.Cog):
 
 
 async def setup(bot):
-    await bot.add_cog(Find_Row_By_Value(bot))
+    await bot.add_cog(View_Row_By_Value(bot))

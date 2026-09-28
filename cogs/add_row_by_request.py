@@ -6,7 +6,7 @@ from config import GUILD_ID, CHECK, ERROR, X, CommandType
 from utils import verifyCommandPermissions, save_settings, table_name_autocomplete
 
 
-class AddRequest(discord.ui.View):
+class Add_Row_By_Request(discord.ui.View):
     def __init__(self, table: dict, existing_index: int | None, requester: discord.Member, new_row: list):
         super().__init__(timeout=None)
         self.table = table

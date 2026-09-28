@@ -6,7 +6,7 @@ from config import CHECK, ERROR, CommandType
 from utils import verifyCommandPermissions, save_settings, table_name_autocomplete
 
 
-class Table_Remove_Row(commands.Cog):
+class Remove_Row_By_ID(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 

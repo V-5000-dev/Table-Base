@@ -6,7 +6,7 @@ from config import GUILD_ID, CHECK, ERROR, CommandType
 from utils import verifyCommandPermissions, save_settings
 
 
-class Table_Create(commands.Cog):
+class Create_Table(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
@@ -76,4 +76,4 @@ class Table_Create(commands.Cog):
 
 
 async def setup(bot):
-    await bot.add_cog(create_table(bot))
+    await bot.add_cog(Create_Table(bot))

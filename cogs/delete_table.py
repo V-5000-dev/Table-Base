@@ -54,7 +54,7 @@ class DeleteTableConfirm(discord.ui.View):
         )
 
 
-class Table_Delete(commands.Cog):
+class Delete_Table(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 

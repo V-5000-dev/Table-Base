@@ -30,7 +30,7 @@ class View_Row_By_Value(commands.Cog):
         buffer = io.BytesIO(content.encode("utf-8"))
         return discord.File(buffer, filename=f"{name}_search.txt")
 
-    @app_commands.command(name="find-row-by-value", description="Search for a value across all rows in a table.")
+    @app_commands.command(name="view-row-by-value", description="Search for a value across all rows in a table.")
     @app_commands.autocomplete(name=table_name_autocomplete)
     @app_commands.describe(
         query="The value to search for.",
@@ -79,7 +79,7 @@ class View_Row_By_Value(commands.Cog):
         await interaction.response.send_message(embed=embed)
 
 
-    @commands.command(name="find-row-by-value")
+    @commands.command(name="view-row-by-value")
     async def table_view_data_prefix(self, ctx, name: str, query: str, view_raw: str = None):
         if not await verifyCommandPermissions(ctx, CommandType.MANAGER):
             return

@@ -176,7 +176,7 @@ class Dev_Control(commands.Cog):
             await ctx.send("No log file found.")
 
     @commands.command(name="say")
-    async def dev_say(self, ctx, *, message: str):
+    async def dev_say(self, ctx, message: str):
         if ctx.author.id != OWNER_ID:
             return
         await ctx.message.delete()

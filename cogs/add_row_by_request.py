@@ -2,107 +2,168 @@ import discord
 import config
 from discord.ext import commands
 from discord import app_commands
-from config import GUILD_ID, CHECK, ERROR, X, CommandType
-from utils import verifyCommandPermissions, save_settings, table_name_autocomplete
+from config import CHECK, EMPTY_CELL, ERROR, MAX_COLUMNS_NOTE, PERMISSON, X, CommandType
+from utils import (
+    MAX_MODAL_LABEL_LENGTH, authorize_table, find_row_index, get_request_channel_id, has_table_access,
+    is_blank_input, respond, save_settings, table_name_autocomplete, upsert_row
+)
 
 
-class AddRequest(discord.ui.View):
-    def __init__(self, table: dict, existing_index: int | None, requester: discord.Member, new_row: list):
-        super().__init__(timeout=None)
-        self.table = table
-        self.existing_index = existing_index
-        self.requester = requester
-        self.new_row = new_row
+def find_pending_request(guild_id: int, message_id: int):
+    """Return the (table, request) posted as a message, or None."""
+    for table in config.get_guild(guild_id)["ALL_TABLES"]:
+        for request in table.get("pending_requests", []):
+            if request["message_id"] == message_id:
+                return table, request
+    return None
 
-    def build_embed(self, status: str = "Pending", color: discord.Color = discord.Color.gold(), reviewer: discord.Member | None = None):
-     action = "Update" if self.existing_index is not None else "Add"
 
-     embed = discord.Embed(
-        title=f"{action} Row Request - {self.table['name']}",
+def build_request_embed(table: dict, request: dict, status: str = "Pending",
+                        color: discord.Color = discord.Color.gold(), reviewer=None) -> discord.Embed:
+    old_values = request["old_values"]
+    action = "Update" if old_values is not None else "Add"
+
+    embed = discord.Embed(
+        title=f"{action} Row Request - {table['name']}",
         description=f"**Status: {status}**",
         color=color
     )
+    embed.set_author(name=f"Status: {status}")
+    embed.add_field(name="User", value=request["user"], inline=False)
+    embed.add_field(name="Timestamp", value=request["timestamp"], inline=False)
 
-     embed.set_author(name=f"Status: {status}")
+    for column, value in request["values"].items():
+        if old_values is None or old_values.get(column) != value:
+            embed.add_field(name=column, value=value[:1024], inline=False)
 
-     old_row = (
-        self.table["data"][self.existing_index]
-        if self.existing_index is not None
-        else [None] * len(self.new_row)
-    )
-
-     for i, (col, old_val, new_val) in enumerate(zip(self.table["column_names"], old_row, self.new_row)):
-
-        if new_val == "None":
-            new_val = None
-
-        if i != 0 and new_val == old_val:
-            continue
-
-        value = str(new_val) if new_val is not None else "None"
-
-        embed.add_field(name=col, value=value, inline=False)
-
-     if reviewer is not None:
+    if reviewer is not None:
         embed.add_field(name="Reviewed By", value=reviewer.mention, inline=False)
 
-     return embed
+    return embed
 
-    def build_ping_content(self):
-        if not self.table.get("ping_managers", False):
-            return None
 
-        manager_role_ids = self.table.get("manager_role_ids", [])
-        if not manager_role_ids:
-            return None
+def build_ping_content(table: dict) -> str | None:
+    if not table.get("ping_managers", False):
+        return None
 
-        return " ".join(f"<@&{r}>" for r in manager_role_ids)
-    
-    async def _dm_requester(self, status: str, color: discord.Color, reviewer: discord.Member):
-        embed = self.build_embed(status=status, color=color, reviewer=reviewer)
+    manager_role_ids = table.get("manager_role_ids", [])
+    if not manager_role_ids:
+        return None
+
+    return " ".join(f"<@&{r}>" for r in manager_role_ids)
+
+
+class AddRequest(discord.ui.View):
+    """
+    Accept and Reject buttons on a request message.
+
+    The view holds no state. It finds its request from the message, and
+    the fixed custom_ids let one registered instance handle every request,
+    so requests keep working after a restart.
+    """
+    def __init__(self):
+        super().__init__(timeout=None)
+
+    async def interaction_check(self, interaction: discord.Interaction) -> bool:
+        found = find_pending_request(interaction.guild_id, interaction.message.id)
+        if found is None:
+            await interaction.response.send_message(
+                f"{ERROR} ``This request is no longer active. Its table may have been deleted.``", ephemeral=True
+            )
+            return False
+
+        table, _ = found
+        guild_settings = config.get_guild(interaction.guild_id)
+        if not has_table_access(interaction.user, guild_settings, CommandType.MANAGER, table):
+            await interaction.response.send_message(
+                f"{PERMISSON} ``Only this table's managers can review requests.``", ephemeral=True
+            )
+            return False
+
+        return True
+
+    async def _close_request(self, interaction: discord.Interaction, table: dict, request: dict,
+                             status: str, color: discord.Color):
+        table["pending_requests"].remove(request)
+        save_settings()
+
+        closed_view = AddRequest()
+        for child in closed_view.children:
+            child.disabled = True
+        closed_view.stop()
+
+        embed = build_request_embed(table, request, status, color, interaction.user)
+        await interaction.response.edit_message(embed=embed, view=closed_view)
+
         try:
-            await self.requester.send(
-                content=f"Your request for table **{self.table['name']}** has been **{status}**.",
+            requester = await interaction.client.fetch_user(request["requester_id"])
+            await requester.send(
+                content=f"Your request for table **{table['name']}** has been **{status}**.",
                 embed=embed
             )
         except discord.HTTPException:
             pass
 
-    @discord.ui.button(label="Accept", style=discord.ButtonStyle.grey, emoji=f"{CHECK}")
+    @discord.ui.button(label="Accept", style=discord.ButtonStyle.grey, emoji=f"{CHECK}", custom_id="table_request:accept")
     async def accept(self, interaction: discord.Interaction, button: discord.ui.Button):
-     current_index = next(
-        (i for i, r in enumerate(self.table["data"]) if r[0] == self.new_row[0]),
-        None
-     )
+        table, request = find_pending_request(interaction.guild_id, interaction.message.id)
+        upsert_row(table, request["user"], request["values"], request["timestamp"])
+        await self._close_request(interaction, table, request, "Approved", discord.Color.green())
 
-     if current_index is not None:
-        existing_row = self.table["data"][current_index]
-        final_row = [
-            existing_row[i] if val == "None" else val
-            for i, val in enumerate(self.new_row)
-        ]
-        self.table["data"][current_index] = final_row
-     else:
-        self.table["data"].append(list(self.new_row))
-        self.table["rows"] += 1
-
-     save_settings()
-
-     for child in self.children:
-        child.disabled = True
-
-     embed = self.build_embed(status="Approved", color=discord.Color.green(), reviewer=interaction.user)
-     await interaction.response.edit_message(embed=embed, view=self)
-     await self._dm_requester("Approved", discord.Color.green(), interaction.user)
-
-    @discord.ui.button(label="Reject", style=discord.ButtonStyle.gray, emoji=f"{X}")
+    @discord.ui.button(label="Reject", style=discord.ButtonStyle.gray, emoji=f"{X}", custom_id="table_request:reject")
     async def reject(self, interaction: discord.Interaction, button: discord.ui.Button):
-        for child in self.children:
-            child.disabled = True
+        table, request = find_pending_request(interaction.guild_id, interaction.message.id)
+        await self._close_request(interaction, table, request, "Rejected", discord.Color.red())
 
-        embed = self.build_embed(status="Rejected", color=discord.Color.red(), reviewer=interaction.user)
-        await interaction.response.edit_message(embed=embed, view=self)
-        await self._dm_requester("Rejected", discord.Color.red(), interaction.user)
+
+def request_blocker(client, guild_settings: dict, table: dict) -> str | None:
+    """Return why a request cannot be made for this table, or None."""
+    custom_columns = len(table["column_names"]) - 2
+
+    if custom_columns == 0:
+        return f"{ERROR} ``This table has no columns.``"
+    if custom_columns > 20:
+        return f"{ERROR} ``{MAX_COLUMNS_NOTE}``"
+    if client.get_channel(get_request_channel_id(table, guild_settings)) is None:
+        return f"{ERROR} ``Could not find the request review channel. Contact an admin.``"
+    return None
+
+
+async def submit_request(client, guild_settings: dict, table: dict, requester, values: dict) -> str | None:
+    """Post a request to the table's review channel. Returns an error, or None."""
+    index = find_row_index(table, requester.mention)
+    old_values = None
+    if index is not None:
+        old_values = dict(zip(table["column_names"][2:], table["data"][index][2:]))
+        if all(old_values.get(column) == value for column, value in values.items()):
+            return f"{ERROR} ``No changes were made, request cancelled.``"
+
+    review_channel = client.get_channel(get_request_channel_id(table, guild_settings))
+    if review_channel is None:
+        return f"{ERROR} ``Could not find the request review channel. Contact an admin.``"
+
+    request = {
+        "requester_id": requester.id,
+        "user": requester.mention,
+        "timestamp": discord.utils.format_dt(discord.utils.utcnow()),
+        "values": values,
+        "old_values": old_values,
+    }
+
+    try:
+        message = await review_channel.send(
+            content=build_ping_content(table),
+            embed=build_request_embed(table, request),
+            view=AddRequest(),
+            allowed_mentions=discord.AllowedMentions(roles=True)
+        )
+    except discord.HTTPException:
+        return f"{ERROR} ``Could not post to the request review channel. Contact an admin.``"
+
+    request["message_id"] = message.id
+    table.setdefault("pending_requests", []).append(request)
+    save_settings()
+    return None
 
 
 class ContinueRowInput(discord.ui.View):
@@ -119,19 +180,16 @@ class ContinueRowInput(discord.ui.View):
         2. User clicks the button -> that's a component interaction,
            which IS allowed to open a modal -> bot opens page 2.
     """
-    def __init__(self, table: dict, existing_index: int | None, new_row: list, next_page: int, guild_id: int):
+    def __init__(self, table: dict, values: dict, next_page: int):
         super().__init__(timeout=300)
         self.table = table
-        self.existing_index = existing_index
-        self.new_row = new_row
+        self.values = values
         self.next_page = next_page
-        self.guild_id = guild_id
 
     @discord.ui.button(label="Continue", style=discord.ButtonStyle.grey, emoji="➡️")
     async def continue_button(self, interaction: discord.Interaction, button: discord.ui.Button):
         next_modal = AddRow_Input(
-            self.table, self.existing_index,
-            new_row=self.new_row, page=self.next_page, guild_id=self.guild_id
+            self.table, interaction.user.mention, values=self.values, page=self.next_page
         )
         await interaction.response.send_modal(next_modal)
 
@@ -148,34 +206,34 @@ class ContinueRowInput(discord.ui.View):
 
 
 class AddRow_Input(discord.ui.Modal, title="Add/Update Row"):
-    def __init__(self, table: dict, existing_index: int | None,
-                 new_row: list | None = None, page: int = 0, guild_id: int = 0):
-        self.field_columns = table["column_names"][2:]
-        self.pages = [self.field_columns[i:i + 5] for i in range(0, len(self.field_columns), 5)]
-        page_columns = self.pages[page] if self.pages else []
+    def __init__(self, table: dict, user_mention: str, values: dict | None = None, page: int = 0):
+        columns = table["column_names"][2:]
+        self.pages = [columns[i:i + 5] for i in range(0, len(columns), 5)]
+        page = min(page, max(len(self.pages) - 1, 0))
+        self.page_columns = self.pages[page] if self.pages else []
 
         page_count = len(self.pages)
         title = "Add/Update Row" if page_count <= 1 else f"Add/Update Row (Page {page + 1}/{page_count})"
         super().__init__(title=title)
 
         self.table = table
-        self.existing_index = existing_index
         self.page = page
-        self.guild_id = guild_id
-        self.new_row = new_row if new_row is not None else ["None" for _ in range(table["columns"])]
+        self.values = values if values is not None else {}
         self.inputs = []
 
+        index = find_row_index(table, user_mention)
+        existing = table["data"][index] if index is not None else None
+
         start_offset = page * 5
-        for i, col in enumerate(page_columns):
-            col_index = start_offset + i
+        for i, col in enumerate(self.page_columns):
             default_value = None
-            if existing_index is not None:
-                default_value = table["data"][existing_index][2 + col_index]
-                if default_value == "None":
+            if existing is not None:
+                default_value = existing[2 + start_offset + i]
+                if default_value == EMPTY_CELL:
                     default_value = None
 
             text_input = discord.ui.TextInput(
-                label=col,
+                label=col[:MAX_MODAL_LABEL_LENGTH],
                 placeholder="Type here... (leave it blank to keep current value)",
                 required=False,
                 max_length=200,
@@ -185,24 +243,15 @@ class AddRow_Input(discord.ui.Modal, title="Add/Update Row"):
             self.inputs.append(text_input)
 
     async def on_submit(self, interaction: discord.Interaction):
-        self.new_row[0] = interaction.user.mention
-        self.new_row[1] = discord.utils.format_dt(discord.utils.utcnow())
-
-        start_offset = self.page * 5
-        for i, text_input in enumerate(self.inputs):
-            col_index = start_offset + i
+        for column, text_input in zip(self.page_columns, self.inputs):
             value = text_input.value.strip()
-
-            if value.lower() == "none" or not value:
-                if self.existing_index is not None:
-                    self.new_row[2 + col_index] = self.table["data"][self.existing_index][2 + col_index]
-                else:
-                    self.new_row[2 + col_index] = "None"
+            if is_blank_input(value):
+                self.values.pop(column, None)
             else:
-                self.new_row[2 + col_index] = value
+                self.values[column] = value
 
         if self.page + 1 < len(self.pages):
-            view = ContinueRowInput(self.table, self.existing_index, self.new_row, self.page + 1, self.guild_id)
+            view = ContinueRowInput(self.table, self.values, self.page + 1)
             await interaction.response.send_message(
                 f"Page {self.page + 1}/{len(self.pages)} saved. Click **Continue** to fill out the next page.",
                 view=view,
@@ -210,39 +259,10 @@ class AddRow_Input(discord.ui.Modal, title="Add/Update Row"):
             )
             return
 
-        await self.finalize(interaction)
-
-    async def finalize(self, interaction: discord.Interaction):
-        if self.existing_index is not None:
-            existing_row = self.table["data"][self.existing_index]
-            if self.new_row[2:] == existing_row[2:]:
-                await interaction.response.send_message(
-                    f"{ERROR} ``No changes were made, request cancelled.``", ephemeral=True
-                )
-                return
-
-        guild_settings = config.get_guild(self.guild_id)
-
-        view = AddRequest(self.table, self.existing_index, interaction.user, self.new_row)
-        embed = view.build_embed()
-        content = view.build_ping_content()
-
-        review_channel = interaction.client.get_channel(guild_settings["TABLE_REQUEST_CHANNEL_ID"])
-        if review_channel is None:
-            await interaction.response.send_message(
-                f"{ERROR} ``Could not find the request review channel. Contact an admin.``", ephemeral=True
-            )
-            return
-
-        await review_channel.send(
-            content=content,
-            embed=embed,
-            view=view,
-            allowed_mentions=discord.AllowedMentions(roles=True)
-        )
-
+        guild_settings = config.get_guild(interaction.guild_id)
+        error = await submit_request(interaction.client, guild_settings, self.table, interaction.user, self.values)
         await interaction.response.send_message(
-            f"{CHECK} ``Your request has been submitted.``", ephemeral=True
+            error or f"{CHECK} ``Your request has been submitted.``", ephemeral=True
         )
 
 
@@ -250,107 +270,44 @@ class Add_Row_By_Request(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
+    async def cog_load(self):
+        self.bot.add_view(AddRequest())
+
     @app_commands.command(name="add-row-by-request", description="Create a request to add or update your row in the table.")
     @app_commands.autocomplete(name=table_name_autocomplete)
     async def table_add_row_request(self, interaction: discord.Interaction, name: str):
-        if not await verifyCommandPermissions(interaction, CommandType.USER):
-            return
-
-        guild_settings = config.get_guild(interaction.guild.id)
-
-        table = next((t for t in guild_settings["ALL_TABLES"] if t["name"] == name), None)
+        table = await authorize_table(interaction, name, CommandType.USER)
         if table is None:
-            await interaction.response.send_message(
-                f"{ERROR} ``Table`` ``{name}`` ``not found.``", ephemeral=True
-            )
             return
 
-        if len(table["column_names"]) - 2 == 0:
-            await interaction.response.send_message(
-                f"{ERROR} ``This table has no columns.``", ephemeral=True
-            )
+        guild_settings = config.get_guild(interaction.guild_id)
+        error = request_blocker(interaction.client, guild_settings, table)
+        if error:
+            await respond(interaction, error)
             return
 
-        if len(table["column_names"]) - 2 > 20:
-            await interaction.response.send_message(
-                f"{ERROR} ``This table has too many columns to add a row via this command (max 20 supported).``",
-                ephemeral=True
-            )
-            return
-
-        review_channel = interaction.client.get_channel(guild_settings["TABLE_REQUEST_CHANNEL_ID"])
-        if review_channel is None:
-            await interaction.response.send_message(
-                f"{ERROR} ``Could not find the request review channel. Contact an admin.``", ephemeral=True
-            )
-            return
-
-        existing_index = next(
-            (i for i, r in enumerate(table["data"]) if r[0] == interaction.user.mention),
-            None
-        )
-
-        await interaction.response.send_modal(AddRow_Input(table, existing_index, guild_id=interaction.guild.id))
+        await interaction.response.send_modal(AddRow_Input(table, interaction.user.mention))
 
     @commands.command(name="add-row-by-request")
     async def table_add_row_prefix_request(self, ctx, name: str, *values: str):
-        if not await verifyCommandPermissions(ctx, CommandType.USER):
+        table = await authorize_table(ctx, name, CommandType.USER)
+        if table is None:
             return
 
         guild_settings = config.get_guild(ctx.guild.id)
-
-        table = next((t for t in guild_settings["ALL_TABLES"] if t["name"] == name), None)
-        if table is None:
-            await ctx.send(f"{ERROR} ``Table`` ``{name}`` ``not found.``")
+        error = request_blocker(ctx.bot, guild_settings, table)
+        if error:
+            await ctx.send(error)
             return
 
-        if len(table["column_names"]) - 2 == 0:
-            await ctx.send(f"{ERROR} ``This table has no columns.``")
-            return
+        row_values = {
+            column: value
+            for column, value in zip(table["column_names"][2:], values)
+            if not is_blank_input(value)
+        }
 
-        if len(table["column_names"]) - 2 > 20:
-            await ctx.send(
-                f"{ERROR} ``This table has too many columns to add a row via this command (max 20 supported).``"
-            )
-            return
-
-        review_channel = ctx.bot.get_channel(guild_settings["TABLE_REQUEST_CHANNEL_ID"])
-        if review_channel is None:
-            await ctx.send(f"{ERROR} ``Could not find the request review channel. Contact an admin.``")
-            return
-
-        existing_index = next(
-            (i for i, r in enumerate(table["data"]) if r[0] == ctx.author.mention),
-            None
-        )
-
-        new_row = ["None" for _ in range(table["columns"])]
-        new_row[0] = ctx.author.mention
-        new_row[1] = discord.utils.format_dt(discord.utils.utcnow())
-
-        for i, col in enumerate(table["column_names"][2:]):
-            value = values[i] if i < len(values) else "None"
-            if value.lower() == "none":
-                new_row[2 + i] = table["data"][existing_index][2 + i] if existing_index is not None else "None"
-            else:
-                new_row[2 + i] = value
-
-        if existing_index is not None and new_row[2:] == table["data"][existing_index][2:]:
-            await ctx.send(f"{ERROR} ``No changes were made, request cancelled.``")
-            return
-
-        view = AddRequest(table, existing_index, ctx.author, new_row)
-        embed = view.build_embed()
-        content = view.build_ping_content()
-
-        await review_channel.send(
-            content=content,
-            embed=embed,
-            view=view,
-            allowed_mentions=discord.AllowedMentions(roles=True)
-        )
-
-        await ctx.send(f"{CHECK} ``Your request has been submitted.``")
+        error = await submit_request(ctx.bot, guild_settings, table, ctx.author, row_values)
+        await ctx.send(error or f"{CHECK} ``Your request has been submitted.``")
 
 
 async def setup(bot):

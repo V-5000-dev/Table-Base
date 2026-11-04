@@ -1,22 +1,14 @@
 import discord
 import io
-import config
 from discord.ext import commands
 from discord import app_commands
-from config import GUILD_ID, CHECK, ERROR, CommandType
-from utils import verifyCommandPermissions, save_settings, table_name_autocomplete
+from config import ERROR, CommandType
+from utils import authorize_table, format_row, respond, send_row_pages, table_name_autocomplete, wants_raw
 
 
 class View_Row_By_User(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-
-    def build_row_embed(self, table, name, row):
-        columns = table["column_names"]
-        embed = discord.Embed(title=f"Table: {name}")
-        value = "\n".join(f"`{col}`: {cell}" for col, cell in zip(columns, row))
-        embed.add_field(name="", value=value, inline=False)
-        return embed
 
     def build_row_file(self, table, name, row):
         columns = table["column_names"]
@@ -28,65 +20,31 @@ class View_Row_By_User(commands.Cog):
         buffer = io.BytesIO(content.encode("utf-8"))
         return discord.File(buffer, filename=f"{name}_row.txt")
 
-    @app_commands.command(name="view-row-by-user", description="View a user's row in the table.")
-    @app_commands.autocomplete(name=table_name_autocomplete)
-    @app_commands.describe(view_raw="Send the row as a .txt file instead of an embed.")
-    async def table_view_row(self, interaction: discord.Interaction, name: str, user: discord.Member, view_raw: bool = False):
-        if not await verifyCommandPermissions(interaction, CommandType.MANAGER):
-            return
-
-        guild_settings = config.get_guild(interaction.guild.id)
-        table = next((t for t in guild_settings["ALL_TABLES"] if t["name"] == name), None)
+    async def show_row(self, ctx_or_interaction, name: str, user: discord.Member, view_raw: bool):
+        table = await authorize_table(ctx_or_interaction, name, CommandType.MANAGER)
         if table is None:
-            await interaction.response.send_message(
-                f"{ERROR} ``Table`` ``{name}`` ``not found.``", ephemeral=True
-            )
-            return
-
-        if not table["column_names"]:
-            await interaction.response.send_message(
-                f"{ERROR} ``Table`` ``{name}`` ``has no columns.``", ephemeral=True
-            )
             return
 
         row = next((r for r in table["data"] if r[0] == user.mention), None)
         if row is None:
-            await interaction.response.send_message(
-                f"{ERROR} {user.mention} ``has no rows.``", ephemeral=True
-            )
+            await respond(ctx_or_interaction, f"{ERROR} {user.mention} ``has no rows.``")
             return
 
         if view_raw:
-            await interaction.response.send_message(file=self.build_row_file(table, name, row))
+            await respond(ctx_or_interaction, file=self.build_row_file(table, name, row), ephemeral=False)
             return
 
-        await interaction.response.send_message(embed=self.build_row_embed(table, name, row))
+        await send_row_pages(ctx_or_interaction, f"Table: {name}", [format_row(table["column_names"], row)])
+
+    @app_commands.command(name="view-row-by-user", description="View a user's row in the table.")
+    @app_commands.autocomplete(name=table_name_autocomplete)
+    @app_commands.describe(view_raw="Send the row as a .txt file instead of an embed.")
+    async def table_view_row(self, interaction: discord.Interaction, name: str, user: discord.Member, view_raw: bool = False):
+        await self.show_row(interaction, name, user, view_raw)
 
     @commands.command(name="view-row-by-user")
-    async def table_view_row_prefix(self, ctx, name: str, user: discord.Member, view_raw: str = None):  
-        if not await verifyCommandPermissions(ctx, CommandType.MANAGER):
-            return
-
-        guild_settings = config.get_guild(ctx.guild.id)
-        table = next((t for t in guild_settings["ALL_TABLES"] if t["name"] == name), None)
-        if table is None:
-            await ctx.send(f"{ERROR} ``Table`` ``{name}`` ``not found.``")
-            return
-
-        if not table["column_names"]:
-            await ctx.send(f"{ERROR} ``Table`` ``{name}`` ``has no columns.``")
-            return
-
-        row = next((r for r in table["data"] if r[0] == user.mention), None)  #
-        if row is None:
-            await ctx.send(f"{ERROR} {user.mention} ``has no rows.``") 
-            return
-
-        if view_raw and view_raw.lower() in ("file", "txt", "true"):
-            await ctx.send(file=self.build_row_file(table, name, row))
-            return
-
-        await ctx.send(embed=self.build_row_embed(table, name, row))
+    async def table_view_row_prefix(self, ctx, name: str, user: discord.Member, view_raw: str = None):
+        await self.show_row(ctx, name, user, wants_raw(view_raw))
 
 
 async def setup(bot):

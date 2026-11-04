@@ -2,31 +2,18 @@ import discord
 from discord.ext import commands, tasks
 from datetime import datetime
 from dotenv import load_dotenv
+from logging.handlers import RotatingFileHandler
 import logging
 import os
 import json
 import io
 
 import config
-from utils import load_settings, save_settings
-from enum import Enum
-
-def json_safe(obj):
-    if isinstance(obj, dict):
-        return {
-            (k.name if isinstance(k, Enum) else str(k) if not isinstance(k, (str, int, float, bool, type(None))) else k):
-            json_safe(v)
-            for k, v in obj.items()
-        }
-    elif isinstance(obj, list):
-        return [json_safe(v) for v in obj]
-    elif isinstance(obj, Enum):
-        return obj.name  
-    else:
-        return obj
+from config import DEFAULT_PREFIX, ERROR
+from utils import load_settings, save_settings, serialize_guild
 
 logging.basicConfig(
-    filename="bot.log",
+    handlers=[RotatingFileHandler("bot.log", maxBytes=5_000_000, backupCount=3, encoding="utf-8")],
     level=logging.INFO,
     format="%(asctime)s %(message)s"
 )
@@ -37,7 +24,7 @@ load_dotenv(dotenv_path=".env")
 def get_prefix(bot, message):
     if message.guild:
         return config.get_guild(message.guild.id)["COMMAND_PREFIX"]
-    return "t! "
+    return DEFAULT_PREFIX
 
 
 class Client(commands.Bot):
@@ -68,22 +55,42 @@ class Client(commands.Bot):
 
     @tasks.loop(hours=24)
     async def backup_tables(self):
-        for guild_id, guild_settings in config.GUILD_SETTINGS.items():
+        for guild_id, guild_settings in list(config.GUILD_SETTINGS.items()):
             channel_id = guild_settings.get("TABLE_BACKUP_CHANNEL_ID", 0)
             if not channel_id:
                 continue
 
             channel = self.get_channel(channel_id)
-            if channel:
-                unix_time = int(datetime.now().timestamp())
-                guild_data = json.dumps(
-    json_safe({str(guild_id): guild_settings}),
-    indent=4
-)
+            if channel is None:
+                continue
+
+            unix_time = int(datetime.now().timestamp())
+            guild_data = json.dumps({str(guild_id): serialize_guild(guild_settings)}, indent=4)
+
+            # One server's failure must not stop the backups of the others.
+            try:
                 await channel.send(
                     content=f"Settings Backup\n🕒 <t:{unix_time}:F>",
                     file=discord.File(io.BytesIO(guild_data.encode()), filename="settings.json")
+                )
+            except discord.HTTPException:
+                logging.exception(f"Could not post the backup for guild {guild_id}")
+
+    async def on_command_error(self, ctx, error):
+        if isinstance(error, (commands.CommandNotFound, commands.CheckFailure)):
+            return
+
+        if isinstance(error, commands.UserInputError):
+            await ctx.send(
+                f"{ERROR} ``{error}``\n"
+                f"``Usage:`` ``{ctx.clean_prefix}{ctx.command.qualified_name} {ctx.command.signature}``",
+                allowed_mentions=discord.AllowedMentions.none()
             )
+            return
+
+        logging.error(f"Error in command {ctx.command}", exc_info=error)
+        await ctx.send(f"{ERROR} ``Something went wrong running that command.``")
+
     async def on_ready(self):
         save_settings() 
 
@@ -100,5 +107,20 @@ client = Client(
     command_prefix=get_prefix,
     intents=intents
 )
+
+
+@client.tree.error
+async def on_app_command_error(interaction: discord.Interaction, error):
+    logging.error(f"Error in slash command {interaction.command}", exc_info=error)
+
+    message = f"{ERROR} ``Something went wrong running that command.``"
+    try:
+        if interaction.response.is_done():
+            await interaction.followup.send(message, ephemeral=True)
+        else:
+            await interaction.response.send_message(message, ephemeral=True)
+    except discord.HTTPException:
+        pass
+
 
 client.run(os.getenv("TOKEN"))

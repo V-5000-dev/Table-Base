@@ -2,7 +2,7 @@ import discord
 import config
 from discord.ext import commands
 from discord import app_commands
-from config import CHECK
+from config import CHECK, DEFAULT_PREFIX
 
 
 class Prefix(commands.Cog):
@@ -11,7 +11,7 @@ class Prefix(commands.Cog):
 
     def get_prefix_text(self, guild):
         if guild is None:
-            return "t! "
+            return DEFAULT_PREFIX
         return config.get_guild(guild.id)["COMMAND_PREFIX"]
 
     @app_commands.command(name="prefix", description="Show the bot's command prefix for this server.")

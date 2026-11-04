@@ -1,4 +1,10 @@
 node_modules/
 settings.json
+settings.json.*
 settings_export.json
 .env
+*.env
+bot.log*
+.DS_Store
+__pycache__/
+.pytest_cache/

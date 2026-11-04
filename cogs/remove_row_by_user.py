@@ -1,63 +1,37 @@
 import discord
-import config
 from discord.ext import commands
 from discord import app_commands
-from config import GUILD_ID, CHECK, ERROR, CommandType
-from utils import verifyCommandPermissions, save_settings, table_name_autocomplete
+from config import CHECK, ERROR, CommandType
+from utils import authorize_table, find_row_index, respond, save_settings, table_name_autocomplete
 
 
 class Remove_Row_By_User(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @app_commands.command(name="remove_row_by_user", description="Remove another user's row from the Table.")
+    async def remove_row(self, ctx_or_interaction, name: str, user: discord.Member):
+        table = await authorize_table(ctx_or_interaction, name, CommandType.ADMIN)
+        if table is None:
+            return
+
+        index = find_row_index(table, user.mention)
+        if index is None:
+            await respond(ctx_or_interaction, f"{ERROR} ``Failed to find`` {user.mention} ``'s row in table`` ``{name}``")
+            return
+
+        del table["data"][index]
+        table["rows"] -= 1
+        save_settings()
+        await respond(ctx_or_interaction, f"{CHECK} ``Removed`` {user.mention} ``'s row from table`` ``{name}``")
+
+    @app_commands.command(name="remove-row-by-user", description="Remove another user's row from the Table.")
     @app_commands.autocomplete(name=table_name_autocomplete)
     async def table_remove_row_user(self, interaction: discord.Interaction, name: str, user: discord.Member):
-        if not await verifyCommandPermissions(interaction, CommandType.ADMIN):
-            return
+        await self.remove_row(interaction, name, user)
 
-        settings = config.get_guild(interaction.guild_id)
-        table = next((t for t in settings["ALL_TABLES"] if t["name"] == name), None)
-        if table is None:
-            await interaction.response.send_message(
-                f"{ERROR} ``Table`` ``{name}`` ``not found.``", ephemeral=True
-            )
-            return
-
-        for i, r in enumerate(table["data"]):
-            if r[0] == user.mention:
-                del table["data"][i]
-                table["rows"] -= 1
-                save_settings()  # prev: save_settings(interaction.guild_id)
-                await interaction.response.send_message(
-                    f"{CHECK} ``Removed`` {user.mention} ``'s row from table`` ``{name}``", ephemeral=True
-                )
-                return
-
-        await interaction.response.send_message(
-            f"{ERROR} ``Failed to find`` {user.mention} ``'s row in table`` ``{name}``", ephemeral=True
-        )
-
-    @commands.command(name="remove_row_by_user")
-    async def table_remove_row_prefix(self, ctx, name: str, user: discord.Member):  # was: user: str
-        if not await verifyCommandPermissions(ctx, CommandType.ADMIN):
-            return
-
-        settings = config.get_guild(ctx.guild.id)
-        table = next((t for t in settings["ALL_TABLES"] if t["name"] == name), None)
-        if table is None:
-            await ctx.send(f"{ERROR} ``Table`` ``{name}`` ``not found.``")
-            return
-
-        for i, r in enumerate(table["data"]):
-            if r[0] == user.mention:  
-                del table["data"][i]
-                table["rows"] -= 1
-                save_settings()  # prev: save_settings(ctx.guild.id)
-                await ctx.send(f"{CHECK} ``Removed`` {user.mention} ``'s row from table`` ``{name}``")
-                return
-
-        await ctx.send(f"{ERROR} ``Failed to find`` {user.mention} ``'s row in table`` ``{name}``")
+    @commands.command(name="remove-row-by-user")
+    async def table_remove_row_prefix(self, ctx, name: str, user: discord.Member):
+        await self.remove_row(ctx, name, user)
 
 
 async def setup(bot):

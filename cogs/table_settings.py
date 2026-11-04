@@ -2,8 +2,11 @@ import discord
 from discord.ext import commands
 from discord import app_commands
 import config
-from config import GUILD_ID, CHECK, ADMIN, USER, MANAGER, PERMISSON, ERROR, CommandType
-from utils import verifyCommandPermissions, PageView, SelectRoles_Menu, SelectChannels_Menu, save_settings, table_name_autocomplete
+from config import CHECK, EMPTY_CELL, PERMISSON, ERROR, CommandType
+from utils import (
+    MAX_MODAL_LABEL_LENGTH, verifyCommandPermissions, PageView, SelectRoles_Menu, SelectChannels_Menu,
+    save_settings, send_page_view, table_name_autocomplete, table_name_error
+)
 
 
 class AddColumn_Input(discord.ui.Modal, title="Add Column"):
@@ -11,7 +14,7 @@ class AddColumn_Input(discord.ui.Modal, title="Add Column"):
         label="Enter a name for the column",
         placeholder="Type here...",
         required=True,
-        max_length=50
+        max_length=MAX_MODAL_LABEL_LENGTH
     )
 
     def __init__(self, table: dict):
@@ -33,7 +36,7 @@ class AddColumn_Input(discord.ui.Modal, title="Add Column"):
         self.table["columns"] += 1
         self.table["column_names"].append(name)
         for row in self.table["data"]:
-            row.append("")
+            row.append(EMPTY_CELL)
         save_settings()
         await interaction.response.send_message(
             f"{CHECK} ``Column`` ``{name}`` ``created.``", ephemeral=True
@@ -75,6 +78,11 @@ class RenameTable_Input(discord.ui.Modal, title="Rename Table"):
     async def on_submit(self, interaction: discord.Interaction):
         name = self.new_name.value.strip()
         guild_settings = config.get_guild(interaction.guild.id)
+
+        error = table_name_error(name)
+        if error:
+            await interaction.response.send_message(f"{ERROR} ``{error}``", ephemeral=True)
+            return
 
         if any(t["name"] == name for t in guild_settings["ALL_TABLES"] if t is not self.table):
             await interaction.response.send_message(
@@ -147,7 +155,8 @@ class RemoveColumn_Input(discord.ui.Modal, title="Remove Column"):
         self.table["columns"] -= 1
         self.table["column_names"].pop(index)
         for row in self.table["data"]:
-            row.pop(index)
+            if index < len(row):
+                row.pop(index)
         save_settings()
 
         await interaction.response.send_message(
@@ -168,11 +177,15 @@ class RemoveColumn(discord.ui.Button):
         await interaction.response.send_modal(RemoveColumn_Input(self.table))
 
 
+def _role_names(roles) -> str:
+    return ', '.join(r.name for r in roles) or "none"
+
+
 async def save_tablemember_roles(interaction, roles, table: dict):
     table["member_role_ids"] = [r.id for r in roles]
     save_settings()
     await interaction.response.send_message(
-        f"{CHECK} ``Saved member roles:`` {', '.join(r.name for r in roles)}", ephemeral=True
+        f"{CHECK} ``Saved member roles:`` {_role_names(roles)}", ephemeral=True
     )
 
 
@@ -180,7 +193,7 @@ async def save_tablemanager_roles(interaction, roles, table: dict):
     table["manager_role_ids"] = [r.id for r in roles]
     save_settings()
     await interaction.response.send_message(
-        f"{CHECK} ``Saved manager roles:`` {', '.join(r.name for r in roles)}", ephemeral=True
+        f"{CHECK} ``Saved manager roles:`` {_role_names(roles)}", ephemeral=True
     )
 
 
@@ -188,30 +201,19 @@ async def save_tableadmin_roles(interaction, roles, table: dict):
     table["admin_role_ids"] = [r.id for r in roles]
     save_settings()
     await interaction.response.send_message(
-        f"{CHECK} ``Saved admin roles:`` {', '.join(r.name for r in roles)}", ephemeral=True
+        f"{CHECK} ``Saved admin roles:`` {_role_names(roles)}", ephemeral=True
     )
 
 
 async def save_requestchannel_id(interaction, channels, table: dict):
-    if not channels:
-        return
-    guild_settings = config.get_guild(interaction.guild.id)
-    guild_settings["TABLE_REQUEST_CHANNEL_ID"] = channels[0].id  # prev config.TABLE_REQUEST_CHANNEL_ID
+    table["request_channel_id"] = channels[0].id if channels else 0
     save_settings()
-    await interaction.response.send_message(
-        f"{CHECK} ``Table update requests set to`` {channels[0].mention}", ephemeral=True
-    )
 
-
-async def save_backupchannel_id(interaction, channels, table: dict):
-    if not channels:
-        return
-    guild_settings = config.get_guild(interaction.guild.id)
-    guild_settings["TABLE_BACKUP_CHANNEL_ID"] = channels[0].id  # prev config.TABLE_BACKUP_CHANNEL_ID
-    save_settings()
-    await interaction.response.send_message(
-        f"{CHECK} ``Table backups set to`` {channels[0].mention}", ephemeral=True
-    )
+    if channels:
+        message = f"{CHECK} ``Requests for table`` ``{table['name']}`` ``will be sent to`` {channels[0].mention}"
+    else:
+        message = f"{CHECK} ``Cleared the request channel for table`` ``{table['name']}``"
+    await interaction.response.send_message(message, ephemeral=True)
 
 
 class Table_Settings(commands.Cog):
@@ -264,15 +266,11 @@ class Table_Settings(commands.Cog):
             ),
             discord.Embed(
                 title=f"Table {table_name} Settings - Manage Request Channel",
-                description="Select which channel table modification requests should be sent to. Table users can create requests, and managers can review them."
+                description="Select which channel this table's modification requests should be sent to. Each table has its own request channel. Table users can create requests, and managers can review them."
             ),
             discord.Embed(
                 title=f"Table {table_name} Settings - Manage Request Settings",
                 description="Enable or disable submitted requests pinging all roles with manager permissions for this table."
-            ),
-            discord.Embed(
-                title=f"Table {table_name} Settings - Manage Table Backup",
-                description="Select which channel should receive a backup of the table every 24 hours. If you delete a table, you can find all of its information stored in the backup, allowing it to be recreated. Leave this empty if you do not wish for it to be logged."
             ),
         ]
 
@@ -282,19 +280,15 @@ class Table_Settings(commands.Cog):
             page_menus={
                 0: [lambda: RenameTable(table, ctx_or_interaction)],
                 1: [lambda: AddColumn(table, ctx_or_interaction), lambda: RemoveColumn(table, ctx_or_interaction)],
-                2: [lambda: SelectRoles_Menu(lambda i, r: save_tablemember_roles(i, r, table), ctx_or_interaction)],
-                3: [lambda: SelectRoles_Menu(lambda i, r: save_tablemanager_roles(i, r, table), ctx_or_interaction)],
-                4: [lambda: SelectRoles_Menu(lambda i, r: save_tableadmin_roles(i, r, table), ctx_or_interaction)],
-                5: [lambda: SelectChannels_Menu(lambda i, c: save_requestchannel_id(i, c, table), ctx_or_interaction)],
+                2: [lambda: SelectRoles_Menu(lambda i, r: save_tablemember_roles(i, r, table), ctx_or_interaction, table.get("member_role_ids", []))],
+                3: [lambda: SelectRoles_Menu(lambda i, r: save_tablemanager_roles(i, r, table), ctx_or_interaction, table.get("manager_role_ids", []))],
+                4: [lambda: SelectRoles_Menu(lambda i, r: save_tableadmin_roles(i, r, table), ctx_or_interaction, table.get("admin_role_ids", []))],
+                5: [lambda: SelectChannels_Menu(lambda i, c: save_requestchannel_id(i, c, table), ctx_or_interaction, table.get("request_channel_id", 0))],
                 6: [lambda: TogglePingRequest(table, ctx_or_interaction)],
-                7: [lambda: SelectChannels_Menu(lambda i, c: save_backupchannel_id(i, c, table), ctx_or_interaction)],
             }
         )
 
-        if isinstance(ctx_or_interaction, discord.Interaction):
-            await ctx_or_interaction.response.send_message(embed=embeds[0], view=view)
-        else:
-            await ctx_or_interaction.send(embed=embeds[0], view=view)
+        await send_page_view(ctx_or_interaction, view)
 
 
 async def setup(bot):

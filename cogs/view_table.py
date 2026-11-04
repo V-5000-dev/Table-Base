@@ -1,45 +1,14 @@
 import discord
 import io
-import config
 from discord.ext import commands
 from discord import app_commands
-from config import GUILD_ID, CHECK, ERROR, CommandType
-from utils import verifyCommandPermissions, save_settings, table_name_autocomplete, PageView
-
-
-ROWS_PER_PAGE = 10  
+from config import CommandType
+from utils import authorize_table, format_row, respond, send_row_pages, table_name_autocomplete, wants_raw
 
 
 class View_Table(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-
-    def build_table_embeds(self, table, name):
-        columns = table["column_names"]
-        rows = table["data"]
-
-        if not columns:
-            return None
-
-        if not rows:
-            embed = discord.Embed(title=f"Table: {name}", description="(no rows)")
-            return [embed]
-
-        embeds = []
-        chunks = [rows[i:i + ROWS_PER_PAGE] for i in range(0, len(rows), ROWS_PER_PAGE)]
-
-        for chunk_index, chunk in enumerate(chunks):
-            embed = discord.Embed(title=f"Table: {name}")
-            start_row = chunk_index * ROWS_PER_PAGE + 1
-
-            for offset, row in enumerate(chunk):
-                row_index = start_row + offset
-                value = "\n".join(f"`{col}`: {cell}" for col, cell in zip(columns, row))
-                embed.add_field(name=f"Row {row_index}", value=value, inline=False)
-
-            embeds.append(embed)
-
-        return embeds
 
     def build_table_file(self, table, name):
         """Builds a .txt file representation of the table."""
@@ -63,63 +32,31 @@ class View_Table(commands.Cog):
         buffer = io.BytesIO(content.encode("utf-8"))
         return discord.File(buffer, filename=f"{name}.txt")
 
+    async def show_table(self, ctx_or_interaction, name: str, view_raw: bool):
+        table = await authorize_table(ctx_or_interaction, name, CommandType.MANAGER)
+        if table is None:
+            return
+
+        if view_raw:
+            await respond(ctx_or_interaction, file=self.build_table_file(table, name), ephemeral=False)
+            return
+
+        columns = table["column_names"]
+        blocks = [
+            f"**Row {row_index}**\n{format_row(columns, row)}"
+            for row_index, row in enumerate(table["data"], start=1)
+        ]
+        await send_row_pages(ctx_or_interaction, f"Table: {name}", blocks or ["(no rows)"])
+
     @app_commands.command(name="view-table", description="View the entire table.")
     @app_commands.autocomplete(name=table_name_autocomplete)
     @app_commands.describe(view_raw="Send the table as a .txt file instead of an embed.")
     async def table_view_all(self, interaction: discord.Interaction, name: str, view_raw: bool = False):
-        if not await verifyCommandPermissions(interaction, CommandType.MANAGER):
-            return
-
-        guild_settings = config.get_guild(interaction.guild.id)
-        table = next((t for t in guild_settings["ALL_TABLES"] if t["name"] == name), None)
-        if table is None:
-            await interaction.response.send_message(
-                f"{ERROR} ``Table`` ``{name}`` ``not found.``", ephemeral=True
-            )
-            return
-
-        if view_raw:
-            await interaction.response.send_message(file=self.build_table_file(table, name))
-            return
-
-        embeds = self.build_table_embeds(table, name)
-        if embeds is None:
-            await interaction.response.send_message(
-                f"{ERROR} ``Table`` ``{name}`` ``has no columns.``", ephemeral=True
-            )
-            return
-
-        if len(embeds) == 1:
-            await interaction.response.send_message(embed=embeds[0])
-        else:
-            view = PageView(embeds=embeds, ctx_or_interaction=interaction)
-            await interaction.response.send_message(embed=embeds[0], view=view)
+        await self.show_table(interaction, name, view_raw)
 
     @commands.command(name="view-table")
     async def table_view_all_prefix(self, ctx, name: str, view_raw: str = None):
-        if not await verifyCommandPermissions(ctx, CommandType.MANAGER):
-            return
-
-        guild_settings = config.get_guild(ctx.guild.id)
-        table = next((t for t in guild_settings["ALL_TABLES"] if t["name"] == name), None)
-        if table is None:
-            await ctx.send(f"{ERROR} ``Table`` ``{name}`` ``not found.``")
-            return
-
-        if view_raw and view_raw.lower() in ("file", "txt", "true"):
-            await ctx.send(file=self.build_table_file(table, name))
-            return
-
-        embeds = self.build_table_embeds(table, name)
-        if embeds is None:
-            await ctx.send(f"{ERROR} ``Table`` ``{name}`` ``has no columns.``")
-            return
-
-        if len(embeds) == 1:
-            await ctx.send(embed=embeds[0])
-        else:
-            view = PageView(embeds=embeds, ctx_or_interaction=ctx)
-            await ctx.send(embed=embeds[0], view=view)
+        await self.show_table(ctx, name, wants_raw(view_raw))
 
 
 async def setup(bot):

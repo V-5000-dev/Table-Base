@@ -1,7 +1,7 @@
 import discord
 from discord.ext import commands
 from discord import app_commands
-from config import GUILD_ID, CHECK, ERROR, CommandType
+from config import CHECK, ERROR, CommandType
 from utils import verifyCommandPermissions, save_settings
 import config
 

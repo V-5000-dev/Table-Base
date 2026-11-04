@@ -2,7 +2,7 @@ import discord
 import config
 from discord.ext import commands
 from discord import app_commands
-from config import GUILD_ID, CHECK, ERROR, X, CommandType
+from config import CHECK, ERROR, X, CommandType
 from utils import verifyCommandPermissions, save_settings, table_name_autocomplete
 
 
@@ -37,6 +37,7 @@ class DeleteTableConfirm(discord.ui.View):
         await interaction.response.edit_message(
             content=f"{CHECK} ``Table`` ``{self.table['name']}`` ``has been deleted.``", view=self
         )
+        self.stop()
 
     @discord.ui.button(label="Return", style=discord.ButtonStyle.grey, emoji=f"{X}")
     async def cancel(self, interaction: discord.Interaction, button: discord.ui.Button):
@@ -52,6 +53,7 @@ class DeleteTableConfirm(discord.ui.View):
         await interaction.response.edit_message(
             content=f"{CHECK} ``Table deletion cancelled.``", view=self
         )
+        self.stop()
 
 
 class Delete_Table(commands.Cog):

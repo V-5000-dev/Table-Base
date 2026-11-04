@@ -2,8 +2,32 @@ import discord
 import config
 from discord.ext import commands
 from discord import app_commands
-from config import GUILD_ID, CHECK, ERROR, CommandType
-from utils import verifyCommandPermissions, save_settings, table_name_autocomplete
+from config import CHECK, EMPTY_CELL, ERROR, MAX_COLUMNS_NOTE, CommandType
+from utils import (
+    MAX_MODAL_LABEL_LENGTH, authorize_table, find_row_index, is_blank_input, respond,
+    save_settings, table_name_autocomplete, upsert_row
+)
+
+
+def add_row_blocker(table: dict) -> str | None:
+    """Return why rows cannot be added to this table, or None."""
+    custom_columns = len(table["column_names"]) - 2
+
+    if custom_columns == 0:
+        return f"{ERROR} ``This table has no columns.``"
+    if custom_columns > 20:
+        return f"{ERROR} ``{MAX_COLUMNS_NOTE}``"
+    return None
+
+
+def save_row(table: dict, user: discord.Member, values: dict) -> str:
+    """Add or update a user's row and return the confirmation message."""
+    updated = upsert_row(table, user.mention, values)
+    save_settings()
+
+    if updated:
+        return f"{CHECK} {user.mention} ``row in table`` ``{table['name']}`` ``has been updated.``"
+    return f"{CHECK} ``Row added to table`` ``{table['name']}`` ``for`` {user.mention}"
 
 
 class ContinueRowInput(discord.ui.View):
@@ -20,22 +44,16 @@ class ContinueRowInput(discord.ui.View):
         2. User clicks the button -> that's a component interaction,
            which IS allowed to open a modal -> bot opens page 2.
     """
-    def __init__(self, table: dict, existing_index: int | None, target_user: discord.Member,
-                 new_row: list, next_page: int, guild_id: int):
+    def __init__(self, table: dict, target_user: discord.Member, values: dict, next_page: int):
         super().__init__(timeout=300)
         self.table = table
-        self.existing_index = existing_index
         self.target_user = target_user
-        self.new_row = new_row
+        self.values = values
         self.next_page = next_page
-        self.guild_id = guild_id
 
     @discord.ui.button(label="Continue", style=discord.ButtonStyle.grey, emoji="➡️")
     async def continue_button(self, interaction: discord.Interaction, button: discord.ui.Button):
-        next_modal = AddRow_Input(
-            self.table, self.existing_index, self.target_user,
-            new_row=self.new_row, page=self.next_page, guild_id=self.guild_id
-        )
+        next_modal = AddRow_Input(self.table, self.target_user, values=self.values, page=self.next_page)
         await interaction.response.send_modal(next_modal)
 
         for child in self.children:
@@ -51,36 +69,36 @@ class ContinueRowInput(discord.ui.View):
 
 
 class AddRow_Input(discord.ui.Modal, title="Add/Update Row"):
-    def __init__(self, table: dict, existing_index: int | None, target_user: discord.Member,
-                 new_row: list | None = None, page: int = 0, guild_id: int = 0):
-        self.field_columns = table["column_names"][2:]
-        self.pages = [self.field_columns[i:i + 5] for i in range(0, len(self.field_columns), 5)]
-        page_columns = self.pages[page] if self.pages else []
+    def __init__(self, table: dict, target_user: discord.Member, values: dict | None = None, page: int = 0):
+        columns = table["column_names"][2:]
+        self.pages = [columns[i:i + 5] for i in range(0, len(columns), 5)]
+        page = min(page, max(len(self.pages) - 1, 0))
+        self.page_columns = self.pages[page] if self.pages else []
 
         page_count = len(self.pages)
         title = "Add/Update Row" if page_count <= 1 else f"Add/Update Row (Page {page + 1}/{page_count})"
         super().__init__(title=title)
 
         self.table = table
-        self.existing_index = existing_index
         self.target_user = target_user
         self.page = page
-        self.guild_id = guild_id
-        self.new_row = new_row if new_row is not None else ["null" for _ in range(table["columns"])]
+        self.values = values if values is not None else {}
         self.inputs = []
 
+        index = find_row_index(table, target_user.mention)
+        existing = table["data"][index] if index is not None else None
+
         start_offset = page * 5
-        for i, col in enumerate(page_columns):
-            col_index = start_offset + i
+        for i, col in enumerate(self.page_columns):
             default_value = None
-            if existing_index is not None:
-                default_value = table["data"][existing_index][2 + col_index]
-                if default_value == "null":
+            if existing is not None:
+                default_value = existing[2 + start_offset + i]
+                if default_value == EMPTY_CELL:
                     default_value = None
 
             text_input = discord.ui.TextInput(
-                label=col,
-                placeholder="Type here... (\"null\" keeps current value)",
+                label=col[:MAX_MODAL_LABEL_LENGTH],
+                placeholder="Type here... (leave it blank to keep current value)",
                 required=False,
                 max_length=200,
                 default=default_value
@@ -89,27 +107,15 @@ class AddRow_Input(discord.ui.Modal, title="Add/Update Row"):
             self.inputs.append(text_input)
 
     async def on_submit(self, interaction: discord.Interaction):
-        self.new_row[0] = self.target_user.mention
-        self.new_row[1] = discord.utils.format_dt(discord.utils.utcnow())
-
-        start_offset = self.page * 5
-        for i, text_input in enumerate(self.inputs):
-            col_index = start_offset + i
+        for column, text_input in zip(self.page_columns, self.inputs):
             value = text_input.value.strip()
-
-            if value.lower() == "null" or not value:
-                if self.existing_index is not None:
-                    self.new_row[2 + col_index] = self.table["data"][self.existing_index][2 + col_index]
-                else:
-                    self.new_row[2 + col_index] = "null"
+            if is_blank_input(value):
+                self.values.pop(column, None)
             else:
-                self.new_row[2 + col_index] = value
+                self.values[column] = value
 
         if self.page + 1 < len(self.pages):
-            view = ContinueRowInput(
-                self.table, self.existing_index, self.target_user,
-                self.new_row, self.page + 1, self.guild_id
-            )
+            view = ContinueRowInput(self.table, self.target_user, self.values, self.page + 1)
             await interaction.response.send_message(
                 f"Page {self.page + 1}/{len(self.pages)} saved. Click **Continue** to fill out the next page.",
                 view=view,
@@ -117,24 +123,7 @@ class AddRow_Input(discord.ui.Modal, title="Add/Update Row"):
             )
             return
 
-        await self.finalize(interaction)
-
-    async def finalize(self, interaction: discord.Interaction):
-        if self.existing_index is not None:
-            self.table["data"][self.existing_index] = self.new_row
-            save_settings()
-            await interaction.response.send_message(
-                f"{CHECK} {self.target_user.mention} ``row in table`` ``{self.table['name']}`` ``has been updated.``",
-                ephemeral=True
-            )
-        else:
-            self.table["data"].append(self.new_row)
-            self.table["rows"] += 1
-            save_settings()
-            await interaction.response.send_message(
-                f"{CHECK} ``Row added to table`` ``{self.table['name']}`` ``for`` {self.target_user.mention}",
-                ephemeral=True
-            )
+        await interaction.response.send_message(save_row(self.table, self.target_user, self.values), ephemeral=True)
 
 
 class Add_Row_By_User(commands.Cog):
@@ -144,95 +133,44 @@ class Add_Row_By_User(commands.Cog):
     @app_commands.command(name="add-row-by-user", description="Add or update a user's row in the table.")
     @app_commands.autocomplete(name=table_name_autocomplete)
     async def table_add_row_user(self, interaction: discord.Interaction, name: str, user: discord.Member):
-        if not await verifyCommandPermissions(interaction, CommandType.ADMIN):
-            return
-
-        guild_settings = config.get_guild(interaction.guild.id)
-
-        table = next((t for t in guild_settings["ALL_TABLES"] if t["name"] == name), None)
+        table = await authorize_table(interaction, name, CommandType.ADMIN)
         if table is None:
-            await interaction.response.send_message(
-                f"{ERROR} ``Table`` ``{name}`` ``not found.``", ephemeral=True
-            )
             return
 
-        if len(table["column_names"]) - 2 == 0:
-            await interaction.response.send_message(
-                f"{ERROR} ``This table has no columns.``", ephemeral=True
-            )
+        error = add_row_blocker(table)
+        if error:
+            await respond(interaction, error)
             return
 
-        if len(table["column_names"]) - 2 > 20:
-            await interaction.response.send_message(
-                f"{ERROR} ``This table has too many columns to add a row via this command (max 20 supported).``",
-                ephemeral=True
-            )
-            return
-
-        existing_index = next(
-            (i for i, r in enumerate(table["data"]) if r[0] == user.mention),
-            None
-        )
-
-        await interaction.response.send_modal(AddRow_Input(table, existing_index, user, guild_id=interaction.guild.id))
+        await interaction.response.send_modal(AddRow_Input(table, user))
 
         if len(table["column_names"]) - 2 > 5:
-            prefix = guild_settings["COMMAND_PREFIX"]
+            prefix = config.get_guild(interaction.guild_id)["COMMAND_PREFIX"]
             await interaction.followup.send(
                 f"``This table has more than 5 columns, so you'll fill out multiple popups in "
                 f"sequence — click Continue between each one.``\n"
                 f"``Alternatively, the prefix command lets you do it in one step:`` "
-                f"``{prefix}table-add-row-user {name} @user value1 value2 ...``",
+                f"``{prefix}add-row-by-user {name} @user value1 value2 ...``",
                 ephemeral=True
             )
 
     @commands.command(name="add-row-by-user")
     async def table_add_row_prefix(self, ctx, name: str, user: discord.Member, *values: str):
-        if not await verifyCommandPermissions(ctx, CommandType.ADMIN):
-            return
-
-        guild_settings = config.get_guild(ctx.guild.id)
-
-        table = next((t for t in guild_settings["ALL_TABLES"] if t["name"] == name), None)
+        table = await authorize_table(ctx, name, CommandType.ADMIN)
         if table is None:
-            await ctx.send(f"{ERROR} ``Table`` ``{name}`` ``not found.``")
             return
 
-        if len(table["column_names"]) - 2 == 0:
-            await ctx.send(f"{ERROR} ``This table has no columns.``")
+        error = add_row_blocker(table)
+        if error:
+            await ctx.send(error)
             return
 
-        if len(table["column_names"]) - 2 > 20:
-            await ctx.send(
-                f"{ERROR} ``This table has too many columns to add a row via this command (max 20 supported).``"
-            )
-            return
-
-        existing_index = next(
-            (i for i, r in enumerate(table["data"]) if r[0] == user.mention),
-            None
-        )
-
-        new_row = ["null" for _ in range(table["columns"])]
-        new_row[0] = user.mention
-        new_row[1] = discord.utils.format_dt(discord.utils.utcnow())
-
-        for i in range(len(table["column_names"]) - 2):
-            value = values[i] if i < len(values) else "null"
-            if value.lower() == "null":
-                new_row[2 + i] = table["data"][existing_index][2 + i] if existing_index is not None else "null"
-            else:
-                new_row[2 + i] = value
-
-        if existing_index is not None:
-            table["data"][existing_index] = new_row
-            save_settings()
-            await ctx.send(f"{CHECK} {user.mention} ``row in table`` ``{name}`` ``has been updated.``")
-        else:
-            table["data"].append(new_row)
-            table["rows"] += 1
-            save_settings()
-            await ctx.send(f"{CHECK} ``Row added to table`` ``{name}`` ``for`` {user.mention}")
+        row_values = {
+            column: value
+            for column, value in zip(table["column_names"][2:], values)
+            if not is_blank_input(value)
+        }
+        await ctx.send(save_row(table, user, row_values))
 
 
 async def setup(bot):
